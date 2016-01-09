@@ -18,10 +18,10 @@
 <h2>Попробовать</h2>
 <span><a href="http://vkopen.16mb.com/">BetaVersion</a></span>
 
-<h2> Технологии</h2>
+<h2>Технологии</h2>
 <span>angularjs, coffescript</span>
 
-####Цели
+<h2>Цели</h2>
 <ul>
   <li>grunt</li>
   <li>новый дизайн</li>
