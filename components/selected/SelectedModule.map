@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "SelectedModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "SelectedModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,IAAA,cAAA;;AAAA,cAEA,GAAiB,OAAO,CAAC,MAAR,CAAe,gBAAf,EAAiC,EAAjC,CAFjB,CAAA"
+}

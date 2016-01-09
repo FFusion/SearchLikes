@@ -1,0 +1,429 @@
+@import "config.less";
+
+@media(max-width: 640px) {
+    .btn {
+       &-checkLikes, &-userFriends, &-checkPhoto {
+           width: 125px;
+           padding: 5px;
+       }
+    }
+}
+
+@media(min-width: 640px) {
+    .btn {
+        &-checkLikes, &-userFriends, &-checkPhoto {
+            width: 155px;
+        }
+    }
+}
+
+.btn {
+
+    &:focus {
+        outline: none !important;
+    }
+
+    &:active {
+        outline: none !important;
+    }
+
+    &-open {
+        position: absolute;
+        top: 28%;
+        left: 83%;
+        margin: -60px 0 0 -150px;
+        background-color: @color-button;
+        font: @font-title;
+        border-radius: 20px;
+        width: 230px;
+//        height: 120px;
+
+        a {
+            height: 120px;
+            color: @color-white;
+        }
+
+        a:hover, a:focus {
+            outline: none;
+            text-decoration: none !important;
+        }
+    }
+
+    &-friend, &-off, &-online, &-back, &-checkLikes, &-checkPhoto, &-delete, &-search, &-userFriends, &-home, &-select, &-change, &-begin, &-wish {
+        background-color: @color-button;
+        color: @color-white;
+    }
+
+
+    &-wish {
+        margin-left: 15px;
+        width: 200px;
+    }
+
+    &-checkLikes, &-userFriends, &-checkPhoto {
+        margin-left: 10px;
+        border-radius: 10px;
+    }
+
+    &-select {
+        float: right;
+        width: 155px;
+        height: 40px;
+        border-radius: 10px;
+    }
+
+    &-next {
+        float: right;
+    }
+
+    &-search {
+        margin: 15px 0 0 15px;
+    }
+
+    &-begin {
+
+    }
+
+
+    &-prev, &-next, &-begin {
+        background-color: @color-button;
+        border-radius: 15px;
+        border: 0;
+
+        padding: 5px 14px;
+        margin: 0 5px 0 5px;
+
+        color: @color-white;
+        cursor: pointer;
+    }
+
+    &-prev:disabled, &-next:disabled, &-begin:disabled {
+        background-color: @color-white;
+        border: 1px solid #dddddd;
+        color: #999;
+    }
+
+    &-prev:focus, &-next:focus, &-back, &-friend, &-off, &-online, &-select, &-begin:focus {
+        outline: none;
+    }
+}
+
+//всплывающее окно
+//придумать параметризацию стилей
+.popup_window {
+    background-color: black;
+    color: @color-white;
+    border-radius: 20px;
+    width: 300px;
+    position: absolute;
+    top :30%;
+    left: 40%;
+    padding: 20px 25px 20px 55px;
+    font: @font-caption-bold
+}
+
+//основной цвет
+.blue {
+    color: @color-button;
+}
+
+.red {
+    color: @color-red;
+}
+
+//курсор
+.pointer {
+    cursor: pointer;
+}
+
+//полупрозрачный фон
+.processing {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=55);
+    -moz-opacity: 0.55;
+    -khtml-opacity: 0.55;
+    opacity: 0.55;
+
+    i {
+        position:absolute;
+        color: white;
+        font-size: 80px;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+    }
+}
+
+//полотно для увеленных фото
+
+.blade {
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    margin: -302px 0 0 -325px;
+    left: 50%;
+    background: @color-white;
+    height: 650px;
+    width: 650px;
+    z-index: 102;
+
+    img {
+        margin: 10px;
+    }
+
+    &-close {
+        font: @font-caption-bold;
+        float:right;
+        margin: 5px 5px 0 0;
+        cursor: pointer;
+    }
+}
+
+
+.caption {
+
+    &-form {
+        font: @font-caption-bold;
+        margin: 10px 0;
+        line-height: 34px;
+
+        &-name {
+            font: @font-caption;
+            display: inline-block;
+        }
+    }
+
+    &-main, &-empty, &-notLikes {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: 0 0 0 -223px;
+        width: 446px;
+        font: @font-name;
+
+        div {
+            text-align: center;
+        }
+    }
+
+    &-notLikes {
+        top: 40%;
+    }
+
+}
+
+//стрелка
+
+.arrows {
+    position: relative;
+    margin: 0px auto;
+    width: 120px;
+    height: 20px;
+    background: @color-button;
+    padding: 0px 5px;
+    color: #ffffff;
+
+    &:before, &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 17px solid transparent;
+    }
+
+    &:after {
+        top: -8px;
+        left: -16px;
+        border-right-color: @color-button;
+        border-left: 0;
+    }
+
+    &:before {
+        top: -8px;
+        right: -14px;
+        border-left-color: @color-button;
+        border-right: 0;
+    }
+}
+
+
+//всплывающая подсказка
+
+.tooltips {
+    position: relative;
+
+    em {
+        display: none;
+    }
+}
+
+.tooltips:hover em {
+//    width: 200px;
+    font-style: normal;
+    display: block;
+    position: absolute;
+    background: #000;
+    color: #FFF;
+    padding: 5px 10px;
+    bottom: 22px;
+    left: 0;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
+    z-index: 10;
+    white-space: nowrap;
+
+    i {
+        position: absolute;
+        bottom: -7px;
+        left: 12px;
+        border-top: 7px solid #000;
+        border-right: 7px solid transparent;
+        display: block;
+    }
+}
+
+
+//таблица selected
+.selected-table {
+    td {
+        line-height: 26px !important;
+    }
+
+
+    &-input {
+        input {
+            height: 20px;
+            width: 20px;
+        }
+    }
+}
+
+.active-tr {
+    background-color: @color-button;
+}
+
+
+//компоненты пользователя (группы, фото и т.д.)
+@media (min-width: 640px) {
+    .parametrs {
+
+        li {
+            position: relative;
+            background-color: @color-button;
+            border-radius: 20px;
+            width: 125px;
+            height: 50px;
+            float: left;
+            margin: 0 10px;
+            color: #ffffff;
+
+            span {
+                font: @font-body-bold;
+            }
+
+            span:first-child {
+                span {
+                    position: absolute;
+                    top: 11px;
+                    left: 27px;
+                    margin: 0 10px;
+                    font: @font-caption-bold;
+                    i {
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            span:last-child {
+                position: absolute;
+                top: 13px;
+                left: 65px;
+            }
+
+        }
+
+        li:first-child {
+            margin-left: 25px;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .parametrs {
+
+        li {
+            position: relative;
+            background-color: @color-button;
+            border-radius: 20px;
+            width: 100px;
+            height: 50px;
+            float: left;
+            margin: 0 10px;
+            color: #ffffff;
+
+            span {
+                font: @font-body-bold;
+            }
+
+            span:first-child {
+                span {
+                    position: absolute;
+                    top: 11px;
+                    left: 13px;
+                    margin: 0 10px;
+                    font: @font-caption-bold;
+                    i {
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            span:last-child {
+                position: absolute;
+                top: 13px;
+                left: 50px;
+            }
+
+        }
+
+        li:first-child {
+            margin-left: 25px;
+        }
+    }
+}
+
+.info-title {
+    font: @font-big-caption-bold;
+    margin:  10px 0 20px 10px;
+}
+
+
+//главная иконка
+.main-icon {
+//    color: @color-button;
+    img {
+        width: 670px;
+        height: 778px;
+        margin-right: 10px;
+        margin-left: 30px;
+    }
+}
+
+.line-top {
+    border-right: 2px solid gray;
+}
+
+.active {
+    color: @color-button !important;
+}

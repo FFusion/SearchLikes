@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "NotificationService.js",
+  "sourceRoot": "",
+  "sources": [
+    "NotificationService.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,UAEU,CAAC,OAAX,CAAmB,cAAnB,EAAmC,SAAC,UAAD,GAAA;AAC/B,MAAA,YAAA;SAAA,GAAA,CAAA,CAAU;8BAEN;;AAAA,2BAAA,IAAA,GAAM,SAAC,OAAD,GAAA;aACF,UAAU,CAAC,UAAX,CAAsB,cAAtB,EAAsC;AAAA,QAAC,IAAA,EAAM,cAAP;AAAA,QAAuB,OAAA,EAAS,OAAhC;OAAtC,EADE;IAAA,CAAN,CAAA;;wBAAA;;QAH2B;AAAA,CAAnC,CAFA,CAAA"
+}

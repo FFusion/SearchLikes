@@ -1,0 +1,125 @@
+<div class="user">
+    <div class="user-title">
+        {{'Друзья -  ' + currentUser.first_name + ' ' + currentUser.last_name}}
+    </div>
+    <div class="block-back">
+        <button class="btn btn-back" ng-click="back()">Назад</button>
+    </div>
+    <div class="user-friend" ng-if="userFriendsArray">
+        <button class="btn btn-friend" ng-click="getListFriends()">Список друзей</button>
+    </div>
+    <div class="user-friend-online" ng-if="userFriends">
+        <button class="btn btn-online" ng-click="getListFriendsOnlineOrDelete('online')">Друзья онлайн</button>
+    </div>
+    <div class="user-friend-delete" ng-if="userFriends">
+        <button class="btn btn-delete" ng-click="getListFriendsOnlineOrDelete('delete')">Удалены</button>
+    </div>
+    <div class="block-home">
+        <button class="btn btn-home" ng-click="home()">На главную</button>
+    </div>
+    <div class="user-content">
+        <div class="friend-table" ng-if="userFriends && userFriendsArray == null">
+            <div class="friend-table-settings">
+                <div class="row">
+                    <div class="col-md-2 col-xs-2 friend-table-settings-caption">Друзей: </div>
+                    <div class="col-md-6 col-xs-6" style="line-height: 34px;">{{countFriends}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-xs-2 friend-table-settings-caption">
+                        <span>Поиск</span>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <input class="form-control" type="text" ng-model="userFilter"/>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th class="pointer" ng-click="predicate = 'last_name'; reverse=!reverse">Фамилия</th>
+                    <th class="pointer" ng-click="predicate = 'last_seen'; reverse=!reverse">Последнее посещение</th>
+                    <th class="text-center">Подробнее</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in userFriends | orderBy:predicate:reverse | filter:userFilter" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize">
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td ng-class="{'red': user.last_seen == 'удален', 'blue': user.last_seen == 'online'}">{{ user.last_seen }}</td>
+                    <td class="more-icon" ng-click="more(user)">
+                        <a ng-href="/user/{{user.id}}">
+                            <i class="ion-person">&rarr;</i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="friend-table-button row">
+                <div class="col-md-4 col-xs-4" style="padding: 0">
+                    <button class="btn-prev" ng-click="$parent.page = page - 1" ng-disabled="page == 1">&laquo; Назад</button>
+                </div>
+                <div class="col-md-4 col-xs-4 text-center">
+                    <button class="btn-begin" ng-click="$parent.page = 1" ng-disabled="$parent.page == 1">В начало</button>
+                </div>
+                <div class="col-md-4 col-xs-4" style="padding: 0">
+                    <button class="btn-next" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= userFriends.length">Вперед &raquo;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="friend-table" ng-if="userFriendsArray">
+            <div class="friend-table-settings">
+                <div class="row">
+                    <div class="col-md-2 col-xs-2 friend-table-settings-caption"> <span>Друзей:</span></div>
+                    <div class="col-md-6 col-xs-6" style="line-height: 34px;">{{userFriendsArray.length}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-xs-2 friend-table-settings-caption">
+                        <span>Поиск</span>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <input class="form-control" type="text" ng-model="userFilter"/>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th class="pointer" ng-click="predicate = 'last_name'; reverse=!reverse">Фамилия</th>
+                    <th>На сайте</th>
+                    <th class="text-center">Подробнее</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in userFriendsArray | orderBy:predicate:reverse | filter:userFilter" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize">
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>
+                        <span ng-if="user.online == 1" class="blue">online </span>
+                        <span ng-if="!user.online" class="red">удален</span>
+                        <i ng-class="{'ion-iphone': user.online_mobile}"></i>
+                    </td>
+                    <td class="more-icon" ng-click="more(user)">
+                        <a ng-href="/user/{{user.id}}">
+                            <i class="ion-person">&rarr;</i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="friend-table-button row">
+                <div class="col-md-4 col-xs-4" style="padding: 0">
+                    <button class="btn-prev" ng-click="$parent.page = page - 1" ng-disabled="page == 1">&laquo; Назад</button>
+                </div>
+                <div class="col-md-4 col-xs-4 text-center">
+                    <button class="btn-begin" ng-click="$parent.page = 1" ng-disabled="$parent.page == 1">В начало</button>
+                </div>
+                <div class="col-md-4 col-xs-4" style="padding: 0">
+                    <button class="btn-next" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= userFriendsArray.length">Вперед &raquo;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

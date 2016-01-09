@@ -1,0 +1,749 @@
+@import "config.less";
+
+body {
+    background: rgb(237,241,244); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(237,241,244,1) 17%, rgba(106,190,247,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(17%,rgba(237,241,244,1)), color-stop(100%,rgba(106,190,247,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(237,241,244,1) 17%,rgba(106,190,247,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(237,241,244,1) 17%,rgba(106,190,247,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(237,241,244,1) 17%,rgba(106,190,247,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(237,241,244,1) 17%,rgba(106,190,247,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#edf1f4', endColorstr='#6abef7',GradientType=0 ); /* IE6-9 */
+
+    //фон еще не определен...
+//    background: #f7f7f7; /* Old browsers */
+//    background: -moz-linear-gradient(top,  #f7f7f7 40%, #ededed 100%); /* FF3.6+ */
+//    background: -webkit-gradient(linear, left top, left bottom, color-stop(40%,#f7f7f7), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+//    background: -webkit-linear-gradient(top,  #f7f7f7 40%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+//    background: -o-linear-gradient(top,  #f7f7f7 40%,#ededed 100%); /* Opera 11.10+ */
+//    background: -ms-linear-gradient(top,  #f7f7f7 40%,#ededed 100%); /* IE10+ */
+//    background: linear-gradient(to bottom,  #f7f7f7 40%,#ededed 100%); /* W3C */
+//    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+
+
+    //  background: url(../image/f4.jpg) center center fixed;
+
+    height: 100vh;
+    min-height: 900px;
+    font-family: @font-family;
+}
+@media(min-width: 640px) {
+    .index {
+        position: absolute;
+        width: 744px;
+        height: 900px;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-image: url(../image/book2_new.png);
+
+        &-navigation {
+            margin: 30px 0 0 0;
+            text-align: center;
+
+            span {
+                margin-top: 20px;
+                display: inline-block;
+                height: 40px;
+                font: @font-body-bold;
+
+                a {
+                    text-decoration: none;
+                    color: black;
+                }
+
+                a:hover {
+                    color: @color-button;
+                }
+            }
+
+            span:hover {
+                cursor: pointer;
+                color: @color-button;
+                border-bottom: 5px solid @color-button;
+            }
+        }
+
+        &-main {
+
+        }
+
+        &-project {
+
+            &-content {
+                margin-top: 60px;
+
+                &-item {
+                    font: @font-body-bold;
+                    margin-bottom: 50px;
+
+                    &-icon {
+                        font-size: 33px;
+                        float:left;
+                        color: @color-button;
+                    }
+
+                    &-text {
+                        margin-left: 45px;
+                    }
+                }
+            }
+        }
+
+        &-wishes, &-project {
+            width: 542px;
+            margin: 30px auto;
+        }
+
+        &-wishes {
+            &-form {
+                margin-top : 60px;
+            }
+        }
+
+        hr {
+            border: 1px solid gray;
+            margin: 0px 10px 0 40px;
+            width: 656px;
+        }
+    }
+}
+
+@media(max-width: 640px) {
+    .mainIndex {
+        height: 100%;
+        margin: auto;
+
+        &-content {
+            position: absolute;
+            width: 640px;
+            height: 960px;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-image: url(../image/book3.png);
+        }
+    }
+}
+@media(min-width: 640px) {
+    .mainIndex {
+        //        width:100%;
+        height: 100%;
+        margin: auto;
+
+        &-content {
+            position: absolute;
+            width: 744px;
+            height: 900px;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-image: url(../image/book1_new.png);
+        }
+    }
+
+}
+
+@media(max-width: 640px) {
+    .block {
+
+        &-friend, &-off, &-back, &-wall, &-photo {
+            position: absolute;
+        }
+
+        &-friend {
+            top: 105px;
+            left: 85px;
+
+            &-online {
+                position: absolute;
+                top: 105px;
+                left: 210px;
+            }
+
+            &-delete {
+                position: absolute;
+                top: 105px;
+                left: 337px;
+            }
+        }
+
+        &-home {
+            position: absolute;
+            top: 85px;
+            left: 455px;
+        }
+
+        &-off {
+            top: 105px;
+            left: 430px;
+        }
+
+        &-back {
+            top: 85px;
+            left: 85px;
+        }
+
+        &-photo, &-wall {
+            top: 85px;
+            left: 415px;
+        }
+
+        &-form {
+            position: absolute;
+            top: 85px;
+            left: 200px;
+        }
+    }
+}
+
+
+.vk-open {
+    margin:auto;
+    text-align: center;
+}
+
+@media(min-width: 640px) {
+    .block {
+
+        &-friend, &-off, &-back, &-wall, &-photo  {
+            position: absolute;
+        }
+
+        &-friend {
+            top: 95px;
+            left: 95px;
+
+            &-online {
+                position: absolute;
+                top: 95px;
+                left: 220px;
+            }
+
+            &-delete {
+                position: absolute;
+                top: 95px;
+                left: 347px;
+            }
+        }
+
+        &-home {
+            position: absolute;
+            top: 85px;
+            left: 555px;
+        }
+
+        &-off {
+            top: 100px;
+            left: 455px;
+        }
+
+        &-back {
+            top: 85px;
+            left: 85px;
+        }
+
+        &-photo, &-wall {
+            top: 85px;
+            left: 518px;
+        }
+
+        &-form {
+            position: absolute;
+            top: 85px;
+            left: 200px;
+        }
+    }
+}
+
+
+@media (min-width: 640px) {
+    .friend-table {
+        width: 635px;
+        padding: 150px 0 0 115px;
+
+        &-button {
+            padding: 20px 0 0 0;
+        }
+
+        .row {
+            padding-bottom: 10px;
+        }
+
+        &-settings {
+
+            &-caption {
+                margin-left: 10px;
+                line-height: 42px !important;
+                font: @font-caption-bold;
+            }
+        }
+
+    }
+}
+
+@media (max-width: 640px) {
+    .friend-table {
+        width: 550px;
+        padding: 160px 0 0 100px;
+
+        &-button {
+            padding: 20px 0 0 0;
+        }
+
+        .row {
+            padding-bottom: 10px;
+        }
+
+        &-settings {
+
+            &-caption {
+                margin-left: 10px;
+                line-height: 42px !important;
+                font: @font-caption-bold;
+            }
+        }
+    }
+}
+
+
+.more-icon {
+    text-align: center;
+    cursor: pointer;
+}
+
+
+// отдельный чувак
+
+@media (min-width: 640px) {
+    .user {
+        position: absolute;
+        width: 744px;
+        height: 900px;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-image: url(../image/book2_new.png);
+
+        &-title {
+            position: absolute;
+            top: 50px;
+            left: 112px;
+            font: @font-caption-bold;
+        }
+
+        &-content {
+            min-height: 673px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            border: 1px solid #A3A3A3;
+            height: 75%;
+            margin: 126px 85px 0 85px;
+
+            hr {
+                border-top: 1px solid #A3A3A3;
+                margin: 20px 10px;
+                width: 555px;
+            }
+
+            .friend-table {
+                width: 550px !important;
+                padding: 15px 0 0 15px !important;
+            }
+
+            &-avatar {
+                margin: 10px 0 10px 10px;
+
+                img {
+                    border-radius: 10px;
+                }
+            }
+
+            &-block {
+                margin: 10px 0 10px 0;
+            }
+        }
+
+        &-friend {
+            position: absolute;
+            top: 85px;
+            left: 95px;
+
+            &-online {
+                position: absolute;
+                top: 85px;
+                left: 220px;
+            }
+
+            &-delete {
+                position: absolute;
+                top: 85px;
+                left: 347px;
+            }
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .user {
+        position: absolute;
+        width: 640px;
+        height: 960px;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-image: url(../image/book6.png);
+
+        &-title {
+            position: absolute;
+            top: 50px;
+            left: 118px;
+            font: @font-caption-bold;
+        }
+
+        &-content {
+            border: 1px solid #A3A3A3;
+            height: 75%;
+            margin: 126px 85px 0 85px;
+
+            hr {
+                border-top: 1px solid #A3A3A3;
+                margin: 20px 10px;
+            }
+
+            .friend-table {
+                width: 450px !important;
+                padding: 20px 0 0 20px !important;
+            }
+
+            &-avatar {
+                margin: 10px 0 10px 10px;
+
+                img {
+                    border-radius: 10px;
+                }
+            }
+
+            &-block {
+                margin: 10px 0 10px 0;
+            }
+        }
+
+        &-friend {
+            position: absolute;
+            top: 85px;
+            left: 95px;
+
+            &-online {
+                position: absolute;
+                top: 85px;
+                left: 220px;
+            }
+
+            &-delete {
+                position: absolute;
+                top: 85px;
+                left: 347px;
+            }
+        }
+    }
+}
+
+//стена
+
+@media (min-width: 640px) {
+    .main {
+        position: absolute;
+        width: 744px;
+        height: 900px;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-image: url(../image/book2_new.png);
+
+        &-block {
+            margin: 10px 0 10px 0;
+        }
+
+        &-form {
+            width: 530px;
+            margin: 25px 20px 30px 20px;
+
+            hr {
+                width: 515px;
+            }
+
+            &-title {
+                font: @font-title;
+                padding-left: 10px;
+            }
+
+            &-caption {
+                text-align: left;
+                font: @font-big-caption-bold;
+            }
+
+            &-users {
+//                font: @font-caption;
+//                display: inline-block;
+            }
+
+
+            .row {
+                margin: 25px 0;
+            }
+        }
+
+        &-component {
+            background: @color-white;
+            width: 560px;
+            overflow: auto;
+//            background: #fafafa;
+            //    border: 15px solid #FFFFFF;
+            border-radius: 5px;
+            height: 630px;
+            margin: 15px auto;
+            position: relative;
+
+            -webkit-perspective: 1000px;
+            -moz-perspective: 1000px;
+            -ms-perspective: 1000px;
+            -o-perspective: 1000px;
+            perspective: 1000px;
+
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -ms-transform-style: preserve-3d;
+            -o-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+
+            &-wall {
+                background: @color-white;
+                width: 542px;
+                overflow: auto;
+                border-radius: 5px;
+                height: 650px;
+                margin: 10px 15px 0 15px;
+                position: relative;
+
+                -webkit-perspective: 1000px;
+                -moz-perspective: 1000px;
+                -ms-perspective: 1000px;
+                -o-perspective: 1000px;
+                perspective: 1000px;
+
+                -webkit-transform-style: preserve-3d;
+                -moz-transform-style: preserve-3d;
+                -ms-transform-style: preserve-3d;
+                -o-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+        }
+
+//        &-notLike, &-empty {
+//            margin: 0 0 0 25px;
+//        }
+    }
+}
+
+@media (max-width: 640px) {
+    .main {
+        position: absolute;
+        width: 640px;
+        height: 960px;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-image: url(../image/book6.png);
+
+        &-block {
+            margin: 10px 0 10px 0;
+        }
+
+        &-form {
+            width: 425px;
+            margin: 25px 20px 30px 20px;
+
+            .row {
+                margin: 25px 0;
+            }
+        }
+
+        &-component {
+            background: @color-white;
+            width: 444px;
+            overflow: auto;
+            border-radius: 5px;
+            height: 695px;
+            margin: 10px 15px 0 15px;
+            position: relative;
+
+            -webkit-perspective: 1000px;
+            -moz-perspective: 1000px;
+            -ms-perspective: 1000px;
+            -o-perspective: 1000px;
+            perspective: 1000px;
+
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -ms-transform-style: preserve-3d;
+            -o-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+
+            &-wall {
+                background: @color-white;
+                width: 455px;
+                overflow: auto;
+//                background: #fafafa;
+                //    border: 15px solid #FFFFFF;
+                border-radius: 5px;
+                height: 630px;
+                margin: 15px auto;
+                position: relative;
+
+                -webkit-perspective: 1000px;
+                -moz-perspective: 1000px;
+                -ms-perspective: 1000px;
+                -o-perspective: 1000px;
+                perspective: 1000px;
+
+                -webkit-transform-style: preserve-3d;
+                -moz-transform-style: preserve-3d;
+                -ms-transform-style: preserve-3d;
+                -o-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+        }
+
+//        &-notLike, &-empty {
+//            margin: 0 0 0 25px;
+//        }
+    }
+}
+
+
+.flname {
+    font: @font-name;
+}
+
+.status {
+    font: @font-status;
+    padding-bottom: 50px;
+}
+
+.id {
+    font: @font-caption;
+    padding-bottom: 10px;
+}
+
+.bdate {
+    font: @font-caption;
+    padding-bottom: 10px;
+}
+
+.userHome {
+    font: @font-caption;
+    padding-bottom: 10px;
+}
+
+//переопределение bootstrap
+.form-control {
+    width: 99%;
+    height: 42px;
+    padding: 10px 16px;
+    font-size: 16px;
+}
+
+
+//записи со стены
+
+.caption-wall {
+    font: @font-wall;
+    padding: 8px;
+}
+
+.post {
+    border: 1px solid @color-gray;
+    border-radius: 5px;
+    width: 510px;
+    min-height: 100px;
+    margin: 5px 5px 5px 5px;
+    box-shadow: 1px 0px 3px;
+
+    &-block {
+
+        &-photo {
+            border: 1px solid @color-button;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        &-music {
+            margin: 10px;
+            width: 100%;
+
+            &-container {
+                background: @color-button;
+                margin: 7px;
+                float: right;
+                width: 492px;
+                color: white;
+                padding: 0 0 0 10px;
+                border-radius: 3px;
+                box-shadow: 0 0 7px rgba(0,0,0,0.4);
+            }
+
+            span {
+                cursor: pointer;
+                padding-left: 10px;
+            }
+
+            &-name {
+                font: @font-caption;
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    &-text {
+        display: inline-block;
+        font: @font-caption-bold;
+        margin-left: 10px;
+        width: 97%;
+    }
+
+    &-more {
+        width: 100%;
+        min-height: 23px;
+
+        &-likes {
+            font: @font-caption-bold;
+            color: @color-button;
+            padding-right: 5px;
+            float:right;
+        }
+
+        &-comment {
+            font-style: italic;
+            float: right;
+            padding-right: 30px;
+            cursor: pointer;
+        }
+    }
+}
+
+
+//временно класс для photo
+
+.userPhoto {
+    border: 1px solid @color-button;
+    float: left;
+    margin: 10px;
+}

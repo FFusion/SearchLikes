@@ -1,0 +1,158 @@
+<div class="user">
+    <div class="block-back">
+        <button class="btn btn-back" ng-click="back()">Назад</button>
+    </div>
+    <div class="block-home">
+        <button class="btn btn-home" ng-click="home()">На главную</button>
+    </div>
+    <div class="user-content">
+        <div class="info-title">Основная информация: </div>
+        <div class="row">
+            <!--аватар размер 200-->
+            <div class="user-content-avatar col-md-6 col-xs-6">
+                <img src={{user.photo_200_orig}} alt=""/>
+            </div>
+
+            <!--имя-фамилия, дата рождения, город-страна-->
+            <div class="user-content-block col-md-5 col-xs-5">
+                <div class="flname">
+                    <span>{{user.first_name + ' ' + user.last_name}}</span>
+                </div>
+                <div class="status">
+                    <span>{{lastSeen}}</span>
+                </div>
+                <div class="id">
+                    <span>id: {{user.id}}</span>
+                </div>
+                <div class="bdate">
+                    <div ng-if="user.bdate">
+                        <span>{{user.bdate}}</span>
+                    </div>
+                </div>
+                <div class="userHome">
+                    <span ng-if="user.city">{{user.city.title}}</span>
+                    <span ng-if="user.city">,</span>
+                    <span ng-if="user.country">{{user.country.title}}</span>
+                </div>
+            </div>
+        </div>
+        <hr ng-if="!user.deactivated">
+        <div class="info-title" ng-if="!user.deactivated">Дополнительная информация: </div>
+        <div class="row" ng-if="!user.deactivated">
+            <ul class="list-unstyled nav-pills parametrs">
+                <li ng-if="user.counters.albums">
+                    <span>
+                        <span class="tooltips"><i class="ion-images"></i><em>Альбомы<i></i></em></span>
+                    </span>
+                    <span>{{user.counters.albums}}</span>
+                </li>
+                <li ng-if="user.counters.photos">
+                    <span>
+                        <span class="tooltips"><i class="ion-camera"></i><em>Фотографии<i></i></em></span>
+                    </span>
+                    <span>{{user.counters.photos}}</span>
+                </li>
+                <li ng-if="user.counters.videos">
+                    <span>
+                        <span class="tooltips"><i class="ion-ios-videocam"></i><em>Видеозаписи<i></i></em></span>
+                    </span>
+                    <span>{{user.counters.videos}}</span>
+                </li>
+                <li ng-if="user.counters.gifts">
+                    <span>
+                        <span class="tooltips"><i class="ion-person-add"></i><em>Подписчики<i></i></em></span>
+                    </span>
+                    <span>
+                        {{user.counters.followers}}
+                    </span>
+                </li>
+            </ul>
+            <div style="padding-bottom: 50px"></div>
+            <ul class="list-unstyled nav-pills parametrs">
+                <li ng-if="user.counters.mutual_friends">
+                    <span>
+                        <span class="tooltips"><i class="ion-ios-body"></i><em>Общие друзья<i></i></em></span>
+                    </span>
+                    <span>{{user.counters.mutual_friends}}</span>
+                </li>
+                <li ng-if="user.counters.groups">
+                    <span>
+                        <span class="tooltips"><i class="ion-ios-list-outline"></i><em>Группы<i></i></em></span>
+                    </span>
+                    <span>{{user.counters.groups}}</span>
+                </li>
+                <li ng-if="user.counters.audios">
+                    <span>
+                        <span class="tooltips"><i class="ion-headphone"></i><em>Аудиозаписи<i></i></em></span>
+                    </span>
+                    <span>{{user.counters.audios}}</span>
+                </li>
+                <li ng-if="user.counters.notes">
+                    <span>
+                        <span class="tooltips"><i class="ion-android-document"></i><em>Заметки<i></i></em></span>
+                    </span>
+                    <span>{{user.counters.notes}}</span>
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <div class="info-title">Навигация: </div>
+        <!--Доп инфо-->
+        <!--albums: 1audios: 1366followers: 34friends: 221gifts: 3mutual_friends: 1notes: 0online_friends: 7photos: 9videos: 308-->
+        <!--<div class="row">-->
+            <!--<div class="col-md-6 col-xs-6">-->
+                <!--<div ng-if="user.counters.groups">-->
+                    <!--<span>{{'Групп: ' + user.counters.groups}}</span>-->
+                <!--</div>-->
+                <!--<div ng-if="user.counters.notes">-->
+                    <!--<span>{{'Заметок: ' + user.counters.notes}}</span>-->
+                <!--</div>-->
+                <!--<div ng-if="user.counters.audios">-->
+                    <!--<span>{{'Аудиозаписей: ' + user.counters.audios}}</span>-->
+                <!--</div>-->
+                <!--<div ng-if="user.counters.videos">-->
+                    <!--<span>{{'Видеозаписей: ' + user.counters.videos}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-5 col-xs-5">-->
+                <!--<div ng-if="user.counters.albums">-->
+                    <!--<span>{{'Альбомов: ' + user.counters.albums}}</span>-->
+                <!--</div>-->
+                <!--<div ng-if="user.counters.photos">-->
+                    <!--<span>{{'Фотографий: ' + user.counters.photos}}</span>-->
+                <!--</div>-->
+                <!--<div ng-if="user.counters.mutual_friends">-->
+                    <!--<span>{{'Общих друзей: ' + user.counters.mutual_friends}}</span>-->
+                <!--</div>-->
+                <!--<div ng-if="user.counters.gifts">-->
+                    <!--<span>{{'Подписчиков: ' + user.counters.gifts}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="row">
+            <div class="col-md-4 col-xs-4">
+                <button class="btn btn-checkLikes" ng-click="checkWall(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  на стене</button>
+            </div>
+            <div class="col-md-4 col-xs-4">
+                <button class="btn btn-checkPhoto" ng-click="checkPhoto(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  по фото</button>
+            </div>
+            <div class="col-md-4 col-xs-4">
+                <button class="btn btn-userFriends" ng-click="getUserFriends(user)" ng-disabled="user.deactivated">Список друзей <i class="ion-ios-people"></i></button>
+            </div>
+        </div>
+        <div style="padding-bottom: 20px"></div>
+        <!--<div class="row">-->
+            <!--<div class="col-md-6 col-xs-6 col-lg-6">-->
+                <!--<button class="btn btn-send" disabled ng-click="send(user.id)">Личное сообщение</button>-->
+            <!--</div>-->
+            <!--<div class="col-md-6 col-xs-6 col-lg-6">-->
+                <!--<button class="btn btn-deleteFriend" ng-click="delete(user.id)">Удалить из друзей</button>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    </div>
+</div>
+
+
+<!--sex,bdate,city,country,photo_100,online,contacts,status,followers_count,common_count,counters-->

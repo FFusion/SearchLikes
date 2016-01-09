@@ -1,0 +1,60 @@
+<div class="user">
+    <div class="user-title">
+        {{currentUser.first_name + ' ' + currentUser.last_name}}
+    </div>
+    <div class="block-back">
+        <button class="btn btn-back" ng-click="back()">Назад</button>
+    </div>
+    <div class="user-content">
+        <div class="friend-table" ng-if="userFriends">
+            <div class="friend-table-settings">
+                <div class="row">
+                    <div class="col-md-2 col-xs-2 friend-table-settings-caption">Друзей: </div>
+                    <div class="col-md-6 col-xs-6" style="line-height: 42px;">{{countFriends}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-xs-2 friend-table-settings-caption">
+                        <span>Поиск: </span>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <input class="form-control" type="text" ng-model="userFilter"/>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped selected-table">
+                <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th class="pointer" ng-click="predicate = 'last_name'; reverse=!reverse">Фамилия</th>
+                    <th class="text-center">Выбрать</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in userFriends | orderBy:predicate:reverse | filter:userFilter" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize">
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td class="text-center selected-table-input">
+                        <input name="user" type="radio" ng-click="isSelected(user)" ng-checked="selected == user"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="friend-table-button">
+                <div ng-if="selected">
+                    <button class="btn-select" ng-click="selectUserNext(user)">Далее</button>
+                </div>
+                <div ng-if="!selected" class="row">
+                    <div class="col-md-4 col-xs-4" style="padding: 0">
+                        <button class="btn-prev" ng-click="$parent.page = page - 1" ng-disabled="page == 1">&laquo; Назад</button>
+                    </div>
+                    <div class="col-md-4 col-xs-4 text-center">
+                        <button class="btn-begin" ng-click="$parent.page = 1" ng-disabled="$parent.page == 1">В начало</button>
+                    </div>
+                    <div class="col-md-4 col-xs-4" style="padding: 0">
+                        <button class="btn-next" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= userFriends.length">Вперед &raquo;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

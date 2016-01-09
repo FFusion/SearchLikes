@@ -1,0 +1,132 @@
+<div class="user">
+    <div class="block-back">
+        <button class="btn btn-back" ng-click="back()">К профилю</button>
+    </div>
+    <div class="block-form" ng-if="openOtherSearch && !process">
+        <button class="btn btn-back" ng-click="returnFormSearch()">К форме поиска</button>
+    </div>
+    <div class="block-wall" ng-if="!process">
+        <button class="btn btn-home" ng-click="wall()">Поиск <i class="ion-heart"></i> на стене</button>
+    </div>
+    <div class="user-content">
+        <div class="main-form" ng-if="!likePhotos">
+            <form role="form" name="photoForm">
+                <div class="row main-form-title">
+                    <span>Форма поиска <i class="ion-heart" style="color:#6383A8"></i> на фото пользователя</span>
+                </div>
+                <hr>
+                <div class="row main-form-caption">
+                    <div class="col-md-4 col-xs-4">
+                        <span>Гость</span>
+                    </div>
+                    <div class="col-md-4 col-xs-4"></div>
+                    <div class="col-md-4 col-xs-4">
+                        <span>Владелец фото</span>
+                    </div>
+                </div>
+                <div class="row main-form-users">
+                    <div class="col-md-4 col-xs-4">
+                        <span ng-if="userSearchFor" class="caption-form-name">{{userSearchFor.first_name + ' ' + userSearchFor.last_name}}</span>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <!--<i ng-class="{'ion-arrow-right-c': right, 'ion-arrow-left-c': !right}"></i>-->
+                        <div class="btn arrows" ng-click="changeUser(user, userSearchFor)">поменять</div>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <span class="caption-form-name">{{user.first_name + ' ' + user.last_name}}</span>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row main-form-caption">
+                    <div class="col-md-6 col-xs-6">
+                        <span>Тип фотографий</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <select class="form-control" ng-model="typePhoto">
+                            <option value="wall">Фотографии со стены</option>
+                            <option value="profile">Фотографии профиля</option>
+                            <option value="saved">Сохраненные фотографии</option>
+                            <option value="preview">Фотографии из блока над стеной</option>
+                            <option value="all">Альбомные фотографии</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row main-form-caption">
+                    <div class="col-md-6 col-xs-6">
+                        <span>Количество фотографий</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <select class="form-control" ng-model="countPhoto">
+                            <option>1</option>
+                            <option>5</option>
+                            <option ng-disabled="typePhoto == 'preview'">10</option>
+                            <option ng-disabled="typePhoto == 'preview'">15</option>
+                            <option ng-disabled="typePhoto == 'preview'">20</option>
+                            <option ng-disabled="typePhoto == 'preview'">30</option>
+                            <option ng-disabled="typePhoto == 'preview'">50</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button class="btn btn-search" ng-click="likesPhoto(countPhoto, typePhoto)" ng-disabled="photoForm.$invalid || photoForm.$pristine">Поиск</button>
+                </div>
+            </form>
+        </div>
+
+        <!--<div class="main-component" style="height: 240px" ng-if="!process && likePhotos.length > 0">-->
+            <!--<ul class="list-unstyled">-->
+                <!--<li ng-repeat="photo in likePhotos" class="userPhoto">-->
+                        <!--<img src="{{photo.photo_75}}" alt=""/>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+
+        <div class="caption-notLikes" ng-if="!process && likePhotos.length == 0 && photos">
+            <div>{{userSearchFor.first_name + ' ' + userSearchFor.last_name}}</div>
+            <div style="color:red">не уважает</div>
+            <div>{{user.first_name + ' ' + user.last_name}}</div>
+            <div style="color:#6383a8">Отметки "мне нравится" отсутствуют</div>
+        </div>
+
+        <div class="caption-notLikes" ng-if="!photos && likePhotos.length == 0">
+            <div>Фотографии отсутсвуют :)</div>
+        </div>
+
+        <div class="processing" ng-if="process">
+            <i class="ion-load-c"></i>
+        </div>
+        <div class="photo-class row" ng-if="likePhotos.length > 0 && !process">
+            <div class="photo-class-title col-md-6 col-xs-6">{{'Фотография ' + page + ' из ' + likePhotos.length}}</div>
+            <div class="photo-class-likes col-md-6 col-xs-6"><i class="ion-heart"></i>{{'  ' + likePhotos[page-1].countLikes}}</div>
+        </div>
+        <div class="container slider" ng-if="likePhotos.length > 0 && !process">
+            <!-- enumerate all photos -->
+            <img ng-repeat="photo in likePhotos" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-src="{{photo.instance.photo_604}} " ng-click="increasePhoto(photo)" />
+            <!-- prev / next controls -->
+            <button class="btn arrow prev" href="#" ng-click="showPrev()" ng-disabled="page == 1">
+                <i class="ion-ios-rewind"></i>
+            </button>
+            <button class="btn arrow next" href="#" ng-click="showNext()" ng-disabled="page * pageSize >= likePhotos.length">
+                <i class="ion-ios-fastforward"></i>
+            </button>
+            <!-- extra navigation controls -->
+            <ul class="nav" ng-if="likePhotos.length < 10">
+                <li ng-repeat="photo in likePhotos" ng-class="{'active':$index + 1 != page}">
+                    <img ng-src="{{photo.instance.photo_604}}" ng-click="showPhoto($index);"/>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="blade" ng-if="openBigBlade" image>
+            <div class="blade-close" ng-click="closeBlade()">Закрыть</div>
+        </div>
+    </div>
+</div>

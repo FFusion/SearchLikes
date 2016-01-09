@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "PhotoModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "PhotoModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,IAAA,WAAA;;AAAA,WAEA,GAAc,OAAO,CAAC,MAAR,CAAe,aAAf,EAA8B,EAA9B,CAFd,CAAA"
+}

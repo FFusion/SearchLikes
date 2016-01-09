@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "FriendsModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "FriendsModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,IAAA,aAAA;;AAAA,aAEA,GAAgB,OAAO,CAAC,MAAR,CAAe,eAAf,EAAgC,EAAhC,CAFhB,CAAA"
+}

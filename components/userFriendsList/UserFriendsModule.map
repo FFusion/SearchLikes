@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "UserFriendsModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "UserFriendsModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,IAAA,iBAAA;;AAAA,iBAEA,GAAoB,OAAO,CAAC,MAAR,CAAe,mBAAf,EAAoC,EAApC,CAFpB,CAAA"
+}

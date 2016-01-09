@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "WallModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "WallModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,IAAA,UAAA;;AAAA,UAEA,GAAa,OAAO,CAAC,MAAR,CAAe,YAAf,EAA6B,EAA7B,CAFb,CAAA"
+}

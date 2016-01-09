@@ -1,0 +1,126 @@
+<div class="main">
+    <div class="block-back">
+        <button class="btn btn-back" ng-click="back()">Назад</button>
+    </div>
+    <div class="block-photo" ng-if="openOtherSearch && !process">
+        <button class="btn btn-home" ng-click="photo()">Поиск <i class="ion-heart"></i> по фото</button>
+    </div>
+    <div class="user-content">
+        <div class="main-form" ng-if="!likePosts && !process">
+            <form role="form" name="wallForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="caption-form">Ищем на стене - </span>
+                        <span class="caption-form-name">{{user.first_name + ' ' + user.last_name}}</span>
+                    </div>
+                    <div class="col-md-6 row">
+                        <input class="form-control" type="text" disabled ng-model="userId"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="caption-form">Отметки "мне нравится" от </span>
+                        <!--<span ng-if="!userSearchFor">-->
+                            <!--<span class="tooltips"><i class="ion-ios-help-outline pointer"></i><em>Скопировать ID можно из подробной информации о пользователе<i></i></em></span>-->
+                        <!--</span>-->
+                        <span ng-if="userSearchFor" class="caption-form-name">{{' - ' + userSearchFor.first_name + ' ' + userSearchFor.last_name}}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" ng-model="userSearchForId" disabled/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="caption-form">Количество записей</span>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-control" ng-model="countPost">
+                            <option>1</option>
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button class="btn btn-search" ng-click="likesWall(countPost)" ng-disabled="wallForm.$invalid || wallForm.$pristine">Поиск</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="main-component-wall" ng-if="!process && likePosts.length > 0">
+            <div class="caption-wall">Записи со стены:</div>
+            <ul class="list-unstyled">
+                <li ng-repeat="post in likePosts" class="post">
+
+                    <!--если есть вложения-->
+                    <div class="post-block" ng-if="post.attachments && post.attachments.length > 0">
+                        <ul class="list-unstyled">
+                            <li ng-repeat="attachment in post.attachments">
+                                <div class="pull-left post-block-photo" ng-click="increasePhoto(attachment.photo)">
+                                    <img src="{{attachment.photo.photo_75}}" alt=""/>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--если запись репост-->
+                    <div class="post-block" ng-if="post.copy_history && post.copy_history.length > 0">
+                        <ul class="list-unstyled">
+                            <li ng-repeat="history in post.copy_history">
+                                <ul class="list-unstyled">
+                                    <li ng-repeat="attachment in history.attachments">
+                                        <div class="pull-left post-block-photo" ng-if="attachment.photo.photo_75" ng-click="increasePhoto(attachment.photo)">
+                                            <img src="{{attachment.photo.photo_75}}" alt=""/>
+                                        </div>
+                                        <!--сделать если песня-->
+                                    </li>
+                                </ul>
+                                <div class="pull-left post-block-photo" ng-if="history.photo.photo_75" ng-click="increasePhoto(history.photo)">
+                                    <img src="{{history.photo.photo_75}}" alt=""/>
+                                </div>
+                                <div class="post-text" ng-if="history.text != ''">{{history.text}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="post-text" >{{post.text}}</div>
+                    <div class="post-more">
+                        <div class="post-more-likes">
+                            <span>
+                                <i class="ion-heart"></i>{{' ' + post.likes.count}}
+                            </span>
+                        </div>
+                        <!--<div class="post-more-comment" ng-if="post.comments.count > 0">-->
+                            <!--<span ng-click="openComment(post)">Посмотреть комментарии</span>-->
+                        <!--</div>-->
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="caption-empty" ng-if="!posts && likePosts.length == 0 && openOtherSearch && !process">
+            <div>Пустая стена :)</div>
+        </div>
+
+        <div class="caption-notLikes" ng-if="!process && likePosts.length == 0 && posts">
+            <div>{{userSearchFor.first_name + ' ' + userSearchFor.last_name}}</div>
+            <div style="color:red">не уважает</div>
+            <div>{{user.first_name + ' ' + user.last_name}}</div>
+            <div style="color:#6383a8">Отметки "мне нравится" отсутствуют</div>
+        </div>
+    </div>
+
+
+    <div class="processing" ng-if="process">
+        <i class="ion-load-c"></i>
+    </div>
+
+    <div class="blade" ng-if="openBigBlade" image>
+        <div class="blade-close" ng-click="closeBlade()">Закрыть</div>
+    </div>
+
+</div>
