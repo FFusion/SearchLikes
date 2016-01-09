@@ -13,3 +13,12 @@
 </ul></li>
 
 
+# Попробовать на http://vkopen.16mb.com/
+
+angularjs, coffescript
+
+# Цели
+<ul>
+  <li>grunt</li>
+  <li>новый дизайн</li>
+</ul>
