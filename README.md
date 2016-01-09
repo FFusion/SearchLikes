@@ -11,13 +11,17 @@
   <li>поиск по стене пользователя</li>
   <li>поиск по фотографиям</li>
 </ul></li>
+</ul>
 
 
-# Попробовать на http://vkopen.16mb.com/
 
-angularjs, coffescript
+<h2>Попробовать</h2>
+<span><a href="http://vkopen.16mb.com/">BetaVersion</a></span>
 
-# Цели
+<h2> Технологии</h2>
+<span>angularjs, coffescript</span>
+
+####Цели
 <ul>
   <li>grunt</li>
   <li>новый дизайн</li>
