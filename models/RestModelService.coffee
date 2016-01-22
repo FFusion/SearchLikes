@@ -9,7 +9,7 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
     _getLinkFriends: (params, userId = null) ->
         if userId isnt null then id = userId else id = params.user_id;
         console.log(id);
-        url = vk.api + '/method/friends.get?user_id=' + id + '&v=5.8&access_token=' + params.access_token + '&order=name&fields=city,online,last_seen,has_mobile&callback=JSON_CALLBACK';
+        url = vk.api + '/method/friends.get?user_id=' + id + '&v=5.8&access_token=' + params.access_token + '&order=name&fields=city,online,last_seen,has_mobile,photo_50&callback=JSON_CALLBACK';
         url;
 
 #    _getLinkFriendsOnline: (params) ->

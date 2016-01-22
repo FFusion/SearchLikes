@@ -1,0 +1,62 @@
+<div class="main-container" ng-if="openAccess">
+    <!--Блок кнопок-->
+    <div class="block-friend">
+        <button class="btn btn-friend" ng-click="getListFriends()">Список друзей</button>
+    </div>
+    <div class="block-friend-online" ng-if="friends">
+        <button class="btn btn-online" ng-click="getListFriendsOnlineOrDelete('online')">Друзья онлайн</button>
+    </div>
+    <div class="block-friend-delete" ng-if="friends">
+        <button class="btn btn-delete" ng-click="getListFriendsOnlineOrDelete('delete')">Удалены</button>
+    </div>
+    <div class="block-off">
+        <!--<button class="btn btn-off" ng-click="signOff()">Выход</button>-->
+        <span class="pull-left">{{currentUser.first_name + ' ' + currentUser.last_name}}</span>
+        <a ng-href="/login" ng-click="signOff()">,  выход</a>
+    </div>
+
+
+    <div ng-if="!openTableOnline && !openTable">
+        <span class="caption-main">
+            Нажми на кнопку "Список друзей" :)
+        </span>
+    </div>
+
+
+    <div class="friends-content" ng-if="openTableOnline">
+        <div class="friends-content-top">
+            <!--поиск-->
+            <!--кол во друзей-->
+            <div class="friend-table-settings">
+                <div class="row">
+                    <div class="col-md-2 col-xs-2 friend-table-settings-caption"> <span>Друзей:</span></div>
+                    <div class="col-md-6 col-xs-6" style="line-height: 42px;">{{friendsArray.length}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-xs-2 friend-table-settings-caption">
+                        <span>Поиск: </span>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <input class="form-control" type="text" ng-model="userFilter"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="friends-content-middle">
+            <div class="friends-item row" ng-repeat="user in friends" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize">
+                <div class="friends-item-photo col-md-2 col-xs-2">
+                    <img src="{{user.photo_50}}" alt="{{user.last_name}}"/>
+                </div>
+                <div class="friends-item-name col-md-5 col-xs-5">
+                    {{user.first_name + " " + user.last_name }}
+                </div>
+                <div class="friends-item-visit col-md-5 col-xs-5">
+                    {{user.last_seen}}
+                </div>
+            </div>
+        </div>
+        <div class="friend-content-bottom">
+            <!--назад начало вперед-->
+        </div>
+    </div>
+</div>

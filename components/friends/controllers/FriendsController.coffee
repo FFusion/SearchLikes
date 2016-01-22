@@ -2,7 +2,7 @@
 
 'use strict'
 
-FriendsModule.controller 'FriendsController', ($scope, $location, $window, $stateParams, params, ngTableParams, LocalStorage, RestModel) ->
+FriendsModule.controller 'FriendsController', ($scope, $location, $window, $state, $stateParams, params, ngTableParams, LocalStorage, RestModel) ->
 
     #параметры авторизации и отображения таблицы
     $scope.openAccess = true;
@@ -65,3 +65,4 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $stat
     #получение подробной информации о пользователе
     $scope.more = (user) ->
         LocalStorage.setItem('last', user.last_seen);
+        $state.transitionTo('user', {userId: user.id});

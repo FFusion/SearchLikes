@@ -1,0 +1,63 @@
+@font-face {
+  font-family: Graffity;
+  src: url(/fonts/9476.ttf);
+  
+  /* Гарнитура шрифта */
+  /* Путь к файлу со шрифтом */
+}
+header {
+  position: relative;
+}
+footer {
+  clear: both;
+}
+.friends-content {
+  padding: 35px;
+  width: 100%;
+}
+.friends-content-middle {
+  padding: 0 45px;
+  margin: 20px 0;
+}
+.friends-item {
+  margin: 10px 0px;
+  padding: 7px;
+  -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.friends-item:after,
+.friends-item :before {
+  z-index: -1;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+.friends-item:after {
+  webkit-transform: skew(8deg) rotate(3deg);
+  -moz-transform: skew(8deg) rotate(3deg);
+  -ms-transform: skew(8deg) rotate(3deg);
+  -o-transform: skew(8deg) rotate(3deg);
+  transform: skew(8deg) rotate(3deg);
+}
+.friends-item:hover {
+  box-shadow: 0 5px 12px rgba(60, 82, 95, 0.55);
+}
+.friends-item-photo {
+  padding-left: 5px;
+}
+.friends-item-photo img {
+  width: 50px;
+  height: 50px;
+}
+.friends-item-name {
+  line-height: 50px;
+  font-size: 18px;
+  font-family: Graffity;
+}
+.friends-item-visit {
+  line-height: 50px;
+  font-weight: 800;
+}
