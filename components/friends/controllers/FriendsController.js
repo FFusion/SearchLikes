@@ -5,7 +5,7 @@ FriendsModule.controller('FriendsController', function($scope, $location, $windo
   $scope.openTable = false;
   $scope.params = $scope.params || LocalStorage.getItem('params');
   $scope.page = 1;
-  $scope.pageSize = 10;
+  $scope.pageSize = 7;
   $scope.getUser = function(id) {
     return $location.path('user/' + id);
   };

@@ -11,7 +11,7 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $stat
     $scope.params = $scope.params || LocalStorage.getItem('params');
 
     $scope.page = 1;
-    $scope.pageSize = 10;
+    $scope.pageSize = 7;
 
     $scope.getUser = (id) ->
         $location.path('user/' + id);

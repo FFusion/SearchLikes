@@ -5,19 +5,55 @@
   /* Гарнитура шрифта */
   /* Путь к файлу со шрифтом */
 }
-header {
-  position: relative;
+@font-face {
+  font-family: LowerFat;
+  src: url(/fonts/FirstFontLowerFat.ttf);
+  
+  /* Гарнитура шрифта */
+  /* Путь к файлу со шрифтом */
 }
-footer {
-  clear: both;
+.main-content {
+  background-color: white;
+  height: 800px;
+  width: 1024px;
+  min-width: 320px;
+  margin: 0 auto;
+  margin-top: 100px;
+  border-radius: 20px;
+  -webkit-box-shadow: 10px 5px 8px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 10px 5px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 5px 8px rgba(0, 0, 0, 0.3);
+}
+.main-content-friends {
+  width: 100%;
+  padding: 20px;
+}
+.friends-top {
+  width: 100%;
+  height: 40px;
+}
+.list-friends-all,
+.list-friends-delete,
+.list-friends-online {
+  float: left;
+  margin: 0 15px 5px 0;
+}
+.block-off {
+  float: right;
 }
 .friends-content {
-  padding: 35px;
+  margin-top: 35px;
   width: 100%;
+  font-family: LowerFat;
 }
 .friends-content-middle {
-  padding: 0 45px;
   margin: 20px 0;
+}
+.friend-table-settings div {
+  font-family: Graffiti;
+}
+.friend-table-settings div:first-child {
+  margin-bottom: 10px;
 }
 .friends-item {
   margin: 10px 0px;
@@ -55,9 +91,107 @@ footer {
 .friends-item-name {
   line-height: 50px;
   font-size: 18px;
-  font-family: Graffity;
 }
 .friends-item-visit {
   line-height: 50px;
   font-weight: 800;
+  text-align: right;
+}
+@media only screen and (max-width: 1024px) {
+  .main-content {
+    width: 800px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .main-content {
+    width: 768px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .main-content {
+    width: 568px;
+  }
+  .block-off {
+    margin-top: 5px;
+    text-align: center;
+    float: left;
+  }
+}
+@media only screen and (max-width: 568px) {
+  .main-content {
+    width: 480px;
+  }
+  .friends-top {
+    width: 100%;
+    height: 120px;
+  }
+  .list-friends-all,
+  .list-friends-delete,
+  .list-friends-online {
+    float: left;
+    margin: 0 15px 5px 0;
+  }
+  .list-friends-all button,
+  .list-friends-delete button,
+  .list-friends-online button {
+    width: 420px;
+  }
+  .block-off {
+    width: 340px;
+    margin-top: 5px;
+    text-align: center;
+    float: left;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .main-content {
+    width: 320px;
+  }
+  .friends-top {
+    width: 100%;
+    height: 120px;
+  }
+  .list-friends-all,
+  .list-friends-delete,
+  .list-friends-online {
+    float: left;
+    margin: 0 15px 5px 0;
+  }
+  .list-friends-all button,
+  .list-friends-delete button,
+  .list-friends-online button {
+    width: 280px;
+  }
+  .block-off {
+    width: 280px;
+    margin-top: 5px;
+    text-align: center;
+    float: left;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .main-content {
+    width: 320px;
+  }
+  .friends-top {
+    width: 100%;
+    height: 120px;
+  }
+  .list-friends-all,
+  .list-friends-delete,
+  .list-friends-online {
+    float: left;
+    margin: 0 15px 5px 0;
+  }
+  .list-friends-all button,
+  .list-friends-delete button,
+  .list-friends-online button {
+    width: 280px;
+  }
+  .block-off {
+    width: 280px;
+    margin-top: 5px;
+    text-align: center;
+    float: left;
+  }
 }

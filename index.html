@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
     <!--<link href="bower_components/angular-datatables/dist/datatables.bootstrap.css" rel="stylesheet">-->
     <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css"/>
-    <link rel="stylesheet" href="styles/main.css"/>
+    <!--<link rel="stylesheet" href="styles/main.css"/>-->
 
     <link rel="stylesheet" href="styles_new/main.css"/>
-
     <link rel="stylesheet" href="styles/components.css"/>
+
     <link rel="stylesheet" href="styles/gallery.css"/>
 
 
@@ -32,7 +32,7 @@
 
 </head>
 <body ng-controller="MainController">
-<header role="banner">
+<header role="banner" ng-show="!openAccess">
     <div id="header-inn">
         <!--<a href="#" id="top-logo">Блокнотик ВК</a>-->
         <span class="pseudo-menu">&#9776;</span>
@@ -163,7 +163,7 @@
 <section class="map-section section-main" ng-show="!openAccess">
     <div id="map_canvas"></div>
 </section><!-- .map-section -->
-<section class="main-contents" ng-show="openAccess">
+<section class="main-content" ng-show="openAccess">
     <ui-view></ui-view>
     <notificaton></notificaton>
 </section>
@@ -171,7 +171,7 @@
 
 
 
-<footer role="contentinfo" style="margin:50px;">
+<footer role="contentinfo" style="margin:100px;" ng-show="!openAccess">
     <div class="foo-inn">
         <nav id="bottom-menu">
             <a href="#services">Функционал</a><span>|</span>

@@ -3,34 +3,86 @@
     src: url(/fonts/9476.ttf); /* Путь к файлу со шрифтом */
 }
 
-body {
+@font-face {
+    font-family: LowerFat; /* Гарнитура шрифта */
+    src: url(/fonts/FirstFontLowerFat.ttf); /* Путь к файлу со шрифтом */
+}
+
+
+.main-content {
+    background-color:white;
+
+    height: 800px;
+    width: 1024px;
+    min-width: 320px;
+
+    margin:0 auto;
+    margin-top:100px;
+
+    border-radius: 20px;
+
+    -webkit-box-shadow:10px 5px 8px rgba(0,0,0,0.3);
+    -moz-box-shadow: 10px 5px 8px rgba(0,0,0,0.3);
+    box-shadow: 10px 5px 8px rgba(0,0,0,0.3);
+
+    // список друзей
+    &-friends {
+        width: 100%;
+
+        padding:20px;
+
+    }
 
 }
 
-// главная страница
-header {
-    position: relative;
+.friends-top {
+    width: 100%;
+    height: 40px;
 }
 
-footer {
-    clear: both;
+.list-friends {
+    &-all, &-delete, &-online {
+        float:left;
+        margin:0 15px 5px 0;
+    }
 }
 
-//блок список друзей
+.block-off {
+    float:right;
+}
+
+////блок список друзей
 .friends-content {
-    padding  : 35px;
-    width    : 100%;
+    margin-top :35px;
+    width      : 100%;
+
+    font-family: LowerFat;
 
     &-top {
 
     }
 
     &-middle {
-        padding : 0 45px;
         margin  : 20px 0;
     }
 
     &-bottom {
+
+    }
+}
+
+//поиск и кол-во друзей
+.friend-table-settings {
+
+    div {
+        font-family: Graffiti;
+    }
+
+    div:first-child {
+        margin-bottom: 10px;
+    }
+
+    &-caption {
 
     }
 }
@@ -75,11 +127,140 @@ footer {
     &-name {
         line-height: 50px;
         font-size:18px;
-        font-family: Graffity;
     }
 
     &-visit {
         line-height: 50px;
         font-weight: 800;
+        text-align: right;
+    }
+}
+
+//Media styles
+
+@media only screen and (max-width: 1400px) {
+    .main-content {
+//        width: 320px;
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+
+}
+
+@media only screen and (max-width: 1024px) {
+    .main-content {
+        width: 800px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .main-content {
+        width: 768px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .main-content {
+        width: 568px;
+    }
+
+    .block-off {
+        margin-top:5px;
+        text-align: center;
+        float:left;
+    }
+}
+
+@media only screen and (max-width: 568px) {
+    .main-content {
+        width: 480px;
+    }
+
+    .friends-top {
+        width: 100%;
+        height: 120px;
+    }
+
+    .list-friends {
+        &-all, &-delete, &-online {
+            float:left;
+            margin:0 15px 5px 0;
+
+            button {
+                width:420px;
+            }
+        }
+    }
+
+    .block-off {
+        width:340px;
+        margin-top:5px;
+        text-align: center;
+        float:left;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .main-content {
+        width: 320px;
+    }
+
+    .friends-top {
+        width: 100%;
+        height: 120px;
+    }
+
+    .list-friends {
+        &-all, &-delete, &-online {
+            float:left;
+            margin:0 15px 5px 0;
+
+            button {
+                width:280px;
+            }
+        }
+    }
+
+
+    .block-off {
+        width:280px;
+        margin-top:5px;
+        text-align: center;
+        float:left;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .main-content {
+        width: 320px;
+    }
+
+    .friends-top {
+        width: 100%;
+        height: 120px;
+    }
+
+    .list-friends {
+        &-all, &-delete, &-online {
+            float:left;
+            margin:0 15px 5px 0;
+
+            button {
+                width:280px;
+            }
+        }
+    }
+
+//    .friends-top {
+//        width: 100%;
+//        height: 100px;
+//    }
+
+    .block-off {
+        width:280px;
+        margin-top:5px;
+        text-align: center;
+        float:left;
     }
 }
