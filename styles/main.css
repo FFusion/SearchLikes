@@ -1,20 +1,12 @@
+.main-contents {
+  background-color: white;
+  height: 600px;
+  width: 900px;
+  min-width: 700px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
 body {
-  background: #edf1f4;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #edf1f4 17%, #6abef7 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(17%, #edf1f4), color-stop(100%, #6abef7));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #edf1f4 17%, #6abef7 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #edf1f4 17%, #6abef7 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #edf1f4 17%, #6abef7 100%);
-  /* IE10+ */
-  background: linear-gradient(to bottom, #edf1f4 17%, #6abef7 100%);
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#edf1f4', endColorstr='#6abef7', GradientType=0);
-  /* IE6-9 */
   height: 100vh;
   min-height: 900px;
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial;

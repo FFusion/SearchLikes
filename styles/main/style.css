@@ -106,7 +106,7 @@ body {
     -ms-text-size-adjust: 100%;
     font-family: 'Roboto', sans-serif;
     color: #000;
-    background: transparent url('../img/siniy_bg.jpg') no-repeat 50% 0;
+    background: transparent url('../../image/main/siniy_bg.jpg') no-repeat 50% 0;
     position: relative;
     min-height: 100%;
 }
@@ -473,22 +473,22 @@ a:hover {
     line-height: 30px;
 }
 .services-provide-block ul li.item-1 {
-    background: transparent url('../img/html6_sprite02.png') no-repeat 0 0;
+    background: transparent url('../../image/main/html6_sprite02.png') no-repeat 0 0;
 }
 .services-provide-block ul li.item-2 {
-    background: transparent url('../img/html6_sprite02.png') no-repeat 0 -474px;
+    background: transparent url('../../image/main/html6_sprite02.png') no-repeat 0 -474px;
 }
 .services-provide-block ul li.item-3 {
-    background: transparent url('../img/html6_sprite02.png') no-repeat 0 -948px;
+    background: transparent url('../../image/main/html6_sprite02.png') no-repeat 0 -948px;
 }
 .services-provide-block ul li.item-1.active {
-    background: transparent url('../img/html6_sprite02.png') no-repeat 0 -237px;
+    background: transparent url('../../image/main/html6_sprite02.png') no-repeat 0 -237px;
 }
 .services-provide-block ul li.item-2.active {
-    background: transparent url('../img/html6_sprite02.png') no-repeat 0 -711px;
+    background: transparent url('../../image/main/html6_sprite02.png') no-repeat 0 -711px;
 }
 .services-provide-block ul li.item-3.active {
-    background: transparent url('../img/html6_sprite02.png') no-repeat 0 -1185px;
+    background: transparent url('../../image/main/html6_sprite02.png') no-repeat 0 -1185px;
 }
 a.to-employee-btn {
     float: left;
@@ -642,7 +642,7 @@ a.to-employee-btn:hover {
 .services-main-title:before {
     content: '';
     display: block;
-    background: url(../img/html6_q_bg.png);
+    background: url(../../image/main/html6_q_bg.png);
     width: 39px;
     height: 30px;
     margin-left: -20px;
@@ -745,7 +745,7 @@ h2.resp-accordion {
     margin: 0;
     padding: 0 0 0 32px;
     line-height: 30px;
-    background: url('../img/html6_check.png') 0 11px no-repeat;
+    background: url('../../image/main/html6_check.png') 0 11px no-repeat;
 }
 /*
 .services-bottom-block:before{
@@ -942,7 +942,7 @@ ul.list-of-employee li p {
     display: block;
     text-indent: -9999px;
     position: absolute;
-    background: transparent url('../img/arrows-sprite.png') no-repeat 0 0;
+    background: transparent url('../../image/main/arrows-sprite.png') no-repeat 0 0;
     width: 13px;
     height: 26px;
     cursor: pointer;
@@ -1035,7 +1035,7 @@ ul.list-of-our-clients li:hover p {
 /*-------------------------Contacts--------------------------*/
 
 #contacts {
-    background: #515f67 url('../img/html6_contactus_bg.jpg') 50% 0 repeat;
+    background: #515f67 url('../../image/main/html6_contactus_bg.jpg') 50% 0 repeat;
     padding-bottom: 75px;
 }
 .contacts-info {
@@ -1081,13 +1081,13 @@ ul.contacts-address {
     background: transparent;
 }
 .contacts-address li:first-child + li {
-    background: url('../img/html6_sprite03.png') 0 4px no-repeat;
+    background: url('../../image/main/html6_sprite03.png') 0 4px no-repeat;
 }
 .contacts-address li:first-child + li + li {
-    background: url('../img/html6_sprite03.png') 0 -74px no-repeat;
+    background: url('../../image/main/html6_sprite03.png') 0 -74px no-repeat;
 }
 .contacts-address li:first-child + li + li + li {
-    background: url('../img/html6_sprite03.png') 0 -154px no-repeat;
+    background: url('../../image/main/html6_sprite03.png') 0 -154px no-repeat;
 }
 form.contact-form {
     display: block;
@@ -1150,7 +1150,7 @@ form.contact-form button[type="submit"] {
     text-transform: capitalize;
     padding: 10px 75px 10px 15px;
     border: 2px solid #b2b8bb;
-    background: transparent url('../img/comment.png') no-repeat 93% 14px;
+    background: transparent url('../../image/main/comment.png') no-repeat 93% 14px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
@@ -1163,7 +1163,7 @@ form.contact-form button[type="submit"]:hover {
     border-color: #fff;
     background-color: #fff;
     color: #4f5d65;
-    background-image: url('../img/comment-hover.png');
+    background-image: url('../../image/main/comment-hover.png');
 }
 form input[type="text"],
 form textarea {
@@ -1175,7 +1175,7 @@ form textarea:focus {
 }
 form input.error[type="text"],
 form textarea.error {
-    background: #6a5c62 url('../img/error.png') no-repeat 95% 15px;
+    background: #6a5c62 url('../../image/main/error.png') no-repeat 95% 15px;
 }
 div.success,
 div.loading {
@@ -1185,7 +1185,7 @@ div.loading {
 div.error {
     padding: 10px 0px 0px 28px;
     color: #fff;
-    background: transparent url('../img/error.png') no-repeat 0px 10px;
+    background: transparent url('../../image/main/error.png') no-repeat 0px 10px;
 }
 .map-section {
     height: 350px;
@@ -1294,13 +1294,13 @@ footer[role="contentinfo"] {
     text-align: center;
 }
 .navigation-fixed span.button-top {
-    background: transparent url('../img/btns-sprite.png') no-repeat 50% 25px;
+    background: transparent url('../../image/main/btns-sprite.png') no-repeat 50% 25px;
     margin-bottom: 20px;
     padding-bottom: 55px;
 }
 .navigation-fixed span.button-bottom {
     padding-top: 55px;
-    background: transparent url('../img/btns-sprite.png') no-repeat 50% -157px;
+    background: transparent url('../../image/main/btns-sprite.png') no-repeat 50% -157px;
 }
 /*-----------------------Media Queries-----------------------*/
 

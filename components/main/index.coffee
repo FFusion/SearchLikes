@@ -14,7 +14,7 @@ $(()->
         $page.stop().animate({scrollTop: y}, 'slow', 'swing');
 
 
-    $body.on('click', '#top-menu a , #bottom-menu a , .to-employee-btn', (e) ->
+    $body.on('click', '#top-menu a , #bottom-menu a , #about-us', (e) ->
         e.preventDefault();
         scrollToElement($(this).attr('href'));
     );
@@ -30,6 +30,7 @@ $(()->
 
     slideCount = $('#slider .slide').size();
     animSlide = (arrow) ->
+        console.log(42);
 #        clearTimeout(slideTime);
         if slideNum == arrow then return true;
         $('.slide').eq(slideNum).fadeOut(dSlideSpeed);
@@ -73,6 +74,7 @@ $(()->
     $(text).appendTo('#slider-wrap');
     $('.control-slide:first').addClass('active');
     $('.control-slide').click(() ->
+        console.log(4);
         goToNum = parseFloat($(this).text());
         animSlide(goToNum);
     );
@@ -119,11 +121,11 @@ $(()->
 
 
     rotatorAward = () ->
-#        if !twoPause
-#            awardSlideTime = setTimeout(
-#                ()->
-#                    awardSlide('next')
-#            awardTimeOut);
+        if !twoPause
+            awardSlideTime = setTimeout(
+                ()->
+                    awardSlide('next')
+            awardTimeOut);
 
     if awardNeedLinks
         $linkArrow = $('<span id="prewbutton">&nbsp;</span><span id="nextbutton">&nbsp;</span>').appendTo('.our-awards-slider');
@@ -135,14 +137,14 @@ $(()->
             awardSlide('prew');
         );
 
-#    $('.our-awards-slider').hover(
-#        ()->
-#            clearTimeout(awardSlideTime);
-#            twoPause = true;
-#        ()->
-#            twoPause = false;
-#    );
-#    rotatorAward();
+    $('.our-awards-slider').hover(
+        ()->
+            clearTimeout(awardSlideTime);
+            twoPause = true;
+        ()->
+            twoPause = false;
+    );
+    rotatorAward();
 
 #    Google map
     initialize = () ->

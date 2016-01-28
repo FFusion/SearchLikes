@@ -15,7 +15,7 @@ $(function() {
       scrollTop: y
     }, 'slow', 'swing');
   };
-  $body.on('click', '#top-menu a , #bottom-menu a , .to-employee-btn', function(e) {
+  $body.on('click', '#top-menu a , #bottom-menu a , #about-us', function(e) {
     e.preventDefault();
     return scrollToElement($(this).attr('href'));
   });
@@ -24,6 +24,7 @@ $(function() {
   slideNum = 0;
   slideCount = $('#slider .slide').size();
   animSlide = function(arrow) {
+    console.log(42);
     if (slideNum === arrow) {
       return true;
     }
@@ -57,6 +58,7 @@ $(function() {
   $('.control-slide:first').addClass('active');
   $('.control-slide').click(function() {
     var goToNum;
+    console.log(4);
     goToNum = parseFloat($(this).text());
     return animSlide(goToNum);
   });
@@ -87,7 +89,13 @@ $(function() {
     }
     return $('.award-img').eq(awardSlideNum).fadeIn(awardSlideSpeed, rotatorAward);
   };
-  rotatorAward = function() {};
+  rotatorAward = function() {
+    if (!twoPause) {
+      return awardSlideTime = setTimeout(function() {
+        return awardSlide('next');
+      }, awardTimeOut);
+    }
+  };
   if (awardNeedLinks) {
     $linkArrow = $('<span id="prewbutton">&nbsp;</span><span id="nextbutton">&nbsp;</span>').appendTo('.our-awards-slider');
     $('#nextbutton').click(function() {
@@ -97,6 +105,13 @@ $(function() {
       return awardSlide('prew');
     });
   }
+  $('.our-awards-slider').hover(function() {
+    clearTimeout(awardSlideTime);
+    return twoPause = true;
+  }, function() {
+    return twoPause = false;
+  });
+  rotatorAward();
   initialize = function() {
     var boxText, contentString, ib, image, marker, myMapOptions, myOptions, secheltLoc, theMap;
     secheltLoc = new google.maps.LatLng(54.10506, 45.10594);

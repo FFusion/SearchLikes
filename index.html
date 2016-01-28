@@ -1,144 +1,212 @@
 <!DOCTYPE html>
 <html ng-app="MainModule">
+<!--[if IE 8 ]>    <html lang="ru" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="ru" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>БлокнотVK</title>
-    <base href="/">
-    <link rel="shortcut icon" href="image/favicon.ico" />
-    <link rel="apple-touch-icon" href="image/iphone_icon.png" />
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>Блокнотик ВК</title>
+    <!--<link href="http://fonts.googleapis.com/css?family=Roboto:400,300,700" rel="stylesheet">-->
+
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic" rel='stylesheet'>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
     <!--<link href="bower_components/angular-datatables/dist/datatables.bootstrap.css" rel="stylesheet">-->
     <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css"/>
     <link rel="stylesheet" href="styles/main.css"/>
-    <!--<link rel="stylesheet" href="styles_new/main.css"/>-->
+
+    <link rel="stylesheet" href="styles_new/main.css"/>
+
     <link rel="stylesheet" href="styles/components.css"/>
     <link rel="stylesheet" href="styles/gallery.css"/>
-    <!--<link rel="stylesheet" href="styles/music.css"/>-->
+
+
+    <link type="text/css" rel="stylesheet" href="styles/main/style.css">
+    <!--<script src="js/jquery.min.js"> </script>-->
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"> </script><![endif]-->
+
 </head>
 <body ng-controller="MainController">
-<div class="index">
-    <div class="row index-navigation">
-        <div class="col-md-3 col-xs-3">
-            <span ng-click="selectMain()"><a ng-class="{'active':select == 'main'}">Главная</a></span>
+<header role="banner">
+    <div id="header-inn">
+        <!--<a href="#" id="top-logo">Блокнотик ВК</a>-->
+        <span class="pseudo-menu">&#9776;</span>
+        <nav id="top-menu" role="navigation">
+            <a href="#about-us">Функционал</a>
+            <!--<a href="#about-us">О нас</a>-->
+            <!--<a href="#our-employee">Команда</a>-->
+            <a href="#contacts">Контакты</a>
+        </nav><!-- #top-menu -->
+    </div><!-- #header-inn -->
+</header>
+
+<section id="services" class="section-main section" ng-show="!openAccess">
+    <div class="section-inn">
+        <div class="half-block f-left">
+            <div class="services-provide-block">
+                <h3>Блокнотик ВК</h3>
+                <ul>
+                    <li class="item-1 active">
+                        <strong>Друзья</strong>
+                        <p>Cписок пользователей Вконтакте в удобном формате с временем последнего посещения.</p>
+                    </li>
+                    <li class="item-2">
+                        <strong>Основной функционал</strong>
+                        <p>Кто кому поставил "лайк": поиск по стене и по фотографиям</p>
+                    </li>
+                    <li class="item-3">
+                        <strong>Дополнительно</strong>
+                        <p>Просмотр дополнительной информации о пользователях Вконтакте.</p>
+                    </li>
+                </ul>
+                <a href="#about-us" class="to-employee-btn">Подробнее</a>
+                <a href="{{url}}" class="to-employee-btn">Зайти через <b>Вконтакте</b></a>
+            </div><!-- .services-provide-block -->
+            <!--<div class="vk-open services-provide-block" ng-if="!openAccess">-->
+                <!--<div class="btn btn-open">-->
+                    <!--<a href="{{url}}">Вконтакте</a>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
-        <div class="col-md-1 col-xs-1"><span class="line-top"></span></div>
-        <div class="col-md-3 col-xs-3">
-            <span ng-click="selectProject()"><a ng-class="{'active':select == 'project'}">О проекте</a></span>
+        <div class="half-block f-right">
+            <div class="services-slider-block">
+                <div id="slider-wrap">
+                    <div id="slider">
+                        <figure class="slide"><img src="../../image/main/large-slides/slide.jpg" alt="Slide 1"></figure>
+                        <figure class="slide"><img src="../../image/main/large-slides/slide2.jpg" alt="Slide 2"></figure>
+                        <figure class="slide"><img src="../../image/main/large-slides/slide3.jpg" alt="Slide 3"></figure>
+                    </div><!-- #slider -->
+                </div><!-- #slider-wrap -->
+            </div><!-- .services-slider-block -->
         </div>
-        <div class="col-md-1 col-xs-1"><span class="line-top"></span></div>
-        <div class="col-md-3 col-xs-3">
-            <span ng-click="selectWishes()"><a ng-class="{'active':select == 'wishes'}">Пожелания</a></span>
+
+    </div><!-- .section-inn -->
+
+</section><!-- #services -->
+<div id="pets-bg">
+    <section id="about-us" class="section-main section" ng-show="!openAccess">
+        <div class="section-inn">
+            <h3 class="middle-title">Подробная <span>информация</span></h3>
+            <div class="middle-text">
+                <p>Блокнотик ВК - приложение, построенное на API социальной сети Вконтакте. Компактное и удобное представление списка ваших друзей, возможность посмотреть кто когда заходил, кто кому поставил лайк и не только.</p>
+            </div><!-- .middle-text -->
+            <div class="our-awards-wrap">
+                <div class="our-awards-slider">
+                    <img src="../../image/main/awards-slides/slide.jpg" alt="Award Name Slide 1" class="award-img">
+                    <img src="../../image/main/awards-slides/slide2.jpg" alt="Award Name Slide 2" class="award-img">
+                    <img src="../../image/main/awards-slides/slide3.jpg" alt="Award Name Slider 3" class="award-img">
+                </div><!-- .our-awards-slider -->
+                <div class="our-awards-text">
+                    <div id="html6-tab">
+                        <ul class="resp-tabs-list">
+                            <li>Друзья</li>
+                            <li>Основной функционал</li>
+                            <li>Дополнительно</li>
+                        </ul>
+                        <div class="resp-tabs-container">
+                            <div>
+                                <ul>
+                                    <li>Список ваших друзей</li>
+                                    <li>Время последнего посещения</li>
+                                    <li>Перемещение по всем спискам друзей</li>
+                                    <li>Простая навигация и интерфейс</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>Выбор пользователя</li>
+                                    <li>Поиск лайков на стене пользователя ВК</li>
+                                    <li>Поиск лайков среди фотографий пользователя ВК</li>
+                                    <li>Выбор пользователя, чьи лайки вы ищите</li>
+                                    <li>Результат поиска - фотографии или посты на стене</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>Альбомы</li>
+                                    <li>Фотографии</li>
+                                    <li>Видеозаписи</li>
+                                    <li>Подписчики</li>
+                                    <li>Общие друзья</li>
+                                    <li>Группы</li>
+                                </ul>
+                            </div>
+                        </div><!-- .resp-tabs-container -->
+                    </div><!-- #html6-tab -->
+                </div><!-- .our-awards-text -->
+            </div><!-- .our-awards-wrap -->
+        </div><!-- .section-inn -->
+    </section><!-- #about-us -->
+
+</div><!-- #pets-bg -->
+<section id="contacts" class="section-main section" ng-show="!openAccess">
+    <div class="section-inn">
+        <div class="contacts-info">
+            <strong>Свяжитесь <span>с нами</span></strong>
+            <p>Ждем ваши вопросы и комментарии</p>
         </div>
-    </div>
-    <hr>
-
-    <div class="index-main" ng-if="select == 'main'">
-        <!--ng-if="select == 'main'"-->
-        <div class="main-icon" ng-if="!openAccess">
-            <img src="image/logo-big.jpg" alt=""/>
-        </div>
-        <div class="row vk-open" ng-if="!openAccess">
-            <div class="btn btn-open">
-                <a href="{{url}}">Вконтакте</a>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="index-project" ng-if="select == 'project'">
-
-        <!--<div style="position: absolute; top: 50%; left: 50%; width: 500px; height: 50px; margin: -25px 0 0 -250px; font-size: 24px; font-weight: bold;">-->
-            <!--Данная страница в стадии разработки :)-->
-        <!--</div>-->
-        <div class="index-project-content">
-            <div class="index-project-content-item">
-                <div class="index-project-content-item-icon"><i class="ion-close"></i></div>
-                <div class="index-project-content-item-text">Совершая различные манипуляции, вы не Онлайн Вконтакте</div>
-            </div>
-            <div class="index-project-content-item">
-                <div class="index-project-content-item-icon"><i class="ion-ios-body"></i></div>
-                <div class="index-project-content-item-text">Cписок Ваших друзей в удобном формате с датой и временем последнего посещения</div>
-            </div>
-            <div class="index-project-content-item">
-                <div class="index-project-content-item-icon"><i class="ion-person-stalker"></i></div>
-                <div class="index-project-content-item-text">Получение дополнительной информации о Ваших друзьях и просмотр друзей Ваших друзей</div>
-            </div>
-            <div class="index-project-content-item">
-                <div class="index-project-content-item-icon"><i class="ion-heart"></i></div>
-                <div class="index-project-content-item-text">Кто кому поставил отметки "Мне нравится": поиск по стене и по фотографиям</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="index-wishes" ng-if="select == 'wishes'">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="control-label">ФИО (не обязательно)</label>
-                        <input type="text" class="form-control" ng-model="content.fio" name="Fio"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="control-label">
-                            Email
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input type="text" class="form-control" ng-model="content.email" name="Email"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="control-label">
-                            Отзыв (пожелание)
-                            <span class="text-danger">*</span>
-                        </label>
-                        <textarea type="text" class="form-control" ng-model="content.wish" name="Wish" style="height: 150px;">
-                        </textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <input type="submit" class="btn btn-wish" ng-click="sendWish()"/>
-            </div>
-    </div>
-
+        <form action="http://html6.com.ru/" method="post" class="contact-form">
+            <div class="f-right">
+                <input id="name" name="name" type="text" placeholder="Имя">
+                <input id="email" name="email" type="text" placeholder="E-mail">
+            </div><!-- .f-right -->
+            <textarea id="message" name="message" rows="5" cols="20" placeholder="Сообщение"></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+    </div><!-- .section-inn -->
+</section><!-- #contacts -->
+<section class="map-section section-main" ng-show="!openAccess">
+    <div id="map_canvas"></div>
+</section><!-- .map-section -->
+<section class="main-contents" ng-show="openAccess">
     <ui-view></ui-view>
+    <notificaton></notificaton>
+</section>
 
-</div>
-<notification></notification>
 
-<!--<div class="row">-->
-    <!--<div class="btn pull-right" ng-if="openAccess">-->
-        <!--<a href="#">Выйти</a>-->
-    <!--</div>-->
-<!--</div>-->
 
-<!--<div class="row" ng-if="openAccess">-->
-    <!--<div class="btn center-block">-->
-        <!--<button ng-click="sendMessage()">Отправить сообщение</button>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<div class="wrapper" ui-view fullbleed vertical layout></div>-->
-<!--<notification></notification>-->
-<!--<ng-include src="'views/main.html'"></ng-include>-->
+
+<footer role="contentinfo" style="margin:50px;">
+    <div class="foo-inn">
+        <nav id="bottom-menu">
+            <a href="#services">Функционал</a><span>|</span>
+            <a href="#contacts">Контакты</a>
+        </nav><!-- #bottom-menu -->
+        <p class="copyright">&copy; 2015-2016 Блокнотик ВК</p>
+    </div><!-- .foo-inn -->
+</footer>
+<div class="navigation-fixed">
+    <span class="button-top">Назад</span>
+    <span class="button-bottom">Вперед</span>
+</div><!-- .navigation-fixed -->
+
+<!--todo:разобраться со стилями - привести к единому стилю!!!-->
 
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+
 <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-<!--<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>-->
 
 
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"> </script>
+<script src="bower_components/libs/infobox.js"> </script>
+<script src="bower_components/libs/scrollspy.js"> </script>
+<script src="bower_components/libs/easyResponsiveTabs.js"> </script>
+<script src="components/main/index.js"> </script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#html6-tab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true, // 100% fit in a container
+        });
+    });
+</script>
 <script type="text/javascript" src="bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="bower_components/ng-table/dist/ng-table.js"></script>
 <script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
@@ -186,15 +254,3 @@
 <script type="text/javascript" src="config.js"></script>
 </body>
 </html>
-
-<!--полезные ссылки-->
-
-<!--http://plnkr.co/edit/ZpkgRhEAoUGlnXjbLb8b?p=preview-->
-<!--http://habrahabr.ru/post/221949/-->
-<!--http://habrahabr.ru/post/212405/-->
-<!--http://vk.com/dev/friends.get-->
-<!--http://vk.com/dev/auth_mobile-->
-<!--http://vk.com/dev/fields-->
-
-<!--процесс аунтефикации на php-->
-<!--http://ruseller.com/lessons.php?id=1659&rub=37-->
