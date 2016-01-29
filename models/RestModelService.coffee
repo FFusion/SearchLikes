@@ -84,13 +84,13 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         if currentTime.month != userTime.month then finishTime.month = monthArray[userTime.month - 1] else finishTime.currentMonth = monthArray[currentTime.month - 1];
         if currentTime.day != userTime.day
             if (parseFloat(currentTime.day) - parseFloat(userTime.day)) == 1
-                finishTime.day = "вчера"
+                finishTime.day = 'вчера'
             else
                 finishTime.day = userTime.day;
         if parseFloat(currentTime.hours) != parseFloat(userTime.hours)
             if (parseFloat(currentTime.hours) - parseFloat(userTime.hours) == 1) && !finishTime.day && !finishTime.month && !finishTime.year
 #                console.log(currentTime.hours);
-                finishTime.hours = "час назад"
+                finishTime.hours = 'час назад'
             else
                 finishTime.hours = userTime.hours;
         if parseFloat(currentTime.minute) != parseFloat(userTime.minute)
@@ -102,8 +102,8 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
     _getLastEntry: (object) ->
         #todo: не все обрабатывает корректно... подумать над условиями
         time = '';
-        if object.day == "вчера" then time = 'вчера в ' + object.hours + '.' + object.minute;
-        if object.hours == "час назад" && !angular.isDefined(object.day) && !angular.isDefined(object.month) then time = 'час назад';
+        if object.day == 'вчера' then time = 'вчера в ' + object.hours + '.' + object.minute;
+        if object.hours == 'час назад' && !angular.isDefined(object.day) && !angular.isDefined(object.month) then time = 'час назад';
         if object.minute && !angular.isDefined(object.hours) && !angular.isDefined(object.day) then time = object.minute + ' минут назад'
         if object.minute && object.hours && object.hours != 'час назад' && !angular.isDefined(object.day) && !angular.isDefined(object.month) && !angular.isDefined(object.year) then time = 'сегодня в ' + object.hours + '.' + object.minute;
         if object.minute && object.hours && object.day && object.day != 'вчера' && !angular.isDefined(object.year) && !angular.isDefined(object.month) then time = object.day + ' ' + object.currentMonth + ' в ' + object.hours + '.' + object.minute;

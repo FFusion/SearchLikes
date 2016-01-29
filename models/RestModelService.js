@@ -93,14 +93,14 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       }
       if (currentTime.day !== userTime.day) {
         if ((parseFloat(currentTime.day) - parseFloat(userTime.day)) === 1) {
-          finishTime.day = "вчера";
+          finishTime.day = 'вчера';
         } else {
           finishTime.day = userTime.day;
         }
       }
       if (parseFloat(currentTime.hours) !== parseFloat(userTime.hours)) {
         if ((parseFloat(currentTime.hours) - parseFloat(userTime.hours) === 1) && !finishTime.day && !finishTime.month && !finishTime.year) {
-          finishTime.hours = "час назад";
+          finishTime.hours = 'час назад';
         } else {
           finishTime.hours = userTime.hours;
         }
@@ -113,10 +113,10 @@ MainModule.factory('RestModel', function($q, $http, vk) {
     _getLastEntry: function(object) {
       var time;
       time = '';
-      if (object.day === "вчера") {
+      if (object.day === 'вчера') {
         time = 'вчера в ' + object.hours + '.' + object.minute;
       }
-      if (object.hours === "час назад" && !angular.isDefined(object.day) && !angular.isDefined(object.month)) {
+      if (object.hours === 'час назад' && !angular.isDefined(object.day) && !angular.isDefined(object.month)) {
         time = 'час назад';
       }
       if (object.minute && !angular.isDefined(object.hours) && !angular.isDefined(object.day)) {
