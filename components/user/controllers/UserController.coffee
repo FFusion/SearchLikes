@@ -2,12 +2,11 @@
 
 'use strict';
 
-UserModule.controller 'UserController', ($scope, $stateParams, $location, RestModel, Notification, LocalStorage, user, params) ->
+UserModule.controller 'UserController', ($scope, $stateParams, $location, $state, RestModel, Notification, LocalStorage, user, params) ->
 
     $scope.window = window;
     $scope.params = params;
     $scope.user = RestModel.isWorkingFriendsObject(user);
-    console.log(user);
 
     $scope.lastSeen = LocalStorage.getItem('last');
 
@@ -15,16 +14,20 @@ UserModule.controller 'UserController', ($scope, $stateParams, $location, RestMo
         $scope.window.history.back();
 
     $scope.home = () ->
-        $location.path('/friends');
+        $state.transitionTo('friends');
 
     $scope.checkWall = (user) ->
-        $location.path('/user/' + user.id + '/selected/wall');
+        $state.transitionTo('selected', {userId: user.id, type:'wall'});
 
 
     $scope.getUserFriends = (user) ->
-        $location.path('/user/' + user.id + '/friends');
+#        $location.path('/user/' + user.id + '/friends');
+        $state.transitionTo('user-friend', {userId: user.id});
 
 
     $scope.checkPhoto = (user) ->
-        $location.path('user/' + user.id + '/selected/photo');
+#        $location.path('user/' + user.id + '/selected/photo');
+        $state.transitionTo('selected', {userId: user.id, type:'photo'});
 
+        
+    console.log($scope.openAccess);

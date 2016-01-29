@@ -6,9 +6,6 @@ FriendsModule.controller('FriendsController', function($scope, $location, $windo
   $scope.params = $scope.params || LocalStorage.getItem('params');
   $scope.page = 1;
   $scope.pageSize = 7;
-  $scope.getUser = function(id) {
-    return $location.path('user/' + id);
-  };
   RestModel.getUserById($scope.params.user_id, $scope.params).then(function(data) {
     return $scope.currentUser = data.response[0];
   }, function(error) {

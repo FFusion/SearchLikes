@@ -10,17 +10,17 @@
   -moz-box-shadow: 10px 5px 8px rgba(0, 0, 0, 0.3);
   box-shadow: 10px 5px 8px rgba(0, 0, 0, 0.3);
 }
-.main-content-friends {
+.main-content-friends,
+.main-content-user {
   width: 100%;
   padding: 20px;
 }
-.friends-top {
+.friends-top,
+.user-top {
   width: 100%;
   height: 40px;
 }
-.list-friends-all,
-.list-friends-delete,
-.list-friends-online {
+.block-navigation-button {
   float: left;
   margin: 0 15px 5px 0;
 }
@@ -83,6 +83,11 @@
   line-height: 50px;
   text-align: right;
 }
+.user-name div:first-child {
+  font-family: Marck Script, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+}
 @media only screen and (max-width: 1024px) {
   .main-content {
     width: 800px;
@@ -102,6 +107,10 @@
     text-align: center;
     float: left;
   }
+  .user-photo,
+  .user-name {
+    width: 50%;
+  }
 }
 @media only screen and (max-width: 568px) {
   .main-content {
@@ -111,15 +120,11 @@
     width: 100%;
     height: 120px;
   }
-  .list-friends-all,
-  .list-friends-delete,
-  .list-friends-online {
+  .block-navigation-button {
     float: left;
     margin: 0 15px 5px 0;
   }
-  .list-friends-all button,
-  .list-friends-delete button,
-  .list-friends-online button {
+  .block-navigation-button button {
     width: 420px;
   }
   .block-off {
@@ -127,6 +132,10 @@
     margin-top: 5px;
     text-align: center;
     float: left;
+  }
+  .user-photo,
+  .user-name {
+    width: 50%;
   }
 }
 @media only screen and (max-width: 480px) {
@@ -137,15 +146,11 @@
     width: 100%;
     height: 120px;
   }
-  .list-friends-all,
-  .list-friends-delete,
-  .list-friends-online {
+  .block-navigation-button {
     float: left;
     margin: 0 15px 5px 0;
   }
-  .list-friends-all button,
-  .list-friends-delete button,
-  .list-friends-online button {
+  .block-navigation-button button {
     width: 280px;
   }
   .block-off {
@@ -159,6 +164,11 @@
   }
   .friend-content-bottom div:nth-child(2) {
     padding: 0;
+  }
+  .user-photo,
+  .user-name {
+    width: 100%;
+    text-align: center;
   }
 }
 @media only screen and (max-width: 320px) {
@@ -169,15 +179,11 @@
     width: 100%;
     height: 120px;
   }
-  .list-friends-all,
-  .list-friends-delete,
-  .list-friends-online {
+  .block-navigation-button {
     float: left;
     margin: 0 15px 5px 0;
   }
-  .list-friends-all button,
-  .list-friends-delete button,
-  .list-friends-online button {
+  .block-navigation-button button {
     width: 280px;
   }
   .block-off {
@@ -191,5 +197,10 @@
   }
   .friend-content-bottom div:nth-child(2) {
     padding: 0;
+  }
+  .user-photo,
+  .user-name {
+    width: 100%;
+    text-align: center;
   }
 }

@@ -1,13 +1,13 @@
 <div class="main-content-friends" ng-if="openAccess">
     <!--Блок кнопок-->
     <div class="friends-top">
-        <div class="list-friends-all">
+        <div class="block-navigation-button">
             <button class="btn btn-friend" ng-click="getListFriends()">Список друзей</button>
         </div>
-        <div class="list-friends-online" ng-if="friends">
+        <div class="block-navigation-button" ng-if="friends">
             <button class="btn btn-online" ng-click="getListFriendsOnlineOrDelete('online')">Друзья онлайн</button>
         </div>
-        <div class="list-friends-delete" ng-if="friends">
+        <div class="block-navigation-button" ng-if="friends">
             <button class="btn btn-delete" ng-click="getListFriendsOnlineOrDelete('delete')">Удалены</button>
         </div>
         <div class="block-off">

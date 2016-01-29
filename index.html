@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <title>Блокнотик ВК</title>
-
+    <base href="/">
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic" rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Marck+Script&subset=latin,cyrillic,latin-ext' rel='stylesheet' type='text/css'>
 
@@ -34,12 +34,9 @@
 <body ng-controller="MainController">
 <header role="banner" ng-show="!openAccess">
     <div id="header-inn">
-        <!--<a href="#" id="top-logo">Блокнотик ВК</a>-->
         <span class="pseudo-menu">&#9776;</span>
         <nav id="top-menu" role="navigation">
             <a href="#about-us">Функционал</a>
-            <!--<a href="#about-us">О нас</a>-->
-            <!--<a href="#our-employee">Команда</a>-->
             <a href="#contacts">Контакты</a>
         </nav><!-- #top-menu -->
     </div><!-- #header-inn -->
@@ -66,12 +63,7 @@
                 </ul>
                 <a href="#about-us" class="to-employee-btn">Подробнее</a>
                 <a href="{{url}}" class="to-employee-btn">Зайти через <b>Вконтакте</b></a>
-            </div><!-- .services-provide-block -->
-            <!--<div class="vk-open services-provide-block" ng-if="!openAccess">-->
-                <!--<div class="btn btn-open">-->
-                    <!--<a href="{{url}}">Вконтакте</a>-->
-                <!--</div>-->
-            <!--</div>-->
+            </div>
         </div>
         <div class="half-block f-right">
             <div class="services-slider-block">
@@ -144,7 +136,7 @@
     </section><!-- #about-us -->
 
 </div><!-- #pets-bg -->
-<section id="contacts" class="section-main section" ng-show="!openAccess">
+<section id="contacts" class="section-main section" ng-if="!openAccess">
     <div class="section-inn">
         <div class="contacts-info">
             <strong>Свяжитесь <span>с нами</span></strong>
@@ -160,7 +152,7 @@
         </form>
     </div><!-- .section-inn -->
 </section><!-- #contacts -->
-<section class="map-section section-main" ng-show="!openAccess">
+<section class="map-section section-main" ng-if="!openAccess">
     <div id="map_canvas"></div>
 </section><!-- .map-section -->
 <section class="main-content" ng-show="openAccess">
@@ -171,7 +163,7 @@
 
 
 
-<footer role="contentinfo" style="margin:100px;" ng-show="!openAccess">
+<footer role="contentinfo" style="margin:100px;" ng-if="!openAccess">
     <div class="foo-inn">
         <nav id="bottom-menu">
             <a href="#services">Функционал</a><span>|</span>
@@ -188,7 +180,7 @@
 <!--todo:разобраться со стилями - привести к единому стилю!!!-->
 
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
-
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
 <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 
 
@@ -196,7 +188,7 @@
 <script src="bower_components/libs/infobox.js"> </script>
 <script src="bower_components/libs/scrollspy.js"> </script>
 <script src="bower_components/libs/easyResponsiveTabs.js"> </script>
-<script src="components/main/index.js"> </script>
+<script src="components/main/main.js"> </script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -207,7 +199,6 @@
         });
     });
 </script>
-<script type="text/javascript" src="bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="bower_components/ng-table/dist/ng-table.js"></script>
 <script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
 <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>

@@ -13,8 +13,8 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $stat
     $scope.page = 1;
     $scope.pageSize = 7;
 
-    $scope.getUser = (id) ->
-        $location.path('user/' + id);
+#    $scope.getUser = (id) ->
+#        $location.path('user/' + id);
 
     # запрос на получение текущего пользователя, кто авторизовался
     RestModel.getUserById($scope.params.user_id, $scope.params).then(

@@ -16,8 +16,7 @@
     -moz-box-shadow: 10px 5px 8px rgba(0,0,0,0.3);
     box-shadow: 10px 5px 8px rgba(0,0,0,0.3);
 
-    // список друзей
-    &-friends {
+    &-friends, &-user {
         width: 100%;
 
         padding:20px;
@@ -26,17 +25,16 @@
 
 }
 
-.friends-top {
+.friends-top, .user-top {
     width: 100%;
     height: 40px;
 }
 
-.list-friends {
-    &-all, &-delete, &-online {
-        float:left;
-        margin:0 15px 5px 0;
-    }
+.block-navigation-button {
+    float:left;
+    margin:0 15px 5px 0;
 }
+
 
 .block-off {
     float:right;
@@ -131,6 +129,18 @@
     }
 }
 
+//USER
+.user-name {
+    div:first-child {
+        font-family: Marck Script, sans-serif;
+        font-size: 36px;
+        font-weight: 700;
+    }
+//    span:last-child {
+//        font-size: 24px;
+//    }
+}
+
 //Media styles
 
 @media only screen and (max-width: 1400px) {
@@ -165,6 +175,12 @@
         text-align: center;
         float:left;
     }
+
+    .user-photo, .user-name {
+        width: 50%;
+    }
+
+
 }
 
 @media only screen and (max-width: 568px) {
@@ -177,16 +193,15 @@
         height: 120px;
     }
 
-    .list-friends {
-        &-all, &-delete, &-online {
-            float:left;
-            margin:0 15px 5px 0;
+    .block-navigation-button {
+        float:left;
+        margin:0 15px 5px 0;
 
-            button {
-                width:420px;
-            }
+        button {
+            width:420px;
         }
     }
+
 
     .block-off {
         width:340px;
@@ -194,6 +209,11 @@
         text-align: center;
         float:left;
     }
+
+    .user-photo, .user-name {
+        width: 50%;
+    }
+
 }
 
 @media only screen and (max-width: 480px) {
@@ -206,14 +226,12 @@
         height: 120px;
     }
 
-    .list-friends {
-        &-all, &-delete, &-online {
-            float:left;
-            margin:0 15px 5px 0;
+    .block-navigation-button {
+        float:left;
+        margin:0 15px 5px 0;
 
-            button {
-                width:280px;
-            }
+        button {
+            width:280px;
         }
     }
 
@@ -233,6 +251,11 @@
             padding: 0;
         }
     }
+
+    .user-photo, .user-name {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 @media only screen and (max-width: 320px) {
@@ -245,16 +268,15 @@
         height: 120px;
     }
 
-    .list-friends {
-        &-all, &-delete, &-online {
-            float:left;
-            margin:0 15px 5px 0;
+    .block-navigation-button {
+        float:left;
+        margin:0 15px 5px 0;
 
-            button {
-                width:280px;
-            }
+        button {
+            width:280px;
         }
     }
+
 
 //    .friends-top {
 //        width: 100%;
@@ -274,5 +296,10 @@
         div:nth-child(2) {
             padding: 0;
         }
+    }
+
+    .user-photo, .user-name {
+        width: 100%;
+        text-align: center;
     }
 }
