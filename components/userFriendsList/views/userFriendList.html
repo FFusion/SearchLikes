@@ -1,39 +1,35 @@
 <div class="main-content-friends" ng-if="openAccess">
     <!--Блок кнопок-->
     <div class="friends-top">
+        <div class="userFriend-title">
+            {{'Друзья -  ' + currentUser.first_name + ' ' + currentUser.last_name}}
+        </div>
         <div class="block-navigation-button">
+            <button class="btn btn-back" ng-click="back()">Назад</button>
+        </div>
+        <div class="block-navigation-button" ng-if="userFriendsArray">
             <button class="btn btn-friend" ng-click="getListFriends()">Список друзей</button>
         </div>
-        <div class="block-navigation-button" ng-if="friends">
+        <div class="block-navigation-button" ng-if="userFriends">
             <button class="btn btn-online" ng-click="getListFriendsOnlineOrDelete('online')">Друзья онлайн</button>
         </div>
-        <div class="block-navigation-button" ng-if="friends">
+        <div class="block-navigation-button" ng-if="userFriends">
             <button class="btn btn-delete" ng-click="getListFriendsOnlineOrDelete('delete')">Удалены</button>
         </div>
-        <div class="block-off">
-            <!--<button class="btn btn-off" ng-click="signOff()">Выход</button>-->
-            {{currentUser.first_name + ' ' + currentUser.last_name}}
-            <a ng-href="/login" ng-click="signOff()">,  выход</a>
+        <div class="block-navigation-button">
+            <button class="btn btn-home" ng-click="home()">На главную</button>
         </div>
-    </div>
-
-
-
-    <div ng-if="!openTableOnline && !openTable">
-        <span class="caption-main">
-            Нажми на кнопку "Список друзей" :)
-        </span>
     </div>
 
     <!--друзья онлайн-->
 
-    <div class="friends-content" ng-if="openTableOnline">
+    <div class="friends-content" ng-if="userFriendsArray">
         <div class="friends-content-top">
             <!--поиск-->
             <!--кол во друзей-->
             <div class="friend-table-settings">
                 <div>
-                    <div class="friend-table-settings-caption"> <span>Друзей: {{friendsArray.length}}</span></div>
+                    <div class="friend-table-settings-caption"> <span>Друзей: {{userFriendsArray.length}}</span></div>
                     <!--<div style="line-height: 42px;">{{friendsArray.length}}</div>-->
                 </div>
                 <div>
@@ -42,7 +38,7 @@
             </div>
         </div>
         <div class="friends-content-middle">
-            <div class="friends-item row" ng-repeat="user in friendsArray" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-click="more(user)">
+            <div class="friends-item row" ng-repeat="user in userFriendsArray" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-click="more(user)">
                 <div class="friends-item-photo col-md-2 col-xs-2">
                     <img src="{{user.photo_50}}" alt="ПользовательВк"/>
                 </div>
@@ -71,7 +67,7 @@
     </div>
 
     <!--друзья-->
-    <div class="friends-content" ng-if="openTable">
+    <div class="friends-content" ng-if="!userFriendsArray">
         <div class="friends-content-top">
             <!--поиск-->
             <!--кол во друзей-->
@@ -85,7 +81,7 @@
             </div>
         </div>
         <div class="friends-content-middle">
-            <div class="friends-item row" ng-repeat="user in friends | orderBy:predicate:reverse | filter:userFilter" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-click="more(user)">
+            <div class="friends-item row" ng-repeat="user in userFriends | orderBy:predicate:reverse | filter:userFilter" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-click="more(user)">
                 <div class="friends-item-photo col-md-2 col-xs-2">
                     <img src="{{user.photo_50}}" alt="ПользовательВк"/>
                 </div>

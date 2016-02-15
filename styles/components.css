@@ -62,14 +62,12 @@
 .btn-checkLikes,
 .btn-userFriends,
 .btn-checkPhoto {
-  margin-left: 10px;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 .btn-select {
-  float: right;
-  width: 155px;
+  width: 50%;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 .btn-next {
   float: right;
@@ -382,4 +380,7 @@
     margin: 0 0 0 -100px;
     font-size: 16px;
   }
+}
+.empty {
+  opacity: 0.4;
 }

@@ -2,11 +2,15 @@
 
 'use strict';
 
-UserModule.controller 'UserController', ($scope, $stateParams, $location, $state, RestModel, Notification, LocalStorage, user, params) ->
+UserModule.controller 'UserController', ($scope, $stateParams, $location, $state, RestModel, Notification, UserModel, LocalStorage, user, params) ->
 
     $scope.window = window;
     $scope.params = params;
+
     $scope.user = RestModel.isWorkingFriendsObject(user);
+
+    #семейное положение
+    $scope.relationStatus = if $scope.user.relation then UserModel.relationStatus[$scope.user.relation].name else null;
 
     $scope.lastSeen = LocalStorage.getItem('last');
 

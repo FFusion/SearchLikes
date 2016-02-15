@@ -15,7 +15,7 @@ $(function() {
       scrollTop: y
     }, 'slow', 'swing');
   };
-  $body.on('click', '#top-menu a , #bottom-menu a , #about-us', function(e) {
+  $body.on('click', '#top-menu a , #bottom-menu a', function(e) {
     e.preventDefault();
     return scrollToElement($(this).attr('href'));
   });
@@ -24,7 +24,6 @@ $(function() {
   slideNum = 0;
   slideCount = $('#slider .slide').size();
   animSlide = function(arrow) {
-    console.log(42);
     if (slideNum === arrow) {
       return true;
     }

@@ -14,7 +14,7 @@ $(()->
         $page.stop().animate({scrollTop: y}, 'slow', 'swing');
 
 
-    $body.on('click', '#top-menu a , #bottom-menu a , #about-us', (e) ->
+    $body.on('click', '#top-menu a , #bottom-menu a', (e) ->
         e.preventDefault();
         scrollToElement($(this).attr('href'));
     );
@@ -23,25 +23,15 @@ $(()->
     dSlideSpeed = 50;
     $adderSpan = '';
     slideNum = 0;
-#    dTimeOut = 8000;
-#    dNeedLinks = false;
-#    slideTime = '';
-#    onePause = false;
 
     slideCount = $('#slider .slide').size();
     animSlide = (arrow) ->
-        console.log(42);
 #        clearTimeout(slideTime);
         if slideNum == arrow then return true;
         $('.slide').eq(slideNum).fadeOut(dSlideSpeed);
-#        if arrow == 'next'
-#            if slideNum == (slideCount-1) then slideNum=0 else slideNum++;
-#        else if arrow == 'prew'
-#            if slideNum == 0 then slideNum=slideCount-1 else slideNum-=1;
-#        else
+
         slideNum = arrow;
 
-#        $('.slide').eq(slideNum).addClass('flip').siblings().removeClass('flip');
         $('.slide').eq(slideNum).fadeIn(dSlideSpeed, rotator);
         $('.control-slide.active').removeClass('active');
         $('.control-slide').eq(slideNum).addClass('active');
@@ -59,11 +49,6 @@ $(()->
                 slider.css('height', imgH + 'px');
 
     rotator = () ->
-#        if !onePause
-#            slideTime = setTimeout(
-#                ()->
-#                    animSlide('next')
-#            dTimeOut);
 
     $('.slide').each((index)->
         $adderSpan += '<span class = "control-slide">' + index + '</span>'
@@ -79,18 +64,6 @@ $(()->
         animSlide(goToNum);
     );
 
-#    $('#slider-wrap').hover(
-#        ()->
-#            clearTimeout(slideTime);
-#            onePause = true;
-#            return true;
-#        ()->
-#            onePause = false;
-#            rotator();
-#            return true;
-#    );
-
-#    rotator();
 
 #    Awards slider
     awardSlideSpeed = 600;

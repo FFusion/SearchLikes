@@ -2,14 +2,14 @@
 
 'use strict';
 
-UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $stateParams, RestModel, LocalStorage, params) ->
+UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state, $stateParams, RestModel, LocalStorage, params) ->
 
     $scope.stateParams = $stateParams;
     $scope.window = window;
     $scope.params = params;
 
     $scope.page = 1;
-    $scope.pageSize = 10;
+    $scope.pageSize = 7;
 
     $scope.userId = $scope.stateParams.userId;
 
@@ -17,7 +17,7 @@ UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state
         $scope.window.history.back();
 
     $scope.home = () ->
-        $location.path('/friends');
+        $state.transitionTo('friends');
 
     $scope.userFriendsArray = null;
 
@@ -32,6 +32,7 @@ UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state
         (data)->
             $scope.countFriends = data.response.count;
             $scope.userFriends = RestModel.isWorkingFriendsObject(data);
+            $scope.userFriendsArray = null;
         (error) ->
             console.log(error);
 
@@ -46,3 +47,4 @@ UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state
 
     $scope.more = (user) ->
         LocalStorage.setItem('last', user.last_seen);
+        $state.transitionTo('user', {userId: user.id});

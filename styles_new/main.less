@@ -1,9 +1,17 @@
+html {
+    height:100%;
+}
 
+h3 {
+    margin-top:0;
+    padding-top:0;
+}
 
 .main-content {
     background-color:white;
 
     min-height: 800px;
+    height:1px;
     width: 1024px;
     min-width: 320px;
 
@@ -18,7 +26,7 @@
 
     &-friends, &-user {
         width: 100%;
-
+        height: 100%;
         padding:20px;
 
     }
@@ -76,7 +84,7 @@
 }
 
 //отдельный user блока список друзей
-.friends-item {
+.friends-item, .user-more-item {
     margin:10px 0px;
     padding:7px;
     -webkit-box-shadow:0 2px 6px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -130,6 +138,20 @@
 }
 
 //USER
+.user-bottom {
+    &-content {
+        div {
+            margin-bottom: 5px;
+
+            button {
+                width: 100%;
+            }
+        }
+
+
+    }
+}
+
 .user-name {
     div:first-child {
         font-family: Marck Script, sans-serif;
@@ -141,12 +163,62 @@
 //    }
 }
 
+.user-info {
+    &-title {
+        opacity: 0.7;
+        font-style: italic;
+        margin: 0 0 5px 0;
+    }
+}
+
+.user-more {
+
+    &-item {
+        min-height: 25px;
+        width: 100%;
+        margin:0 0 15px 0;
+        padding:10px;
+        text-align: center;
+        font-style:italic;
+
+        span:first-child {
+            margin-right: 10px;
+            color:#6383a8;
+        }
+
+        span:nth-child(2) {
+            margin-right: 10px;
+            opacity: 0.7;
+            font-size: 1.1em;
+        }
+
+        span:last-child {
+            font-size: 1.2em;
+        }
+    }
+
+    i {
+        font-size: 24px;
+    }
+}
+
+
+//UserFriend
+
+.userFriend {
+    &-title {
+        font-weight: 700;
+        font-size: 1.2em;
+        margin:10px 0px 10px 0px;
+    }
+}
 //Media styles
 
 @media only screen and (max-width: 1400px) {
     .main-content {
 //        width: 320px;
     }
+
 }
 
 @media only screen and (max-width: 1199px) {
@@ -157,12 +229,14 @@
     .main-content {
         width: 800px;
     }
+
 }
 
 @media only screen and (max-width: 800px) {
     .main-content {
         width: 768px;
     }
+
 }
 
 @media only screen and (max-width: 768px) {
@@ -186,6 +260,7 @@
 @media only screen and (max-width: 568px) {
     .main-content {
         width: 480px;
+        min-height: 1280px;
     }
 
     .friends-top {
@@ -219,6 +294,7 @@
 @media only screen and (max-width: 480px) {
     .main-content {
         width: 320px;
+        min-height: 1280px;
     }
 
     .friends-top {
@@ -256,11 +332,15 @@
         width: 100%;
         text-align: center;
     }
+//    .user-bottom-content div {
+//        text-align: center !important;
+//    }
 }
 
 @media only screen and (max-width: 320px) {
     .main-content {
         width: 320px;
+        min-height: 1280px;
     }
 
     .friends-top {

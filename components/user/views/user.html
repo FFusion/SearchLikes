@@ -14,13 +14,100 @@
                 <img src={{user.photo_200_orig}} alt=""/>
             </div>
             <div class="col-md-8 col-sm-8 col-xs-12 user-name">
-                <div>{{user.first_name + ' ' + user.last_name}}</div>
-                <!--todo:по id определять шутливо статус пользователя-->
-                <div style="margin-top:15px">Старожил контакта - иконка</div>
-                <div style="margin-top:15px">Живет в {{user.city.title}}</div>
-                <!--todo: с кем встречается (тоже шутливо)-->
+                <h3>{{user.first_name + ' ' + user.last_name + ' ( id: ' + user.id + ' )'}}</h3>
+                <div class="user-info">
+                   <p ng-if="user.status">{{user.status}}</p>
+                   <p ng-if="user.city.title"><span class="user-info-title">Проживание: </span>{{user.city.title}}</p>
+                   <p ng-if="user.bdate"><span class="user-info-title">Дата рождения: </span>{{user.bdate}}</p>
+                </div>
+                <div class="user-info">
+                    <p ng-if="user.relation">
+                        <span class="user-info-title">Семейное положение: </span>
+                        <span>{{relationStatus}}</span>
+                        <span ng-if="user.relation_partner">{{user.relation_partner.first_name + ' ' + user.relation_partner.last_name}}</span>
+                    </p>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <hr>
+        <div class="row user-more">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="user-more-item" ng-class="{empty:!user.counters.followers}">
+                    <span class="tooltips"><i class="ion-images"></i><em>Подписчики<i></i></em></span>
+                    <span>Подписчики</span>
+                    <span>{{user.counters.followers}}</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="user-more-item" ng-class="{empty:!user.counters.mutual_friends}">
+                    <span class="tooltips"><i class="ion-images"></i><em>Общие друзья<i></i></em></span>
+                    <span>Общие друзья</span>
+                    <span>{{user.counters.mutual_friends}}</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="user-more-item" ng-class="{empty:!user.counters.photos}">
+                    <span class="tooltips"><i class="ion-images"></i><em>Фотографии<i></i></em></span>
+                    <span>Фотографии</span>
+                    <span>{{user.counters.photos}}</span>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="row user-more">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="user-more-item" ng-class="{empty:!user.counters.albums}">
+                    <span class="tooltips"><i class="ion-images"></i><em>Альбомы<i></i></em></span>
+                    <span>Альбомы </span>
+                    <span>{{user.counters.albums}}</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="user-more-item" ng-class="{empty:!user.counters.audios}">
+                    <span class="tooltips"><i class="ion-images"></i><em>Аудиозаписи<i></i></em></span>
+                    <span>Аудиозаписи</span>
+                    <span>{{user.counters.audios}}</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="user-more-item" ng-class="{empty:!user.counters.videos}">
+                    <span class="tooltips"><i class="ion-images"></i><em>Видеозаписи<i></i></em></span>
+                    <span>Видеозаписи</span>
+                    <span>{{ user.counters.videos}}</span>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="row user-more">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="user-more-item" ng-class="{empty:!user.counters.notes}">
+                    <span class="tooltips"><i class="ion-images"></i><em>Заметки<i></i></em></span>
+                    <span>Заметки</span>
+                    <span>{{user.counters.notes}}</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="user-more-item" ng-class="{empty:!user.counters.groups}">
+                    <span class="tooltips"><i class="ion-images"></i><em>Группы<i></i></em></span>
+                    <span>Группы</span>
+                    <span>{{user.counters.groups}}</span>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="user-bottom">
+        <div class="row user-bottom-content">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <button class="btn btn-checkLikes" ng-click="checkWall(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  на стене</button>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <button class="btn btn-checkPhoto" ng-click="checkPhoto(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  по фото</button>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <button class="btn btn-userFriends" ng-click="getUserFriends(user)" ng-disabled="user.deactivated">Список друзей <i class="ion-ios-people"></i></button>
             </div>
         </div>
     </div>
-    <div class="user-bottom"></div>
 </div>

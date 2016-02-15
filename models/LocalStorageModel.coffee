@@ -1,3 +1,5 @@
+'use strict'
+
 MainModule.factory 'LocalStorage', () ->
     class LocalStorage
 

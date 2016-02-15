@@ -1,6 +1,14 @@
+html {
+  height: 100%;
+}
+h3 {
+  margin-top: 0;
+  padding-top: 0;
+}
 .main-content {
   background-color: white;
   min-height: 800px;
+  height: 1px;
   width: 1024px;
   min-width: 320px;
   margin: 0 auto;
@@ -13,6 +21,7 @@
 .main-content-friends,
 .main-content-user {
   width: 100%;
+  height: 100%;
   padding: 20px;
 }
 .friends-top,
@@ -37,7 +46,8 @@
 .friend-table-settings div:first-child {
   margin-bottom: 10px;
 }
-.friends-item {
+.friends-item,
+.user-more-item {
   margin: 10px 0px;
   padding: 7px;
   -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -46,7 +56,9 @@
   cursor: pointer;
 }
 .friends-item:after,
-.friends-item :before {
+.user-more-item:after,
+.friends-item :before,
+.user-more-item :before {
   z-index: -1;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
@@ -54,39 +66,84 @@
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
-.friends-item:after {
+.friends-item:after,
+.user-more-item:after {
   webkit-transform: skew(8deg) rotate(3deg);
   -moz-transform: skew(8deg) rotate(3deg);
   -ms-transform: skew(8deg) rotate(3deg);
   -o-transform: skew(8deg) rotate(3deg);
   transform: skew(8deg) rotate(3deg);
 }
-.friends-item:hover {
+.friends-item:hover,
+.user-more-item:hover {
   box-shadow: 0 5px 12px rgba(60, 82, 95, 0.55);
 }
-.friends-item-photo {
+.friends-item-photo,
+.user-more-item-photo {
   padding-left: 5px;
 }
-.friends-item-photo img {
+.friends-item-photo img,
+.user-more-item-photo img {
   width: 50px;
   height: 50px;
 }
-.friends-item-name {
+.friends-item-name,
+.user-more-item-name {
   font-family: Marck Script, sans-serif;
   font-size: 18px;
   line-height: 50px;
 }
-.friends-item-visit {
+.friends-item-visit,
+.user-more-item-visit {
   font-family: Marck Script, sans-serif;
   font-size: 20px;
   font-weight: 800;
   line-height: 50px;
   text-align: right;
 }
+.user-bottom-content div {
+  margin-bottom: 5px;
+}
+.user-bottom-content div button {
+  width: 100%;
+}
 .user-name div:first-child {
   font-family: Marck Script, sans-serif;
   font-size: 36px;
   font-weight: 700;
+}
+.user-info-title {
+  opacity: 0.7;
+  font-style: italic;
+  margin: 0 0 5px 0;
+}
+.user-more-item {
+  min-height: 25px;
+  width: 100%;
+  margin: 0 0 15px 0;
+  padding: 10px;
+  text-align: center;
+  font-style: italic;
+}
+.user-more-item span:first-child {
+  margin-right: 10px;
+  color: #6383a8;
+}
+.user-more-item span:nth-child(2) {
+  margin-right: 10px;
+  opacity: 0.7;
+  font-size: 1.1em;
+}
+.user-more-item span:last-child {
+  font-size: 1.2em;
+}
+.user-more i {
+  font-size: 24px;
+}
+.userFriend-title {
+  font-weight: 700;
+  font-size: 1.2em;
+  margin: 10px 0px 10px 0px;
 }
 @media only screen and (max-width: 1024px) {
   .main-content {
@@ -115,6 +172,7 @@
 @media only screen and (max-width: 568px) {
   .main-content {
     width: 480px;
+    min-height: 1280px;
   }
   .friends-top {
     width: 100%;
@@ -141,6 +199,7 @@
 @media only screen and (max-width: 480px) {
   .main-content {
     width: 320px;
+    min-height: 1280px;
   }
   .friends-top {
     width: 100%;
@@ -174,6 +233,7 @@
 @media only screen and (max-width: 320px) {
   .main-content {
     width: 320px;
+    min-height: 1280px;
   }
   .friends-top {
     width: 100%;
