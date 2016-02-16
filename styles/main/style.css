@@ -432,7 +432,7 @@ a:hover {
 /*-------------------------Services-------------------------*/
 
 .services-provide-block {
-    padding: 115px 0 0 0;
+    padding: 35px 0 0 0;
     position: relative;
 }
 .services-provide-block h3:first-child {
@@ -533,7 +533,7 @@ a.to-employee-btn:hover {
 }
 #slider .slide img {
     max-width: 100%;
-    border-radius: 50%;
+    border-radius: 10%;
 }
 #slider .slide:first-child {
     display: block;

@@ -81,7 +81,7 @@
 </div>
 <div class="container slider" ng-if="likePhotos.length > 0 && !process">
     <!-- enumerate all photos -->
-    <img ng-repeat="photo in likePhotos" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-src="{{photo.instance.photo_604}} " ng-click="increasePhoto(photo)" />
+    <img ng-repeat="photo in likePhotos" class="slides" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-src="{{photo.instance.photo_604}} " ng-click="increasePhoto(photo)" />
     <!-- prev / next controls -->
     <button class="btn arrow prev" href="#" ng-click="showPrev()" ng-disabled="page == 1">
         <i class="ion-ios-rewind"></i>
