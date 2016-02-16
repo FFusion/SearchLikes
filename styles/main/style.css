@@ -106,7 +106,7 @@ body {
     -ms-text-size-adjust: 100%;
     font-family: 'Roboto', sans-serif;
     color: #000;
-    background: transparent url('../../image/main/siniy_bg.jpg') no-repeat 50% 0;
+    background: transparent url('../../image/main/siniy_bg.jpg') repeat-y 50% 0;
     position: relative;
     min-height: 100%;
 }
@@ -564,7 +564,7 @@ a.to-employee-btn:hover {
     margin-left: 0;
 }
 .sli-links .control-slide.active {
-    background-color: #BB3C3C;
+    background-color: #6383a8;
 }
 #slider .slide.flip {
     -webkit-transform-origin: 50% 50%;
@@ -715,9 +715,9 @@ h2.resp-accordion:hover {
 
 .resp-tabs-list li.resp-tab-active,
 h2.resp-accordion.resp-tab-active {
-    background: #377AAF;
+    background: #6383a8;
     color: #fff;
-    border: 2px solid #377AAF;
+    border: 2px solid #6383a8;
 }
 h2.resp-accordion,
 .resp-tab-content {

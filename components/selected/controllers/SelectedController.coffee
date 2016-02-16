@@ -15,7 +15,7 @@ SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location
     $scope.selected = null;
 
     $scope.page = 1;
-    $scope.pageSize = 8;
+    $scope.pageSize = 7;
 
     $scope.back = () ->
         $scope.window.history.back();

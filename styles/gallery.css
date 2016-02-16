@@ -58,7 +58,6 @@
   width: 100%;
 }
 .slider {
-  background: #fafafa;
   border-radius: 5px;
   height: 630px;
   margin: 15px auto;
@@ -79,7 +78,7 @@
   position: absolute;
   top: 0;
   left: 18%;
-  width: 355px;
+  min-width: 320px;
   max-height: 630px;
   padding-top: 10px;
   cursor: pointer;

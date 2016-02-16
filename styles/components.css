@@ -75,11 +75,14 @@
 .btn-search {
   margin: 15px 0 0 15px;
 }
+.btn-change {
+  margin-top: 15px;
+}
 .btn-prev,
 .btn-next,
 .btn-begin {
   background-color: #6383a8;
-  border-radius: 5px;
+  border-radius: 4px;
   border: 0;
   padding: 5px 14px;
   margin: 0 5px 0 5px;
@@ -237,9 +240,9 @@
   bottom: 22px;
   left: 0;
   box-shadow: 0 0 5px #ccc;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
   -webkit-box-shadow: 0 0 5px #ccc;
   -moz-box-shadow: 0 0 5px #ccc;
   z-index: 10;
@@ -383,4 +386,13 @@
 }
 .empty {
   opacity: 0.4;
+}
+.selected-item {
+  color: white;
+  background-color: #6383a8;
+  box-shadow: 0 2px 6px #6383a8, 0 0 40px rgba(0, 0, 0, 0.3) inset;
+}
+.form-control:focus {
+  border-color: #6383a8;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #6383a8;
 }

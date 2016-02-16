@@ -8,7 +8,7 @@ SelectedModule.controller('SelectedController', function($scope, $stateParams, $
   $scope.type = $scope.stateParams.type;
   $scope.selected = null;
   $scope.page = 1;
-  $scope.pageSize = 8;
+  $scope.pageSize = 7;
   $scope.back = function() {
     return $scope.window.history.back();
   };

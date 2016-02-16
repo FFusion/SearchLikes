@@ -1,3 +1,5 @@
+@import "../styles/config.less";
+
 html {
     height:100%;
 }
@@ -10,7 +12,7 @@ h3 {
 .main-content {
     background-color:white;
 
-    min-height: 800px;
+    min-height: 840px;
     height:1px;
     width: 1024px;
     min-width: 320px;
@@ -36,6 +38,7 @@ h3 {
 .friends-top, .user-top {
     width: 100%;
     height: 40px;
+    margin-bottom: 10px;
 }
 
 .block-navigation-button {
@@ -46,6 +49,9 @@ h3 {
 
 .block-off {
     float:right;
+    font-weight: bold;
+    font-size: 1.2em;
+    line-height: 40px;
 }
 
 ////блок список друзей
@@ -79,7 +85,8 @@ h3 {
     }
 
     &-caption {
-
+        font-weight: 700;
+        font-size: 1.2em;
     }
 }
 
@@ -152,6 +159,13 @@ h3 {
     }
 }
 
+.user-photo {
+    img {
+        border-radius: 4px;
+        max-height: 300px;
+    }
+}
+
 .user-name {
     div:first-child {
         font-family: Marck Script, sans-serif;
@@ -197,11 +211,81 @@ h3 {
         }
     }
 
+    &-last {
+        div:last-child {
+            margin: 0 0 5px 0;
+        }
+    }
+
     i {
         font-size: 24px;
     }
 }
 
+//selected
+.selected-top {
+    height: 60px;
+}
+
+//wall
+.wall {
+    padding:35px;
+
+    &-top {
+        height: 50px;
+    }
+
+    &-owner {
+        padding:5px;
+        border: 1px solid lightgrey;
+        border-radius: 4px;
+
+        div:first-child {
+            margin: 0 0 20px 0;
+        }
+        margin-bottom: 5px;
+
+        &-content {
+            text-align: center;
+            img {
+                margin:0 15px 10px 15px;
+            }
+
+            h3 {
+                font-family: Marck Script, sans-serif;
+            }
+
+        }
+    }
+
+    &-guest {
+        padding:5px;
+        border: 1px solid lightgrey;
+        border-radius: 4px;
+        div:first-child {
+            margin: 0 0 20px 0;
+            h2 {
+                i {
+                    color: @color-button;
+                }
+            }
+        }
+    }
+
+    &-menu {
+        div {
+            div {
+                margin:10px 0 5px 0;
+                text-align: center;
+                font-style: italic;
+                opacity: 0.7;
+            }
+            select {
+                margin:0 0 5px 0;
+            }
+        }
+    }
+}
 
 //UserFriend
 
@@ -230,6 +314,7 @@ h3 {
         width: 800px;
     }
 
+
 }
 
 @media only screen and (max-width: 800px) {
@@ -242,6 +327,7 @@ h3 {
 @media only screen and (max-width: 768px) {
     .main-content {
         width: 568px;
+        min-height: 1040px;
     }
 
     .block-off {
@@ -260,7 +346,7 @@ h3 {
 @media only screen and (max-width: 568px) {
     .main-content {
         width: 480px;
-        min-height: 1280px;
+        min-height: 1100px;
     }
 
     .friends-top {
@@ -294,7 +380,7 @@ h3 {
 @media only screen and (max-width: 480px) {
     .main-content {
         width: 320px;
-        min-height: 1280px;
+        min-height: 1200px;
     }
 
     .friends-top {
@@ -340,7 +426,8 @@ h3 {
 @media only screen and (max-width: 320px) {
     .main-content {
         width: 320px;
-        min-height: 1280px;
+        min-height: 1200px;
+        height: 1px;
     }
 
     .friends-top {
@@ -381,5 +468,11 @@ h3 {
     .user-photo, .user-name {
         width: 100%;
         text-align: center;
+    }
+
+    .btn-prev, .btn-next {
+        span {
+            display: none;
+        }
     }
 }
