@@ -16,7 +16,7 @@ MainModule.config([
     $stateProvider.state('friends', {
       url: '/friends',
       controller: 'FriendsController',
-      templateUrl: 'components/friends/views/index.html',
+      templateUrl: 'components/friends/views/friends.html',
       resolve: {
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
@@ -25,7 +25,7 @@ MainModule.config([
     }).state('user', {
       url: '/user/:userId',
       controller: 'UserController',
-      templateUrl: 'components/user/views/index.html',
+      templateUrl: 'components/user/views/user.html',
       resolve: {
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
@@ -37,7 +37,7 @@ MainModule.config([
     }).state('wall', {
       url: '/user/:userId/selected/:selectedId/wall',
       controller: 'WallController',
-      templateUrl: 'components/wall/views/index.html',
+      templateUrl: 'components/wall/views/wall.html',
       resolve: {
         user: function($stateParams, LocalStorage, RestModel) {
           return RestModel.moreInfo($stateParams.userId, LocalStorage.getItem('params'));
@@ -49,7 +49,7 @@ MainModule.config([
     }).state('photo', {
       url: '/user/:userId/selected/:selectedId/photo',
       controller: 'PhotoController',
-      templateUrl: 'components/photo/views/index.html',
+      templateUrl: 'components/photo/views/photo.html',
       resolve: {
         user: function($stateParams, LocalStorage, RestModel) {
           return RestModel.moreInfo($stateParams.userId, LocalStorage.getItem('params'));
@@ -61,7 +61,7 @@ MainModule.config([
     }).state('user-friend', {
       url: '/user/:userId/friends',
       controller: 'UserFriendsController',
-      templateUrl: 'components/userFriendsList/views/index.html',
+      templateUrl: 'components/userFriendsList/views/userFriendList.html',
       resolve: {
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
@@ -70,16 +70,12 @@ MainModule.config([
     }).state('selected', {
       url: '/user/:userId/selected/:type',
       controller: 'SelectedController',
-      templateUrl: 'components/selected/views/index.html',
+      templateUrl: 'components/selected/views/selected.html',
       resolve: {
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
         }
       }
-    }).state('tetris', {
-      url: '/tetris',
-      controller: 'tetris',
-      templateUrl: 'tetris/index.html'
     });
     return $urlRouterProvider.otherwise('/login');
   }
