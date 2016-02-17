@@ -345,9 +345,6 @@
 .line-top {
   border-right: 2px solid gray;
 }
-.active {
-  color: #6383a8 !important;
-}
 @media only screen and (max-width: 768px) {
   .caption-main,
   .caption-empty,
