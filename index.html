@@ -15,17 +15,25 @@
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic" rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Marck+Script&subset=latin,cyrillic,latin-ext' rel='stylesheet' type='text/css'>
 
-    <!--<link href="bower_components/angular-datatables/dist/datatables.bootstrap.css" rel="stylesheet">-->
+    <!--build:css(./) /assets/styles/ionicons/ionicons.css-->
     <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css"/>
-    <!--<link rel="stylesheet" href="styles/main.css"/>-->
+    <!--endbuild-->
 
+    <!--build:css(./) /assets/styles/style.css-->
     <link type="text/css" rel="stylesheet" href="styles/main/style.css">
+    <!--endbuild-->
+
+    <!--build:css(./) /assets/styles/bootstrap.css-->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
-    <link rel="stylesheet" href="styles/components.css"/>
+    <!--endbuild-->
 
+    <!--build:css(./) /assets/styles/main.css-->
+    <link rel="stylesheet" href="styles/components.css"/>
     <link rel="stylesheet" href="styles/gallery.css"/>
     <link rel="stylesheet" href="styles_new/main.css"/>
+    <link rel="stylesheet" href="styles/uielements.css"/>
+    <!--endbuild-->
     <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"> </script><![endif]-->
 
 </head>
@@ -52,7 +60,7 @@
                     </li>
                     <li class="item-2">
                         <strong>Самое интересное</strong>
-                        <p>Кто кому поставил "лайк": поиск по стене и по фотографиям</p>
+                        <p>Кто кому поставил "лайк": поиск активности по стене и по фотографиям</p>
                     </li>
                     <li class="item-3">
                         <strong>Дополнительно</strong>
@@ -67,9 +75,9 @@
             <div class="services-slider-block">
                 <div id="slider-wrap">
                     <div id="slider">
-                        <figure class="slide"><img src="../../image/main/large-slides/slide.jpg" alt="Slide 1"></figure>
-                        <figure class="slide"><img src="../../image/main/large-slides/slide2.jpg" alt="Slide 2"></figure>
-                        <figure class="slide"><img src="../../image/main/large-slides/slide3.jpg" alt="Slide 3"></figure>
+                        <figure class="slide"><img src="image/main/large-slides/slide.jpg" alt="Slide 1"></figure>
+                        <figure class="slide"><img src="image/main/large-slides/slide2.jpg" alt="Slide 2"></figure>
+                        <figure class="slide"><img src="image/main/large-slides/slide3.jpg" alt="Slide 3"></figure>
                     </div><!-- #slider -->
                 </div><!-- #slider-wrap -->
             </div><!-- .services-slider-block -->
@@ -87,9 +95,9 @@
             </div><!-- .middle-text -->
             <div class="our-awards-wrap">
                 <div class="our-awards-slider">
-                    <img src="../../image/main/awards-slides/slide.jpg" alt="Award Name Slide 1" class="award-img">
-                    <img src="../../image/main/awards-slides/slide2.jpg" alt="Award Name Slide 2" class="award-img">
-                    <img src="../../image/main/awards-slides/slide3.jpg" alt="Award Name Slider 3" class="award-img">
+                    <img src="image/main/awards-slides/slide.jpg" alt="Award Name Slide 1" class="award-img">
+                    <img src="image/main/awards-slides/slide2.jpg" alt="Award Name Slide 2" class="award-img">
+                    <img src="image/main/awards-slides/slide3.jpg" alt="Award Name Slider 3" class="award-img">
                 </div><!-- .our-awards-slider -->
                 <div class="our-awards-text">
                     <div id="html6-tab">
@@ -177,16 +185,34 @@
 
 <!--todo:разобраться со стилями - привести к единому стилю!!!-->
 
-<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="bower_components/angular/angular.js"></script>
-<script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-
-
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"> </script>
+
+<!--build:js(./) /assets/scripts/plugins.js-->
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+<!--endbuild-->
+
+<!--build:js(./) /assets/scripts/angular.js-->
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+<script type="text/javascript" src="bower_components/angular-touch/angular-touch.min.js"></script>
+<script type="text/javascript" src="bower_components/ng-table/dist/ng-table.js"></script>
+
+<!--endbuild-->
+
+<!--build:js(./) /assets/scripts/mainPlugins.js-->
 <script src="bower_components/libs/infobox.js"> </script>
 <script src="bower_components/libs/scrollspy.js"> </script>
 <script src="bower_components/libs/easyResponsiveTabs.js"> </script>
+<!--endbuild-->
+
+<!--build:js(./) /assets/scripts/main.js-->
 <script src="components/main/main.js"> </script>
+<!--endbuild-->
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -197,16 +223,9 @@
         });
     });
 </script>
-<script type="text/javascript" src="bower_components/ng-table/dist/ng-table.js"></script>
-<script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
-<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-
-<script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
-<script type="text/javascript" src="bower_components/angular-touch/angular-touch.min.js"></script>
-<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
 
 <!--module-->
+<!--build:js(./) /app/src.js-->
 <script type="text/javascript" src="MainModule.js"></script>
 <script type="text/javascript" src="components/friends/FriendsModule.js"></script>
 <script type="text/javascript" src="components/user/UserModule.js"></script>
@@ -214,7 +233,6 @@
 <script type="text/javascript" src="components/userFriendsList/UserFriendsModule.js"></script>
 <script type="text/javascript" src="components/photo/PhotoModule.js"></script>
 <script type="text/javascript" src="components/selected/SelectedModule.js"></script>
-<!--<script type="text/javascript" src="components/information/InformationModule.js"></script>-->
 
 <!--services-->
 <script type="text/javascript" src="models/NotificationService.js"></script>
@@ -236,11 +254,10 @@
 <script type="text/javascript" src="components/userFriendsList/controllers/UserFriendsController.js"></script>
 <script type="text/javascript" src="components/photo/controllers/PhotoControllers.js"></script>
 <script type="text/javascript" src="components/selected/controllers/SelectedController.js"></script>
-<!--<script type="text/javascript" src="components/information/controllers/InformationController.js"></script>-->
-
 
 <script type="text/javascript" src="controllers/MainController.js"></script>
 
 <script type="text/javascript" src="config.js"></script>
+<!--endbuild-->
 </body>
 </html>
