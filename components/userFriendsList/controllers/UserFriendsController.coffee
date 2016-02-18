@@ -9,7 +9,7 @@ UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state
     $scope.params = params;
 
     $scope.page = 1;
-    $scope.pageSize = 7;
+    $scope.pageSize = 6;
 
     $scope.userId = $scope.stateParams.userId;
 

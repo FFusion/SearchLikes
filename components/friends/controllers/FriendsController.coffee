@@ -10,8 +10,6 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $stat
 
     $scope.params = $scope.params || LocalStorage.getItem('params');
 
-    $scope.page = 1;
-    $scope.pageSize = 7;
 
 #    $scope.getUser = (id) ->
 #        $location.path('user/' + id);
@@ -64,5 +62,10 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $stat
 
     #получение подробной информации о пользователе
     $scope.more = (user) ->
-        LocalStorage.setItem('last', user.last_seen);
         $state.transitionTo('user', {userId: user.id});
+        LocalStorage.setItem('page',$scope.page);
+
+
+    if LocalStorage.getItem('page') then $scope.getListFriends();
+    $scope.page = if LocalStorage.getItem('page') then LocalStorage.getItem('page') else 1;
+    $scope.pageSize = 6;

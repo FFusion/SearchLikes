@@ -5,7 +5,7 @@ UserFriendsModule.controller('UserFriendsController', function($scope, $location
   $scope.window = window;
   $scope.params = params;
   $scope.page = 1;
-  $scope.pageSize = 7;
+  $scope.pageSize = 6;
   $scope.userId = $scope.stateParams.userId;
   $scope.back = function() {
     return $scope.window.history.back();

@@ -1,21 +1,40 @@
 'use strict'
 
-MainModule.factory 'LocalStorage', () ->
+MainModule.service 'LocalStorage', ($window) ->
     class LocalStorage
 
-    setItem: (name, item) ->
-        if angular.isObject(item) || angular.isArray(item)
-            item = angular.toJson(item);
-        window.localStorage.setItem(name, item);
+        @storage = null;
 
-    getItem: (name, item) ->
-        item = window.localStorage.getItem(name);
+        # конструктор
+        # -----------
+        # `type` - тип хранилища ('sessionStorage', 'localStorage')
+        constructor: (type) ->
+            @storage = $window[type];
 
-        try
-            item = angular.fromJson(item);
-        catch e
-            console.log(e);
-        item;
 
-    removeAllItem: () ->
-        window.localStorage.clear();
+        setItem: (name, item) ->
+            if angular.isObject(item) || angular.isArray(item)
+                item = angular.toJson(item);
+            @storage.setItem(name, item);
+
+
+        getItem: (name, item) ->
+            item = @storage.getItem(name);
+
+            try
+                item = angular.fromJson(item);
+            catch e
+                console.log(e);
+            item;
+
+
+        removeItem: (item) ->
+            @storage.removeItem(item);
+
+
+        removeAllItem: () ->
+            @storage.clear();
+
+
+    storage = new LocalStorage('localStorage');
+    return storage;

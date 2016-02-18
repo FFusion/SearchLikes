@@ -23,8 +23,8 @@
                 <div class="user-info">
                     <p ng-if="user.relation">
                         <span class="user-info-title">Семейное положение: </span>
-                        <span>{{relationStatus}}</span>
-                        <span ng-if="user.relation_partner">{{user.relation_partner.first_name + ' ' + user.relation_partner.last_name}}</span>
+                        <span class="user-status">{{relationStatus}}</span>
+                        <span class="user-status-partner" ng-if="user.relation_partner">{{user.relation_partner.first_name + ' ' + user.relation_partner.last_name}}</span>
                     </p>
                 </div>
             </div>

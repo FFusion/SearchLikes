@@ -4,12 +4,16 @@ UserModule.controller('UserController', function($scope, $stateParams, $location
   $scope.window = window;
   $scope.params = params;
   $scope.user = RestModel.isWorkingFriendsObject(user);
-  $scope.relationStatus = $scope.user.relation ? UserModel.relationStatus[$scope.user.relation].name : null;
+  console.log($scope.user.relation);
+  $scope.relationStatus = UserModel.getRelationStatus($scope.user);
   $scope.lastSeen = LocalStorage.getItem('last');
   $scope.back = function() {
     return $scope.window.history.back();
   };
   $scope.home = function() {
+    if (LocalStorage.getItem('page')) {
+      LocalStorage.removeItem('page');
+    }
     return $state.transitionTo('friends');
   };
   $scope.checkWall = function(user) {

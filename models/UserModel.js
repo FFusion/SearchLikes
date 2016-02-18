@@ -2,25 +2,24 @@
 'use strict';
 MainModule.factory('UserModel', function() {
   var UserModel;
-  UserModel = (function() {
+  return UserModel = (function() {
     function UserModel() {}
 
-    return UserModel;
+    UserModel.prototype.model = 'users';
 
-  })();
-  return {
-    relationStatus: {
+    UserModel.relationStatus = {
       0: {
         id: 0,
         name: '0'
       },
       1: {
         id: 1,
-        name: '1'
+        name: 'свободен'
       },
       2: {
         id: 2,
-        name: '2'
+        name: 'гуляет с',
+        other: 'с кем то гуляет..'
       },
       3: {
         id: 3,
@@ -28,10 +27,53 @@ MainModule.factory('UserModel', function() {
       },
       4: {
         id: 4,
+        name: 'в брачных узах с',
+        other: 'с кем то в брачных узах..'
+      },
+      5: {
+        id: 5,
         name: 'замужем за'
+      },
+      6: {
+        id: 6,
+        name: 'ищет пару'
+      },
+      7: {
+        id: 7,
+        name: 'по уши влюблен в',
+        other: 'потеря разума..'
       }
-    }
-  };
+    };
+
+    UserModel.getRelationStatus = function(user) {
+      var relationStatus;
+      if (user.relation) {
+        if (user.relation_partner) {
+          relationStatus = UserModel.relationStatus[user.relation].name;
+        } else {
+          switch (user.relation) {
+            case 2:
+              relationStatus = UserModel.relationStatus[user.relation].other;
+              break;
+            case 4:
+              relationStatus = UserModel.relationStatus[user.relation].other;
+              break;
+            case 7:
+              relationStatus = UserModel.relationStatus[user.relation].other;
+              break;
+            default:
+              relationStatus = UserModel.relationStatus[user.relation].name;
+          }
+        }
+      } else {
+        relationStatus = null;
+      }
+      return relationStatus;
+    };
+
+    return UserModel;
+
+  })();
 });
 
 //# sourceMappingURL=UserModel.map

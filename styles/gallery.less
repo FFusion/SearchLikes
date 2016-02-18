@@ -151,7 +151,7 @@
 .photo {
     &-class {
         margin-top: 5px;
-        font: @font-caption-bold;
+        font: @font-big-caption-bold;
 
         &-title {
             padding-left: 25px;
@@ -161,7 +161,62 @@
             text-align: right;
             padding-right: 25px;
             color: @color-button;
+            font: @font-big-caption-bold;
         }
     }
 
 }
+
+
+
+//новая галерея
+.rslides {
+    position: relative;
+    list-style: none;
+    overflow: hidden;
+//    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+
+    li {
+        -webkit-backface-visibility: hidden;
+        position: absolute;
+        display: none;
+        width: 100%;
+        left: 0;
+        top: 0;
+        padding:15px;
+    }
+
+    li:first-child {
+        position: relative;
+        display: block;
+        float: left;
+    }
+
+    img {
+        display: block;
+        height: auto;
+        float: left;
+        width: 100%;
+        border: 0;
+        max-height: 600px;
+        border-radius: 4px;
+    }
+
+}
+
+.rslides_nav {
+    height: 25px;
+    background-color: @color-button;
+    color: white;
+    padding: 5px 14px;
+    border-radius: 4px;
+    text-decoration: none !important;
+    margin:0 15px;
+}
+
+.next {
+    float: right;
+}
+

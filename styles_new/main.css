@@ -155,51 +155,69 @@ h3 {
 .user-more i {
   font-size: 24px;
 }
+.user-status {
+  font-weight: bold;
+}
+.user-status-partner {
+  font-weight: 500;
+}
 .selected-top {
   height: 60px;
 }
-.wall {
+.wall,
+.photo {
   padding: 35px;
 }
-.wall-top {
+.wall-top,
+.photo-top {
   height: 50px;
 }
-.wall-owner {
+.wall-owner,
+.photo-owner {
   padding: 5px;
   border: 1px solid lightgrey;
   border-radius: 4px;
   margin-bottom: 5px;
 }
-.wall-owner div:first-child {
+.wall-owner div:first-child,
+.photo-owner div:first-child {
   margin: 0 0 20px 0;
 }
-.wall-owner-content {
+.wall-owner-content,
+.photo-owner-content {
   text-align: center;
 }
-.wall-owner-content img {
+.wall-owner-content img,
+.photo-owner-content img {
   margin: 0 15px 10px 15px;
 }
-.wall-owner-content h3 {
+.wall-owner-content h3,
+.photo-owner-content h3 {
   font-family: Marck Script, sans-serif;
 }
-.wall-guest {
+.wall-guest,
+.photo-guest {
   padding: 5px;
   border: 1px solid lightgrey;
   border-radius: 4px;
 }
-.wall-guest div:first-child {
+.wall-guest div:first-child,
+.photo-guest div:first-child {
   margin: 0 0 20px 0;
 }
-.wall-guest div:first-child h2 i {
+.wall-guest div:first-child h2 i,
+.photo-guest div:first-child h2 i {
   color: #6383a8;
 }
-.wall-menu div div {
+.wall-menu div div,
+.photo-menu div div {
   margin: 10px 0 5px 0;
   text-align: center;
   font-style: italic;
   opacity: 0.7;
 }
-.wall-menu div select {
+.wall-menu div select,
+.photo-menu div select {
   margin: 0 0 5px 0;
 }
 .userFriend-title {

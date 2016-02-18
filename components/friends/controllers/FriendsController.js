@@ -4,8 +4,6 @@ FriendsModule.controller('FriendsController', function($scope, $location, $windo
   $scope.openAccess = true;
   $scope.openTable = false;
   $scope.params = $scope.params || LocalStorage.getItem('params');
-  $scope.page = 1;
-  $scope.pageSize = 7;
   RestModel.getUserById($scope.params.user_id, $scope.params).then(function(data) {
     return $scope.currentUser = data.response[0];
   }, function(error) {
@@ -40,12 +38,17 @@ FriendsModule.controller('FriendsController', function($scope, $location, $windo
     $scope.openTable = false;
     return $window.location = '/login';
   };
-  return $scope.more = function(user) {
-    LocalStorage.setItem('last', user.last_seen);
-    return $state.transitionTo('user', {
+  $scope.more = function(user) {
+    $state.transitionTo('user', {
       userId: user.id
     });
+    return LocalStorage.setItem('page', $scope.page);
   };
+  if (LocalStorage.getItem('page')) {
+    $scope.getListFriends();
+  }
+  $scope.page = LocalStorage.getItem('page') ? LocalStorage.getItem('page') : 1;
+  return $scope.pageSize = 6;
 });
 
 //# sourceMappingURL=FriendsController.map

@@ -13,6 +13,9 @@
     width: 155px;
   }
 }
+.btn {
+  cursor: pointer;
+}
 .btn:focus {
   outline: none !important;
 }
