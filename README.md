@@ -15,8 +15,8 @@
 
 
 
-<h2>Первая версия доступна по адресу</h2>
-<span><a href="http://vkopen.16mb.com/">BetaVersion</a></span>
+<h2>Последняя версия 2.0.1 доступна по адресу</h2>
+<span><a href="http://vkopen.16mb.com/">LikeSearch</a></span>
 
 <h2>Технологии</h2>
 <span>angularjs, coffescript</span>
