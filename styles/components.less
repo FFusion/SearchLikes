@@ -166,24 +166,25 @@
 //полотно для увеленных фото
 
 .blade {
-    position: absolute;
-    top: 50%;
+    position: relative;
     bottom: 0;
-    margin: -302px 0 0 -325px;
-    left: 50%;
+    margin:0 auto;
     background: @color-white;
-    height: 650px;
-    width: 650px;
+    max-height: 1000px;
+    width: 100%;
     z-index: 102;
 
     img {
-        margin: 10px;
+        padding-left:10px;
+        margin: 0 0 20px 0 auto;
+        width: 90%;
+        height: auto;
     }
 
     &-close {
         font: @font-caption-bold;
         float:right;
-        margin: 5px 5px 0 0;
+        margin: 5px 5px 15px 0;
         cursor: pointer;
     }
 }
@@ -217,6 +218,9 @@
 
     &-notLikes {
         top: 40%;
+        div {
+            padding:0 0 5px 0;
+        }
     }
 
 }

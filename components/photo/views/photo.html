@@ -70,20 +70,19 @@
 </div>
 
 <div class="caption-notLikes" ng-if="!photos && likePhotos.length == 0">
-    <div>Фотографии отсутсвуют :)</div>
+    <div>Фотографии отсутсвуют :(</div>
 </div>
 
 <div class="processing" ng-if="process">
     <i class="ion-load-c"></i>
 </div>
 <div class="photo-class row" ng-if="likePhotos.length > 0 && !process">
-    <div class="photo-class-title col-md-6 col-xs-12">{{'Фотография ' + page + ' из ' + likePhotos.length}}</div>
-    <div class="photo-class-likes col-md-6 col-xs-12"><i class="ion-heart"></i>{{'  ' + likePhotos[page-1].countLikes}}</div>
+    <div class="photo-class-title col-md-6 col-xs-12"><span style="color: red">Так так... </span>{{likePhotos.length + ' фотографий '}}</div>
 </div>
-
 <ul slide class="rslides" ng-if="likePhotos.length > 0 && !process">
-    <li ng-repeat="photo in likePhotos"><img ng-src="{{photo.instance.photo_604}}"  alt=""></li>
-    <!--ng-click="increasePhoto(photo)"-->
+    <li ng-repeat="photo in likePhotos"><img ng-src="{{photo.instance.photo_604}}"  alt="" ng-click="increasePhoto(photo)" >
+        <p class="photo-class-likes"><i class="ion-heart"></i>{{' ' + photo.countLikes}}</p>
+    </li>
 </ul>
 
 <div class="blade" ng-if="openBigBlade" image>

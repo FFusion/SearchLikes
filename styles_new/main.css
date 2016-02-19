@@ -220,6 +220,81 @@ h3 {
 .photo-menu div select {
   margin: 0 0 5px 0;
 }
+.wall-titles {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+.caption-wall {
+  margin: 0 auto;
+  font: 800 24px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
+  color: red;
+  text-align: center;
+}
+.post {
+  margin: 5px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  width: 97%;
+  height: 100%;
+  min-height: 100px;
+  -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  cursor: pointer;
+}
+.post:hover {
+  box-shadow: 0 5px 12px rgba(60, 82, 95, 0.55);
+}
+.post-block-photo {
+  margin: 10px;
+}
+.post-block-music {
+  margin: 10px;
+  width: 100%;
+}
+.post-block-music-container {
+  background: #6383a8;
+  margin: 7px;
+  float: right;
+  color: white;
+  padding: 0 0 0 10px;
+  border-radius: 3px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.4);
+}
+.post-block-music span {
+  cursor: pointer;
+  padding-left: 10px;
+}
+.post-block-music-name {
+  font: 400 16px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
+  margin-bottom: 5px;
+}
+.post-text {
+  display: inline-block;
+  font: 600 18px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
+  margin-left: 10px;
+  width: 97%;
+}
+.post-more {
+  width: 100%;
+  min-height: 23px;
+}
+.post-more-likes {
+  font: 600 18px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
+  color: #6383a8;
+  padding-right: 5px;
+  float: right;
+}
+.post-more-comment {
+  font-style: italic;
+  float: right;
+  padding-right: 30px;
+  cursor: pointer;
+}
 .userFriend-title {
   font-weight: 700;
   font-size: 1.2em;

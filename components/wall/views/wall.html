@@ -48,8 +48,8 @@
 </div>
 
 
-<div class="main-component-wall" ng-if="!process && likePosts.length > 0">
-    <div class="caption-wall">Записи со стены:</div>
+<div class="wall-titles" ng-if="!process && likePosts.length > 0">
+    <div class="caption-wall">Опаньки!</div>
     <ul class="list-unstyled">
         <li ng-repeat="post in likePosts" class="post">
 
@@ -58,7 +58,7 @@
                 <ul class="list-unstyled">
                     <li ng-repeat="attachment in post.attachments">
                         <div class="pull-left post-block-photo" ng-click="increasePhoto(attachment.photo)" ng-if="attachment.type == 'photo'">
-                            <img src="{{attachment.photo.photo_75}}" alt=""/>
+                            <img src="{{attachment.photo.photo_130}}" alt=""/>
                         </div>
                         <div class="post-block-music-container" ng-if="attachment.type == 'audio'">
                             <span ng-if="!attachment.isOpen" ng-click="openMusic(attachment)">{{attachment.audio.artist + ' ' + attachment.audio.title}}</span>
@@ -81,8 +81,8 @@
                     <li ng-repeat="history in post.copy_history">
                         <ul class="list-unstyled">
                             <li ng-repeat="attachment in history.attachments">
-                                <div class="pull-left post-block-photo" ng-if="attachment.photo.photo_75 && attachment.type == 'photo'" ng-click="increasePhoto(attachment.photo)">
-                                    <img src="{{attachment.photo.photo_75}}" alt=""/>
+                                <div class="pull-left post-block-photo" ng-if="attachment.photo.photo_130 && attachment.type == 'photo'" ng-click="increasePhoto(attachment.photo)">
+                                    <img src="{{attachment.photo.photo_130}}" alt=""/>
                                 </div>
                                 <div class="post-block-music-container" ng-if="attachment.type == 'audio'">
                                     <span ng-if="!attachment.isOpen" ng-click="openMusic(attachment)">{{attachment.audio.artist + ' ' + attachment.audio.title}}</span>

@@ -120,11 +120,11 @@
   font: 800 16px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
 }
 .photo-class-title {
-  padding-left: 25px;
+  padding-left: 35px;
+  margin-top: 10px;
 }
 .photo-class-likes {
   text-align: right;
-  padding-right: 25px;
   color: #6383a8;
   font: 800 16px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
 }
@@ -157,6 +157,7 @@
   border: 0;
   max-height: 600px;
   border-radius: 4px;
+  margin-bottom: 5px;
 }
 .rslides_nav {
   height: 25px;

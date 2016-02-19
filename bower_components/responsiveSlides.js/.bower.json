@@ -1,0 +1,14 @@
+{
+  "name": "responsiveSlides.js",
+  "homepage": "https://github.com/viljamis/ResponsiveSlides.js",
+  "_release": "120079561d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "120079561d7a4f8a6459f7a5d8aa657ad5d3db83"
+  },
+  "_source": "git://github.com/viljamis/ResponsiveSlides.js.git",
+  "_target": "*",
+  "_originalSource": "responsiveSlides.js",
+  "_direct": true
+}
