@@ -157,17 +157,13 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
   $scope.isActive = function(index) {
     return $scope.i === index + 1;
   };
-  $scope.showPrev = function() {
-    $scope.i = $scope.i > 0 ? --$scope.i : $scope.likePhotos.length - 1;
-    return $scope.page = $scope.page - 1;
+  $scope.showPrev = function(photo) {
+    $('.next').click();
+    return true;
   };
-  $scope.showNext = function() {
-    $scope.i = $scope.i < $scope.likePhotos.length - 1 ? ++$scope.i : 0;
-    return $scope.page = $scope.page + 1;
-  };
-  return $scope.showPhoto = function(index) {
-    $scope.i = index;
-    return $scope.page = index + 1;
+  return $scope.showNext = function(photo) {
+    $('.next').click();
+    return true;
   };
 });
 

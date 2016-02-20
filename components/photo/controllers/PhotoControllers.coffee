@@ -176,17 +176,18 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
     $scope.isActive = (index) ->
         $scope.i == index + 1;
 
-    $scope.showPrev =  () ->
-        $scope.i = if $scope.i > 0 then  --$scope.i else $scope.likePhotos.length - 1;
-        $scope.page = $scope.page - 1;
+    # для мобильных устройств
+    $scope.showPrev =  (photo) ->
+        $('.next').click();
+        true;
 
-    $scope.showNext = () ->
-        $scope.i = if $scope.i < $scope.likePhotos.length - 1 then ++$scope.i else 0;
-        $scope.page = $scope.page + 1;
+    $scope.showNext = (photo) ->
+        $('.next').click();
+        true;
 
-    $scope.showPhoto = (index) ->
-        $scope.i = index;
-        $scope.page = index + 1;
+#    $scope.showPhoto = (index) ->
+#        $scope.i = index;
+#        $scope.page = index + 1;
 
 
 # http://vk.com/dev/photos.getComments - подумать с комментариями

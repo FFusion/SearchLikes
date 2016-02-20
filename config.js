@@ -81,4 +81,10 @@ MainModule.config([
   }
 ]);
 
+MainModule.run(function($rootScope, $state) {
+  return $rootScope.$on('$stateChangeSuccess', function() {
+    return $('body').scrollTop(0);
+  });
+});
+
 //# sourceMappingURL=config.map

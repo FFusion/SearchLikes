@@ -131,7 +131,7 @@ $(function() {
       visible: true
     });
     boxText = document.createElement('div');
-    contentString = '<div id="content-boolean">' + '<h1>Блокнотик ВК</h1>' + '<p>Россия, Саранск</p>' + '</div>';
+    contentString = '<div id="content-boolean">' + '<h1>LikeSearch</h1>' + '<p>Россия, Саранск</p>' + '</div>';
     myOptions = {
       content: contentString,
       disableAutoPan: false,

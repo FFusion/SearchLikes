@@ -100,3 +100,10 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
         $urlRouterProvider.otherwise('/login');
     ]
 
+MainModule.run(($rootScope, $state)->
+
+    $rootScope.$on('$stateChangeSuccess', ()->
+        $('body').scrollTop(0);
+    )
+)
+
