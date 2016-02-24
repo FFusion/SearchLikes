@@ -262,28 +262,5 @@ $(()->
 
 
 
-#   Contact form
-#    todo:поправить
-    $('.contact-form').submit((e) ->
-        e.preventDefault();
-        $this = $(this);
-        $this.find('div.error').remove();
-        $this.find('.error').removeClass('error');
-        button = $this.find('button');
-        $('<div class="loading">Loading...</div>').insertAfter(button);
-        $.post($this.attr('action'), $this.serialize(), (response) ->
-            if response.error
-                $('<div class="error" />').text(response.error).insertAfter(button);
-            else if response.errors
-                $.each(response.errors, (name, error) ->
-                    $this.find('#' + name).addClass('error');
-                    $('<div class="error" />').text(error).insertAfter(button);
-                );
-            else if response.success
-                $('<div class="success" />').text(response.success).insertAfter(button);
-
-            $this.find('.loading').remove();
-        , 'json');
-    );
 
 );

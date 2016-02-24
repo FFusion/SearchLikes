@@ -145,15 +145,15 @@
     <div class="section-inn">
         <div class="contacts-info">
             <strong>Свяжитесь <span>с нами</span></strong>
-            <p>Ждем ваши вопросы и комментарии</p>
+            <p>Ждем ваши вопросы, отзывы и комментарии</p>
         </div>
-        <form action="http://html6.com.ru/" method="post" class="contact-form">
+        <form class="contact-form">
             <div class="f-right">
-                <input id="name" name="name" type="text" placeholder="Имя">
-                <input id="email" name="email" type="text" placeholder="E-mail">
+                <input id="name" ng-model="content.fio" name="fio" type="text" placeholder="Имя">
+                <input id="email" ng-model="content.email" name="email" type="text" placeholder="E-mail">
             </div><!-- .f-right -->
-            <textarea id="message" name="message" rows="5" cols="20" placeholder="Сообщение"></textarea>
-            <button type="submit">Отправить</button>
+            <textarea id="message" ng-model="content.wish" name="wish" rows="5" cols="20" placeholder="Сообщение"></textarea>
+            <button type="submit" ng-click="sendWish()">Отправить</button>
         </form>
     </div><!-- .section-inn -->
 </section><!-- #contacts -->
@@ -182,7 +182,6 @@
     <span class="button-bottom">Вперед</span>
 </div><!-- .navigation-fixed -->
 
-<!--todo:разобраться со стилями - привести к единому стилю!!!-->
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"> </script>
 

@@ -250,7 +250,7 @@ $(function() {
     }
     return sliderResize();
   }).trigger('resize.height');
-  $body.on('click', '.button-top', function(e) {
+  return $body.on('click', '.button-top', function(e) {
     e.preventDefault();
     return scrollToElement();
   }).on('click', '.button-bottom', function(e) {
@@ -260,28 +260,6 @@ $(function() {
     if ($next.length) {
       return scrollToElement($next);
     }
-  });
-  return $('.contact-form').submit(function(e) {
-    var $this, button;
-    e.preventDefault();
-    $this = $(this);
-    $this.find('div.error').remove();
-    $this.find('.error').removeClass('error');
-    button = $this.find('button');
-    $('<div class="loading">Loading...</div>').insertAfter(button);
-    return $.post($this.attr('action'), $this.serialize(), function(response) {
-      if (response.error) {
-        $('<div class="error" />').text(response.error).insertAfter(button);
-      } else if (response.errors) {
-        $.each(response.errors, function(name, error) {
-          $this.find('#' + name).addClass('error');
-          return $('<div class="error" />').text(error).insertAfter(button);
-        });
-      } else if (response.success) {
-        $('<div class="success" />').text(response.success).insertAfter(button);
-      }
-      return $this.find('.loading').remove();
-    }, 'json');
   });
 });
 

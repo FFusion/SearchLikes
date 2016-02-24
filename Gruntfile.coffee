@@ -77,6 +77,7 @@ module.exports = (grunt) ->
                             'components/**/*.html'
                             'directives/views/**/*.html'
                             'image/**/**'
+                            '*.php'
                         ]
                     }
 
