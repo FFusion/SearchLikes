@@ -154,6 +154,7 @@
             </div><!-- .f-right -->
             <textarea id="message" ng-model="content.wish" name="wish" rows="5" cols="20" placeholder="Сообщение"></textarea>
             <button type="submit" ng-click="sendWish()">Отправить</button>
+            <div class="send-message" ng-if="send">{{statusText}}</div>
         </form>
     </div><!-- .section-inn -->
 </section><!-- #contacts -->

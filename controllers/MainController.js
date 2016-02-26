@@ -3,6 +3,7 @@
 MainModule.controller('MainController', function($scope, $location, $http, $timeout, RestModel, LocalStorage, Notification) {
   $scope.openAccess = false;
   $scope.content = {};
+  $scope.send = false;
   $scope.linkPage = ['main', 'project', 'wishes'];
   $scope.select = $scope.linkPage[0];
   $scope.url = RestModel.getLinkAutorization();
@@ -22,34 +23,19 @@ MainModule.controller('MainController', function($scope, $location, $http, $time
       $scope.error = "error";
     }
   }
-  $scope.selectMain = function() {
-    console.log(1);
-    return $scope.select = $scope.linkPage[0];
-  };
-  $scope.selectProject = function() {
-    console.log(2);
-    return $scope.select = $scope.linkPage[1];
-  };
-  $scope.selectWishes = function() {
-    console.log(3);
-    return $scope.select = $scope.linkPage[2];
-  };
   return $scope.sendWish = function() {
     var reg;
+    $scope.send = true;
     reg = /^[\w\.\d-_]+@[\w\.\d-_]+\.\w{2,4}$/i;
     if (!angular.isDefined($scope.content.email) || !angular.isDefined($scope.content.wish) || $scope.content.wish === '' || $scope.content.email === '') {
-      Notification.show('Не заполенено обязательное поле!');
+      $scope.statusText = 'Не заполенено обязательное поле!';
       return true;
     } else if (!reg.test($scope.content.email)) {
-      Notification.show('Неккоректный email');
+      $scope.statusText = 'Неккоректный email';
       return true;
     } else {
       return RestModel.getWish($scope.content).then(function(data) {
-        Notification.show("Спасибо за отзыв");
-        $scope.content = {};
-        return $timeout(function() {
-          return $location.path('/login');
-        }, 2000);
+        return $scope.statusText = 'Спасибо за отзыв';
       });
     }
   };

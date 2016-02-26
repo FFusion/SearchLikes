@@ -6,6 +6,7 @@ MainModule.controller 'MainController', ($scope, $location, $http, $timeout, Res
 
     $scope.openAccess = false;
     $scope.content = {};
+    $scope.send = false;
 
     $scope.linkPage = ['main', 'project', 'wishes'];
     $scope.select = $scope.linkPage[0];
@@ -20,7 +21,7 @@ MainModule.controller 'MainController', ($scope, $location, $http, $timeout, Res
         LocalStorage.setItem('params', $scope.params);
 
         window.location.hash = '';
-#        window.location.href = 'http://localhost/friends';
+#        window.location.href = 'http://eq.loc/friends';
         window.location.href = 'http://vkopen.16mb.com/friends';
 
     else
@@ -32,39 +33,23 @@ MainModule.controller 'MainController', ($scope, $location, $http, $timeout, Res
             $scope.error = "error";
 
 
-    $scope.selectMain = () ->
-        console.log(1);
-        $scope.select = $scope.linkPage[0];
-
-
-    $scope.selectProject = () ->
-        console.log(2);
-        $scope.select = $scope.linkPage[1];
-
-
-    $scope.selectWishes = () ->
-        console.log(3);
-        $scope.select = $scope.linkPage[2];
-
-
     $scope.sendWish = () ->
+        $scope.send = true;
         reg = /^[\w\.\d-_]+@[\w\.\d-_]+\.\w{2,4}$/i;
 
         if !angular.isDefined($scope.content.email) || !angular.isDefined($scope.content.wish) || $scope.content.wish == '' || $scope.content.email == ''
-            Notification.show('Не заполенено обязательное поле!');
+            $scope.statusText = 'Не заполенено обязательное поле!';
             return true;
 
         else if !reg.test($scope.content.email)
-            Notification.show('Неккоректный email');
+            $scope.statusText = 'Неккоректный email';
             return true;
 
-        else RestModel.getWish($scope.content).then((data)->
-                Notification.show("Спасибо за отзыв");
-                $scope.content = {};
-                $timeout(()->
-                    $location.path('/login');
-                ,2000)
-            )
+        else RestModel.getWish($scope.content).then(
+                (data)->
+                    $scope.statusText = 'Спасибо за отзыв';
+#                    $scope.content = {};
+                )
 
 
 
