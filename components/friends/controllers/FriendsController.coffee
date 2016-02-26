@@ -7,6 +7,7 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $stat
     #параметры авторизации и отображения таблицы
     $scope.openAccess = true;
     $scope.openTable = false;
+    $scope.loading = false;
 
     $scope.params = $scope.params || LocalStorage.getItem('params');
 
@@ -28,10 +29,12 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $stat
         $scope.openTableOnline = false;
 
         if !$scope.friends
+            $scope.loading = true;
             RestModel.getFriends($scope.params).then(
                 (data) ->
                     console.log(data);
                     $scope.countFriends = data.response.count;
+                    $scope.loading = false;
                     $scope.friends = RestModel.isWorkingFriendsObject(data);
 
                     $scope.openTable = if $scope.friends then true else false;

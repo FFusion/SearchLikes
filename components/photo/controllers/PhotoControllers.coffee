@@ -7,8 +7,8 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
     $scope.window = window;
     $scope.params = params;
     $scope.stateParams = $stateParams;
-    $scope.process = false;
     $scope.openOtherSearch = false;
+    $scope.loading = false;
 
     $scope.user = user.response[0];
 
@@ -71,8 +71,8 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
             return true;
 
         $scope.openOtherSearch = true;
-        $scope.process = true;
         $scope.photos = [];
+        $scope.loading = true;
         # id кого ищем
 #        $scope.userSearchForId = userSearchForId;
 
@@ -91,8 +91,8 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
                 if $scope.photos isnt null
                     $scope.getLikesFromPhotos();
                 else
+                    $scope.loading = false;
                     $scope.likePhotos = [];
-                    $scope.process = false;
             (error) ->
                 console.log(error);
         )
@@ -115,7 +115,7 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
                                     #массив фото, которые понравились пользователю userSearchFor
                                     $scope.likePhotos.push({instance: photo, countLikes: listId.length});
                             )
-                            if $scope.photos[$scope.photosLength - 1] == photo then $scope.process = false;
+                            if $scope.photos[$scope.photosLength - 1] == photo then $scope.loading = false;
                     (error) ->
                         console.log(error);
                 )
@@ -144,7 +144,7 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
         # выходим из рекурсии
         if index == $scope.photosLength
             console.log($scope.likePhotos);
-            $scope.process = false;
+            $scope.loading = false;
             return true
 
 

@@ -4,6 +4,7 @@ WallModule.controller('WallController', function($scope, $stateParams, $location
   $scope.stateParams = $stateParams;
   $scope.window = window;
   $scope.process = false;
+  $scope.loading = false;
   $scope.openOtherSearch = false;
   $scope.isOpen = false;
   $scope.params = params;
@@ -46,7 +47,7 @@ WallModule.controller('WallController', function($scope, $stateParams, $location
   }
   $scope.likesWall = function(countPost) {
     $scope.openOtherSearch = true;
-    $scope.process = true;
+    $scope.loading = true;
     $scope.countPost = countPost;
     return RestModel.getWallPost($scope.userId, $scope.params, $scope.countPost).then(function(data) {
       $scope.posts = data.response.items.length !== 0 ? data.response.items : null;
@@ -54,7 +55,7 @@ WallModule.controller('WallController', function($scope, $stateParams, $location
         return $scope.getLikesFromPosts();
       } else {
         $scope.likePosts = [];
-        return $scope.process = false;
+        return $scope.loading = false;
       }
     }, function(error) {
       return console.log(error);
@@ -77,7 +78,7 @@ WallModule.controller('WallController', function($scope, $stateParams, $location
               }
             });
             if ($scope.posts[$scope.postsLength - 1] === post) {
-              return $scope.process = false;
+              return $scope.loading = false;
             }
           }
         }, function(error) {
@@ -102,7 +103,7 @@ WallModule.controller('WallController', function($scope, $stateParams, $location
     }
     if (index === $scope.postsLength) {
       console.log($scope.likePosts);
-      $scope.process = false;
+      $scope.loading = false;
       return true;
     }
   };

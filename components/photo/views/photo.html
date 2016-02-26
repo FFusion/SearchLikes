@@ -1,17 +1,22 @@
-
+<div class="loading-content" ng-if="loading">
+    <div class="process">
+        <div class="process-circle"></div>
+        <div class="process-title"><span>Загрузка...</span></div>
+    </div>
+</div>
 <div class="photo">
     <div class="photo-top row">
         <div class="block-navigation-button">
             <button class="btn btn-back" ng-click="back()">К профилю</button>
         </div>
-        <div class="block-navigation-button" ng-if="openOtherSearch && !process">
+        <div class="block-navigation-button" ng-if="openOtherSearch && !loading">
             <button class="btn btn-back" ng-click="returnFormSearch()">К форме поиска</button>
         </div>
-        <div class="block-navigation-button" ng-if="!process">
+        <div class="block-navigation-button" ng-if="!loading">
             <button class="btn btn-home" ng-click="wall()">Поиск <i class="ion-heart"></i> по стене</button>
         </div>
     </div>
-    <div ng-if="!likePhotos && !process">
+    <div ng-if="!likePhotos && !loading && !process">
         <div class="photo-owner row">
             <div class="text-center"><h2>Ищем среди фото пользователя</h2></div>
             <div class="row photo-owner-content">
@@ -62,7 +67,7 @@
 </div>
 
 
-<div class="caption-notLikes" ng-if="!process && likePhotos.length == 0 && photos">
+<div class="caption-notLikes" ng-if="!loading && !process && likePhotos.length == 0 && photos">
     <div>{{userSearchFor.first_name + ' ' + userSearchFor.last_name}}</div>
     <div style="color:red">не уважает</div>
     <div>{{user.first_name + ' ' + user.last_name}}</div>
@@ -74,12 +79,13 @@
 </div>
 
 <div class="processing" ng-if="process">
-    <i class="ion-load-c"></i>
+
 </div>
-<div class="photo-class row" ng-if="likePhotos.length > 0 && !process">
+
+<div class="photo-class row" ng-if="likePhotos.length > 0 && !loading && !process">
     <div class="photo-class-title col-md-6 col-xs-12"><span style="color: red">Так так... </span>{{likePhotos.length + ' фотографий '}}</div>
 </div>
-<ul slide class="rslides" ng-if="likePhotos.length > 0 && !process">
+<ul slide class="rslides" ng-if="likePhotos.length > 0 && !loading && !process">
     <li ng-repeat="photo in likePhotos"><img ng-src="{{photo.instance.photo_604}}"  alt="" ng-click="increasePhoto(photo)" ng-swipe-left="showPrev(photo)" ng-swipe-right="showNext(photo)">
         <p class="photo-class-likes"><i class="ion-heart"></i>{{' ' + photo.countLikes}}</p>
     </li>

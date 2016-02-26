@@ -4,8 +4,8 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
   $scope.window = window;
   $scope.params = params;
   $scope.stateParams = $stateParams;
-  $scope.process = false;
   $scope.openOtherSearch = false;
+  $scope.loading = false;
   $scope.user = user.response[0];
   $scope.userId = $scope.user.id;
   $scope.userSearchForId = $scope.stateParams.selectedId;
@@ -55,8 +55,8 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
       return true;
     }
     $scope.openOtherSearch = true;
-    $scope.process = true;
     $scope.photos = [];
+    $scope.loading = true;
     $scope.countPhoto = countPhoto;
     $scope.typePhoto = typePhoto;
     return RestModel.getPhoto($scope.userId, $scope.params, $scope.countPhoto, $scope.typePhoto).then(function(data) {
@@ -65,8 +65,8 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
       if ($scope.photos !== null) {
         return $scope.getLikesFromPhotos();
       } else {
-        $scope.likePhotos = [];
-        return $scope.process = false;
+        $scope.loading = false;
+        return $scope.likePhotos = [];
       }
     }, function(error) {
       return console.log(error);
@@ -93,7 +93,7 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
               }
             });
             if ($scope.photos[$scope.photosLength - 1] === photo) {
-              return $scope.process = false;
+              return $scope.loading = false;
             }
           }
         }, function(error) {
@@ -119,7 +119,7 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
     }
     if (index === $scope.photosLength) {
       console.log($scope.likePhotos);
-      $scope.process = false;
+      $scope.loading = false;
       return true;
     }
   };

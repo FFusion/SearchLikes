@@ -8,6 +8,7 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
     $scope.window = window;
 
     $scope.process = false;
+    $scope.loading = false;
     $scope.openOtherSearch = false;
     $scope.isOpen = false;
     $scope.params = params;
@@ -62,7 +63,7 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
 
     $scope.likesWall = (countPost) ->
         $scope.openOtherSearch = true;
-        $scope.process = true;
+        $scope.loading = true;
         # id кого ищем
 #        $scope.userSearchForId = userSearchForId;
 
@@ -78,7 +79,7 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
                     $scope.getLikesFromPosts();
                 else
                     $scope.likePosts = [];
-                    $scope.process = false;
+                    $scope.loading = false;
             (error) ->
                 console.log(error);
         )
@@ -101,7 +102,7 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
                                     #массив записей, которые понравились пользователю userSearchFor
                                     $scope.likePosts.push(post);
                                 )
-                            if $scope.posts[$scope.postsLength - 1] == post then $scope.process = false;
+                            if $scope.posts[$scope.postsLength - 1] == post then $scope.loading = false;
                     (error) ->
                         console.log(error);
                 )
@@ -129,7 +130,7 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
         # выходим из рекурсии
         if index == $scope.postsLength
             console.log($scope.likePosts);
-            $scope.process = false;
+            $scope.loading = false;
             return true
 
 

@@ -3,6 +3,7 @@
 FriendsModule.controller('FriendsController', function($scope, $location, $window, $state, $stateParams, params, ngTableParams, LocalStorage, RestModel) {
   $scope.openAccess = true;
   $scope.openTable = false;
+  $scope.loading = false;
   $scope.params = $scope.params || LocalStorage.getItem('params');
   RestModel.getUserById($scope.params.user_id, $scope.params).then(function(data) {
     return $scope.currentUser = data.response[0];
@@ -13,9 +14,11 @@ FriendsModule.controller('FriendsController', function($scope, $location, $windo
     $scope.friendsOnline = [];
     $scope.openTableOnline = false;
     if (!$scope.friends) {
+      $scope.loading = true;
       return RestModel.getFriends($scope.params).then(function(data) {
         console.log(data);
         $scope.countFriends = data.response.count;
+        $scope.loading = false;
         $scope.friends = RestModel.isWorkingFriendsObject(data);
         return $scope.openTable = $scope.friends ? true : false;
       }, function(error) {

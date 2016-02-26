@@ -508,3 +508,68 @@
     border-color: @color-button;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @color-button;
 }
+
+//загрузка
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes spin {
+    100% { -moz-transform:rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+    100% { -webkit-transform:rotate(360deg); }
+}
+
+@-ms-keyframes spin {
+    100% { -ms-transform:rotate(360deg); }
+}
+
+@-o-keyframes spin {
+    100% { -o-transform:rotate(360deg); }
+}
+
+
+.loading-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    z-index: 2000;
+    opacity: 0.8;
+}
+
+.process {
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin: -75px 0 0 -75px;
+
+
+    &-title {
+        margin-top:10px;
+        font-size: 1.3em;
+        text-align: center;
+        color: lightblue;
+    }
+
+    &-circle {
+        width: 150px;
+        height: 150px;
+        border: 20px solid lightblue;
+        border-bottom-color: @color-button;
+        border-radius: 100%;
+        animation: spin 1s infinite linear;
+
+
+        -moz-animation: spin 1s infinite linear;
+        -o-animation: spin 1s infinite linear;
+        -webkit-animation: spin 1s infinite linear;
+        -ms-animation: spin 1s infinite linear;
+    }
+
+}

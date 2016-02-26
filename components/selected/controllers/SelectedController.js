@@ -4,6 +4,7 @@ SelectedModule.controller('SelectedController', function($scope, $stateParams, $
   $scope.params = params;
   $scope.window = window;
   $scope.stateParams = $stateParams;
+  $scope.loading = true;
   $scope.userId = $scope.stateParams.userId;
   $scope.type = $scope.stateParams.type;
   $scope.selected = null;
@@ -18,6 +19,7 @@ SelectedModule.controller('SelectedController', function($scope, $stateParams, $
     return console.log(error);
   });
   RestModel.getFriends(params, $scope.userId).then(function(data) {
+    $scope.loading = false;
     $scope.countFriends = data.response.count;
     return $scope.userFriends = RestModel.isWorkingFriendsObject(data);
   }, function(error) {

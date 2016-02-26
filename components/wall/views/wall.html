@@ -1,16 +1,22 @@
+<div class="loading-content" ng-if="loading">
+    <div class="process">
+        <div class="process-circle"></div>
+        <div class="process-title"><span>Загрузка...</span></div>
+    </div>
+</div>
 <div class="wall">
     <div class="wall-top row">
         <div class="block-navigation-button">
             <button class="btn btn-back" ng-click="back()">К профилю</button>
         </div>
-        <div class="block-navigation-button" ng-if="openOtherSearch && !process">
+        <div class="block-navigation-button" ng-if="openOtherSearch && !process && !loading">
             <button class="btn btn-back" ng-click="returnFormSearch()">К форме поиска</button>
         </div>
-        <div class="block-navigation-button" ng-if="!process">
+        <div class="block-navigation-button" ng-if="!process && !loading">
             <button class="btn btn-home" ng-click="photo()">Поиск <i class="ion-heart"></i> по фото</button>
         </div>
     </div>
-    <div ng-if="!likePosts && !process">
+    <div ng-if="!likePosts && !process && !loading">
         <div class="wall-owner row">
             <div class="text-center"><h2>Ищем на стене пользователя</h2></div>
             <div class="row wall-owner-content">
@@ -48,7 +54,7 @@
 </div>
 
 
-<div class="wall-titles" ng-if="!process && likePosts.length > 0">
+<div class="wall-titles" ng-if="!process && !loading && likePosts.length > 0">
     <div class="caption-wall">Опаньки!</div>
     <ul class="list-unstyled">
         <li ng-repeat="post in likePosts" class="post">
@@ -118,11 +124,11 @@
     </ul>
 </div>
 
-<div class="caption-empty" ng-if="!posts && likePosts.length == 0 && openOtherSearch && !process">
+<div class="caption-empty" ng-if="!posts && likePosts.length == 0 && openOtherSearch && !process && !loading">
     <div>Пустая стена :)</div>
 </div>
 
-<div class="caption-notLikes" ng-if="!process && likePosts.length == 0 && posts">
+<div class="caption-notLikes" ng-if="!loading && !process && likePosts.length == 0 && posts">
     <div>{{userSearchFor.first_name + ' ' + userSearchFor.last_name}}</div>
     <div style="color:red">не уважает</div>
     <div>{{user.first_name + ' ' + user.last_name}}</div>
@@ -130,7 +136,7 @@
 </div>
 
 <div class="processing" ng-if="process">
-    <i class="ion-load-c"></i>
+
 </div>
 
 <div class="blade" ng-if="openBigBlade" image>

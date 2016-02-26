@@ -7,6 +7,7 @@ SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location
     $scope.params = params;
     $scope.window = window;
     $scope.stateParams = $stateParams;
+    $scope.loading = true;
 
     $scope.userId = $scope.stateParams.userId;
     #тип стена или фото
@@ -29,6 +30,7 @@ SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location
 
     RestModel.getFriends(params, $scope.userId).then(
         (data)->
+            $scope.loading = false;
             $scope.countFriends = data.response.count;
             $scope.userFriends = RestModel.isWorkingFriendsObject(data);
         (error) ->

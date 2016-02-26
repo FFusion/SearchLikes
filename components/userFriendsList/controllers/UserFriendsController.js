@@ -7,6 +7,7 @@ UserFriendsModule.controller('UserFriendsController', function($scope, $location
   $scope.page = 1;
   $scope.pageSize = 6;
   $scope.userId = $scope.stateParams.userId;
+  $scope.loading = true;
   $scope.back = function() {
     return $scope.window.history.back();
   };
@@ -20,6 +21,7 @@ UserFriendsModule.controller('UserFriendsController', function($scope, $location
     return console.log(error);
   });
   RestModel.getFriends(params, $scope.userId).then(function(data) {
+    $scope.loading = false;
     $scope.countFriends = data.response.count;
     $scope.userFriends = RestModel.isWorkingFriendsObject(data);
     return $scope.userFriendsArray = null;
