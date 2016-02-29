@@ -116,7 +116,7 @@
   opacity: 1;
 }
 .photo-class {
-  margin-top: 5px;
+  margin: 0 !important;
   font: 800 16px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
 }
 .photo-class-title {
@@ -127,6 +127,24 @@
   text-align: right;
   color: #6383a8;
   font: 800 16px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
+}
+.result-photo {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  margin: 10px;
+  padding: 5px;
+}
+.result-photo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  max-height: 100%;
+  max-width: 100%;
+  display: block;
+  margin: auto;
 }
 .rslides {
   position: relative;
@@ -150,14 +168,10 @@
   float: left;
 }
 .rslides img {
-  display: block;
-  height: auto;
   float: left;
-  width: 100%;
   border: 0;
-  max-height: 600px;
   border-radius: 4px;
-  margin-bottom: 5px;
+  padding-bottom: 5px;
 }
 .rslides_nav {
   height: 25px;

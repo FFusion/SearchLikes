@@ -86,7 +86,12 @@
     <div class="photo-class-title col-md-6 col-xs-12"><span style="color: red">Так так... </span>{{likePhotos.length + ' фотографий '}}</div>
 </div>
 <ul slide class="rslides" ng-if="likePhotos.length > 0 && !loading && !process">
-    <li ng-repeat="photo in likePhotos"><img ng-src="{{photo.instance.photo_604}}"  alt="" ng-click="increasePhoto(photo)" ng-swipe-left="showPrev(photo)" ng-swipe-right="showNext(photo)">
+    <li ng-repeat="photo in likePhotos">
+        <div class="result-photo">
+            <img ng-src="{{photo.instance.photo_604}}"  alt=""  ng-swipe-left="showPrev(photo)" ng-swipe-right="showNext(photo)">
+            <!--ng-click="increasePhoto(photo)"-->
+        </div>
+
         <p class="photo-class-likes"><i class="ion-heart"></i>{{' ' + photo.countLikes}}</p>
     </li>
 </ul>
