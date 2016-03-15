@@ -59,7 +59,6 @@ $(()->
     $(text).appendTo('#slider-wrap');
     $('.control-slide:first').addClass('active');
     $('.control-slide').click(() ->
-        console.log(4);
         goToNum = parseFloat($(this).text());
         animSlide(goToNum);
     );

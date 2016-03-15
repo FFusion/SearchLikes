@@ -231,7 +231,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
     getLikes: function(userId, params, postId, type) {
       var deffered, url;
       deffered = $q.defer();
-      url = url = vk.api + '/method/likes.getList?' + 'owner_id=' + userId + '&item_id=' + postId + '&type=' + type + '&filter=likes&friend_only=0&count=1000&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      url = vk.api + '/method/likes.getList?' + 'owner_id=' + userId + '&item_id=' + postId + '&type=' + type + '&filter=likes&friend_only=0&count=1000&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {
@@ -292,6 +292,27 @@ MainModule.factory('RestModel', function($q, $http, vk) {
         email: content.email,
         wish: content.wish
       }).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getLikesExecute: function(userId, photos, params) {
+      var code, count, deffered, i, url, _i, _ref;
+      deffered = $q.defer();
+      count = 0;
+      code = 'return {';
+      for (i = _i = 0, _ref = photos.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        if (i !== photos.length - 1) {
+          code = code + 'listLikes_' + photos[i].id + '_' + i + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000}),';
+        } else {
+          code = code + 'listLikes_' + photos[i].id + '_' + i + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000})';
+        }
+      }
+      code = code + '};';
+      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {
         return deffered.reject(error);

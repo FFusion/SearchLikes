@@ -57,7 +57,6 @@ $(function() {
   $('.control-slide:first').addClass('active');
   $('.control-slide').click(function() {
     var goToNum;
-    console.log(4);
     goToNum = parseFloat($(this).text());
     return animSlide(goToNum);
   });

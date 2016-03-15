@@ -230,7 +230,7 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
     getLikes: (userId, params, postId, type) ->
         deffered = $q.defer();
-        url = url = vk.api + '/method/likes.getList?' + 'owner_id=' + userId + '&item_id=' + postId + '&type=' + type + '&filter=likes&friend_only=0&count=1000&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+        url = vk.api + '/method/likes.getList?' + 'owner_id=' + userId + '&item_id=' + postId + '&type=' + type + '&filter=likes&friend_only=0&count=1000&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
         $http.jsonp(url)
             .success((data)->
                 deffered.resolve(data);
@@ -301,5 +301,28 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
             .error((error)->
                 deffered.reject(error);
             )
+
+        deffered.promise;
+
+    getLikesExecute: (userId, photos, params) ->
+        deffered = $q.defer();
+        count = 0;
+        code = 'return {';
+        for i in [0..photos.length - 1]
+            if i != photos.length - 1
+                code = code + 'listLikes_' + photos[i].id + '_' + i + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id +  ',"friends_only":0, "count":1000}),';
+            else
+                code = code + 'listLikes_' + photos[i].id + '_' + i + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000})';
+
+        code = code + '};';
+        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+            .success((data)->
+                deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            );
 
         deffered.promise;
