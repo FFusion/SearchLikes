@@ -5,7 +5,6 @@ SelectedModule.controller('ProcessingPhotoController', function($scope, $statePa
   $scope.window = window;
   $scope.loading = false;
   $scope.isLikes = [];
-  $scope.likesUser = [];
   $scope.result = false;
   $scope.count = 0;
   $scope.typeUsers = "all";
@@ -20,6 +19,7 @@ SelectedModule.controller('ProcessingPhotoController', function($scope, $statePa
   $scope.scaned = function(userFriends) {
     var scaningUsers;
     scaningUsers = [];
+    $scope.isLikes = [];
     $scope.result = false;
     $scope.procent = 0;
     angular.forEach(userFriends, function(friend) {

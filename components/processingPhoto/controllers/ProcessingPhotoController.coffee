@@ -8,7 +8,6 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
     $scope.window = window;
     $scope.loading = false;
     $scope.isLikes = [];
-    $scope.likesUser = [];
     $scope.result = false;
     $scope.count = 0;
 
@@ -29,6 +28,7 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
 
     $scope.scaned = (userFriends) ->
         scaningUsers = [];
+        $scope.isLikes = [];
         $scope.result = false;
         $scope.procent = 0;
 
