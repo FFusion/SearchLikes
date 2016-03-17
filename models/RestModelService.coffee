@@ -4,14 +4,12 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
     class RestModel
 
     getLinkAutorization: () ->
-        console.log(vk);
         url = vk.auth + '?client_id=' + vk.clientId + '&scope=friends,offline,photos,wall&redirect_uri=' + vk.redirectUri + '&display=page&response_type=token';
         url;
 
     _getLinkFriends: (params, userId = null) ->
         if userId isnt null then id = userId else id = params.user_id;
-        console.log(id);
-        url = vk.api + '/method/friends.get?user_id=' + id + '&v=5.8&access_token=' + params.access_token + '&order=name&fields=city,online,last_seen,has_mobile,photo_50&callback=JSON_CALLBACK';
+        url = vk.api + '/method/friends.get?user_id=' + id + '&v=5.8&access_token=' + params.access_token + '&order=name&fields=city,sex,online,last_seen,has_mobile,photo_50&callback=JSON_CALLBACK';
         url;
 
 #    _getLinkFriendsOnline: (params) ->
@@ -119,7 +117,6 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
 
     _transformObject: (object) ->
-#        console.log(object)
         object.forEach((user) =>
             if angular.isDefined(user.last_seen) && user.online != 1 && !angular.isDefined(user.deactivated)
                 lastTime = user.last_seen.time;
@@ -310,9 +307,9 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         code = 'return {';
         for i in [0..photos.length - 1]
             if i != photos.length - 1
-                code = code + 'listLikes_' + photos[i].id + '_' + i + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id +  ',"friends_only":0, "count":1000}),';
+                code = code + 'listLikes_' + photos[i].id + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id +  ',"friends_only":0, "count":1000}),';
             else
-                code = code + 'listLikes_' + photos[i].id + '_' + i + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000})';
+                code = code + 'listLikes_' + photos[i].id + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000})';
 
         code = code + '};';
         url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';

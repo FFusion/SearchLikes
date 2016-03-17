@@ -11,7 +11,6 @@ MainModule.factory('RestModel', function($q, $http, vk) {
   return {
     getLinkAutorization: function() {
       var url;
-      console.log(vk);
       url = vk.auth + '?client_id=' + vk.clientId + '&scope=friends,offline,photos,wall&redirect_uri=' + vk.redirectUri + '&display=page&response_type=token';
       return url;
     },
@@ -25,8 +24,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       } else {
         id = params.user_id;
       }
-      console.log(id);
-      url = vk.api + '/method/friends.get?user_id=' + id + '&v=5.8&access_token=' + params.access_token + '&order=name&fields=city,online,last_seen,has_mobile,photo_50&callback=JSON_CALLBACK';
+      url = vk.api + '/method/friends.get?user_id=' + id + '&v=5.8&access_token=' + params.access_token + '&order=name&fields=city,sex,online,last_seen,has_mobile,photo_50&callback=JSON_CALLBACK';
       return url;
     },
     _getLinkUser: function(id, params) {
@@ -305,9 +303,9 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       code = 'return {';
       for (i = _i = 0, _ref = photos.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
         if (i !== photos.length - 1) {
-          code = code + 'listLikes_' + photos[i].id + '_' + i + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000}),';
+          code = code + 'listLikes_' + photos[i].id + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000}),';
         } else {
-          code = code + 'listLikes_' + photos[i].id + '_' + i + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000})';
+          code = code + 'listLikes_' + photos[i].id + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000})';
         }
       }
       code = code + '};';

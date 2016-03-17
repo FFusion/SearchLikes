@@ -118,57 +118,57 @@ $(()->
     );
     rotatorAward();
 
-#    Google map
-    initialize = () ->
-        secheltLoc = new google.maps.LatLng(54.10506, 45.10594);
-        myMapOptions = {
-            scrollwheel: false
-            draggable: false
-            zoom: 10
-            center: secheltLoc
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-        theMap = new google.maps.Map(document.getElementById('map_canvas'), myMapOptions);
-
-        image = 'img/point.png';
-
-        marker = new google.maps.Marker({
-            map: theMap
-            draggable: false
-            position: new google.maps.LatLng(54.10506, 45.10594)
-            icon: image
-            visible: true
-        });
-
-        boxText = document.createElement('div');
-
-        contentString = '<div id="content-boolean">'+'<h1>LikeSearch</h1>'+'<p>Россия, Саранск</p>'+'</div>';
-
-        myOptions = {
-            content: contentString
-            disableAutoPan: false
-            maxWidth: 200
-            pixelOffset: new google.maps.Size(35, -70)
-            zIndex: null
-            boxStyle: {
-                width: "200px"
-            }
-            infoBoxClearance: new google.maps.Size(1, 1)
-            closeBoxURL: ""
-            isHidden: false
-            pane: "floatPane"
-            enableEventPropagation: false
-        };
-
-        google.maps.event.addListener(marker, 'click', (e) ->
-            ib.open(theMap, this);
-        );
-
-        ib = new InfoBox(myOptions);
-        ib.open(theMap, marker);
-
-    google.maps.event.addDomListener(window, 'load', initialize);
+##    Google map
+#    initialize = () ->
+#        secheltLoc = new google.maps.LatLng(54.10506, 45.10594);
+#        myMapOptions = {
+#            scrollwheel: false
+#            draggable: false
+#            zoom: 10
+#            center: secheltLoc
+#            mapTypeId: google.maps.MapTypeId.ROADMAP
+#    };
+#
+#        theMap = new google.maps.Map(document.getElementById('map_canvas'), myMapOptions);
+#
+#        image = 'img/point.png';
+#
+#        marker = new google.maps.Marker({
+#            map: theMap
+#            draggable: false
+#            position: new google.maps.LatLng(54.10506, 45.10594)
+#            icon: image
+#            visible: true
+#        });
+#
+#        boxText = document.createElement('div');
+#
+#        contentString = '<div id="content-boolean">'+'<h1>LikeSearch</h1>'+'<p>Россия, Саранск</p>'+'</div>';
+#
+#        myOptions = {
+#            content: contentString
+#            disableAutoPan: false
+#            maxWidth: 200
+#            pixelOffset: new google.maps.Size(35, -70)
+#            zIndex: null
+#            boxStyle: {
+#                width: "200px"
+#            }
+#            infoBoxClearance: new google.maps.Size(1, 1)
+#            closeBoxURL: ""
+#            isHidden: false
+#            pane: "floatPane"
+#            enableEventPropagation: false
+#        };
+#
+#        google.maps.event.addListener(marker, 'click', (e) ->
+#            ib.open(theMap, this);
+#        );
+#
+#        ib = new InfoBox(myOptions);
+#        ib.open(theMap, marker);
+#
+#    google.maps.event.addDomListener(window, 'load', initialize);
 
 
 #    Animation Effects
@@ -218,7 +218,7 @@ $(()->
         $('.services-provide-block ul li.item-1').animate({'left' : '0'} , 1000 , 'linear' , ()->
             $('.services-provide-block ul li.item-2').animate({'left' : '0'} , 1000 , 'linear' , ()->
                 $('.services-provide-block ul li.item-3').animate({'left' : '0'} , 1000 , 'linear' , ()->
-                    $('a.to-employee-btn').animate({'opacity' : '1'} , 1000 , 'linear');
+#                    $('a.to-employee-btn').animate({'opacity' : '1'} , 1000 , 'linear');
                     $('.services-main-title').animate({'top' : '0', 'opacity' : '1'} , 700 , 'linear');
                 );
             );

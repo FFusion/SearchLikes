@@ -10,45 +10,6 @@ SelectedModule.controller('SelectedController', function($scope, $stateParams, $
   $scope.selected = null;
   $scope.page = 1;
   $scope.pageSize = 7;
-  $scope.searchPhotoAmongAllUsers = function(userFriends) {
-    var user;
-    user = userFriends.splice(0, 1);
-    return $timeout(function() {
-      return RestModel.getPhoto(user[0].id, $scope.params, 1000, "profile").then(function(data) {
-        var photos;
-        photos = data.response.items;
-        if (photos.length === 0) {
-          $scope.searchPhotoAmongAllUsers(userFriends);
-        }
-        return $scope.getLikesFromsPhotos(userFriends, photos);
-      });
-    }, 500);
-  };
-  $scope.getLikesFromsPhotos = function(userFriends, photos, arrayLikes) {
-    var tempPhotos;
-    if (arrayLikes == null) {
-      arrayLikes = null;
-    }
-    tempPhotos = '';
-    $scope.loading = true;
-    if (photos.length < 25) {
-      $scope.arrayLikes = arrayLikes || [];
-      return RestModel.getLikesExecute($scope.userId, photos, $scope.params).then(function(likes) {
-        $scope.arrayLikes.push(likes);
-        return $scope.isSearchLikes(userFriends, $scope.arrayLikes);
-      }, function(error) {
-        return console.log(error);
-      });
-    } else {
-      $scope.arrayLikes = arrayLikes || [];
-      tempPhotos = photos.splice(0, 25);
-      console.log('photos', photos);
-      return RestModel.getLikesExecute($scope.userId, photos, $scope.params).then(function(likes) {
-        $scope.arrayLikes.push(likes);
-        return $scope.getLikesFromsPhotos(userFriends, photos, $scope.arrayLikes);
-      });
-    }
-  };
   $scope.back = function() {
     return $scope.window.history.back();
   };
@@ -64,11 +25,6 @@ SelectedModule.controller('SelectedController', function($scope, $stateParams, $
   }, function(error) {
     return console.log(error);
   });
-  $scope.isSearchLikes = function(userFriends, likes) {
-    $scope.loading = false;
-    console.log(likes);
-    return $scope.searchPhotoAmongAllUsers(userFriends);
-  };
   $scope.isSelected = function(selected) {
     if ($scope.selected !== null && selected === $scope.selected) {
       return $scope.selected = null;

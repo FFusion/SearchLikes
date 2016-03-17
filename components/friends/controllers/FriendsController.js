@@ -54,4 +54,4 @@ FriendsModule.controller('FriendsController', function($scope, $location, $windo
   return $scope.pageSize = 6;
 });
 
-//# sourceMappingURL=FriendsController.map
+

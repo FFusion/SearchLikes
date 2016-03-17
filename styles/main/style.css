@@ -502,7 +502,7 @@ a.to-employee-btn {
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
-    opacity: 0;
+    /*opacity: 0;*/
     -webkit-transition: .4s ease;
     -moz-transition: .4s ease;
     -o-transition: .4s ease;
@@ -512,6 +512,7 @@ a.to-employee-btn:hover {
     background-color: #fff;
     color: #062e48;
     border-color: #fff;
+    text-decoration: none;
 }
 #slider-wrap {
     width: 585px;
@@ -1772,11 +1773,11 @@ footer[role="contentinfo"] {
         padding-top: 20px;
         text-align: center;
     }
-    a.to-employee-btn {
-        display: inline-block;
-        float: none;
-        margin-left: 0;
-    }
+    /*a.to-employee-btn {*/
+        /*display: inline-block;*/
+        /*float: none;*/
+        /*margin-left: 0;*/
+    /*}*/
     .services-bottom-block .f-left h4,
     .services-bottom-block .f-right h4,
     .services-bottom-block .f-left p,

@@ -166,5 +166,3 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
     return true;
   };
 });
-
-//# sourceMappingURL=PhotoControllers.map

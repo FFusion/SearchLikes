@@ -86,6 +86,16 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
                 params: (LocalStorage) -> LocalStorage.getItem('params');
         )
 
+        .state('processingPhoto',
+            url         : '/user/:userId/processing',
+            controller  : 'ProcessingPhotoController',
+            templateUrl : 'components/processingPhoto/views/processing.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+                currentUser: (RestModel, $stateParams,params) ->  RestModel.getUserById($stateParams.userId,params);
+                friends: (RestModel, $stateParams,params) -> RestModel.getFriends(params, $stateParams.userId);
+            )
+
 #        .state('tetris',
 #            url         : '/tetris',
 #            controller  : 'tetris',

@@ -12,8 +12,7 @@ h3 {
 .main-content {
     background-color:white;
 
-    min-height: 840px;
-    height:1px;
+    height:100%;
     width: 1024px;
     min-width: 320px;
 
@@ -31,6 +30,10 @@ h3 {
         height: 100%;
         padding:20px;
 
+    }
+
+    &-friends {
+        min-height: 840px;
     }
 
 }
@@ -69,7 +72,7 @@ h3 {
     }
 
     &-bottom {
-
+        height: 40px;
     }
 }
 
@@ -185,6 +188,13 @@ h3 {
     }
 }
 
+.user-title {
+    opacity: 0.7;
+    font-size:16px;
+    font-style: italic;
+    padding:0 0 10px 15px;
+}
+
 .user-more {
 
     &-item {
@@ -192,7 +202,7 @@ h3 {
         width: 100%;
         margin:0 0 15px 0;
         padding:10px;
-        text-align: center;
+//        text-align: center;
         font-style:italic;
 
         span:first-child {
@@ -386,6 +396,51 @@ h3 {
         }
     }
 }
+
+//photo
+.result-content {
+    margin-top:90px;
+    padding: 20px;
+
+    &-procent {
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-style:italic;
+        opacity: 0.7;
+        font-weight: 500;
+
+        text-align: center;
+    }
+
+    &-item {
+        padding:10px;
+        margin-bottom: 10px;
+
+        border-top: 1px solid #d3d3d3;
+        div:first-child {
+            text-align: center;
+        }
+
+        div:last-child {
+            text-align: left;
+        }
+
+        &-count {
+            line-height: 69px;
+
+            font-size: 15px;
+            font-style:italic;
+            opacity: 0.7;
+            font-weight: 500;
+
+            span {
+                font-size: 18px;
+                font-weight: 600;
+            }
+        }
+    }
+
+}
 //UserFriend
 
 .userFriend {
@@ -426,7 +481,7 @@ h3 {
 @media only screen and (max-width: 768px) {
     .main-content {
         width: 568px;
-        min-height: 1040px;
+//        min-height: 1040px;
     }
 
     .block-off {
@@ -445,7 +500,7 @@ h3 {
 @media only screen and (max-width: 568px) {
     .main-content {
         width: 480px;
-        min-height: 1100px;
+//        min-height: 1100px;
     }
 
     .friends-top {
@@ -479,7 +534,7 @@ h3 {
 @media only screen and (max-width: 480px) {
     .main-content {
         width: 320px;
-        min-height: 1200px;
+//        min-height: 1200px;
     }
 
     .friends-top {
@@ -525,8 +580,8 @@ h3 {
 @media only screen and (max-width: 320px) {
     .main-content {
         width: 320px;
-        min-height: 1200px;
-        height: 1px;
+//        min-height: 1200px;
+//        height: 1px;
     }
 
     .friends-top {

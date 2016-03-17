@@ -27,13 +27,17 @@ UserModule.controller('UserController', function($scope, $stateParams, $location
       userId: user.id
     });
   };
-  $scope.checkPhoto = function(user) {
+  $scope.checkPhotoOne = function(user) {
     return $state.transitionTo('selected', {
       userId: user.id,
       type: 'photo'
     });
   };
+  $scope.checkPhotoAll = function(user) {
+    return $state.transitionTo('processingPhoto', {
+      userId: user.id
+    });
+  };
   return console.log($scope.openAccess);
 });
 
-//# sourceMappingURL=UserController.map

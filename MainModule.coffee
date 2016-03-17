@@ -6,9 +6,9 @@ MainModule = angular.module 'MainModule', ['ngRoute', 'ui.router', 'datatables',
 
 MainModule.constant 'vk',
     auth        : "https://oauth.vk.com/authorize"
-    clientId   : 4699380
-#    clientId: 3741849
-#    redirectUri: "http://localhost"
-    redirectUri: "http://vkopen.16mb.com"
+#    clientId   : 4699380
+    clientId: 3741849
+    redirectUri: "http://eq.loc"
+#    redirectUri: "http://vkopen.16mb.com"
     api         : "https://api.vk.com"
 

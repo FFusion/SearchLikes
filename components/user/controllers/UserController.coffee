@@ -31,9 +31,10 @@ UserModule.controller 'UserController', ($scope, $stateParams, $location, $state
         $state.transitionTo('user-friend', {userId: user.id});
 
 
-    $scope.checkPhoto = (user) ->
-#        $location.path('user/' + user.id + '/selected/photo');
+    $scope.checkPhotoOne = (user) ->
         $state.transitionTo('selected', {userId: user.id, type:'photo'});
 
+    $scope.checkPhotoAll = (user) ->
+        $state.transitionTo('processingPhoto', {userId: user.id});
         
     console.log($scope.openAccess);

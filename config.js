@@ -76,6 +76,21 @@ MainModule.config([
           return LocalStorage.getItem('params');
         }
       }
+    }).state('processingPhoto', {
+      url: '/user/:userId/processing',
+      controller: 'ProcessingPhotoController',
+      templateUrl: 'components/processingPhoto/views/processing.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        },
+        currentUser: function(RestModel, $stateParams, params) {
+          return RestModel.getUserById($stateParams.userId, params);
+        },
+        friends: function(RestModel, $stateParams, params) {
+          return RestModel.getFriends(params, $stateParams.userId);
+        }
+      }
     });
     return $urlRouterProvider.otherwise('/login');
   }
@@ -87,4 +102,4 @@ MainModule.run(function($rootScope, $state) {
   });
 });
 
-//# sourceMappingURL=config.map
+

@@ -74,9 +74,9 @@
             <div class="services-slider-block">
                 <div id="slider-wrap">
                     <div id="slider">
-                        <figure class="slide"><img src="image/main/large-slides/slide.jpg" alt="Slide 1"></figure>
-                        <figure class="slide"><img src="image/main/large-slides/slide2.jpg" alt="Slide 2"></figure>
-                        <figure class="slide"><img src="image/main/large-slides/slide3.jpg" alt="Slide 3"></figure>
+                        <figure class="slide"><img src="image/main/large-slides/slide.jpg" alt="Slide 1" ng-swipe-left="showPrev(3)" ng-swipe-right="showNext(2)"></figure>
+                        <figure class="slide"><img src="image/main/large-slides/slide2.jpg" alt="Slide 2" ng-swipe-left="showPrev(1)" ng-swipe-right="showNext(3)"></figure>
+                        <figure class="slide"><img src="image/main/large-slides/slide3.jpg" alt="Slide 3" ng-swipe-left="showPrev(2)" ng-swipe-right="showNext(1)"></figure>
                     </div><!-- #slider -->
                 </div><!-- #slider-wrap -->
             </div><!-- .services-slider-block -->
@@ -156,9 +156,9 @@
         </form>
     </div><!-- .section-inn -->
 </section><!-- #contacts -->
-<section class="map-section section-main" ng-if="!openAccess">
-    <div id="map_canvas"></div>
-</section><!-- .map-section -->
+<!--<section class="map-section section-main" ng-if="!openAccess">-->
+    <!--<div id="map_canvas"></div>-->
+<!--</section>&lt;!&ndash; .map-section &ndash;&gt;-->
 <section class="main-content" ng-show="openAccess">
     <ui-view></ui-view>
     <notificaton></notificaton>
@@ -182,7 +182,7 @@
 </div><!-- .navigation-fixed -->
 
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"> </script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"> </script>-->
 
 <!--build:js(./) /assets/scripts/plugins.js-->
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
@@ -203,7 +203,7 @@
 <!--endbuild-->
 
 <!--build:js(./) /assets/scripts/mainPlugins.js-->
-<script src="bower_components/libs/infobox.js"> </script>
+<!--<script src="bower_components/libs/infobox.js"> </script>-->
 <script src="bower_components/libs/scrollspy.js"> </script>
 <script src="bower_components/libs/easyResponsiveTabs.js"> </script>
 <!--endbuild-->
@@ -253,6 +253,7 @@
 <script type="text/javascript" src="components/userFriendsList/controllers/UserFriendsController.js"></script>
 <script type="text/javascript" src="components/photo/controllers/PhotoControllers.js"></script>
 <script type="text/javascript" src="components/selected/controllers/SelectedController.js"></script>
+<script type="text/javascript" src="components/processingPhoto/controllers/ProcessingPhotoController.js"></script>
 
 <script type="text/javascript" src="controllers/MainController.js"></script>
 
