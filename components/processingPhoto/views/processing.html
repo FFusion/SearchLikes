@@ -32,21 +32,21 @@
             </div>
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="typeUsers == 'male'" ng-true-value="'male'" class="checkbox" ng-model="typeUsers" id="man" />
+                    <input type="checkbox" ng-checked="typeUsers == 'male'" ng-true-value="'male'" ng-false-value="'all'" class="checkbox" ng-model="typeUsers" id="man" />
                     <label for="man">Мужики</label>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="typeUsers == 'female'" ng-true-value="'female'" class="checkbox" ng-model="typeUsers" id="woman" />
+                    <input type="checkbox" ng-checked="typeUsers == 'female'" ng-true-value="'female'" ng-false-value="'all'" class="checkbox" ng-model="typeUsers" id="woman" />
                     <label for="woman">Девушки</label>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="typeUsers == 'all'" ng-true-value="'all'" class="checkbox" ng-model="typeUsers" id="all" />
+                    <input type="checkbox" ng-checked="typeUsers == 'all'" ng-true-value="'all'" ng-false-value="male" class="checkbox" ng-model="typeUsers" id="all" />
                     <label for="all">Все друзья</label>
                 </div>
             </div>
         </div>
         <div class="friends-content-bottom pull-right">
-            <button class="btn btn-back" ng-click="scaned(userFriends)">Сканируем</button>
+            <button class="btn btn-back" ng-click="scaned(userFriends)" ng-disabled="procent != 100 && procent > 0">Сканируем</button>
         </div>
     </div>
 

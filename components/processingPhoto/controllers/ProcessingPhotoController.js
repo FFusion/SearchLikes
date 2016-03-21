@@ -59,7 +59,7 @@ SelectedModule.controller('ProcessingPhotoController', function($scope, $statePa
         }, function(error) {
           return $scope.searchPhotoAmongUsers(userFriends);
         });
-      }, 250);
+      }, 220);
     } else {
       return console.log('dct');
     }
@@ -82,13 +82,13 @@ SelectedModule.controller('ProcessingPhotoController', function($scope, $statePa
         }, function(error) {
           return console.log(error);
         });
-      }, 250);
+      }, 220);
     } else {
       $scope.arrayLikes = arrayLikes || [];
       tempPhotos = photos.splice(0, 24);
       return RestModel.getLikesExecute($scope.userId, tempPhotos, $scope.params).then(function(likes) {
         $scope.arrayLikes.push({
-          photo: photos,
+          photo: tempPhotos,
           likes: likes
         });
         return $scope.getLikesFromsPhotos(checkedUser, userFriends, photos, $scope.arrayLikes);
@@ -106,7 +106,11 @@ SelectedModule.controller('ProcessingPhotoController', function($scope, $statePa
         photoId = parseInt(key.replace(/\D+/g, ""));
         return angular.forEach(item.users, function(user) {
           if (user === parseInt($scope.userId)) {
-            return $scope.addPhotoWithLike(checkedUser, photoId, data.photo);
+            if (data.photo) {
+              return $scope.addPhotoWithLike(checkedUser, photoId, data.photo);
+            } else {
+              return $scope.searchPhotoAmongUsers(userFriends);
+            }
           }
         });
       });

@@ -71,7 +71,7 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
                     (error)->
                         $scope.searchPhotoAmongUsers(userFriends);
                 )
-            ,250)
+            ,220)
 
         else
             console.log('dct');
@@ -95,13 +95,13 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
                     (error)->
                         console.log(error);
                 )
-            ,250)
+            ,220)
 
         else
             $scope.arrayLikes = arrayLikes || [];
             tempPhotos = photos.splice(0, 24);
             RestModel.getLikesExecute($scope.userId, tempPhotos, $scope.params).then((likes)->
-                $scope.arrayLikes.push({photo:photos, likes:likes});
+                $scope.arrayLikes.push({photo:tempPhotos, likes:likes});
                 $scope.getLikesFromsPhotos(checkedUser, userFriends, photos, $scope.arrayLikes);
             )
 
@@ -116,7 +116,10 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
                 photoId = parseInt(key.replace(/\D+/g,""));
                 angular.forEach(item.users, (user)->
                     if user == parseInt($scope.userId)
-                        $scope.addPhotoWithLike(checkedUser, photoId, data.photo);
+                        if data.photo
+                            $scope.addPhotoWithLike(checkedUser, photoId, data.photo);
+                        else
+                            $scope.searchPhotoAmongUsers(userFriends);
                 )
             )
         )

@@ -31,6 +31,7 @@
                 <h3><span>{{userSearchFor.first_name + ' ' + userSearchFor.last_name}}</span></h3>
             </div>
         </div>
+        <hr>
         <div class="photo-menu">
             <div class="row">
                 <div>Тип фотографий</div>
@@ -55,12 +56,13 @@
                 </select>
             </div>
         </div>
+        <hr>
         <div class="row">
             <div class="col-xs-2 col-md-2 col-sm-2" style="padding: 0">
                 <button class="btn btn-change f-left" ng-click="changeUser(user, userSearchFor)">Поменять местами</button>
             </div>
             <div class="col-xs-10 col-md-10 col-sm-10" style="padding: 0">
-                <button class="btn btn-search f-right" ng-click="likesPhoto(countPhoto, typePhoto)" ng-disabled="wallForm.$invalid || wallForm.$pristine">Поиск</button>
+                <button class="btn btn-search f-right" ng-click="likesPhoto(countPhoto, typePhoto)" ng-disabled="(wallForm.$invalid || wallForm.$pristine) && countPhoto">Поиск</button>
             </div>
         </div>
     </div>

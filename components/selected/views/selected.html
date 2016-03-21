@@ -27,6 +27,7 @@
             </div>
         </div>
         <div class="friends-content-middle">
+            <div class="row"><div class="col-md-12 text-center friend-table-settings-caption">Выбери друга:</div></div>
             <div class="friends-item row" ng-repeat="user in userFriends | orderBy:predicate:reverse | filter:userFilter" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-click="isSelected(user)" ng-class="{'selected-item':selected == user}">
                 <div class="friends-item-photo col-md-2 col-xs-2">
                     <img src="{{user.photo_50}}" alt="ПользовательВк"/>

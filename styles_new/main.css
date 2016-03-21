@@ -185,7 +185,7 @@ h3 {
 .wall-owner,
 .photo-owner {
   padding: 5px;
-  border: 1px solid lightgrey;
+  border: 1px solid #6383a8;
   border-radius: 4px;
   margin-bottom: 5px;
 }
@@ -208,7 +208,7 @@ h3 {
 .wall-guest,
 .photo-guest {
   padding: 5px;
-  border: 1px solid lightgrey;
+  border: 1px solid #6383a8;
   border-radius: 4px;
 }
 .wall-guest div:first-child,
