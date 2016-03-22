@@ -23,14 +23,14 @@ SelectedModule.controller('ProcessingPhotoController', function($scope, $statePa
     $scope.result = false;
     $scope.procent = 0;
     angular.forEach(userFriends, function(friend) {
-      if ($scope.typeUsers === "'male'" && friend.sex === 2 && !angular.isDefined(friend.deactivated)) {
+      if ($scope.typeUsers === "male" && friend.sex === 2 && !angular.isDefined(friend.deactivated)) {
         scaningUsers.push(friend);
       }
-      if ($scope.typeUsers === "'female'" && friend.sex === 1 && !angular.isDefined(friend.deactivated)) {
+      if ($scope.typeUsers === "female" && friend.sex === 1 && !angular.isDefined(friend.deactivated)) {
         return scaningUsers.push(friend);
       }
     });
-    if ($scope.typeUsers === "'all'") {
+    if ($scope.typeUsers === "all") {
       $scope.searchPhotoAmongUsers(userFriends);
       return $scope.allCountUsers = userFriends.length;
     } else {

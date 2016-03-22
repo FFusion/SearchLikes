@@ -41,6 +41,15 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
             templateUrl : 'components/friends/views/friends.html',
             resolve     :
                 params: (LocalStorage) -> LocalStorage.getItem('params')
+                currentUser: (RestModel, params, $q) ->
+                    deffered = $q.defer();
+                    RestModel.getUserById(params.user_id, params).then(
+                        (data) ->
+                            deffered.resolve(data.response[0]);
+                        (error) ->
+                            deffered.reject(error);
+                    )
+                    deffered.promise;
         )
 
         .state('user',
@@ -49,7 +58,7 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
             templateUrl : 'components/user/views/user.html',
             resolve     :
                 params: (LocalStorage) -> LocalStorage.getItem('params');
-                user: ($stateParams, LocalStorage, RestModel) -> RestModel.moreInfo($stateParams.userId, LocalStorage.getItem('params'));
+                user: ($stateParams, params, RestModel) -> RestModel.moreInfo($stateParams.userId, params);
         )
 
         .state('wall',
@@ -57,8 +66,17 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
             controller  : 'WallController',
             templateUrl : 'components/wall/views/wall.html',
             resolve     :
-                user: ($stateParams, LocalStorage, RestModel) -> RestModel.moreInfo($stateParams.userId, LocalStorage.getItem('params'));
                 params: (LocalStorage) -> LocalStorage.getItem('params');
+                user: ($stateParams, params, RestModel) -> RestModel.moreInfo($stateParams.userId, params);
+                userSearchFor: ($stateParams, params, RestModel,$q) ->
+                    deffered = $q.defer();
+                    RestModel.moreInfo($stateParams.selectedId, params).then(
+                        (data)->
+                            deffered.resolve(data.response[0])
+                        (error)->
+                            deffered.reject(error);
+                    )
+                    deffered.promise;
         )
 
         .state('photo',
@@ -66,8 +84,17 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
             controller  : 'PhotoController',
             templateUrl : 'components/photo/views/photo.html',
             resolve     :
-                user: ($stateParams, LocalStorage, RestModel) -> RestModel.moreInfo($stateParams.userId, LocalStorage.getItem('params'));
                 params: (LocalStorage) -> LocalStorage.getItem('params');
+                user: ($stateParams, params, RestModel) -> RestModel.moreInfo($stateParams.userId, params);
+                userSearchFor: ($stateParams, params, RestModel,$q) ->
+                    deffered = $q.defer();
+                    RestModel.moreInfo($stateParams.selectedId, params).then(
+                        (data)->
+                            deffered.resolve(data.response[0])
+                        (error)->
+                            deffered.reject(error);
+                    )
+                    deffered.promise;
         )
 
         .state('user-friend',
@@ -76,6 +103,15 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
             templateUrl : 'components/userFriendsList/views/userFriendList.html',
             resolve     :
                 params: (LocalStorage) -> LocalStorage.getItem('params');
+                currentUser: (RestModel, $stateParams, params, $q) ->
+                    deffered = $q.defer();
+                    RestModel.getUserById($stateParams.userId, params).then(
+                        (data) ->
+                            deffered.resolve(data.response[0]);
+                        (error) ->
+                            deffered.reject(error);
+                    )
+                    deffered.promise;
         )
 
         .state('selected',
@@ -84,6 +120,15 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
             templateUrl : 'components/selected/views/selected.html',
             resolve     :
                 params: (LocalStorage) -> LocalStorage.getItem('params');
+                currentUser: (RestModel, $stateParams, params, $q) ->
+                    deffered = $q.defer();
+                    RestModel.getUserById($stateParams.userId, params).then(
+                        (data) ->
+                            deffered.resolve(data.response[0]);
+                        (error) ->
+                            deffered.reject(error);
+                    )
+                    deffered.promise;
         )
 
         .state('processingPhoto',
@@ -93,19 +138,9 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
             resolve     :
                 params: (LocalStorage) -> LocalStorage.getItem('params');
                 currentUser: (RestModel, $stateParams,params) ->  RestModel.getUserById($stateParams.userId,params);
-                friends: (RestModel, $stateParams,params) -> RestModel.getFriends(params, $stateParams.userId);
+                friends: (RestModel, $stateParams, params, currentUser) -> RestModel.getFriends(params, $stateParams.userId);
             )
 
-#        .state('tetris',
-#            url         : '/tetris',
-#            controller  : 'tetris',
-#            templateUrl : 'tetris/index.html',
-#        )
-
-#        .when('/gallery',
-#            controller: 'GalleryController',
-#            templateUrl: 'components/gallery/views/index.html'
-#        );
 
         $urlRouterProvider.otherwise('/login');
     ]

@@ -114,7 +114,8 @@
                 <button class="btn-begin" ng-click="$parent.page = 1" ng-disabled="$parent.page == 1">Начало</button>
             </div>
             <div class="col-md-4 col-xs-4" style="padding: 0">
-                <button class="btn-next" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= friendsArray.length"><span>Вперед</span> &raquo;</button>
+                <button class="btn-next" ng-if="openTableOnline" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= friendsArray.length"><span>Вперед</span> &raquo;</button>
+                <button class="btn-next" ng-if="openTable" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= friends.length"><span>Вперед</span> &raquo;</button>
             </div>
         </div>
     </div>

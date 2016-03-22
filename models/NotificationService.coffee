@@ -2,8 +2,24 @@
 
 'use strict';
 
-MainModule.service 'Notification', ($rootScope) ->
+MainModule.service 'Notification', ($rootScope, $q, ngToast) ->
     new class Notification
 
+        success: (message) ->
+            console.log(ngToast);
+            ngToast.success({
+                content: message
+                timeout:	3000
+            });
+
+        error: (message) ->
+            ngToast.danger({
+                content: message
+                timeout:	3000
+            });
+
         show: (message) ->
-            $rootScope.$broadcast('message:show', {type: 'notification', message: message});
+            ngToast.info({
+                content: message
+                timeout:	3000
+            });

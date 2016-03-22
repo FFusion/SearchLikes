@@ -2,7 +2,7 @@
 
 'use strict';
 
-UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state, $stateParams, RestModel, LocalStorage, params) ->
+UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state, $stateParams, RestModel, LocalStorage, params,currentUser) ->
 
     $scope.stateParams = $stateParams;
     $scope.window = window;
@@ -12,6 +12,8 @@ UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state
     $scope.pageSize = 6;
 
     $scope.userId = $scope.stateParams.userId;
+    $scope.currentUser = currentUser;
+
     $scope.loading = true;
 
     $scope.back = () ->
@@ -22,13 +24,8 @@ UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state
 
     $scope.userFriendsArray = null;
 
-    RestModel.getUserById($scope.userId, $scope.params).then(
-        (data)->
-            $scope.currentUser = data.response[0];
-        (error) ->
-            console.log(error);
-    );
 
+    # загружаем список друзей
     RestModel.getFriends(params, $scope.userId).then(
         (data)->
             $scope.loading = false;

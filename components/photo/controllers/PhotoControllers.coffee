@@ -2,7 +2,7 @@
 
 'use strict';
 
-PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $location, RestModel, Notification, LocalStorage, params, user) ->
+PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $location, RestModel, Notification, LocalStorage, params, user,userSearchFor) ->
 
     $scope.window = window;
     $scope.params = params;
@@ -15,6 +15,8 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
 
     $scope.userId = $scope.user.id
     $scope.userSearchForId = $scope.stateParams.selectedId;
+    $scope.userSearchFor = userSearchFor;
+
 
     $scope.back = () ->
         $location.path('/user/' + $scope.userId);
@@ -41,14 +43,6 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
         $scope.typePhoto = null;
         $scope.openOtherSearch = false;
 
-    if angular.isDefined($scope.userSearchForId)
-        RestModel.moreInfo($scope.userSearchForId, $scope.params).then(
-            (data)->
-                $scope.userSearchFor = data.response[0];
-            (error) ->
-                console.log(error);
-        );
-
 
     # поменять местами владельца стены и гостя
     $scope.changeUser = (user, userSearchFor) ->
@@ -64,10 +58,10 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
 
     $scope.likesPhoto = (countPhoto, typePhoto) ->
         if !angular.isDefined(countPhoto)
-            Notification.show("Выберите количество!");
+            Notification.success("Выберите количество!");
             return true;
         if !angular.isDefined(typePhoto)
-            Notification.show('Выберите тип фото');
+            Notification.success('Выберите тип фото');
             return true;
 
         $scope.openOtherSearch = true;

@@ -10,7 +10,6 @@ UserModule.controller 'UserController', ($scope, $stateParams, $location, $state
     $scope.user = RestModel.isWorkingFriendsObject(user);
 
     #семейное положение
-    console.log($scope.user.relation);
     $scope.relationStatus = UserModel.getRelationStatus($scope.user);
 
     $scope.lastSeen = LocalStorage.getItem('last');
@@ -27,7 +26,6 @@ UserModule.controller 'UserController', ($scope, $stateParams, $location, $state
 
 
     $scope.getUserFriends = (user) ->
-#        $location.path('/user/' + user.id + '/friends');
         $state.transitionTo('user-friend', {userId: user.id});
 
 
@@ -36,5 +34,3 @@ UserModule.controller 'UserController', ($scope, $stateParams, $location, $state
 
     $scope.checkPhotoAll = (user) ->
         $state.transitionTo('processingPhoto', {userId: user.id});
-        
-    console.log($scope.openAccess);

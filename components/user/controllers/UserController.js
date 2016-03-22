@@ -4,7 +4,6 @@ UserModule.controller('UserController', function($scope, $stateParams, $location
   $scope.window = window;
   $scope.params = params;
   $scope.user = RestModel.isWorkingFriendsObject(user);
-  console.log($scope.user.relation);
   $scope.relationStatus = UserModel.getRelationStatus($scope.user);
   $scope.lastSeen = LocalStorage.getItem('last');
   $scope.back = function() {
@@ -33,11 +32,11 @@ UserModule.controller('UserController', function($scope, $stateParams, $location
       type: 'photo'
     });
   };
-  $scope.checkPhotoAll = function(user) {
+  return $scope.checkPhotoAll = function(user) {
     return $state.transitionTo('processingPhoto', {
       userId: user.id
     });
   };
-  return console.log($scope.openAccess);
 });
 
+//# sourceMappingURL=UserController.map

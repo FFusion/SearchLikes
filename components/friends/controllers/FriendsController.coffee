@@ -2,29 +2,21 @@
 
 'use strict'
 
-FriendsModule.controller 'FriendsController', ($scope, $location, $window, $state, $stateParams, params, ngTableParams, LocalStorage, RestModel) ->
+FriendsModule.controller 'FriendsController', ($scope, $location, $window, $state, $stateParams, params, ngTableParams, LocalStorage, RestModel, currentUser) ->
 
-    #параметры авторизации и отображения таблицы
+    # авторизованный пользователь
+    $scope.currentUser = currentUser;
+
+    # параметры авторизации и отображения списка пользователей
     $scope.openAccess = true;
     $scope.openTable = false;
     $scope.loading = false;
 
     $scope.params = $scope.params || LocalStorage.getItem('params');
 
-
-#    $scope.getUser = (id) ->
-#        $location.path('user/' + id);
-
-    # запрос на получение текущего пользователя, кто авторизовался
-    RestModel.getUserById($scope.params.user_id, $scope.params).then(
-        (data)->
-            $scope.currentUser = data.response[0];
-        (error) ->
-            console.log(error);
-    )
-
     # список друзей
     $scope.getListFriends = () ->
+        $scope.page = 1;
         $scope.friendsOnline = [];
         $scope.openTableOnline = false;
 
@@ -47,7 +39,6 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $stat
 
     # список друзей - онлайн
     $scope.getListFriendsOnlineOrDelete = (type) ->
-        console.log($scope.page);
         $scope.page = 1;
         $scope.friendsArray = RestModel.friendsOnlineOrDelete(type, $scope.friends);
 

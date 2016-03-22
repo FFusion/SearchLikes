@@ -2,7 +2,7 @@
 
 'use strict';
 
-MainModule = angular.module 'MainModule', ['ngRoute', 'ui.router', 'datatables', 'ngTable', 'ngAnimate', 'ngTouch', 'FriendsModule', 'UserModule', 'WallModule', 'UserFriendsModule', 'PhotoModule', 'SelectedModule'];
+MainModule = angular.module 'MainModule', ['ngRoute', 'ui.router', 'datatables', 'ngTable', 'ngAnimate', 'ngTouch', 'FriendsModule', 'UserModule', 'WallModule', 'UserFriendsModule', 'PhotoModule', 'SelectedModule', 'ngToast'];
 
 MainModule.constant 'vk',
     auth        : "https://oauth.vk.com/authorize"

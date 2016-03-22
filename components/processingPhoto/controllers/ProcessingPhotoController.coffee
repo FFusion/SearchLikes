@@ -34,13 +34,13 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
 
         # смотрим на выбранную категорию и фильтруем пользователей
         angular.forEach(userFriends, (friend)->
-            if $scope.typeUsers == "'male'" && friend.sex == 2 && !angular.isDefined(friend.deactivated)
+            if $scope.typeUsers == "male" && friend.sex == 2 && !angular.isDefined(friend.deactivated)
                 scaningUsers.push(friend);
-            if $scope.typeUsers == "'female'" && friend.sex == 1 && !angular.isDefined(friend.deactivated)
+            if $scope.typeUsers == "female" && friend.sex == 1 && !angular.isDefined(friend.deactivated)
                 scaningUsers.push(friend);
         );
 
-        if  $scope.typeUsers == "'all'"
+        if  $scope.typeUsers == "all"
             $scope.searchPhotoAmongUsers(userFriends)
             $scope.allCountUsers = userFriends.length;
         else

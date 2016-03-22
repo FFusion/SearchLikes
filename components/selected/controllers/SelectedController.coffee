@@ -2,7 +2,7 @@
 
 'use strict'
 
-SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location, $timeout, RestModel, params) ->
+SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location, $timeout, RestModel, params, currentUser) ->
 
     $scope.params = params;
     $scope.window = window;
@@ -10,6 +10,8 @@ SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location
     $scope.loading = true;
 
     $scope.userId = $scope.stateParams.userId;
+    $scope.currentUser = currentUser;
+
     #тип стена или фото
     $scope.type = $scope.stateParams.type;
 
@@ -19,17 +21,7 @@ SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location
     $scope.pageSize = 7;
 
 
-
-    $scope.back = () ->
-        $scope.window.history.back();
-
-    RestModel.getUserById($scope.userId, $scope.params).then(
-        (data)->
-            $scope.currentUser = data.response[0];
-        (error) ->
-            console.log(error);
-    );
-
+    # загружаем список друзей
     RestModel.getFriends(params, $scope.userId).then(
         (data)->
             $scope.loading = false;
@@ -39,6 +31,9 @@ SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location
             console.log(error);
 
     )
+
+    $scope.back = () ->
+        $scope.window.history.back();
 
     $scope.isSelected = (selected) ->
         if $scope.selected isnt null && selected == $scope.selected

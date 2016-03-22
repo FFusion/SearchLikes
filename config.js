@@ -20,6 +20,16 @@ MainModule.config([
       resolve: {
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
+        },
+        currentUser: function(RestModel, params, $q) {
+          var deffered;
+          deffered = $q.defer();
+          RestModel.getUserById(params.user_id, params).then(function(data) {
+            return deffered.resolve(data.response[0]);
+          }, function(error) {
+            return deffered.reject(error);
+          });
+          return deffered.promise;
         }
       }
     }).state('user', {
@@ -30,8 +40,8 @@ MainModule.config([
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
         },
-        user: function($stateParams, LocalStorage, RestModel) {
-          return RestModel.moreInfo($stateParams.userId, LocalStorage.getItem('params'));
+        user: function($stateParams, params, RestModel) {
+          return RestModel.moreInfo($stateParams.userId, params);
         }
       }
     }).state('wall', {
@@ -39,11 +49,21 @@ MainModule.config([
       controller: 'WallController',
       templateUrl: 'components/wall/views/wall.html',
       resolve: {
-        user: function($stateParams, LocalStorage, RestModel) {
-          return RestModel.moreInfo($stateParams.userId, LocalStorage.getItem('params'));
-        },
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
+        },
+        user: function($stateParams, params, RestModel) {
+          return RestModel.moreInfo($stateParams.userId, params);
+        },
+        userSearchFor: function($stateParams, params, RestModel, $q) {
+          var deffered;
+          deffered = $q.defer();
+          RestModel.moreInfo($stateParams.selectedId, params).then(function(data) {
+            return deffered.resolve(data.response[0]);
+          }, function(error) {
+            return deffered.reject(error);
+          });
+          return deffered.promise;
         }
       }
     }).state('photo', {
@@ -51,11 +71,21 @@ MainModule.config([
       controller: 'PhotoController',
       templateUrl: 'components/photo/views/photo.html',
       resolve: {
-        user: function($stateParams, LocalStorage, RestModel) {
-          return RestModel.moreInfo($stateParams.userId, LocalStorage.getItem('params'));
-        },
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
+        },
+        user: function($stateParams, params, RestModel) {
+          return RestModel.moreInfo($stateParams.userId, params);
+        },
+        userSearchFor: function($stateParams, params, RestModel, $q) {
+          var deffered;
+          deffered = $q.defer();
+          RestModel.moreInfo($stateParams.selectedId, params).then(function(data) {
+            return deffered.resolve(data.response[0]);
+          }, function(error) {
+            return deffered.reject(error);
+          });
+          return deffered.promise;
         }
       }
     }).state('user-friend', {
@@ -65,6 +95,16 @@ MainModule.config([
       resolve: {
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
+        },
+        currentUser: function(RestModel, $stateParams, params, $q) {
+          var deffered;
+          deffered = $q.defer();
+          RestModel.getUserById($stateParams.userId, params).then(function(data) {
+            return deffered.resolve(data.response[0]);
+          }, function(error) {
+            return deffered.reject(error);
+          });
+          return deffered.promise;
         }
       }
     }).state('selected', {
@@ -74,6 +114,16 @@ MainModule.config([
       resolve: {
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
+        },
+        currentUser: function(RestModel, $stateParams, params, $q) {
+          var deffered;
+          deffered = $q.defer();
+          RestModel.getUserById($stateParams.userId, params).then(function(data) {
+            return deffered.resolve(data.response[0]);
+          }, function(error) {
+            return deffered.reject(error);
+          });
+          return deffered.promise;
         }
       }
     }).state('processingPhoto', {
@@ -87,7 +137,7 @@ MainModule.config([
         currentUser: function(RestModel, $stateParams, params) {
           return RestModel.getUserById($stateParams.userId, params);
         },
-        friends: function(RestModel, $stateParams, params) {
+        friends: function(RestModel, $stateParams, params, currentUser) {
           return RestModel.getFriends(params, $stateParams.userId);
         }
       }
@@ -102,4 +152,4 @@ MainModule.run(function($rootScope, $state) {
   });
 });
 
-
+//# sourceMappingURL=config.map

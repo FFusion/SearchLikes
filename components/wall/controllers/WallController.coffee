@@ -2,7 +2,7 @@
 
 'use strict'
 
-WallModule.controller 'WallController', ($scope, $stateParams, $location, RestModel, params, $timeout, $window, user) ->
+WallModule.controller 'WallController', ($scope, $stateParams, $location, RestModel, params, $timeout, $window, user, userSearchFor) ->
 
     $scope.stateParams = $stateParams;
     $scope.window = window;
@@ -17,6 +17,7 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
 
     $scope.userId = $scope.stateParams.userId;
     $scope.userSearchForId = $scope.stateParams.selectedId;
+    $scope.userSearchFor = userSearchFor;
 
     $scope.back = () ->
         $location.path('user/' + $scope.userId);
@@ -52,14 +53,6 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
         $scope.process = false;
         $scope.openBigBlade = false;
 
-
-    if angular.isDefined($scope.userSearchForId)
-        RestModel.moreInfo($scope.userSearchForId, $scope.params).then(
-            (data)->
-                $scope.userSearchFor = data.response[0];
-            (error) ->
-                console.log(error);
-        );
 
     $scope.likesWall = (countPost) ->
         $scope.openOtherSearch = true;
