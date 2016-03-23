@@ -7,6 +7,8 @@ SelectedModule.controller('ProcessingPhotoController', function($scope, $statePa
   $scope.isLikes = [];
   $scope.result = false;
   $scope.count = 0;
+  $scope.stopped = false;
+  $scope.procent = 0;
   $scope.typeUsers = "all";
   $scope.userId = $stateParams.userId;
   $scope.currentUser = currentUser.response[0];
@@ -21,7 +23,9 @@ SelectedModule.controller('ProcessingPhotoController', function($scope, $statePa
     scaningUsers = [];
     $scope.isLikes = [];
     $scope.result = false;
+    $scope.stopped = false;
     $scope.procent = 0;
+    $scope.count = 0;
     angular.forEach(userFriends, function(friend) {
       if ($scope.typeUsers === "male" && friend.sex === 2 && !angular.isDefined(friend.deactivated)) {
         scaningUsers.push(friend);
@@ -119,16 +123,19 @@ SelectedModule.controller('ProcessingPhotoController', function($scope, $statePa
       $scope.result = true;
     }
     $scope.count = $scope.count + 1;
-    if (userFriends.length !== 0) {
+    if (userFriends.length !== 0 && !$scope.stopped) {
       return $scope.searchPhotoAmongUsers(userFriends);
     }
   };
-  return $scope.addPhotoWithLike = function(checkedUser, photoId, photos) {
+  $scope.addPhotoWithLike = function(checkedUser, photoId, photos) {
     return angular.forEach(photos, function(photo) {
       if (photo.id === photoId) {
         return $scope.isLikes[$scope.count].photos.push(photo);
       }
     });
+  };
+  return $scope.stopScan = function() {
+    return $scope.stopped = true;
   };
 });
 

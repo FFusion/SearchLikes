@@ -108,10 +108,10 @@
         </div>
         <div class="friends-content-bottom">
             <div class="col-md-4 col-xs-4" style="padding: 0">
-                <button class="btn-prev" ng-click="$parent.page = page - 1" ng-disabled="page == 1">&laquo; <span>Назад</span></button>
+                <button class="btn-prev" ng-click="page = page - 1" ng-disabled="page == 1">&laquo; <span>Назад</span></button>
             </div>
             <div class="col-md-4 col-xs-4 text-center">
-                <button class="btn-begin" ng-click="$parent.page = 1" ng-disabled="$parent.page == 1">Начало</button>
+                <button class="btn-begin" ng-click="page = 1" ng-disabled="page == 1">Начало</button>
             </div>
             <div class="col-md-4 col-xs-4" style="padding: 0">
                 <button class="btn-next" ng-if="openTableOnline" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= friendsArray.length"><span>Вперед</span> &raquo;</button>

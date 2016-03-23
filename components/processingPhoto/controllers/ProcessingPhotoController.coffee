@@ -11,6 +11,9 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
     $scope.result = false;
     $scope.count = 0;
 
+    $scope.stopped = false;
+    $scope.procent = 0;
+
     $scope.typeUsers = "all"
 
 
@@ -29,8 +32,12 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
     $scope.scaned = (userFriends) ->
         scaningUsers = [];
         $scope.isLikes = [];
+
         $scope.result = false;
+        $scope.stopped = false;
+
         $scope.procent = 0;
+        $scope.count = 0;
 
         # смотрим на выбранную категорию и фильтруем пользователей
         angular.forEach(userFriends, (friend)->
@@ -127,7 +134,7 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
 
         $scope.count = $scope.count + 1;
 
-        if userFriends.length != 0 then $scope.searchPhotoAmongUsers(userFriends);
+        if userFriends.length != 0 && !$scope.stopped then $scope.searchPhotoAmongUsers(userFriends);
 
     # выбираем фотки с нужным нам лайком
     $scope.addPhotoWithLike = (checkedUser,photoId,photos) ->
@@ -136,4 +143,5 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
                 $scope.isLikes[$scope.count].photos.push(photo);
         )
 
-#todo: 150 друзей около 2 минут..
+    $scope.stopScan = () ->
+        $scope.stopped = true;

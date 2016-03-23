@@ -46,7 +46,8 @@
             </div>
         </div>
         <div class="friends-content-bottom pull-right">
-            <button class="btn btn-back" ng-click="scaned(userFriends)" ng-disabled="procent != 100 && procent > 0">Сканируем</button>
+            <button class="btn btn-back" ng-click="scaned(userFriends)" ng-disabled="procent != 100 && procent > 0 && !stopped">Сканируем</button>
+            <button class="btn btn-back" ng-click="stopScan()" ng-if="procent != 0 && procent != 100 && !stopped">Стоп</button>
         </div>
     </div>
 
@@ -54,7 +55,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 result-content-procent">
                 <div>{{procent}} %</div>
-                <div ng-if="procent == 100">Сканирование завершено</div>
+                <div ng-if="procent == 100 || stopped">Сканирование завершено</div>
             </div>
         </div>
         <div class="row result-content-item" ng-repeat="item in isLikes" ng-if="item.photos.length > 0">
