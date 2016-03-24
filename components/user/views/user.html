@@ -32,6 +32,18 @@
         </div>
         <hr>
         <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 user-title">Кого лайкает {{user.first_name}}? <b>(фотографии)</b></div>
+        </div>
+        <div class="row user-bottom-content">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <button class="btn btn-checkPhoto" ng-click="checkPhotoAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей</button>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <button class="btn btn-checkPhoto" ng-click="checkPhotoOne(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  у одного друга </button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 user-title">Дополнительно:</div>
         </div>
         <div class="row user-more">
@@ -99,20 +111,8 @@
             </div>
             <div style="clear: both;"></div>
         </div>
-    </div>
     <hr>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12 user-title">Кого лайкает {{user.first_name}}? <b>(фотографии)</b></div>
     </div>
-    <div class="row user-bottom-content">
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <button class="btn btn-checkPhoto" ng-click="checkPhotoOne(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  у одного друга </button>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <button class="btn btn-checkPhoto" ng-click="checkPhotoAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей</button>
-        </div>
-    </div>
-    <hr>
     <div class="user-bottom">
         <div class="row user-bottom-content">
             <div class="col-md-4 col-sm-4 col-xs-12">
