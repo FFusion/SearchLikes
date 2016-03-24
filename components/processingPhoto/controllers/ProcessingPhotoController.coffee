@@ -2,7 +2,7 @@
 
 'use strict'
 
-SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $location, $timeout, RestModel, params, currentUser, friends) ->
+SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $location, $timeout, RestModel, Loader, params, currentUser, friends) ->
 
     $scope.params = params;
     $scope.window = window;
@@ -12,6 +12,7 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
     $scope.count = 0;
 
     $scope.stopped = false;
+    $scope.lookedPhoto = false;
     $scope.procent = 0;
 
     $scope.typeUsers = "all"
@@ -30,6 +31,7 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
     $scope.allFriends = angular.copy($scope.userFriends);
 
     $scope.scaned = (userFriends) ->
+        Loader.startLoad();
         scaningUsers = [];
         $scope.isLikes = [];
 
@@ -56,9 +58,18 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
 
     # функция сканирования
     $scope.searchPhotoAmongUsers = (userFriends) ->
+
         # берем одного чувака
         checkedUser = userFriends.splice(0,1);
+
+        # массив фоток чувака
+        $scope.userPhotos = [];
+        # массив лайков на фотках чувака
+        $scope.userLikes = [];
+
+
         $scope.procent = 100 - Math.floor(userFriends.length * 100 / $scope.allCountUsers);
+        Loader.process($scope.procent);
 
         if checkedUser != undefined
             # получаем фотки профиля этого чувака
@@ -76,15 +87,16 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
                         else
                             $scope.searchPhotoAmongUsers(userFriends);
                     (error)->
+                        console.log(error);
                         $scope.searchPhotoAmongUsers(userFriends);
                 )
-            ,220)
+            ,300)
 
         else
-            console.log('dct');
+            console.log('no');
 
 
-    $scope.getLikesFromsPhotos = (checkedUser,userFriends,photos, arrayLikes = null) ->
+    $scope.getLikesFromsPhotos = (checkedUser,userFriends,photos) ->
         # временное хранилище с которым работаем если фоток больше 25
         tempPhotos = '';
 
@@ -93,55 +105,75 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
         # больше 25 - вырезаем 25 фоток и отправляем запрос, затем работаем работаем с остатком - рекурсия
 
         if photos.length < 25
-            $scope.arrayLikes = arrayLikes || [];
             $timeout(()->
                 RestModel.getLikesExecute($scope.userId, photos, $scope.params).then(
                     (likes)->
-                        $scope.arrayLikes.push({photo:photos, likes:likes});
-                        $scope.isSearchLikes(checkedUser,userFriends, $scope.arrayLikes);
+                        $scope.userPhotos.push(photos);
+                        $scope.userLikes.push(likes.response);
+                        $scope.isSearchLikes(checkedUser,userFriends, $scope.userPhotos, $scope.userLikes);
                     (error)->
                         console.log(error);
                 )
-            ,220)
+            ,300)
 
         else
-            $scope.arrayLikes = arrayLikes || [];
             tempPhotos = photos.splice(0, 24);
-            RestModel.getLikesExecute($scope.userId, tempPhotos, $scope.params).then((likes)->
-                $scope.arrayLikes.push({photo:tempPhotos, likes:likes});
-                $scope.getLikesFromsPhotos(checkedUser, userFriends, photos, $scope.arrayLikes);
-            )
+            $timeout(()->
+                RestModel.getLikesExecute($scope.userId, tempPhotos, $scope.params).then(
+                    (likes)->
+                        $scope.userPhotos.push(tempPhotos);
+                        $scope.userLikes.push(likes.response);
+                        $scope.getLikesFromsPhotos(checkedUser, userFriends, photos);
+                    (error)->
+                        console.log(error);
+                )
+            ,300)
 
 
     # ищем среди лайков на фотках текущего пользователя
-    $scope.isSearchLikes = (checkedUser,userFriends,arrayLikes) ->
-        # итоговый массив - обрабатываемый пользователь и фотографии с лайками
-        $scope.isLikes.push({user:checkedUser, photos:[]});
+    $scope.isSearchLikes = (checkedUser,userFriends, userPhotos, userLikes) ->
 
-        angular.forEach(arrayLikes, (data)->
-            angular.forEach(data.likes.response, (item,key)->
+        # итоговый массив - обрабатываемый пользователь,фотографии с лайками кол-во фото
+        $scope.isLikes.push({user:checkedUser, photos:[], photosCount:''});
+
+        angular.forEach(userLikes, (likes)->
+            angular.forEach(likes, (like, key)->
                 photoId = parseInt(key.replace(/\D+/g,""));
-                angular.forEach(item.users, (user)->
+                angular.forEach(like.users, (user)->
                     if user == parseInt($scope.userId)
-                        if data.photo
-                            $scope.addPhotoWithLike(checkedUser, photoId, data.photo);
-                        else
-                            $scope.searchPhotoAmongUsers(userFriends);
+                        if userPhotos
+                            $scope.addPhotoWithLike(checkedUser, photoId, userPhotos);
                 )
             )
         )
-        if $scope.isLikes.length > 0 then $scope.result = true;
 
+        if $scope.isLikes.length > 0 then $scope.result = true;
         $scope.count = $scope.count + 1;
 
-        if userFriends.length != 0 && !$scope.stopped then $scope.searchPhotoAmongUsers(userFriends);
+        if userFriends.length != 0 && !$scope.stopped then $scope.searchPhotoAmongUsers(userFriends) else Loader.stopLoad();
+
 
     # выбираем фотки с нужным нам лайком
-    $scope.addPhotoWithLike = (checkedUser,photoId,photos) ->
-        angular.forEach(photos, (photo)->
-            if photo.id == photoId
-                $scope.isLikes[$scope.count].photos.push(photo);
+    $scope.addPhotoWithLike = (checkedUser, photoId, userPhotos) ->
+        count = 0;
+        angular.forEach(userPhotos, (photos)->
+            count = count + photos.length;
+            angular.forEach(photos, (photo)->
+                if photo.id == photoId
+                    $scope.isLikes[$scope.count].photos.push(photo);
+            )
         )
 
+        $scope.isLikes[$scope.count].photosCount = count;
+
+    # остановить сканирование
     $scope.stopScan = () ->
         $scope.stopped = true;
+
+    $scope.lookPhoto = (photos) ->
+        $scope.lookPhotos = photos;
+        console.log($scope.lookPhotos);
+        $scope.lookedPhoto = true;
+
+    $scope.backInResult = () ->
+        $scope.lookedPhoto = false;

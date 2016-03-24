@@ -245,6 +245,9 @@ h3 {
     height: 60px;
 }
 
+.photo {
+    height: 100%;
+}
 //wall
 .wall, .photo {
     padding:35px;
@@ -438,6 +441,10 @@ h3 {
                 font-weight: 600;
             }
         }
+
+        &-button {
+            line-height: 69px;
+        }
     }
 
 }
@@ -629,4 +636,23 @@ h3 {
             display: none;
         }
     }
+}
+
+//загрузка
+.loader {
+    position: fixed;
+    z-index: 999999999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+}
+.loader-progress {
+    height: 100%;
+    background: #CDD1DA;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }

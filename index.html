@@ -52,23 +52,23 @@
     <div class="section-inn">
         <div class="half-block f-left">
             <div class="services-provide-block">
-                <h3>LikeSearch</h3>
+                <h3>LikeSearch - поиск лайков</h3>
                 <ul>
                     <li class="item-1">
                         <strong>Друзья</strong>
-                        <p>Cписок ваших друзей Вконтакте в удобном формате с временем последнего посещения. Фильтр по удаленным друзьям</p>
+                        <p>Cписок друзей Вконтакте со временем последнего посещения. Фильтр по удаленным друзьям</p>
                     </li>
                     <li class="item-2">
                         <strong>Самое интересное</strong>
-                        <p>Кого "лайкает" ваш друг: поиск активности по стенам и по фотографиям</p>
+                        <p>Хочешь проверить свою вторую половинку? Узнай кого "лайкает" твой друг: поиск лайков среди фотографий друзей</p>
                     </li>
                     <li class="item-3">
                         <strong>Это еще не все!</strong>
-                        <p>Просмотр всей информации о пользователях.</p>
+                        <p>Просмотр всей информации о пользователях. Удобная навигация</p>
                     </li>
                 </ul>
                 <!--<a href="#about-us" class="to-employee-btn">Подробнее</a>-->
-                <a href="{{url}}" class="to-employee-btn">Зайти через <b>Вконтакте</b></a>
+                <a href="{{url}}" class="to-employee-btn">Войти</a>
             </div>
         </div>
         <div class="half-block f-right">
@@ -113,16 +113,16 @@
                                     <li>Авторизация происходит через социальную сеть Вконтакте</li>
                                     <li>Удобство и простота использования</li>
                                     <li>Понятная навигация и дружелюбный адаптивный интерфейс</li>
+                                    <li>Поиск лайков работает быстрее аналогов</li>
                                     <li>Все совершенно бесплатно</li>
-                                    <!--<li></li>-->
                                 </ul>
                             </div>
                             <div>
                                 <ul>
-                                    <li>Список друзей с временем последнего посещения</li>
+                                    <li>Список друзей со временем последнего посещения</li>
                                     <li>Фильтр по удаленным друзьям</li>
                                     <li>Информация о пользователях</li>
-                                    <li>Поиск "лайков" ваших друзей</li>
+                                    <li>Поиск "лайков"</li>
                                     <li>Результат поиска - фотографии или записы со стены</li>
                                 </ul>
                             </div>
@@ -206,7 +206,7 @@
 <!--endbuild-->
 
 <!--build:js(./) /assets/scripts/mainPlugins.js-->
-<!--<script src="bower_components/libs/infobox.js"> </script>-->
+
 <script src="bower_components/libs/scrollspy.js"> </script>
 <script src="bower_components/libs/easyResponsiveTabs.js"> </script>
 <!--endbuild-->
@@ -237,6 +237,7 @@
 
 <!--services-->
 <script type="text/javascript" src="models/NotificationService.js"></script>
+<script type="text/javascript" src="models/LoaderService.js"></script>
 
 <!--models-->
 <script type="text/javascript" src="models/LocalStorageModel.js"></script>
