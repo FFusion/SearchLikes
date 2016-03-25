@@ -127,9 +127,24 @@ MainModule.config([
         }
       }
     }).state('processingPhoto', {
-      url: '/user/:userId/processing',
+      url: '/user/:userId/processingPhoto',
       controller: 'ProcessingPhotoController',
-      templateUrl: 'components/processingPhoto/views/processing.html',
+      templateUrl: 'components/processingPhoto/views/processingPhoto.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        },
+        currentUser: function(RestModel, $stateParams, params) {
+          return RestModel.getUserById($stateParams.userId, params);
+        },
+        friends: function(RestModel, $stateParams, params, currentUser) {
+          return RestModel.getFriends(params, $stateParams.userId);
+        }
+      }
+    }).state('processingWall', {
+      url: '/user/:userId/processingWall',
+      controller: 'ProcessingWallController',
+      templateUrl: 'components/processingWall/views/processingWall.html',
       resolve: {
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');

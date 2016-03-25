@@ -2,7 +2,7 @@
 
 'use strict'
 
-SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $location, $timeout, RestModel, Loader, params, currentUser, friends) ->
+ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $location, $timeout, RestModel, Loader, params, currentUser, friends) ->
 
     $scope.params = params;
     $scope.window = window;
@@ -106,7 +106,7 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
 
         if photos.length < 25
             $timeout(()->
-                RestModel.getLikesExecute($scope.userId, photos, $scope.params).then(
+                RestModel.getLikesExecute($scope.userId, photos, $scope.params, "photo").then(
                     (likes)->
                         $scope.userPhotos.push(photos);
                         $scope.userLikes.push(likes.response);
@@ -119,7 +119,7 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
         else
             tempPhotos = photos.splice(0, 24);
             $timeout(()->
-                RestModel.getLikesExecute($scope.userId, tempPhotos, $scope.params).then(
+                RestModel.getLikesExecute($scope.userId, tempPhotos, $scope.params, "photo").then(
                     (likes)->
                         $scope.userPhotos.push(tempPhotos);
                         $scope.userLikes.push(likes.response);
@@ -131,7 +131,7 @@ SelectedModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $l
 
 
     # ищем среди лайков на фотках текущего пользователя
-    $scope.isSearchLikes = (checkedUser,userFriends, userPhotos, userLikes) ->
+    $scope.isSearchLikes = (checkedUser, userFriends, userPhotos, userLikes) ->
 
         # итоговый массив - обрабатываемый пользователь,фотографии с лайками кол-во фото
         $scope.isLikes.push({user:checkedUser, photos:[], photosCount:''});

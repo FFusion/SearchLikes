@@ -301,15 +301,15 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
         deffered.promise;
 
-    getLikesExecute: (userId, photos, params) ->
+    getLikesExecute: (userId, object, params, type) ->
         deffered = $q.defer();
         count = 0;
         code = 'return {';
-        for i in [0..photos.length - 1]
-            if i != photos.length - 1
-                code = code + 'listLikes_' + photos[i].id + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id +  ',"friends_only":0, "count":1000}),';
+        for i in [0..object.length - 1]
+            if i != object.length - 1
+                code = code + 'listLikes_' + object[i].id + ':API.likes.getList({"type":"' + type + '", "owner_id":' + object[i].owner_id + ',"item_id":' + object[i].id +  ',"friends_only":0, "count":1000}),';
             else
-                code = code + 'listLikes_' + photos[i].id + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000})';
+                code = code + 'listLikes_' + object[i].id + ':API.likes.getList({"type":"' + type + '", "owner_id":' + object[i].owner_id + ',"item_id":' + object[i].id + ',"friends_only":0, "count":1000})';
 
         code = code + '};';
         url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';

@@ -32,8 +32,13 @@ UserModule.controller('UserController', function($scope, $stateParams, $location
       type: 'photo'
     });
   };
-  return $scope.checkPhotoAll = function(user) {
+  $scope.checkPhotoAll = function(user) {
     return $state.transitionTo('processingPhoto', {
+      userId: user.id
+    });
+  };
+  return $scope.checkWallAll = function(user) {
+    return $state.transitionTo('processingWall', {
       userId: user.id
     });
   };

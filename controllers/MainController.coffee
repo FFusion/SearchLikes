@@ -2,7 +2,7 @@
 
 'use strict';
 
-MainModule.controller 'MainController', ($scope, $location, $http, $timeout, RestModel, LocalStorage, Notification) ->
+MainModule.controller 'MainController', ($scope, $location, $state, $http, $timeout, RestModel, LocalStorage, Notification) ->
 
     $scope.openAccess = false;
     $scope.content = {};
@@ -13,24 +13,19 @@ MainModule.controller 'MainController', ($scope, $location, $http, $timeout, Res
 
     $scope.url = RestModel.getLinkAutorization();
 
-
     if window.location.href.indexOf("access_token") != -1
         $scope.openAccess = true;
 
         $scope.params = RestModel.getParams(window.location.href);
         LocalStorage.setItem('params', $scope.params);
 
-        window.location.hash = '';
-#        window.location.href = 'http://eq.loc/friends';
-        window.location.href = 'http://vkopen.16mb.com/friends';
-
+        $state.transitionTo('friends');
     else
         if LocalStorage.getItem('params')
             $scope.openAccess = true;
-            if window.location.pathname == '/login' || window.location.pathname == '/' then $location.path('/friends');
+            if window.location.pathname == '/login' || window.location.pathname == '/' then $state.transitionTo('friends');
         else
-            #todo: придумать обработку ошибки отсутствия token
-            $scope.error = "error";
+            Notification.show("Ошибка авторизации");
 
 
     $scope.sendWish = () ->
@@ -48,7 +43,6 @@ MainModule.controller 'MainController', ($scope, $location, $http, $timeout, Res
         else RestModel.getWish($scope.content).then(
                 (data)->
                     $scope.statusText = 'Спасибо за отзыв';
-#                    $scope.content = {};
                 )
 
 

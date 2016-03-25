@@ -34,3 +34,6 @@ UserModule.controller 'UserController', ($scope, $stateParams, $location, $state
 
     $scope.checkPhotoAll = (user) ->
         $state.transitionTo('processingPhoto', {userId: user.id});
+
+    $scope.checkWallAll = (user) ->
+        $state.transitionTo('processingWall', {userId: user.id});

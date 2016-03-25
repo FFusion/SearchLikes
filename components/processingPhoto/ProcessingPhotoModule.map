@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ProcessingPhotoModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "ProcessingPhotoModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,IAAA,qBAAA;;AAAA,qBAEA,GAAwB,OAAO,CAAC,MAAR,CAAe,uBAAf,EAAwC,EAAxC,CAFxB,CAAA"
+}

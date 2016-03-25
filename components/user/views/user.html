@@ -14,11 +14,19 @@
                 <img src={{user.photo_200_orig}} alt=""/>
             </div>
             <div class="col-md-8 col-sm-8 col-xs-12 user-name">
-                <h3>{{user.first_name + ' ' + user.last_name + ' ( id: ' + user.id + ' )'}}</h3>
+                <h3>
+                    {{user.first_name + ' ' + user.last_name + ' ( id: ' + user.id + ' )'}}
+                    <span class="user-status-title" ng-if="user.online_mobile && !user.online_app">online <i class="ion-iphone"></i></span>
+                    <span class="user-status-title" ng-if="user.online && user.online_app == '3140623'">online <i class="ion-social-apple"></i></span>
+                    <span class="user-status-title" ng-if="user.online && user.online_app == '3502561'">online <i class="ion-social-windows"></i></span>
+                    <span class="user-status-title" ng-if="user.online && user.online_app == '2274003'">online <i class="ion-social-android"></i></span>
+                    <span class="user-status-title" ng-if="user.online && user.online_app == '2685278'">online <i class="ion-social-android"> (kate mobile)</i></span>
+                </h3>
                 <div class="user-info">
                    <p ng-if="user.status">{{user.status}}</p>
-                   <p ng-if="user.city.title"><span class="user-info-title">Проживание: </span>{{user.city.title}}</p>
                    <p ng-if="user.bdate"><span class="user-info-title">Дата рождения: </span>{{user.bdate}}</p>
+                   <p ng-if="user.city.title"><span class="user-info-title">Город: </span>{{user.city.title}}</p>
+                   <p ng-if="user.country.title"><span class="user-info-title">Страна: </span>{{user.country.title}}</p>
                 </div>
                 <div class="user-info">
                     <p ng-if="user.relation">
@@ -32,13 +40,16 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 user-title">Кого лайкает {{user.first_name}}? <b>(фотографии)</b></div>
+            <div class="col-md-12 col-sm-12 col-xs-12 user-title">Кого лайкает {{user.first_name}}? </div>
         </div>
         <div class="row user-bottom-content">
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <button class="btn btn-checkPhoto" ng-click="checkPhotoAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей</button>
+                <button class="btn btn-checkPhoto" ng-click="checkPhotoAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей (фото)</button>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
+                <button class="btn btn-checkPhoto" ng-click="checkWallAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей (стена)</button>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12" style="display: none">
                 <button class="btn btn-checkPhoto" ng-click="checkPhotoOne(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  у одного друга </button>
             </div>
         </div>
@@ -115,13 +126,13 @@
     </div>
     <div class="user-bottom">
         <div class="row user-bottom-content">
-            <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="col-md-4 col-sm-4 col-xs-12" style="display: none">
                 <button class="btn btn-checkLikes" ng-click="checkWall(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  на стене</button>
             </div>
             <!--<div class="col-md-4 col-sm-4 col-xs-12">-->
                 <!--<button class="btn btn-checkPhoto" ng-click="checkPhoto(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  по фото</button>-->
             <!--</div>-->
-            <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <button class="btn btn-userFriends" ng-click="getUserFriends(user)" ng-disabled="user.deactivated">Список друзей <i class="ion-ios-people"></i></button>
             </div>
         </div>

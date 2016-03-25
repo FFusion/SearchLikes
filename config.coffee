@@ -132,9 +132,19 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
         )
 
         .state('processingPhoto',
-            url         : '/user/:userId/processing',
+            url         : '/user/:userId/processingPhoto',
             controller  : 'ProcessingPhotoController',
-            templateUrl : 'components/processingPhoto/views/processing.html',
+            templateUrl : 'components/processingPhoto/views/processingPhoto.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+                currentUser: (RestModel, $stateParams,params) ->  RestModel.getUserById($stateParams.userId,params);
+                friends: (RestModel, $stateParams, params, currentUser) -> RestModel.getFriends(params, $stateParams.userId);
+            )
+
+        .state('processingWall',
+            url         : '/user/:userId/processingWall',
+            controller  : 'ProcessingWallController',
+            templateUrl : 'components/processingWall/views/processingWall.html',
             resolve     :
                 params: (LocalStorage) -> LocalStorage.getItem('params');
                 currentUser: (RestModel, $stateParams,params) ->  RestModel.getUserById($stateParams.userId,params);

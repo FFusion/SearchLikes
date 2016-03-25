@@ -296,16 +296,16 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       });
       return deffered.promise;
     },
-    getLikesExecute: function(userId, photos, params) {
+    getLikesExecute: function(userId, object, params, type) {
       var code, count, deffered, i, url, _i, _ref;
       deffered = $q.defer();
       count = 0;
       code = 'return {';
-      for (i = _i = 0, _ref = photos.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-        if (i !== photos.length - 1) {
-          code = code + 'listLikes_' + photos[i].id + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000}),';
+      for (i = _i = 0, _ref = object.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        if (i !== object.length - 1) {
+          code = code + 'listLikes_' + object[i].id + ':API.likes.getList({"type":"' + type + '", "owner_id":' + object[i].owner_id + ',"item_id":' + object[i].id + ',"friends_only":0, "count":1000}),';
         } else {
-          code = code + 'listLikes_' + photos[i].id + ':API.likes.getList({"type":"photo", "owner_id":' + photos[i].owner_id + ',"item_id":' + photos[i].id + ',"friends_only":0, "count":1000})';
+          code = code + 'listLikes_' + object[i].id + ':API.likes.getList({"type":"' + type + '", "owner_id":' + object[i].owner_id + ',"item_id":' + object[i].id + ',"friends_only":0, "count":1000})';
         }
       }
       code = code + '};';

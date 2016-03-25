@@ -1,200 +1,200 @@
-<!--<!DOCTYPE html>-->
-<!--<html ng-app="MainModule">-->
-<!--<head>-->
-    <!--<meta charset="UTF-8">-->
-    <!--<meta name="apple-mobile-web-app-capable" content="yes" />-->
-    <!--<title>БлокнотVK</title>-->
-    <!--<base href="/">-->
-    <!--<link rel="shortcut icon" href="image/favicon.ico" />-->
-    <!--<link rel="apple-touch-icon" href="image/iphone_icon.png" />-->
-    <!--<link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic" rel='stylesheet'>-->
-    <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>-->
-    <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>-->
-    <!--&lt;!&ndash;<link href="bower_components/angular-datatables/dist/datatables.bootstrap.css" rel="stylesheet">&ndash;&gt;-->
-    <!--<link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css"/>-->
-    <!--<link rel="stylesheet" href="styles/main.css"/>-->
-    <!--&lt;!&ndash;<link rel="stylesheet" href="styles_new/main.css"/>&ndash;&gt;-->
-    <!--<link rel="stylesheet" href="styles/components.css"/>-->
-    <!--<link rel="stylesheet" href="styles/gallery.css"/>-->
-    <!--&lt;!&ndash;<link rel="stylesheet" href="styles/music.css"/>&ndash;&gt;-->
-<!--</head>-->
-<!--<body ng-controller="MainController">-->
-<!--<div class="index">-->
-    <!--<div class="row index-navigation">-->
-        <!--<div class="col-md-3 col-xs-3">-->
-            <!--<span ng-click="selectMain()"><a ng-class="{'active':select == 'main'}">Главная</a></span>-->
+<!DOCTYPE html>
+<html ng-app="MainModule">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>БлокнотVK</title>
+    <base href="/">
+    <link rel="shortcut icon" href="image/favicon.ico" />
+    <link rel="apple-touch-icon" href="image/iphone_icon.png" />
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic" rel='stylesheet'>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+    <!--<link href="bower_components/angular-datatables/dist/datatables.bootstrap.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css"/>
+    <link rel="stylesheet" href="styles/main.css"/>
+    <!--<link rel="stylesheet" href="styles_new/main.css"/>-->
+    <link rel="stylesheet" href="styles/components.css"/>
+    <link rel="stylesheet" href="styles/gallery.css"/>
+    <!--<link rel="stylesheet" href="styles/music.css"/>-->
+</head>
+<body ng-controller="MainController">
+<div class="index">
+    <div class="row index-navigation">
+        <div class="col-md-3 col-xs-3">
+            <span ng-click="selectMain()"><a ng-class="{'active':select == 'main'}">Главная</a></span>
+        </div>
+        <div class="col-md-1 col-xs-1"><span class="line-top"></span></div>
+        <div class="col-md-3 col-xs-3">
+            <span ng-click="selectProject()"><a ng-class="{'active':select == 'project'}">О проекте</a></span>
+        </div>
+        <div class="col-md-1 col-xs-1"><span class="line-top"></span></div>
+        <div class="col-md-3 col-xs-3">
+            <span ng-click="selectWishes()"><a ng-class="{'active':select == 'wishes'}">Пожелания</a></span>
+        </div>
+    </div>
+    <hr>
+
+    <div class="index-main" ng-if="select == 'main'">
+        <!--ng-if="select == 'main'"-->
+        <div class="main-icon" ng-if="!openAccess">
+            <img src="image/logo-big.jpg" alt=""/>
+        </div>
+        <div class="row vk-open" ng-if="!openAccess">
+            <div class="btn btn-open">
+                <a href="{{url}}">Вконтакте</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="index-project" ng-if="select == 'project'">
+
+        <!--<div style="position: absolute; top: 50%; left: 50%; width: 500px; height: 50px; margin: -25px 0 0 -250px; font-size: 24px; font-weight: bold;">-->
+            <!--Данная страница в стадии разработки :)-->
         <!--</div>-->
-        <!--<div class="col-md-1 col-xs-1"><span class="line-top"></span></div>-->
-        <!--<div class="col-md-3 col-xs-3">-->
-            <!--<span ng-click="selectProject()"><a ng-class="{'active':select == 'project'}">О проекте</a></span>-->
-        <!--</div>-->
-        <!--<div class="col-md-1 col-xs-1"><span class="line-top"></span></div>-->
-        <!--<div class="col-md-3 col-xs-3">-->
-            <!--<span ng-click="selectWishes()"><a ng-class="{'active':select == 'wishes'}">Пожелания</a></span>-->
-        <!--</div>-->
+        <div class="index-project-content">
+            <div class="index-project-content-item">
+                <div class="index-project-content-item-icon"><i class="ion-close"></i></div>
+                <div class="index-project-content-item-text">Совершая различные манипуляции, вы не Онлайн Вконтакте</div>
+            </div>
+            <div class="index-project-content-item">
+                <div class="index-project-content-item-icon"><i class="ion-ios-body"></i></div>
+                <div class="index-project-content-item-text">Cписок Ваших друзей в удобном формате с датой и временем последнего посещения</div>
+            </div>
+            <div class="index-project-content-item">
+                <div class="index-project-content-item-icon"><i class="ion-person-stalker"></i></div>
+                <div class="index-project-content-item-text">Получение дополнительной информации о Ваших друзьях и просмотр друзей Ваших друзей</div>
+            </div>
+            <div class="index-project-content-item">
+                <div class="index-project-content-item-icon"><i class="ion-heart"></i></div>
+                <div class="index-project-content-item-text">Кто кому поставил отметки "Мне нравится": поиск по стене и по фотографиям</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="index-wishes" ng-if="select == 'wishes'">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">ФИО (не обязательно)</label>
+                        <input type="text" class="form-control" ng-model="content.fio" name="Fio"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Email
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" ng-model="content.email" name="Email"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Отзыв (пожелание)
+                            <span class="text-danger">*</span>
+                        </label>
+                        <textarea type="text" class="form-control" ng-model="content.wish" name="Wish" style="height: 150px;">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <input type="submit" class="btn btn-wish" ng-click="sendWish()"/>
+            </div>
+    </div>
+
+    <ui-view></ui-view>
+
+</div>
+<notification></notification>
+
+<!--<div class="row">-->
+    <!--<div class="btn pull-right" ng-if="openAccess">-->
+        <!--<a href="#">Выйти</a>-->
     <!--</div>-->
-    <!--<hr>-->
-
-    <!--<div class="index-main" ng-if="select == 'main'">-->
-        <!--&lt;!&ndash;ng-if="select == 'main'"&ndash;&gt;-->
-        <!--<div class="main-icon" ng-if="!openAccess">-->
-            <!--<img src="image/logo-big.jpg" alt=""/>-->
-        <!--</div>-->
-        <!--<div class="row vk-open" ng-if="!openAccess">-->
-            <!--<div class="btn btn-open">-->
-                <!--<a href="{{url}}">Вконтакте</a>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-
-
-    <!--<div class="index-project" ng-if="select == 'project'">-->
-
-        <!--&lt;!&ndash;<div style="position: absolute; top: 50%; left: 50%; width: 500px; height: 50px; margin: -25px 0 0 -250px; font-size: 24px; font-weight: bold;">&ndash;&gt;-->
-            <!--&lt;!&ndash;Данная страница в стадии разработки :)&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--<div class="index-project-content">-->
-            <!--<div class="index-project-content-item">-->
-                <!--<div class="index-project-content-item-icon"><i class="ion-close"></i></div>-->
-                <!--<div class="index-project-content-item-text">Совершая различные манипуляции, вы не Онлайн Вконтакте</div>-->
-            <!--</div>-->
-            <!--<div class="index-project-content-item">-->
-                <!--<div class="index-project-content-item-icon"><i class="ion-ios-body"></i></div>-->
-                <!--<div class="index-project-content-item-text">Cписок Ваших друзей в удобном формате с датой и временем последнего посещения</div>-->
-            <!--</div>-->
-            <!--<div class="index-project-content-item">-->
-                <!--<div class="index-project-content-item-icon"><i class="ion-person-stalker"></i></div>-->
-                <!--<div class="index-project-content-item-text">Получение дополнительной информации о Ваших друзьях и просмотр друзей Ваших друзей</div>-->
-            <!--</div>-->
-            <!--<div class="index-project-content-item">-->
-                <!--<div class="index-project-content-item-icon"><i class="ion-heart"></i></div>-->
-                <!--<div class="index-project-content-item-text">Кто кому поставил отметки "Мне нравится": поиск по стене и по фотографиям</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="index-wishes" ng-if="select == 'wishes'">-->
-            <!--<div class="row">-->
-                <!--<div class="col-md-12">-->
-                    <!--<div class="form-group">-->
-                        <!--<label class="control-label">ФИО (не обязательно)</label>-->
-                        <!--<input type="text" class="form-control" ng-model="content.fio" name="Fio"/>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="row">-->
-                <!--<div class="col-md-12">-->
-                    <!--<div class="form-group">-->
-                        <!--<label class="control-label">-->
-                            <!--Email-->
-                            <!--<span class="text-danger">*</span>-->
-                        <!--</label>-->
-                        <!--<input type="text" class="form-control" ng-model="content.email" name="Email"/>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="row">-->
-                <!--<div class="col-md-12">-->
-                    <!--<div class="form-group">-->
-                        <!--<label class="control-label">-->
-                            <!--Отзыв (пожелание)-->
-                            <!--<span class="text-danger">*</span>-->
-                        <!--</label>-->
-                        <!--<textarea type="text" class="form-control" ng-model="content.wish" name="Wish" style="height: 150px;">-->
-                        <!--</textarea>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="row">-->
-                <!--<input type="submit" class="btn btn-wish" ng-click="sendWish()"/>-->
-            <!--</div>-->
-    <!--</div>-->
-
-    <!--<ui-view></ui-view>-->
-
 <!--</div>-->
+
+<!--<div class="row" ng-if="openAccess">-->
+    <!--<div class="btn center-block">-->
+        <!--<button ng-click="sendMessage()">Отправить сообщение</button>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<div class="wrapper" ui-view fullbleed vertical layout></div>-->
 <!--<notification></notification>-->
+<!--<ng-include src="'views/main.html'"></ng-include>-->
 
-<!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-    <!--&lt;!&ndash;<div class="btn pull-right" ng-if="openAccess">&ndash;&gt;-->
-        <!--&lt;!&ndash;<a href="#">Выйти</a>&ndash;&gt;-->
-    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;<div class="row" ng-if="openAccess">&ndash;&gt;-->
-    <!--&lt;!&ndash;<div class="btn center-block">&ndash;&gt;-->
-        <!--&lt;!&ndash;<button ng-click="sendMessage()">Отправить сообщение</button>&ndash;&gt;-->
-    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;<div class="wrapper" ui-view fullbleed vertical layout></div>&ndash;&gt;-->
-<!--&lt;!&ndash;<notification></notification>&ndash;&gt;-->
-<!--&lt;!&ndash;<ng-include src="'views/main.html'"></ng-include>&ndash;&gt;-->
-
-<!--<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>-->
-<!--<script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>-->
-<!--&lt;!&ndash;<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>&ndash;&gt;-->
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+<!--<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>-->
 
 
 
-<!--<script type="text/javascript" src="bower_components/angular/angular.js"></script>-->
-<!--<script type="text/javascript" src="bower_components/ng-table/dist/ng-table.js"></script>-->
-<!--<script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>-->
-<!--<script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>-->
-<!--<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>-->
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="bower_components/ng-table/dist/ng-table.js"></script>
+<script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
-<!--<script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>-->
-<!--<script type="text/javascript" src="bower_components/angular-touch/angular-touch.min.js"></script>-->
-<!--<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>-->
+<script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+<script type="text/javascript" src="bower_components/angular-touch/angular-touch.min.js"></script>
+<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
 
-<!--&lt;!&ndash;module&ndash;&gt;-->
-<!--<script type="text/javascript" src="MainModule.js"></script>-->
-<!--<script type="text/javascript" src="components/friends/FriendsModule.js"></script>-->
-<!--<script type="text/javascript" src="components/user/UserModule.js"></script>-->
-<!--<script type="text/javascript" src="components/wall/WallModule.js"></script>-->
-<!--<script type="text/javascript" src="components/userFriendsList/UserFriendsModule.js"></script>-->
-<!--<script type="text/javascript" src="components/photo/PhotoModule.js"></script>-->
-<!--<script type="text/javascript" src="components/selected/SelectedModule.js"></script>-->
-<!--&lt;!&ndash;<script type="text/javascript" src="components/information/InformationModule.js"></script>&ndash;&gt;-->
+<!--module-->
+<script type="text/javascript" src="MainModule.js"></script>
+<script type="text/javascript" src="components/friends/FriendsModule.js"></script>
+<script type="text/javascript" src="components/user/UserModule.js"></script>
+<script type="text/javascript" src="components/wall/WallModule.js"></script>
+<script type="text/javascript" src="components/userFriendsList/UserFriendsModule.js"></script>
+<script type="text/javascript" src="components/photo/PhotoModule.js"></script>
+<script type="text/javascript" src="components/selected/SelectedModule.js"></script>
+<!--<script type="text/javascript" src="components/information/InformationModule.js"></script>-->
 
-<!--&lt;!&ndash;services&ndash;&gt;-->
-<!--<script type="text/javascript" src="models/NotificationService.js"></script>-->
+<!--services-->
+<script type="text/javascript" src="models/NotificationService.js"></script>
 
-<!--&lt;!&ndash;models&ndash;&gt;-->
-<!--<script type="text/javascript" src="models/LocalStorageModel.js"></script>-->
-<!--<script type="text/javascript" src="models/RestModelService.js"></script>-->
+<!--models-->
+<script type="text/javascript" src="models/LocalStorageModel.js"></script>
+<script type="text/javascript" src="models/RestModelService.js"></script>
 
-<!--&lt;!&ndash;directives&ndash;&gt;-->
-<!--<script type="text/javascript" src="directives/NotificationDirective.js"></script>-->
-<!--<script type="text/javascript" src="directives/ImageDirective.js"></script>-->
-
-
-<!--&lt;!&ndash;controllers&ndash;&gt;-->
-<!--<script type="text/javascript" src="components/friends/controllers/FriendsController.js"></script>-->
-<!--<script type="text/javascript" src="components/user/controllers/UserController.js"></script>-->
-<!--<script type="text/javascript" src="components/wall/controllers/WallController.js"></script>-->
-<!--<script type="text/javascript" src="components/userFriendsList/controllers/UserFriendsController.js"></script>-->
-<!--<script type="text/javascript" src="components/photo/controllers/PhotoControllers.js"></script>-->
-<!--<script type="text/javascript" src="components/selected/controllers/SelectedController.js"></script>-->
-<!--&lt;!&ndash;<script type="text/javascript" src="components/information/controllers/InformationController.js"></script>&ndash;&gt;-->
+<!--directives-->
+<script type="text/javascript" src="directives/NotificationDirective.js"></script>
+<script type="text/javascript" src="directives/ImageDirective.js"></script>
 
 
-<!--<script type="text/javascript" src="controllers/MainController.js"></script>-->
+<!--controllers-->
+<script type="text/javascript" src="components/friends/controllers/FriendsController.js"></script>
+<script type="text/javascript" src="components/user/controllers/UserController.js"></script>
+<script type="text/javascript" src="components/wall/controllers/WallController.js"></script>
+<script type="text/javascript" src="components/userFriendsList/controllers/UserFriendsController.js"></script>
+<script type="text/javascript" src="components/photo/controllers/PhotoControllers.js"></script>
+<script type="text/javascript" src="components/selected/controllers/SelectedController.js"></script>
+<!--<script type="text/javascript" src="components/information/controllers/InformationController.js"></script>-->
 
-<!--<script type="text/javascript" src="config.js"></script>-->
-<!--</body>-->
-<!--</html>-->
 
-<!--&lt;!&ndash;полезные ссылки&ndash;&gt;-->
+<script type="text/javascript" src="controllers/MainController.js"></script>
 
-<!--&lt;!&ndash;http://plnkr.co/edit/ZpkgRhEAoUGlnXjbLb8b?p=preview&ndash;&gt;-->
-<!--&lt;!&ndash;http://habrahabr.ru/post/221949/&ndash;&gt;-->
-<!--&lt;!&ndash;http://habrahabr.ru/post/212405/&ndash;&gt;-->
-<!--&lt;!&ndash;http://vk.com/dev/friends.get&ndash;&gt;-->
-<!--&lt;!&ndash;http://vk.com/dev/auth_mobile&ndash;&gt;-->
-<!--&lt;!&ndash;http://vk.com/dev/fields&ndash;&gt;-->
+<script type="text/javascript" src="config.js"></script>
+</body>
+</html>
 
-<!--&lt;!&ndash;процесс аунтефикации на php&ndash;&gt;-->
-<!--&lt;!&ndash;http://ruseller.com/lessons.php?id=1659&rub=37&ndash;&gt;-->
+<!--полезные ссылки-->
+
+<!--http://plnkr.co/edit/ZpkgRhEAoUGlnXjbLb8b?p=preview-->
+<!--http://habrahabr.ru/post/221949/-->
+<!--http://habrahabr.ru/post/212405/-->
+<!--http://vk.com/dev/friends.get-->
+<!--http://vk.com/dev/auth_mobile-->
+<!--http://vk.com/dev/fields-->
+
+<!--процесс аунтефикации на php-->
+<!--http://ruseller.com/lessons.php?id=1659&rub=37-->

@@ -10,38 +10,47 @@ MainModule.factory('UserModel', function() {
     UserModel.relationStatus = {
       0: {
         id: 0,
-        name: '0'
+        name: '-'
       },
       1: {
         id: 1,
-        name: 'свободен'
+        male: 'свободный парень',
+        female: 'свободная девушка'
       },
       2: {
         id: 2,
-        name: 'гуляет с',
+        name: 'дружит с ',
         other: 'с кем то гуляет..'
       },
       3: {
         id: 3,
-        name: '3'
+        male: 'помолвлен',
+        female: 'помолвлена',
+        maleOther: 'помолвлен с ',
+        femaleOther: 'помолвлена с '
       },
       4: {
         id: 4,
-        name: 'в брачных узах с',
-        other: 'с кем то в брачных узах..'
+        male: 'есть жена - ',
+        female: 'есть муж -',
+        maleOther: 'женат',
+        femaleOther: 'замужем'
       },
       5: {
         id: 5,
-        name: 'замужем за'
+        name: 'все непонятно',
+        other: 'все непонятно c '
       },
       6: {
         id: 6,
-        name: 'ищет пару'
+        name: 'активно ищет пару'
       },
       7: {
         id: 7,
-        name: 'по уши влюблен в',
-        other: 'потеря разума..'
+        male: 'влюблен',
+        female: 'влюблена',
+        maleOther: 'влюблен в ',
+        femaleOther: 'влюблена в '
       }
     };
 
@@ -49,20 +58,88 @@ MainModule.factory('UserModel', function() {
       var relationStatus;
       if (user.relation) {
         if (user.relation_partner) {
-          relationStatus = UserModel.relationStatus[user.relation].name;
+          if (user.sex === 1) {
+            switch (user.relation) {
+              case 2:
+                relationStatus = UserModel.relationStatus[user.relation].name;
+                break;
+              case 3:
+                relationStatus = UserModel.relationStatus[user.relation].femaleOther;
+                break;
+              case 4:
+                relationStatus = UserModel.relationStatus[user.relation].female;
+                break;
+              case 5:
+                relationStatus = UserModel.relationStatus[user.relation].other;
+                break;
+              case 7:
+                relationStatus = UserModel.relationStatus[user.relation].femaleOther;
+            }
+          } else {
+            switch (user.relation) {
+              case 2:
+                relationStatus = UserModel.relationStatus[user.relation].name;
+                break;
+              case 3:
+                relationStatus = UserModel.relationStatus[user.relation].maleOther;
+                break;
+              case 4:
+                relationStatus = UserModel.relationStatus[user.relation].male;
+                break;
+              case 5:
+                relationStatus = UserModel.relationStatus[user.relation].name;
+                break;
+              case 7:
+                relationStatus = UserModel.relationStatus[user.relation].maleOther;
+            }
+          }
         } else {
-          switch (user.relation) {
-            case 2:
-              relationStatus = UserModel.relationStatus[user.relation].other;
-              break;
-            case 4:
-              relationStatus = UserModel.relationStatus[user.relation].other;
-              break;
-            case 7:
-              relationStatus = UserModel.relationStatus[user.relation].other;
-              break;
-            default:
-              relationStatus = UserModel.relationStatus[user.relation].name;
+          if (user.sex === 1) {
+            switch (user.relation) {
+              case 1:
+                relationStatus = UserModel.relationStatus[user.relation].female;
+                break;
+              case 2:
+                relationStatus = UserModel.relationStatus[user.relation].other;
+                break;
+              case 3:
+                relationStatus = UserModel.relationStatus[user.relation].female;
+                break;
+              case 4:
+                relationStatus = UserModel.relationStatus[user.relation].femaleOther;
+                break;
+              case 5:
+                relationStatus = UserModel.relationStatus[user.relation].name;
+                break;
+              case 6:
+                relationStatus = UserModel.relationStatus[user.relation].name;
+                break;
+              case 7:
+                relationStatus = UserModel.relationStatus[user.relation].female;
+            }
+          } else {
+            switch (user.relation) {
+              case 1:
+                relationStatus = UserModel.relationStatus[user.relation].male;
+                break;
+              case 2:
+                relationStatus = UserModel.relationStatus[user.relation].other;
+                break;
+              case 3:
+                relationStatus = UserModel.relationStatus[user.relation].male;
+                break;
+              case 4:
+                relationStatus = UserModel.relationStatus[user.relation].maleOther;
+                break;
+              case 5:
+                relationStatus = UserModel.relationStatus[user.relation].name;
+                break;
+              case 6:
+                relationStatus = UserModel.relationStatus[user.relation].name;
+                break;
+              case 7:
+                relationStatus = UserModel.relationStatus[user.relation].male;
+            }
           }
         }
       } else {

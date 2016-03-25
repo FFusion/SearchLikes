@@ -110,6 +110,7 @@
                 <button class="btn-begin" ng-click="$parent.page = 1" ng-disabled="$parent.page == 1">Начало</button>
             </div>
             <div class="col-md-4 col-xs-4" style="padding: 0">
+                <button class="btn-next" ng-if="userFriendsArray" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= userFriendsArray.length"><span>Вперед</span> &raquo;</button>
                 <button class="btn-next" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= userFriends.length"><span>Вперед</span> &raquo;</button>
             </div>
         </div>

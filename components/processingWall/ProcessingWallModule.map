@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ProcessingWallModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "ProcessingWallModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,IAAA,oBAAA;;AAAA,oBAEA,GAAuB,OAAO,CAAC,MAAR,CAAe,sBAAf,EAAuC,EAAvC,CAFvB,CAAA"
+}
