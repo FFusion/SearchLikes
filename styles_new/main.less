@@ -120,9 +120,6 @@ h3 {
         transform:skew(8deg) rotate(3deg);
     }
 
-    &:hover {
-        box-shadow: 0 5px 12px rgba(60,82,95,0.55);
-    }
 
     &-photo {
         padding-left: 5px;
@@ -147,6 +144,12 @@ h3 {
     }
 }
 
+.friends-item {
+    &:hover {
+        box-shadow: 0 5px 12px rgba(60,82,95,0.55);
+    }
+}
+
 //USER
 .user-bottom {
     &-content {
@@ -166,6 +169,7 @@ h3 {
     img {
         border-radius: 4px;
         max-height: 300px;
+        margin-bottom: 10px;
     }
 }
 
@@ -462,6 +466,29 @@ h3 {
         margin:10px 0px 10px 0px;
     }
 }
+
+//wall-result
+.wall-date {
+    font-size: 1.2em;
+    font-style:italic;
+    opacity: 0.7;
+}
+
+.wall-text {
+    opacity: 0.7;
+    font-size: 18px;
+    font-style:italic;
+    margin-bottom: 7px;
+}
+
+.wall-text-one {
+    text-align: center;
+    font-size: 18px;
+    font-style:italic;
+    margin-top: 100px;
+    margin-bottom: 7px;
+}
+
 //Media styles
 
 @media only screen and (max-width: 1400px) {

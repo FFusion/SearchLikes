@@ -87,10 +87,6 @@ h3 {
   -o-transform: skew(8deg) rotate(3deg);
   transform: skew(8deg) rotate(3deg);
 }
-.friends-item:hover,
-.user-more-item:hover {
-  box-shadow: 0 5px 12px rgba(60, 82, 95, 0.55);
-}
 .friends-item-photo,
 .user-more-item-photo {
   padding-left: 5px;
@@ -114,6 +110,9 @@ h3 {
   line-height: 50px;
   text-align: right;
 }
+.friends-item:hover {
+  box-shadow: 0 5px 12px rgba(60, 82, 95, 0.55);
+}
 .user-bottom-content div {
   margin-bottom: 5px;
 }
@@ -123,6 +122,7 @@ h3 {
 .user-photo img {
   border-radius: 4px;
   max-height: 300px;
+  margin-bottom: 10px;
 }
 .user-name div:first-child {
   font-family: Marck Script, sans-serif;
@@ -353,6 +353,24 @@ h3 {
   font-weight: 700;
   font-size: 1.2em;
   margin: 10px 0px 10px 0px;
+}
+.wall-date {
+  font-size: 1.2em;
+  font-style: italic;
+  opacity: 0.7;
+}
+.wall-text {
+  opacity: 0.7;
+  font-size: 18px;
+  font-style: italic;
+  margin-bottom: 7px;
+}
+.wall-text-one {
+  text-align: center;
+  font-size: 18px;
+  font-style: italic;
+  margin-top: 100px;
+  margin-bottom: 7px;
 }
 @media only screen and (max-width: 1024px) {
   .main-content {

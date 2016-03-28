@@ -18,7 +18,7 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
     _getLinkUser: (id, params) ->
         #запрос на users.get
-        url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,common_count,counters&callback=JSON_CALLBACK'
+        url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,common_count,counters,timezone&callback=JSON_CALLBACK'
         url;
 
     _getLinkUserSimply: (id, params) ->
@@ -143,6 +143,22 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
             params = object.response[0];
 
         params;
+
+
+    filteredUsers: (users, type) ->
+        scaningUsers = [];
+
+        angular.forEach(users, (user)->
+            if type == "male" && user.sex == 2 && !angular.isDefined(user.deactivated)
+                scaningUsers.push(user);
+            if type == "female" && user.sex == 1 && !angular.isDefined(user.deactivated)
+                scaningUsers.push(user);
+        );
+
+        if type == "all"
+            return users
+        else
+            return scaningUsers
 
 
 

@@ -8,7 +8,7 @@ ProcessingWallModule.controller('ProcessingWallController', function($scope, $st
   $scope.result = false;
   $scope.count = 0;
   $scope.stopped = false;
-  $scope.lookedWalls = false;
+  $scope.lookedItems = false;
   $scope.procent = 0;
   $scope.type = {};
   $scope.type.typeUsers = "all";
@@ -17,6 +17,8 @@ ProcessingWallModule.controller('ProcessingWallController', function($scope, $st
   $scope.countFriends = friends.response.count;
   $scope.userFriends = RestModel.isWorkingFriendsObject(friends);
   $scope.back = function() {
+    $scope.stopped = true;
+    Loader.stopLoad();
     return $scope.window.history.back();
   };
   $scope.allFriends = angular.copy($scope.userFriends);
@@ -29,21 +31,9 @@ ProcessingWallModule.controller('ProcessingWallController', function($scope, $st
     $scope.stopped = false;
     $scope.procent = 0;
     $scope.count = 0;
-    angular.forEach(userFriends, function(friend) {
-      if ($scope.type.typeUsers === "male" && friend.sex === 2 && !angular.isDefined(friend.deactivated)) {
-        scaningUsers.push(friend);
-      }
-      if ($scope.type.typeUsers === "female" && friend.sex === 1 && !angular.isDefined(friend.deactivated)) {
-        return scaningUsers.push(friend);
-      }
-    });
-    if ($scope.type.typeUsers === "all") {
-      $scope.searchWallAmongUsers(userFriends);
-      return $scope.allCountUsers = userFriends.length;
-    } else {
-      $scope.searchWallAmongUsers(scaningUsers);
-      return $scope.allCountUsers = scaningUsers.length;
-    }
+    scaningUsers = RestModel.filteredUsers(userFriends, $scope.type.typeUsers);
+    $scope.allCountUsers = scaningUsers.length;
+    return $scope.searchWallAmongUsers(scaningUsers);
   };
   $scope.searchWallAmongUsers = function(userFriends) {
     var checkedUser;
@@ -137,6 +127,7 @@ ProcessingWallModule.controller('ProcessingWallController', function($scope, $st
       count = count + walls.length;
       return angular.forEach(walls, function(wall) {
         if (wall.id === wallId) {
+          wall.date = moment.unix(wall.date).format('DD.MM.YYYY HH:mm');
           return $scope.isLikes[$scope.count].walls.push(wall);
         }
       });
@@ -146,12 +137,11 @@ ProcessingWallModule.controller('ProcessingWallController', function($scope, $st
   $scope.stopScanWall = function() {
     return $scope.stopped = true;
   };
-  $scope.lookLikesWalls = function(walls) {
+  return $scope.lookLikesWalls = function(walls) {
+    $scope.offcet = window.pageYOffset;
     $scope.lookWalls = walls;
-    return $scope.lookedWalls = true;
-  };
-  return $scope.backInResult = function() {
-    return $scope.lookedWalls = false;
+    console.log(walls);
+    return $scope.lookedItems = true;
   };
 });
 

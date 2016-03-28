@@ -13,7 +13,7 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
     $scope.count = 0;
 
     $scope.stopped = false;
-    $scope.lookedWalls = false;
+    $scope.lookedItems = false;
     $scope.procent = 0;
 
     $scope.type = {};
@@ -27,6 +27,8 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
     $scope.userFriends = RestModel.isWorkingFriendsObject(friends);
 
     $scope.back = () ->
+        $scope.stopped = true;
+        Loader.stopLoad();
         $scope.window.history.back()
 
     $scope.allFriends = angular.copy($scope.userFriends);
@@ -43,19 +45,10 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
         $scope.count = 0;
 
         # смотрим на выбранную категорию и фильтруем пользователей
-        angular.forEach(userFriends, (friend)->
-            if $scope.type.typeUsers == "male" && friend.sex == 2 && !angular.isDefined(friend.deactivated)
-                scaningUsers.push(friend);
-            if $scope.type.typeUsers == "female" && friend.sex == 1 && !angular.isDefined(friend.deactivated)
-                scaningUsers.push(friend);
-        );
+        scaningUsers = RestModel.filteredUsers(userFriends, $scope.type.typeUsers);
 
-        if  $scope.type.typeUsers == "all"
-            $scope.searchWallAmongUsers(userFriends)
-            $scope.allCountUsers = userFriends.length;
-        else
-            $scope.searchWallAmongUsers(scaningUsers);
-            $scope.allCountUsers = scaningUsers.length;
+        $scope.allCountUsers = scaningUsers.length;
+        $scope.searchWallAmongUsers(scaningUsers);
 
 
     # функция сканирования
@@ -158,6 +151,7 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
             count = count + walls.length;
             angular.forEach(walls, (wall)->
                 if wall.id == wallId
+                    wall.date = moment.unix(wall.date).format('DD.MM.YYYY HH:mm');
                     $scope.isLikes[$scope.count].walls.push(wall);
             )
         )
@@ -169,10 +163,12 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
         $scope.stopped = true;
 
     $scope.lookLikesWalls = (walls) ->
-        $scope.lookWalls = walls;
-        $scope.lookedWalls = true;
+        # сохраняем положение скролла
+        $scope.offcet = window.pageYOffset;
 
-    $scope.backInResult = () ->
-        $scope.lookedWalls = false;
+        $scope.lookWalls = walls;
+        console.log(walls);
+        $scope.lookedItems = true;
+
 
 

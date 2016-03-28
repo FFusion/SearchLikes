@@ -8,41 +8,31 @@ ProcessingPhotoModule.controller('ProcessingPhotoController', function($scope, $
   $scope.result = false;
   $scope.count = 0;
   $scope.stopped = false;
-  $scope.lookedPhoto = false;
+  $scope.lookedItems = false;
   $scope.procent = 0;
-  $scope.typeUsers = "all";
+  $scope.type = {};
+  $scope.type.typeUsers = "all";
   $scope.userId = $stateParams.userId;
   $scope.currentUser = currentUser.response[0];
   $scope.countFriends = friends.response.count;
   $scope.userFriends = RestModel.isWorkingFriendsObject(friends);
   $scope.back = function() {
+    $scope.stopped = true;
+    Loader.stopLoad();
     return $scope.window.history.back();
   };
   $scope.allFriends = angular.copy($scope.userFriends);
   $scope.scaned = function(userFriends) {
     var scaningUsers;
     Loader.startLoad();
-    scaningUsers = [];
     $scope.isLikes = [];
     $scope.result = false;
     $scope.stopped = false;
     $scope.procent = 0;
     $scope.count = 0;
-    angular.forEach(userFriends, function(friend) {
-      if ($scope.typeUsers === "male" && friend.sex === 2 && !angular.isDefined(friend.deactivated)) {
-        scaningUsers.push(friend);
-      }
-      if ($scope.typeUsers === "female" && friend.sex === 1 && !angular.isDefined(friend.deactivated)) {
-        return scaningUsers.push(friend);
-      }
-    });
-    if ($scope.typeUsers === "all") {
-      $scope.searchPhotoAmongUsers(userFriends);
-      return $scope.allCountUsers = userFriends.length;
-    } else {
-      $scope.searchPhotoAmongUsers(scaningUsers);
-      return $scope.allCountUsers = scaningUsers.length;
-    }
+    scaningUsers = RestModel.filteredUsers(userFriends, $scope.type.typeUsers);
+    $scope.allCountUsers = scaningUsers.length;
+    return $scope.searchPhotoAmongUsers(scaningUsers);
   };
   $scope.searchPhotoAmongUsers = function(userFriends) {
     var checkedUser;
@@ -145,13 +135,10 @@ ProcessingPhotoModule.controller('ProcessingPhotoController', function($scope, $
   $scope.stopScan = function() {
     return $scope.stopped = true;
   };
-  $scope.lookPhoto = function(photos) {
+  return $scope.lookPhoto = function(photos) {
     $scope.lookPhotos = photos;
-    console.log($scope.lookPhotos);
-    return $scope.lookedPhoto = true;
-  };
-  return $scope.backInResult = function() {
-    return $scope.lookedPhoto = false;
+    $scope.lookedItems = true;
+    return $scope.offcet = window.pageYOffset;
   };
 });
 

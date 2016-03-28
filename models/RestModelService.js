@@ -29,7 +29,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
     },
     _getLinkUser: function(id, params) {
       var url;
-      url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,common_count,counters&callback=JSON_CALLBACK';
+      url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,common_count,counters,timezone&callback=JSON_CALLBACK';
       return url;
     },
     _getLinkUserSimply: function(id, params) {
@@ -166,6 +166,23 @@ MainModule.factory('RestModel', function($q, $http, vk) {
         params = object.response[0];
       }
       return params;
+    },
+    filteredUsers: function(users, type) {
+      var scaningUsers;
+      scaningUsers = [];
+      angular.forEach(users, function(user) {
+        if (type === "male" && user.sex === 2 && !angular.isDefined(user.deactivated)) {
+          scaningUsers.push(user);
+        }
+        if (type === "female" && user.sex === 1 && !angular.isDefined(user.deactivated)) {
+          return scaningUsers.push(user);
+        }
+      });
+      if (type === "all") {
+        return users;
+      } else {
+        return scaningUsers;
+      }
     },
     moreInfo: function(id, params) {
       var deffered, url, userId;

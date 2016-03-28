@@ -701,7 +701,7 @@ ul.resp-tabs-list {
     border-radius: 4px;
     font: normal 300 18px/29px 'Roboto', sans-serif;
     padding: 0px;
-    width: 205px;
+    /*width: 205px;*/
     text-align: center;
     background: #fff;
     margin: 0 10px 0 0;
@@ -1434,7 +1434,7 @@ footer[role="contentinfo"] {
         margin-bottom: 20px;
     }
     .resp-tabs-list li {
-        width: 150px;
+        /*width: 150px;*/
     }
     .foo-inn .copyright {
         margin-left: 10px;

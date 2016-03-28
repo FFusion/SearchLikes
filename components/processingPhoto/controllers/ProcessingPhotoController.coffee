@@ -12,10 +12,11 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
     $scope.count = 0;
 
     $scope.stopped = false;
-    $scope.lookedPhoto = false;
+    $scope.lookedItems = false;
     $scope.procent = 0;
 
-    $scope.typeUsers = "all"
+    $scope.type = {};
+    $scope.type.typeUsers = "all"
 
 
 
@@ -26,13 +27,15 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
     $scope.userFriends = RestModel.isWorkingFriendsObject(friends);
 
     $scope.back = () ->
+        $scope.stopped = true;
+        Loader.stopLoad();
         $scope.window.history.back()
 
     $scope.allFriends = angular.copy($scope.userFriends);
 
     $scope.scaned = (userFriends) ->
         Loader.startLoad();
-        scaningUsers = [];
+#        scaningUsers = [];
         $scope.isLikes = [];
 
         $scope.result = false;
@@ -42,19 +45,10 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
         $scope.count = 0;
 
         # смотрим на выбранную категорию и фильтруем пользователей
-        angular.forEach(userFriends, (friend)->
-            if $scope.typeUsers == "male" && friend.sex == 2 && !angular.isDefined(friend.deactivated)
-                scaningUsers.push(friend);
-            if $scope.typeUsers == "female" && friend.sex == 1 && !angular.isDefined(friend.deactivated)
-                scaningUsers.push(friend);
-        );
+        scaningUsers = RestModel.filteredUsers(userFriends, $scope.type.typeUsers);
 
-        if  $scope.typeUsers == "all"
-            $scope.searchPhotoAmongUsers(userFriends)
-            $scope.allCountUsers = userFriends.length;
-        else
-            $scope.searchPhotoAmongUsers(scaningUsers);
-            $scope.allCountUsers = scaningUsers.length;
+        $scope.allCountUsers = scaningUsers.length;
+        $scope.searchPhotoAmongUsers(scaningUsers);
 
     # функция сканирования
     $scope.searchPhotoAmongUsers = (userFriends) ->
@@ -74,7 +68,7 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
         if checkedUser != undefined
             # получаем фотки профиля этого чувака
             $timeout(()->
-                RestModel.getPhoto(checkedUser[0].id, $scope.params,1000,"profile").then(
+                RestModel.getPhoto(checkedUser[0].id, $scope.params, 1000, "profile").then(
                     (data)->
                         if angular.isDefined(data.response && data.response.items)
                             # список фоток
@@ -172,8 +166,7 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
 
     $scope.lookPhoto = (photos) ->
         $scope.lookPhotos = photos;
-        console.log($scope.lookPhotos);
-        $scope.lookedPhoto = true;
+        $scope.lookedItems = true;
 
-    $scope.backInResult = () ->
-        $scope.lookedPhoto = false;
+        $scope.offcet = window.pageYOffset;
+

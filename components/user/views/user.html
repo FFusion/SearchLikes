@@ -14,13 +14,25 @@
                 <img src={{user.photo_200_orig}} alt=""/>
             </div>
             <div class="col-md-8 col-sm-8 col-xs-12 user-name">
-                <h3>
-                    {{user.first_name + ' ' + user.last_name + ' ( id: ' + user.id + ' )'}}
+                <h3 ng-if="user.online">
+                    <div>{{user.first_name + ' ' + user.last_name + ' ( id: ' + user.id + ' )'}}</div>
+                    <span class="user-status-title" ng-if="!user.online_mobile && !user.online_app">online</i></span>
                     <span class="user-status-title" ng-if="user.online_mobile && !user.online_app">online <i class="ion-iphone"></i></span>
                     <span class="user-status-title" ng-if="user.online && user.online_app == '3140623'">online <i class="ion-social-apple"></i></span>
+                    <span class="user-status-title" ng-if="user.online && user.online_app == '3682744'">online <i class="ion-social-apple"> (iPad)</i></span>
                     <span class="user-status-title" ng-if="user.online && user.online_app == '3502561'">online <i class="ion-social-windows"></i></span>
                     <span class="user-status-title" ng-if="user.online && user.online_app == '2274003'">online <i class="ion-social-android"></i></span>
                     <span class="user-status-title" ng-if="user.online && user.online_app == '2685278'">online <i class="ion-social-android"> (kate mobile)</i></span>
+                </h3>
+                <h3 ng-if="!user.online">
+                    <div>{{user.first_name + ' ' + user.last_name + ' ( id: ' + user.id + ' )'}}</div>
+                    <span class="user-status-title" ng-if="user.last_seen.platform == '1'">последний раз с неопознанного мобильного приложения либо m.vk.com</i></span>
+                    <span class="user-status-title" ng-if="user.last_seen.platform == '2'">последний раз с <i class="ion-social-apple"></i></span>
+                    <span class="user-status-title" ng-if="user.last_seen.platform == '3'">последний раз с <i class="ion-social-apple"></i> iPad</span>
+                    <span class="user-status-title" ng-if="user.last_seen.platform == '4'">последний раз с <i class="ion-social-android"></i></span>
+                    <span class="user-status-title" ng-if="user.last_seen.platform == '5'">последний раз с <i class="ion-social-windows"></i></span>
+                    <span class="user-status-title" ng-if="user.last_seen.platform == '6'">последний раз с <i class="ion-social-windows"></i></span>
+                    <span class="user-status-title" ng-if="user.last_seen.platform == '7'">последний раз с компьютера</span>
                 </h3>
                 <div class="user-info">
                    <p ng-if="user.status">{{user.status}}</p>
@@ -133,7 +145,7 @@
                 <!--<button class="btn btn-checkPhoto" ng-click="checkPhoto(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  по фото</button>-->
             <!--</div>-->
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <button class="btn btn-userFriends" ng-click="getUserFriends(user)" ng-disabled="user.deactivated">Список друзей <i class="ion-ios-people"></i></button>
+                <button class="btn btn-userFriends" ng-click="getUserFriends(user)" ng-disabled="user.deactivated"><i class="ion-ios-people"></i> Список друзей</button>
             </div>
         </div>
     </div>

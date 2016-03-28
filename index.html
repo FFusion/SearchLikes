@@ -52,15 +52,15 @@
     <div class="section-inn">
         <div class="half-block f-left">
             <div class="services-provide-block">
-                <h3>LikeSearch - поиск лайков</h3>
+                <h3>SearchLikes - поиск лайков</h3>
                 <ul>
                     <li class="item-1">
                         <strong>Друзья</strong>
-                        <p>Cписок друзей Вконтакте со временем последнего посещения. Фильтр по удаленным друзьям</p>
+                        <p>Cписок друзей Вконтакте со временем последнего посещения. Определение платформы откуда производился вход. Фильтр по удаленным друзьям.</p>
                     </li>
                     <li class="item-2">
                         <strong>Самое интересное</strong>
-                        <p>Хочешь проверить свою вторую половинку? Узнай кого "лайкает" твой друг: поиск лайков среди фотографий друзей</p>
+                        <p>Хочешь проверить свою вторую половинку? Узнай кого "лайкает" твой друг: поиск лайков среди фотографий и на стенах друзей</p>
                     </li>
                     <li class="item-3">
                         <strong>Это еще не все!</strong>
@@ -91,20 +91,20 @@
         <div class="section-inn">
             <h3 class="middle-title">Подробная <span>информация</span></h3>
             <div class="middle-text">
-                <p>LikeSearch - веб-проект, написанный с использованием API социальной сети Вконтакте. Компактное и удобное представление списка ваших друзей, простая навигация, возможность посмотреть кто когда заходил, кто кому поставил лайк и не только.</p>
+                <p>SearchLikes - веб-проект, написанный с использованием API социальной сети Вконтакте. Компактное и удобное представление списка ваших друзей, простая навигация, возможность посмотреть кто когда заходил, откуда заходил, кто кому поставил лайк и не только.</p>
             </div><!-- .middle-text -->
             <div class="our-awards-wrap">
-                <div class="our-awards-slider">
-                    <img src="image/main/awards-slides/slide.jpg" alt="Award Name Slide 1" class="award-img">
-                    <img src="image/main/awards-slides/slide2.jpg" alt="Award Name Slide 2" class="award-img">
-                    <img src="image/main/awards-slides/slide3.jpg" alt="Award Name Slider 3" class="award-img">
-                </div><!-- .our-awards-slider -->
+                <!--<div class="our-awards-slider">-->
+                    <!--<img src="image/main/awards-slides/slide.jpg" alt="Award Name Slide 1" class="award-img">-->
+                    <!--<img src="image/main/awards-slides/slide2.jpg" alt="Award Name Slide 2" class="award-img">-->
+                    <!--<img src="image/main/awards-slides/slide3.jpg" alt="Award Name Slider 3" class="award-img">-->
+                <!--</div>&lt;!&ndash; .our-awards-slider &ndash;&gt;-->
                 <div class="our-awards-text">
                     <div id="html6-tab">
-                        <ul class="resp-tabs-list">
-                            <li>Преимущества</li>
-                            <li>Основное</li>
-                            <li>В ближайшем будущем</li>
+                        <ul class="resp-tabs-list row">
+                            <li class="col-md-4 col-xs-4">Преимущества</li>
+                            <li class="col-md-4 col-xs-4">Основное</li>
+                            <li class="col-md-3 col-xs-3">В ближайшем будущем</li>
                         </ul>
                         <div class="resp-tabs-container">
                             <div>
@@ -120,8 +120,9 @@
                             <div>
                                 <ul>
                                     <li>Список друзей со временем последнего посещения</li>
+                                    <li>Платформа, с которой заходил пользователь</li>
                                     <li>Фильтр по удаленным друзьям</li>
-                                    <li>Информация о пользователях</li>
+                                    <li>Информация о данных пользователя</li>
                                     <li>Поиск "лайков"</li>
                                     <li>Результат поиска - фотографии или записы со стены</li>
                                 </ul>
@@ -251,6 +252,7 @@
 <!--directives-->
 <script type="text/javascript" src="directives/ImageDirective.js"></script>
 <script type="text/javascript" src="directives/SliderDirective.js"></script>
+<script type="text/javascript" src="directives/MoveDirective.js"></script>
 
 
 <!--controllers-->

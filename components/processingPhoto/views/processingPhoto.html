@@ -5,19 +5,19 @@
     </div>
 </div>
 
-<div class="main-content-friends">
+<div move class="main-content-friends">
     <div class="selected-top">
         <div class="userFriend-title">
             {{currentUser.first_name + ' ' + currentUser.last_name}}
         </div>
-        <div class="block-navigation-button" ng-if="!lookedPhoto">
+        <div class="block-navigation-button" ng-if="!lookedItems">
             <button class="btn btn-back" ng-click="back()">Назад</button>
         </div>
-        <div class="block-navigation-button" ng-if="lookedPhoto">
+        <div class="block-navigation-button" ng-if="lookedItems">
             <button class="btn btn-back" ng-click="backInResult()">Назад</button>
         </div>
     </div>
-    <div class="friends-content" ng-if="!lookedPhoto">
+    <div class="friends-content" ng-if="!lookedItems">
         <hr>
         <div class="friends-content-top">
             <!--поиск-->
@@ -35,15 +35,15 @@
             </div>
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="typeUsers == 'male'" ng-true-value="'male'" ng-false-value="'all'" class="checkbox" ng-model="typeUsers" id="man" />
+                    <input type="checkbox" ng-checked="type.typeUsers == 'male'" ng-true-value="'male'" ng-false-value="'all'" class="checkbox" ng-model="type.typeUsers" id="man" />
                     <label for="man">Парни</label>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="typeUsers == 'female'" ng-true-value="'female'" ng-false-value="'all'" class="checkbox" ng-model="typeUsers" id="woman" />
+                    <input type="checkbox" ng-checked="type.typeUsers == 'female'" ng-true-value="'female'" ng-false-value="'all'" class="checkbox" ng-model="type.typeUsers" id="woman" />
                     <label for="woman">Девушки</label>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="typeUsers == 'all'" ng-true-value="'all'" ng-false-value="'male'" class="checkbox" ng-model="typeUsers" id="all" />
+                    <input type="checkbox" ng-checked="type.typeUsers == 'all'" ng-true-value="'all'" ng-false-value="'male'" class="checkbox" ng-model="type.typeUsers" id="all" />
                     <label for="all">Все друзья</label>
                 </div>
             </div>
@@ -54,9 +54,10 @@
         </div>
     </div>
 
-    <div class="result-content" ng-if="result && !lookedPhoto">
+    <div class="result-content" ng-if="result && !lookedItems">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 result-content-procent">
+                <div ng-if="procent != 0 && procent != 100 && !stopped">Процесс небыстрый, пожалуйста подождите</div>
                 <div>{{procent}} %</div>
                 <div ng-if="procent == 100 || stopped">Сканирование завершено</div>
             </div>
@@ -76,17 +77,19 @@
         </div>
     </div>
 
-    <div class="photo-content" ng-if="lookedPhoto">
+    <div class="photo-content" ng-if="lookedItems">
         <div class="photo-class row">
             <div class="photo-class-title col-md-6 col-xs-12"><span style="color: red">Так так... </span>{{lookPhotos.length + ' фото '}}</div>
         </div>
         <ul slide class="rslides">
             <li ng-repeat="photo in lookPhotos">
                 <div class="result-photo">
-                    <img ng-src="{{photo.photo_604}}"  alt=""  ng-swipe-left="showPrev(photo)" ng-swipe-right="showNext(photo)">
+                    <img ng-src="{{photo.photo_604}}"  alt=""  ng-swipe-left="showPrev()" ng-swipe-right="showNext()">
                     <!--ng-click="increasePhoto(photo)"-->
                 </div>
             </li>
         </ul>
     </div>
 </div>
+<div class="go-up" title="Вверх" id='ToTop'>⇧</div>
+<div class="go-down" title="Вниз" id='OnBottom'>⇩</div>
