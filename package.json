@@ -1,7 +1,7 @@
 {
-    "author"	: "Alex",
-    "name"		: "LikeSearch",
-    "version"	: "2.0.1",
+    "author"	: "FFusion",
+    "name"		: "SearchLikes",
+    "version"	: "2.0.3",
 
     "devDependencies" : {
         "grunt": "^0.4.5",
