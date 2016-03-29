@@ -24,7 +24,6 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $stat
             $scope.loading = true;
             RestModel.getFriends($scope.params).then(
                 (data) ->
-                    console.log(data);
                     $scope.countFriends = data.response.count;
                     $scope.loading = false;
                     $scope.friends = RestModel.isWorkingFriendsObject(data);

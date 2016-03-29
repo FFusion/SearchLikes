@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="">
+    <meta name="description" content="Кого лайкает твой друг? Поиск лайков среди фотографиий и на стене вконтакте. Список друзей со временем последнего посещения. Список удаленных друзей">
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
@@ -56,7 +56,7 @@
                 <ul>
                     <li class="item-1">
                         <strong>Друзья</strong>
-                        <p>Cписок друзей Вконтакте со временем последнего посещения. Определение платформы откуда производился вход. Фильтр по удаленным друзьям.</p>
+                        <p>Список друзей Вконтакте со временем последнего посещения. Определение платформы откуда производился вход. Фильтр по удаленным друзьям.</p>
                     </li>
                     <li class="item-2">
                         <strong>Самое интересное</strong>
@@ -76,8 +76,8 @@
                 <div id="slider-wrap">
                     <div id="slider">
                         <figure class="slide"><img src="image/main/large-slides/slide.jpg" alt="Slide 1" ng-swipe-left="showPrev(3)" ng-swipe-right="showNext(2)"></figure>
-                        <figure class="slide"><img src="image/main/large-slides/slide2.jpg" alt="Slide 2" ng-swipe-left="showPrev(1)" ng-swipe-right="showNext(3)"></figure>
-                        <figure class="slide"><img src="image/main/large-slides/slide3.jpg" alt="Slide 3" ng-swipe-left="showPrev(2)" ng-swipe-right="showNext(1)"></figure>
+                        <figure class="slide"><img src="image/main/large-slides/slide2.png" alt="Slide 2" ng-swipe-left="showPrev(1)" ng-swipe-right="showNext(3)"></figure>
+                        <figure class="slide"><img src="image/main/large-slides/slide3.png" alt="Slide 3" ng-swipe-left="showPrev(2)" ng-swipe-right="showNext(1)"></figure>
                     </div><!-- #slider -->
                 </div><!-- #slider-wrap -->
             </div><!-- .services-slider-block -->
@@ -92,13 +92,9 @@
             <h3 class="middle-title">Подробная <span>информация</span></h3>
             <div class="middle-text">
                 <p>SearchLikes - веб-проект, написанный с использованием API социальной сети Вконтакте. Компактное и удобное представление списка ваших друзей, простая навигация, возможность посмотреть кто когда заходил, откуда заходил, кто кому поставил лайк и не только.</p>
+                <p>Если вам понравился данный проект, вы можете отблагодарить автора через Webmoney R401920329933 или ЯндексДеньги 410011802661832</p>
             </div><!-- .middle-text -->
             <div class="our-awards-wrap">
-                <!--<div class="our-awards-slider">-->
-                    <!--<img src="image/main/awards-slides/slide.jpg" alt="Award Name Slide 1" class="award-img">-->
-                    <!--<img src="image/main/awards-slides/slide2.jpg" alt="Award Name Slide 2" class="award-img">-->
-                    <!--<img src="image/main/awards-slides/slide3.jpg" alt="Award Name Slider 3" class="award-img">-->
-                <!--</div>&lt;!&ndash; .our-awards-slider &ndash;&gt;-->
                 <div class="our-awards-text">
                     <div id="html6-tab">
                         <ul class="resp-tabs-list row">
@@ -144,8 +140,8 @@
 <section id="contacts" class="section-main section" ng-if="!openAccess">
     <div class="section-inn">
         <div class="contacts-info">
-            <strong>Свяжитесь <span>с нами</span></strong>
-            <p>Ждем ваши вопросы, отзывы и комментарии</p>
+            <strong>Форма связи</strong>
+            <p>Жду ваши вопросы, отзывы и комментарии</p>
         </div>
         <form class="contact-form">
             <div class="f-right">
@@ -158,9 +154,6 @@
         </form>
     </div><!-- .section-inn -->
 </section><!-- #contacts -->
-<!--<section class="map-section section-main" ng-if="!openAccess">-->
-    <!--<div id="map_canvas"></div>-->
-<!--</section>&lt;!&ndash; .map-section &ndash;&gt;-->
 <section class="main-content" ng-show="openAccess">
     <ui-view></ui-view>
     <toast></toast>
@@ -175,7 +168,7 @@
             <a href="#services">Функционал</a><span>|</span>
             <a href="#contacts">Контакты</a>
         </nav><!-- #bottom-menu -->
-        <p class="copyright">&copy; 2015-2016 LikeSearch</p>
+        <p class="copyright">&copy; 2015-2016 SearchLikes</p>
     </div><!-- .foo-inn -->
 </footer>
 <div class="navigation-fixed">
