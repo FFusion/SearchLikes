@@ -28,7 +28,8 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
 
     $scope.back = () ->
         $scope.stopped = true;
-        Loader.stopLoad();
+        if Loader.ID isnt null
+            Loader.stopLoad();
         $scope.window.history.back()
 
     $scope.allFriends = angular.copy($scope.userFriends);
@@ -167,8 +168,11 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
         $scope.offcet = window.pageYOffset;
 
         $scope.lookWalls = walls;
-        console.log(walls);
         $scope.lookedItems = true;
+
+        $('body').scrollTop(0);
+
+        return true;
 
 
 

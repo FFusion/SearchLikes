@@ -28,7 +28,8 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
 
     $scope.back = () ->
         $scope.stopped = true;
-        Loader.stopLoad();
+        if Loader.ID isnt null
+            Loader.stopLoad();
         $scope.window.history.back()
 
     $scope.allFriends = angular.copy($scope.userFriends);
@@ -169,4 +170,7 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
         $scope.lookedItems = true;
 
         $scope.offcet = window.pageYOffset;
+        $('body').scrollTop(0);
+
+        return true;
 

@@ -18,7 +18,9 @@ ProcessingWallModule.controller('ProcessingWallController', function($scope, $st
   $scope.userFriends = RestModel.isWorkingFriendsObject(friends);
   $scope.back = function() {
     $scope.stopped = true;
-    Loader.stopLoad();
+    if (Loader.ID !== null) {
+      Loader.stopLoad();
+    }
     return $scope.window.history.back();
   };
   $scope.allFriends = angular.copy($scope.userFriends);
@@ -140,8 +142,9 @@ ProcessingWallModule.controller('ProcessingWallController', function($scope, $st
   return $scope.lookLikesWalls = function(walls) {
     $scope.offcet = window.pageYOffset;
     $scope.lookWalls = walls;
-    console.log(walls);
-    return $scope.lookedItems = true;
+    $scope.lookedItems = true;
+    $('body').scrollTop(0);
+    return true;
   };
 });
 

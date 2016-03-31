@@ -18,7 +18,9 @@ ProcessingPhotoModule.controller('ProcessingPhotoController', function($scope, $
   $scope.userFriends = RestModel.isWorkingFriendsObject(friends);
   $scope.back = function() {
     $scope.stopped = true;
-    Loader.stopLoad();
+    if (Loader.ID !== null) {
+      Loader.stopLoad();
+    }
     return $scope.window.history.back();
   };
   $scope.allFriends = angular.copy($scope.userFriends);
@@ -138,7 +140,9 @@ ProcessingPhotoModule.controller('ProcessingPhotoController', function($scope, $
   return $scope.lookPhoto = function(photos) {
     $scope.lookPhotos = photos;
     $scope.lookedItems = true;
-    return $scope.offcet = window.pageYOffset;
+    $scope.offcet = window.pageYOffset;
+    $('body').scrollTop(0);
+    return true;
   };
 });
 

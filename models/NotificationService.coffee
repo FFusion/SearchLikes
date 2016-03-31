@@ -6,7 +6,6 @@ MainModule.service 'Notification', ($rootScope, $q, ngToast) ->
     new class Notification
 
         success: (message) ->
-            console.log(ngToast);
             ngToast.success({
                 content: message
                 timeout:	3000

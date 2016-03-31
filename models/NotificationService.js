@@ -6,7 +6,6 @@ MainModule.service('Notification', function($rootScope, $q, ngToast) {
     function Notification() {}
 
     Notification.prototype.success = function(message) {
-      console.log(ngToast);
       return ngToast.success({
         content: message,
         timeout: 3000
