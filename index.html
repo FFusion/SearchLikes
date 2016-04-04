@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html ng-app="MainModule">
 <!--[if IE 8 ]>    <html lang="ru" class="no-js ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="ru" class="no-js ie9"> <![endif]-->
@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="Кого лайкает твой друг? Поиск лайков среди фотографиий и на стене вконтакте. Список друзей со временем последнего посещения. Список удаленных друзей">
+    <meta name="description" content="Кого лайкает твой друг? Поиск лайков среди фотографиий и на стене вконтакте. Поиск комментариев.Список друзей со временем последнего посещения. Список удаленных друзей">
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
@@ -52,7 +52,7 @@
     <div class="section-inn">
         <div class="half-block f-left">
             <div class="services-provide-block">
-                <h3>SearchLikes - поиск лайков</h3>
+                <h3>SearchLikes - поиск лайков и комментариев</h3>
                 <ul>
                     <li class="item-1">
                         <strong>Друзья</strong>
@@ -60,7 +60,7 @@
                     </li>
                     <li class="item-2">
                         <strong>Самое интересное</strong>
-                        <p>Хочешь проверить свою вторую половинку? Узнай кого "лайкает" твой друг: поиск лайков среди фотографий и на стенах друзей</p>
+                        <p>Хочешь проверить свою вторую половинку? Узнай кого "лайкает" и кому пишет твой друг: поиск лайков комментариев среди фотографий и на стенах друзей</p>
                     </li>
                     <li class="item-3">
                         <strong>Это еще не все!</strong>
@@ -91,7 +91,7 @@
         <div class="section-inn">
             <h3 class="middle-title">Подробная <span>информация</span></h3>
             <div class="middle-text">
-                <p>SearchLikes - веб-проект, написанный с использованием API социальной сети Вконтакте. Компактное и удобное представление списка ваших друзей, простая навигация, возможность посмотреть кто когда заходил, откуда заходил, кто кому поставил лайк и не только.</p>
+                <p>SearchLikes - веб-проект, написанный с использованием API социальной сети Вконтакте. Компактное и удобное представление списка ваших друзей, простая навигация, возможность посмотреть кто когда заходил, откуда заходил, кто кому поставил лайк и комментарий и не только.</p>
                 <p>Если вам понравился данный проект, вы можете отблагодарить автора через Webmoney R401920329933 или ЯндексДеньги 410011802661832</p>
             </div><!-- .middle-text -->
             <div class="our-awards-wrap">
@@ -120,6 +120,7 @@
                                     <li>Фильтр по удаленным друзьям</li>
                                     <li>Информация о данных пользователя</li>
                                     <li>Поиск "лайков"</li>
+                                    <li><b>Новинка - Поиск комментариев!</b></li>
                                     <li>Результат поиска - фотографии или записы со стены</li>
                                 </ul>
                             </div>
@@ -235,6 +236,7 @@
 <script type="text/javascript" src="components/selected/SelectedModule.js"></script>
 <script type="text/javascript" src="components/processingPhoto/ProcessingPhotoModule.js"></script>
 <script type="text/javascript" src="components/processingWall/ProcessingWallModule.js"></script>
+<script type="text/javascript" src="components/commentsPhoto/CommentsPhotoModule.js"></script>
 
 
 <!--models-->
@@ -257,6 +259,7 @@
 <script type="text/javascript" src="components/selected/controllers/SelectedController.js"></script>
 <script type="text/javascript" src="components/processingPhoto/controllers/ProcessingPhotoController.js"></script>
 <script type="text/javascript" src="components/processingWall/controllers/ProcessingWallController.js"></script>
+<script type="text/javascript" src="components/commentsPhoto/controllers/CommentsPhotoController.js"></script>
 
 <script type="text/javascript" src="controllers/MainController.js"></script>
 

@@ -1,11 +1,14 @@
 <div class="main-content-user">
     <div class="user-top">
         <!--блок с кнопками навигации-->
-        <div class="block-navigation-button">
+        <div class="block-navigation-button" ng-if="params">
             <button class="btn btn-back" ng-click="back()">Назад</button>
         </div>
-        <div class="block-navigation-button">
+        <div class="block-navigation-button" ng-if="params">
             <button class="btn btn-home" ng-click="home()">На главную</button>
+        </div>
+        <div class="block-navigation-button" ng-if="!params">
+            <button class="btn btn-home" ng-click="login()">Пройти авторизацию</button>
         </div>
     </div>
     <div class="user-middle">
@@ -82,15 +85,26 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 user-title">Кого лайкает {{user.first_name}}? </div>
         </div>
-        <div class="row user-bottom-content">
+        <div class="row user-bottom-content" ng-if="params">
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <button class="btn btn-checkPhoto" ng-click="checkPhotoAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей (фото)</button>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <button class="btn btn-checkPhoto" ng-click="checkWallAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей (стена)</button>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12" style="display: none">
-                <button class="btn btn-checkPhoto" ng-click="checkPhotoOne(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  у одного друга </button>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 user-title">Кого комментирует {{user.first_name}}? </div>
+        </div>
+        <div class="row user-bottom-content" ng-if="params">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <button class="btn btn-checkPhoto" ng-click="getCommentsOfPhoto(user)" ng-disabled="user.deactivated">Поиск комментариев на фото (beta)</button>
+            </div>
+        </div>
+        <div class="row" ng-if="!params">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <button style="width: 100%;" class="btn btn-checkPhoto" ng-click="login()">Пройти авторизацию</button>
             </div>
         </div>
         <hr>
@@ -172,7 +186,7 @@
             <!--<div class="col-md-4 col-sm-4 col-xs-12">-->
                 <!--<button class="btn btn-checkPhoto" ng-click="checkPhoto(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  по фото</button>-->
             <!--</div>-->
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-if="params">
                 <button class="btn btn-userFriends" ng-click="getUserFriends(user)" ng-disabled="user.deactivated"><i class="ion-ios-people"></i> Список друзей</button>
             </div>
         </div>

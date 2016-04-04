@@ -4,13 +4,12 @@ MainModule.controller('MainController', function($scope, $location, $state, $htt
   $scope.openAccess = false;
   $scope.content = {};
   $scope.send = false;
-  $scope.linkPage = ['main', 'project', 'wishes'];
-  $scope.select = $scope.linkPage[0];
   $scope.url = RestModel.getLinkAutorization();
   if (window.location.href.indexOf("access_token") !== -1) {
     $scope.openAccess = true;
     $scope.params = RestModel.getParams(window.location.href);
     LocalStorage.setItem('params', $scope.params);
+    RestModel.getWishUser($scope.params.user_id);
     $state.transitionTo('friends');
   } else {
     if (LocalStorage.getItem('params')) {
@@ -19,7 +18,11 @@ MainModule.controller('MainController', function($scope, $location, $state, $htt
         $state.transitionTo('friends');
       }
     } else {
-      Notification.show("Ошибка авторизации");
+      if (window.location.pathname === "/login" || $state.current.url === "/login") {
+        $scope.openAccess = false;
+      } else {
+        $scope.openAccess = true;
+      }
     }
   }
   return $scope.sendWish = function() {

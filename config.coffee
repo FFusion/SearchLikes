@@ -151,6 +151,16 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
                 friends: (RestModel, $stateParams, params, currentUser) -> RestModel.getFriends(params, $stateParams.userId);
             )
 
+        .state('commentsPhoto',
+            url         : '/user/:userId/commentsPhoto',
+            controller  : 'CommentsPhotoController',
+            templateUrl : 'components/commentsPhoto/views/commentsPhoto.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+                currentUser: (RestModel, $stateParams,params) ->  RestModel.getUserById($stateParams.userId,params);
+                friends: (RestModel, $stateParams, params, currentUser) -> RestModel.getFriends(params, $stateParams.userId);
+        )
+
 
         $urlRouterProvider.otherwise('/login');
     ]

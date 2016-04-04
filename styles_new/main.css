@@ -372,6 +372,14 @@ h3 {
   margin-top: 100px;
   margin-bottom: 7px;
 }
+.comment-block {
+  min-height: 80px;
+}
+.comment-date {
+  font-size: 15px;
+  font-style: italic;
+  opacity: 0.7;
+}
 @media only screen and (max-width: 1024px) {
   .main-content {
     width: 800px;

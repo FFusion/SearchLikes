@@ -156,6 +156,21 @@ MainModule.config([
           return RestModel.getFriends(params, $stateParams.userId);
         }
       }
+    }).state('commentsPhoto', {
+      url: '/user/:userId/commentsPhoto',
+      controller: 'CommentsPhotoController',
+      templateUrl: 'components/commentsPhoto/views/commentsPhoto.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        },
+        currentUser: function(RestModel, $stateParams, params) {
+          return RestModel.getUserById($stateParams.userId, params);
+        },
+        friends: function(RestModel, $stateParams, params, currentUser) {
+          return RestModel.getFriends(params, $stateParams.userId);
+        }
+      }
     });
     return $urlRouterProvider.otherwise('/login');
   }

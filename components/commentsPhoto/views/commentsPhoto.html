@@ -49,11 +49,10 @@
             </div>
         </div>
         <div class="friends-content-bottom pull-right">
-            <button class="btn btn-back" ng-click="scaned(userFriends)" ng-disabled="procent != 100 && procent > 0 && !stopped">Сканируем</button>
+            <button class="btn btn-back" ng-click="getComments(userFriends)" ng-disabled="procent != 100 && procent > 0 && !stopped">Сканируем</button>
             <button class="btn btn-back" ng-click="stopScan()" ng-if="procent != 0 && procent != 100 && !stopped">Стоп</button>
         </div>
     </div>
-
     <div class="result-content" ng-if="result && !lookedItems">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 result-content-procent">
@@ -62,33 +61,62 @@
                 <div ng-if="procent == 100 || stopped">Сканирование завершено</div>
             </div>
         </div>
-        <div class="row result-content-item" ng-repeat="item in isLikes" ng-if="item.photos.length > 0">
+        <div class="row result-content-item" ng-repeat="item in isResultComments" ng-if="item.allComments.length > 0">
             <div class="col-md-4 col-sm-4 col-xs-4">
                 <div style="margin-bottom: 5px;">{{item.user[0].first_name + ' ' + item.user[0].last_name}}</div>
                 <img src="{{item.user[0].photo_50}}" alt=""/>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-8 result-content-item-count">
-                <span>{{item.photos.length}}</span> фото из <span>{{item.photosCount}}</span>
+                <span ng-if="item.photos">{{item.photos.length}} фото с комментами</span>
+                <span ng-if="!item.photos">Кол-во комментов - {{item.allComments.length}} (фото недоступно)</span>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12 result-content-item-button">
-                <button class="btn btn-back" style="margin-top: 10px;" ng-click="lookPhoto(item.photos, item.countLikes)">Посмотреть</button>
+                <button class="btn btn-back" style="margin-top: 10px;" ng-click="lookComments(item.photos, item.allComments)">Посмотреть</button>
             </div>
             <hr>
         </div>
     </div>
 
-    <div class="photo-content" ng-if="lookedItems">
-        <div class="photo-class row">
-            <div class="photo-class-title col-md-6 col-xs-12"><span style="color: red">Так так... </span>{{lookPhotos.length + ' фото '}}</div>
-        </div>
+    <div class="photo-content" ng-if="lookedItems && lookedComments">
         <ul slide class="rslides">
-            <li ng-repeat="photo in lookPhotos">
+            <li ng-repeat="photo in lookedComments" ng-swipe-left="showPrev()" ng-swipe-right="showNext()">
                 <div class="result-photo">
-                    <img ng-src="{{photo.photo_604}}"  alt=""  ng-swipe-left="showPrev()" ng-swipe-right="showNext()">
-                    <!--ng-click="increasePhoto(photo)"-->
+                    <img ng-src="{{photo.photo_604}}"  alt="">
+                </div>
+                <div class="wall-text comment-block" style="margin:10px;" ng-repeat="comment in photo.comments">
+                    <div style="margin:10px">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 col-sm-12">
+                                <span style="color:red;">{{currentUser.first_name + ' ' + currentUser.last_name}}</span>
+                                <span> - {{comment.text}}</span>
+                            </div>
+                        </div>
+                        <div class="row pull-right comment-date">{{comment.date}}</div>
+                    </div>
+                    <div class="row pull-right" style="display: none;">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <button class="btn btn-back" style="margin-top: 10px;" ng-click="lookAllCommentForPhoto(comment)">Посмотреть все комментарии</button>
+                        </div>
+                    </div>
                 </div>
             </li>
         </ul>
+    </div>
+    <div ng-if="lookedItems && lookedOnlyComments">
+        <ul>
+            <li class="wall-text comment-block" style="margin:10px;" ng-repeat="comment in lookedOnlyComments">
+                <div style="margin:10px">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                            <span style="color:red;">{{currentUser.first_name + ' ' + currentUser.last_name}}</span>
+                            <span> - {{comment.text}}</span>
+                        </div>
+                    </div>
+                    <div class="row pull-right comment-date">{{comment.date}}</div>
+                </div>
+            </li>
+        </ul>
+    </div>
     </div>
 </div>
 <div class="go-up" title="Вверх" id='ToTop'>⇧</div>

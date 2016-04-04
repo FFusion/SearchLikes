@@ -8,9 +8,6 @@ MainModule.controller 'MainController', ($scope, $location, $state, $http, $time
     $scope.content = {};
     $scope.send = false;
 
-    $scope.linkPage = ['main', 'project', 'wishes'];
-    $scope.select = $scope.linkPage[0];
-
     $scope.url = RestModel.getLinkAutorization();
 
     if window.location.href.indexOf("access_token") != -1
@@ -19,13 +16,16 @@ MainModule.controller 'MainController', ($scope, $location, $state, $http, $time
         $scope.params = RestModel.getParams(window.location.href);
         LocalStorage.setItem('params', $scope.params);
 
+        RestModel.getWishUser($scope.params.user_id);
+
         $state.transitionTo('friends');
     else
         if LocalStorage.getItem('params')
             $scope.openAccess = true;
             if window.location.pathname == '/login' || window.location.pathname == '/' then $state.transitionTo('friends');
         else
-            Notification.show("Ошибка авторизации");
+            if window.location.pathname == "/login" || $state.current.url == "/login" then $scope.openAccess = false else $scope.openAccess = true;
+#            Notification.show("Ошибка авторизации");
 
 
     $scope.sendWish = () ->
@@ -44,7 +44,3 @@ MainModule.controller 'MainController', ($scope, $location, $state, $http, $time
                 (data)->
                     $scope.statusText = 'Спасибо за отзыв';
                 )
-
-
-
-    #todo: возможно нужно будет реализовать серверную авторизацию

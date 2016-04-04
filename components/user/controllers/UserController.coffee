@@ -2,7 +2,7 @@
 
 'use strict';
 
-UserModule.controller 'UserController', ($scope, $stateParams, $location, $state, RestModel, Notification, UserModel, LocalStorage, user, params) ->
+UserModule.controller 'UserController', ($scope, $stateParams, $window, $location, $state, RestModel, Notification, UserModel, LocalStorage, user, params) ->
 
     $scope.window = window;
     $scope.params = params;
@@ -21,6 +21,10 @@ UserModule.controller 'UserController', ($scope, $stateParams, $location, $state
         if LocalStorage.getItem('page') then LocalStorage.removeItem('page');
         $state.transitionTo('friends');
 
+    $scope.login = () ->
+        $window.location = '/login'
+
+
     $scope.checkWall = (user) ->
         $state.transitionTo('selected', {userId: user.id, type:'wall'});
 
@@ -37,3 +41,6 @@ UserModule.controller 'UserController', ($scope, $stateParams, $location, $state
 
     $scope.checkWallAll = (user) ->
         $state.transitionTo('processingWall', {userId: user.id});
+
+    $scope.getCommentsOfPhoto = (user) ->
+        $state.transitionTo('commentsPhoto', {userId: user.id});

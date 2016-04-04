@@ -16,14 +16,20 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 #        url = vk.api + '/method/friends.getOnline?user_id=' + params.user_id + '&online_mobile=1&access_token=' + params.access_token + '&callback=JSON_CALLBACK';\
 #        url;
 
-    _getLinkUser: (id, params) ->
+    _getLinkUser: (id, params = null) ->
         #запрос на users.get
-        url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,common_count,counters,timezone&callback=JSON_CALLBACK'
+        if params is null
+            url = vk.api + '/method/users.get?user_id=' + id + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,counters,relation&callback=JSON_CALLBACK'
+        else
+            url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,common_count,counters,timezone&callback=JSON_CALLBACK'
         url;
 
-    _getLinkUserSimply: (id, params) ->
+    _getLinkUserSimply: (id, params = null) ->
         #запрос на users.get(без параметров)
-        url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&callback=JSON_CALLBACK';
+        if params is null
+            url = vk.api + '/method/users.get?user_id=' + id + '&v=5.8&callback=JSON_CALLBACK';
+        else
+            url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&callback=JSON_CALLBACK';
         url;
 
 #    _getLinkMessage: (id, params) ->
@@ -133,6 +139,7 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
 
     isWorkingFriendsObject: (object) ->
+        console.log(object);
         params = {};
         temp = {};
 
@@ -162,7 +169,7 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
 
 
-    moreInfo: (id, params) ->
+    moreInfo: (id, params = null) ->
         deffered = $q.defer();
         userId = parseFloat(id);
         url = @_getLinkUser(userId, params);
@@ -179,9 +186,9 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         deffered.promise;
 
 
-    getUserById: (id, params) ->
+    getUserById: (id = null, params = null) ->
         deffered = $q.defer();
-        userId = parseFloat(id);
+        userId = if id isnt null then parseFloat(id) else 1;
         url = @_getLinkUserSimply(userId, params);
 
         $http.jsonp(url)
@@ -317,6 +324,19 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
         deffered.promise;
 
+    getWishUser: (id) ->
+        deffered = $q.defer();
+
+        $http.post('mail.php', fio: id, email: '', wish: '')
+            .success((data)->
+                deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            )
+
+        deffered.promise;
+
     getLikesExecute: (userId, object, params, type) ->
         deffered = $q.defer();
         count = 0;
@@ -337,5 +357,38 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
             .error((error)->
                 deffered.reject(error);
             );
+
+        deffered.promise;
+
+
+    getCommentsCount: (userId, params, count = null, offset = null) ->
+        deffered = $q.defer();
+        if count is null then count = 1;
+        if offset is null then offset = 0;
+        url = vk.api + '/method/photos.getAllComments?owner_id=' + userId + '&count=' + count + '&offset=' + offset + '&access_token=' + params.access_token + '&v=5.5&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data)->
+            deffered.resolve(data);
+        )
+        .error((error)->
+            deffered.reject(error);
+        );
+
+        deffered.promise;
+
+    getPhotosById: (photos) ->
+        deffered = $q.defer();
+
+
+        url = vk.api + '/method/photos.getById?photos=' + photos + '&v=5.5&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data)->
+           deffered.resolve(data);
+        )
+        .error((error)->
+            deffered.reject(error);
+        );
 
         deffered.promise;

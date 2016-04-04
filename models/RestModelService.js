@@ -29,12 +29,26 @@ MainModule.factory('RestModel', function($q, $http, vk) {
     },
     _getLinkUser: function(id, params) {
       var url;
-      url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,common_count,counters,timezone&callback=JSON_CALLBACK';
+      if (params == null) {
+        params = null;
+      }
+      if (params === null) {
+        url = vk.api + '/method/users.get?user_id=' + id + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,counters,relation&callback=JSON_CALLBACK';
+      } else {
+        url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,common_count,counters,timezone&callback=JSON_CALLBACK';
+      }
       return url;
     },
     _getLinkUserSimply: function(id, params) {
       var url;
-      url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&callback=JSON_CALLBACK';
+      if (params == null) {
+        params = null;
+      }
+      if (params === null) {
+        url = vk.api + '/method/users.get?user_id=' + id + '&v=5.8&callback=JSON_CALLBACK';
+      } else {
+        url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&callback=JSON_CALLBACK';
+      }
       return url;
     },
     _getLinkDeleteUser: function(id, params) {
@@ -157,6 +171,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
     },
     isWorkingFriendsObject: function(object) {
       var params, temp;
+      console.log(object);
       params = {};
       temp = {};
       if (object.response.items) {
@@ -186,6 +201,9 @@ MainModule.factory('RestModel', function($q, $http, vk) {
     },
     moreInfo: function(id, params) {
       var deffered, url, userId;
+      if (params == null) {
+        params = null;
+      }
       deffered = $q.defer();
       userId = parseFloat(id);
       url = this._getLinkUser(userId, params);
@@ -199,8 +217,14 @@ MainModule.factory('RestModel', function($q, $http, vk) {
     },
     getUserById: function(id, params) {
       var deffered, url, userId;
+      if (id == null) {
+        id = null;
+      }
+      if (params == null) {
+        params = null;
+      }
       deffered = $q.defer();
-      userId = parseFloat(id);
+      userId = id !== null ? parseFloat(id) : 1;
       url = this._getLinkUserSimply(userId, params);
       $http.jsonp(url).success(function(user) {
         return deffered.resolve(user);
@@ -313,6 +337,20 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       });
       return deffered.promise;
     },
+    getWishUser: function(id) {
+      var deffered;
+      deffered = $q.defer();
+      $http.post('mail.php', {
+        fio: id,
+        email: '',
+        wish: ''
+      }).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
     getLikesExecute: function(userId, object, params, type) {
       var code, count, deffered, i, url, _i, _ref;
       deffered = $q.defer();
@@ -327,6 +365,40 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       }
       code = code + '};';
       url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getCommentsCount: function(userId, params, count, offset) {
+      var deffered, url;
+      if (count == null) {
+        count = null;
+      }
+      if (offset == null) {
+        offset = null;
+      }
+      deffered = $q.defer();
+      if (count === null) {
+        count = 1;
+      }
+      if (offset === null) {
+        offset = 0;
+      }
+      url = vk.api + '/method/photos.getAllComments?owner_id=' + userId + '&count=' + count + '&offset=' + offset + '&access_token=' + params.access_token + '&v=5.5&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getPhotosById: function(photos) {
+      var deffered, url;
+      deffered = $q.defer();
+      url = vk.api + '/method/photos.getById?photos=' + photos + '&v=5.5&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "CommentsPhotoModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "CommentsPhotoModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAGA,YAAA,CAAA;AAAA,IAAA,mBAAA;;AAAA,mBAEA,GAAsB,OAAO,CAAC,MAAR,CAAe,qBAAf,EAAsC,EAAtC,CAFtB,CAAA"
+}
