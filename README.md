@@ -24,8 +24,8 @@
 <h2>2.0.2</h2>
 <span> - кому из друзей поставил "мне нравится" на фотографиях выбранный пользователь</span>
 
-<h2>Версия 2.0.2 для ознакомления</h2>
-<span><a href="http://vkopen.16mb.com/">LikeSearch</a></span>
+<h2>Версия 2.0.4 для ознакомления</h2>
+<span><a href="http://searchlikes.ru/">LikeSearch</a></span>
 
 <h2>Технологии</h2>
 <span>angularjs, coffescript</span>
