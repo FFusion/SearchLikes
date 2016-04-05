@@ -11,6 +11,7 @@ CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stat
 
     $scope.stopped = false;
     $scope.lookedItems = false;
+    $scope.onlyCurrent = true;
 
     $scope.procent = 0;
 
@@ -202,5 +203,23 @@ CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stat
         return true;
 
 
-    $scope.lookAllCommentForPhoto = (comment) ->
-        console.log(2);
+    $scope.lookAllCommentForPhoto = (photo) ->
+        $scope.loading = true;
+        RestModel.getCommentsByPhoto(photo, $scope.params).then(
+            (comments)->
+                $scope.onlyCurrent = false;
+                angular.forEach(comments.response.profiles, (profile)->
+                    angular.forEach(comments.response.items, (comment)->
+                        if comment.from_id == parseInt(profile.id)
+                            comment.user = profile;
+                            comment.date = moment.unix(comment.date).format('DD.MM.YYYY HH:mm');
+                    )
+                )
+                $scope.loading = false;
+
+                $scope.allComments = comments.response.items;
+
+            (error)->
+                console.log(error);
+
+        )

@@ -392,3 +392,20 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         );
 
         deffered.promise;
+
+
+    getCommentsByPhoto: (photo, params) ->
+        # только 100 комментариев
+        deffered = $q.defer();
+
+        url = vk.api + '/method/photos.getComments?owner_id=' + photo.owner_id + '&photo_id=' + photo.id + '&extended=1&v=5.5&count=100&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data) ->
+            deffered.resolve(data);
+        )
+        .error((error) ->
+            deffered.reject(error);
+        );
+
+        deffered.promise;

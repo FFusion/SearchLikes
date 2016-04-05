@@ -9,18 +9,21 @@ MainModule.directive('move', function($http, $timeout) {
             scrollTop: scope.offcet
           }, 500);
         });
-        return scope.lookedItems = false;
+        scope.lookedItems = false;
+        return scope.onlyCurrent = true;
       };
       scope.showPrev = function() {
         $timeout(function() {
-          return $('.next').click();
+          return $('.prev').click();
         });
+        scope.onlyCurrent = true;
         return true;
       };
       scope.showNext = function() {
         $timeout(function() {
           return $('.next').click();
         });
+        scope.onlyCurrent = true;
         return true;
       };
       return $timeout(function() {

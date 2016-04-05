@@ -14,6 +14,8 @@ MainModule.directive 'slide', ($timeout) ->
                 prevText: "Назад",
                 nextText: "Далее",
                 maxwidth: 500
+                before: () ->
+                    scope.$parent.onlyCurrent = true;
             );
         )
 

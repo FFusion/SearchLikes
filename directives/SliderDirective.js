@@ -10,7 +10,10 @@ MainModule.directive('slide', function($timeout) {
           nav: true,
           prevText: "Назад",
           nextText: "Далее",
-          maxwidth: 500
+          maxwidth: 500,
+          before: function() {
+            return scope.$parent.onlyCurrent = true;
+          }
         });
       });
     }

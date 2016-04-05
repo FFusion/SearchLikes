@@ -9,6 +9,7 @@ CommentsPhotoModule.controller('CommentsPhotoController', function($scope, param
   $scope.count = 0;
   $scope.stopped = false;
   $scope.lookedItems = false;
+  $scope.onlyCurrent = true;
   $scope.procent = 0;
   $scope.type = {};
   $scope.type.typeUsers = "all";
@@ -175,8 +176,23 @@ CommentsPhotoModule.controller('CommentsPhotoController', function($scope, param
     $('body').scrollTop(0);
     return true;
   };
-  return $scope.lookAllCommentForPhoto = function(comment) {
-    return console.log(2);
+  return $scope.lookAllCommentForPhoto = function(photo) {
+    $scope.loading = true;
+    return RestModel.getCommentsByPhoto(photo, $scope.params).then(function(comments) {
+      $scope.onlyCurrent = false;
+      angular.forEach(comments.response.profiles, function(profile) {
+        return angular.forEach(comments.response.items, function(comment) {
+          if (comment.from_id === parseInt(profile.id)) {
+            comment.user = profile;
+            return comment.date = moment.unix(comment.date).format('DD.MM.YYYY HH:mm');
+          }
+        });
+      });
+      $scope.loading = false;
+      return $scope.allComments = comments.response.items;
+    }, function(error) {
+      return console.log(error);
+    });
   };
 });
 

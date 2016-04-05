@@ -11,12 +11,14 @@ MainModule.directive 'move', ($http, $timeout) ->
                 $('html,body').animate({scrollTop: scope.offcet},500);
             )
             scope.lookedItems = false;
+            scope.onlyCurrent = true;
 
         # для мобильных устройств
         scope.showPrev = () ->
             $timeout(()->
-                $('.next').click();
+                $('.prev').click();
             )
+            scope.onlyCurrent = true;
 
             true;
 
@@ -25,6 +27,7 @@ MainModule.directive 'move', ($http, $timeout) ->
             $timeout(()->
                 $('.next').click();
             )
+            scope.onlyCurrent = true;
 
             true;
 

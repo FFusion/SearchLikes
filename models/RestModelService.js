@@ -405,6 +405,17 @@ MainModule.factory('RestModel', function($q, $http, vk) {
         return deffered.reject(error);
       });
       return deffered.promise;
+    },
+    getCommentsByPhoto: function(photo, params) {
+      var deffered, url;
+      deffered = $q.defer();
+      url = vk.api + '/method/photos.getComments?owner_id=' + photo.owner_id + '&photo_id=' + photo.id + '&extended=1&v=5.5&count=100&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
     }
   };
 });

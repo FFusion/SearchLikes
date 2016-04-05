@@ -83,7 +83,8 @@
                 <div class="result-photo">
                     <img ng-src="{{photo.photo_604}}"  alt="">
                 </div>
-                <div class="wall-text comment-block" style="margin:10px;" ng-repeat="comment in photo.comments">
+                <!--comments current user-->
+                <div class="wall-text comment-block" style="margin:10px;" ng-repeat="comment in photo.comments" ng-if="onlyCurrent">
                     <div style="margin:10px">
                         <div class="row">
                             <div class="col-md-12 col-xs-12 col-sm-12">
@@ -93,10 +94,24 @@
                         </div>
                         <div class="row pull-right comment-date">{{comment.date}}</div>
                     </div>
-                    <div class="row pull-right" style="display: none;">
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <button class="btn btn-back" style="margin-top: 10px;" ng-click="lookAllCommentForPhoto(comment)">Посмотреть все комментарии</button>
+                </div>
+
+                <!--comment all users-->
+                <div class="wall-text comment-block" style="margin:10px;" ng-repeat="comment in allComments" ng-if="!onlyCurrent">
+                    <div style="margin:10px">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 col-sm-12">
+                                <span style="color:red;">{{comment.user.first_name + ' ' + comment.user.last_name}}</span>
+                                <span> - {{comment.text}}</span>
+                            </div>
                         </div>
+                        <div class="row pull-right comment-date">{{comment.date}}</div>
+                    </div>
+                </div>
+
+                <div class="row pull-right">
+                    <div class="col-md-4 col-sm-4 col-xs-12" ng-if="onlyCurrent">
+                        <button class="btn btn-back" style="margin-top: 10px;" ng-click="lookAllCommentForPhoto(photo)">Посмотреть все комментарии</button>
                     </div>
                 </div>
             </li>

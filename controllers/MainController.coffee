@@ -24,7 +24,7 @@ MainModule.controller 'MainController', ($scope, $location, $state, $http, $time
             $scope.openAccess = true;
             if window.location.pathname == '/login' || window.location.pathname == '/' then $state.transitionTo('friends');
         else
-            if window.location.pathname == "/login" || $state.current.url == "/login" then $scope.openAccess = false else $scope.openAccess = true;
+            if window.location.pathname == "/login" || $state.current.url == "/login" || window.location.pathname == "/" || window.location.pathname == "" then $scope.openAccess = false else $scope.openAccess = true;
 #            Notification.show("Ошибка авторизации");
 
 
@@ -44,3 +44,5 @@ MainModule.controller 'MainController', ($scope, $location, $state, $http, $time
                 (data)->
                     $scope.statusText = 'Спасибо за отзыв';
                 )
+
+    console.log($scope.openAccess);

@@ -18,14 +18,14 @@ MainModule.controller('MainController', function($scope, $location, $state, $htt
         $state.transitionTo('friends');
       }
     } else {
-      if (window.location.pathname === "/login" || $state.current.url === "/login") {
+      if (window.location.pathname === "/login" || $state.current.url === "/login" || window.location.pathname === "/" || window.location.pathname === "") {
         $scope.openAccess = false;
       } else {
         $scope.openAccess = true;
       }
     }
   }
-  return $scope.sendWish = function() {
+  $scope.sendWish = function() {
     var reg;
     $scope.send = true;
     reg = /^[\w\.\d-_]+@[\w\.\d-_]+\.\w{2,4}$/i;
@@ -41,6 +41,7 @@ MainModule.controller('MainController', function($scope, $location, $state, $htt
       });
     }
   };
+  return console.log($scope.openAccess);
 });
 
 //# sourceMappingURL=MainController.map
