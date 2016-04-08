@@ -29,34 +29,6 @@
 .arrow.next i {
   font-size: 40px;
 }
-.nav {
-  bottom: 55px;
-  display: block;
-  height: 48px;
-  left: 0;
-  margin: 0 auto;
-  padding: 1em 0 0.8em;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  width: 100%;
-  z-index: 5;
-}
-.nav li {
-  border: 5px solid #6383a8;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  margin: 0 8px;
-  position: relative;
-  width: 50px;
-}
-.nav li.active {
-  border: 5px solid #fff;
-}
-.nav li img {
-  width: 100%;
-}
 .slider {
   border-radius: 5px;
   height: 630px;

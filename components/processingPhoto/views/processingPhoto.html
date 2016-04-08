@@ -1,95 +1,97 @@
-<div class="loading-content" ng-if="loading">
-    <div class="process">
-        <div class="process-circle"></div>
-        <div class="process-title"><span>Загрузка...</span></div>
-    </div>
-</div>
-
-<div move class="main-content-friends">
-    <div class="selected-top">
-        <div class="userFriend-title">
-            {{currentUser.first_name + ' ' + currentUser.last_name}}
-        </div>
-        <div class="block-navigation-button" ng-if="!lookedItems">
-            <button class="btn btn-back" ng-click="back()">Назад</button>
-        </div>
-        <div class="block-navigation-button" ng-if="lookedItems">
-            <button class="btn btn-back" ng-click="backInResult()">Вернуться к поиску</button>
-        </div>
-    </div>
-    <div class="friends-content" ng-if="!lookedItems">
-        <hr>
-        <div class="friends-content-top">
-            <!--поиск-->
-            <!--кол во друзей-->
-            <div class="friend-table-settings">
-                <div>
-                    <div class="friend-table-settings-caption"> <span>Друзей: {{countFriends}}</span></div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="friends-content-middle">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 user-title">Выберите категорию:</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="type.typeUsers == 'male'" ng-true-value="'male'" ng-false-value="'all'" class="checkbox" ng-model="type.typeUsers" id="man" />
-                    <label for="man">Парни</label>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="type.typeUsers == 'female'" ng-true-value="'female'" ng-false-value="'all'" class="checkbox" ng-model="type.typeUsers" id="woman" />
-                    <label for="woman">Девушки</label>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="type.typeUsers == 'all'" ng-true-value="'all'" ng-false-value="'male'" class="checkbox" ng-model="type.typeUsers" id="all" />
-                    <label for="all">Все друзья</label>
-                </div>
-            </div>
-        </div>
-        <div class="friends-content-bottom pull-right">
-            <button class="btn btn-back" ng-click="scaned(userFriends)" ng-disabled="procent != 100 && procent > 0 && !stopped">Сканируем</button>
-            <button class="btn btn-back" ng-click="stopScan()" ng-if="procent != 0 && procent != 100 && !stopped">Стоп</button>
+<section class="main-content">
+    <div class="loading-content" ng-if="loading">
+        <div class="process">
+            <div class="process-circle"></div>
+            <div class="process-title"><span>Загрузка...</span></div>
         </div>
     </div>
 
-    <div class="result-content" ng-if="result && !lookedItems">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 result-content-procent">
-                <div ng-if="procent != 0 && procent != 100 && !stopped">Процесс небыстрый, пожалуйста подождите</div>
-                <div>{{procent}} %</div>
-                <div ng-if="procent == 100 || stopped">Сканирование завершено</div>
+    <div move class="main-content-friends">
+        <div class="selected-top">
+            <div class="userFriend-title">
+                {{currentUser.first_name + ' ' + currentUser.last_name}}
+            </div>
+            <div class="block-navigation-button" ng-if="!lookedItems">
+                <button class="btn btn-back" ng-click="back()">Назад</button>
+            </div>
+            <div class="block-navigation-button" ng-if="lookedItems">
+                <button class="btn btn-back" ng-click="backInResult()">Вернуться к поиску</button>
             </div>
         </div>
-        <div class="row result-content-item" ng-repeat="item in isLikes" ng-if="item.photos.length > 0">
-            <div class="col-md-4 col-sm-4 col-xs-4">
-                <div style="margin-bottom: 5px;">{{item.user[0].first_name + ' ' + item.user[0].last_name}}</div>
-                <img src="{{item.user[0].photo_50}}" alt=""/>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-8 result-content-item-count">
-                <span>{{item.photos.length}}</span> фото из <span>{{item.photosCount}}</span>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 result-content-item-button">
-                <button class="btn btn-back" style="margin-top: 10px;" ng-click="lookPhoto(item.photos, item.countLikes)">Посмотреть</button>
+        <div class="friends-content" ng-if="!lookedItems">
+            <hr>
+            <div class="friends-content-top">
+                <!--поиск-->
+                <!--кол во друзей-->
+                <div class="friend-table-settings">
+                    <div>
+                        <div class="friend-table-settings-caption"> <span>Друзей: {{countFriends}}</span></div>
+                    </div>
+                </div>
             </div>
             <hr>
-        </div>
-    </div>
-
-    <div class="photo-content" ng-if="lookedItems">
-        <div class="photo-class row">
-            <div class="photo-class-title col-md-6 col-xs-12"><span style="color: red">Так так... </span>{{lookPhotos.length + ' фото '}}</div>
-        </div>
-        <ul slide class="rslides">
-            <li ng-repeat="photo in lookPhotos">
-                <div class="result-photo">
-                    <img ng-src="{{photo.photo_604}}"  alt=""  ng-swipe-left="showPrev()" ng-swipe-right="showNext()">
-                    <!--ng-click="increasePhoto(photo)"-->
+            <div class="friends-content-middle">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 user-title">Выберите категорию:</div>
                 </div>
-            </li>
-        </ul>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
+                        <input type="checkbox" ng-checked="type.typeUsers == 'male'" ng-true-value="'male'" ng-false-value="'all'" class="checkbox" ng-model="type.typeUsers" id="man" />
+                        <label for="man">Парни</label>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
+                        <input type="checkbox" ng-checked="type.typeUsers == 'female'" ng-true-value="'female'" ng-false-value="'all'" class="checkbox" ng-model="type.typeUsers" id="woman" />
+                        <label for="woman">Девушки</label>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
+                        <input type="checkbox" ng-checked="type.typeUsers == 'all'" ng-true-value="'all'" ng-false-value="'male'" class="checkbox" ng-model="type.typeUsers" id="all" />
+                        <label for="all">Все друзья</label>
+                    </div>
+                </div>
+            </div>
+            <div class="friends-content-bottom pull-right">
+                <button class="btn btn-back" ng-click="scaned(userFriends)" ng-disabled="procent != 100 && procent > 0 && !stopped">Сканируем</button>
+                <button class="btn btn-back" ng-click="stopScan()" ng-if="procent != 0 && procent != 100 && !stopped">Стоп</button>
+            </div>
+        </div>
+
+        <div class="result-content" ng-if="result && !lookedItems">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 result-content-procent">
+                    <div ng-if="procent != 0 && procent != 100 && !stopped">Процесс небыстрый, пожалуйста подождите</div>
+                    <div>{{procent}} %</div>
+                    <div ng-if="procent == 100 || stopped">Сканирование завершено</div>
+                </div>
+            </div>
+            <div class="row result-content-item" ng-repeat="item in isLikes" ng-if="item.photos.length > 0">
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div style="margin-bottom: 5px;">{{item.user[0].first_name + ' ' + item.user[0].last_name}}</div>
+                    <img src="{{item.user[0].photo_50}}" alt=""/>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-8 result-content-item-count">
+                    <span>{{item.photos.length}}</span> фото из <span>{{item.photosCount}}</span>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 result-content-item-button">
+                    <button class="btn btn-back" style="margin-top: 10px;" ng-click="lookPhoto(item.photos, item.countLikes)">Посмотреть</button>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="photo-content" ng-if="lookedItems">
+            <div class="photo-class row">
+                <div class="photo-class-title col-md-6 col-xs-12"><span style="color: red">Так так... </span>{{lookPhotos.length + ' фото '}}</div>
+            </div>
+            <ul slide class="rslides">
+                <li ng-repeat="photo in lookPhotos">
+                    <div class="result-photo">
+                        <img ng-src="{{photo.photo_604}}"  alt=""  ng-swipe-left="showPrev()" ng-swipe-right="showNext()">
+                        <!--ng-click="increasePhoto(photo)"-->
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
-<div class="go-up" title="Вверх" id='ToTop'>⇧</div>
-<div class="go-down" title="Вниз" id='OnBottom'>⇩</div>
+    <div class="go-up" title="Вверх" id='ToTop'>⇧</div>
+    <div class="go-down" title="Вниз" id='OnBottom'>⇩</div>
+</section>

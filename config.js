@@ -13,7 +13,11 @@ MainModule.config([
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
     $sceDelegateProvider.resourceUrlWhitelist(['**']);
-    $stateProvider.state('friends', {
+    $stateProvider.state('login', {
+      url: '/login',
+      controller: 'MainController',
+      templateUrl: 'components/login/views/login.html'
+    }).state('friends', {
       url: '/friends',
       controller: 'FriendsController',
       templateUrl: 'components/friends/views/friends.html',
@@ -24,12 +28,16 @@ MainModule.config([
         currentUser: function(RestModel, params, $q) {
           var deffered;
           deffered = $q.defer();
-          RestModel.getUserById(params.user_id, params).then(function(data) {
-            return deffered.resolve(data.response[0]);
-          }, function(error) {
-            return deffered.reject(error);
-          });
-          return deffered.promise;
+          if (params) {
+            RestModel.getUserById(params.user_id, params).then(function(data) {
+              return deffered.resolve(data.response[0]);
+            }, function(error) {
+              return deffered.reject(error);
+            });
+            return deffered.promise;
+          } else {
+            return false;
+          }
         }
       }
     }).state('user', {

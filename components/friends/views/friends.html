@@ -1,122 +1,128 @@
-<div class="loading-content" ng-if="loading">
-    <div class="process">
-        <div class="process-circle"></div>
-        <div class="process-title"><span>Загрузка...</span></div>
-    </div>
-</div>
-<div class="main-content-friends" ng-if="openAccess">
-    <!--Блок кнопок-->
-    <div class="friends-top">
-        <div class="block-navigation-button">
-            <button class="btn btn-friend" ng-click="getListFriends()">Список друзей</button>
-        </div>
-        <div class="block-navigation-button" ng-if="friends">
-            <button class="btn btn-online" ng-click="getListFriendsOnlineOrDelete('online')">Друзья онлайн</button>
-        </div>
-        <div class="block-navigation-button" ng-if="friends">
-            <button class="btn btn-delete" ng-click="getListFriendsOnlineOrDelete('delete')">Удалены</button>
-        </div>
-        <div class="block-off">
-            <!--<button class="btn btn-off" ng-click="signOff()">Выход</button>-->
-            {{currentUser.first_name + ' ' + currentUser.last_name}}
-            <button class="btn btn-delete" ng-click="signOff()">Выход</button>
+<section class="main-content">
+    <div class="loading-content" ng-if="loading">
+        <div class="process">
+            <div class="process-circle"></div>
+            <div class="process-title"><span>Загрузка...</span></div>
         </div>
     </div>
+    <div class="main-content-friends" ng-if="openAccess">
+        <!--Блок кнопок-->
+        <div class="friends-top">
+            <div class="block-navigation-button" ng-if="currentUser">
+                <button class="btn btn-friend" ng-click="getListFriends()">Список друзей</button>
+            </div>
+            <div class="block-navigation-button" ng-if="friends">
+                <button class="btn btn-online" ng-click="getListFriendsOnlineOrDelete('online')">Друзья онлайн</button>
+            </div>
+            <div class="block-navigation-button" ng-if="friends">
+                <button class="btn btn-delete" ng-click="getListFriendsOnlineOrDelete('delete')">Удалены</button>
+            </div>
+            <div class="block-off" ng-if="currentUser">
+                <!--<button class="btn btn-off" ng-click="signOff()">Выход</button>-->
+                {{currentUser.first_name + ' ' + currentUser.last_name}}
+                <button class="btn btn-delete" ng-click="signOff()">Выход</button>
+            </div>
+            <div class="block-off" ng-if="!currentUser">
+                <!--<button class="btn btn-off" ng-click="signOff()">Выход</button>-->
+                <button class="btn btn-delete"><a href="/login" target="_blank" style="color:white;">Пройти авторизацию</a></button>
+            </div>
+        </div>
 
 
 
-    <div ng-if="!openTableOnline && !openTable">
+        <div ng-if="!openTableOnline && !openTable">
         <span class="caption-main">
             Нажми на кнопку "Список друзей" :)
         </span>
-    </div>
+        </div>
 
-    <!--друзья онлайн-->
+        <!--друзья онлайн-->
 
-    <div class="friends-content" ng-if="openTableOnline">
-        <div class="friends-content-top">
-            <!--поиск-->
-            <!--кол во друзей-->
-            <div class="friend-table-settings">
-                <div>
-                    <div class="friend-table-settings-caption"> <span>Друзей: {{friendsArray.length}}</span></div>
-                    <!--<div style="line-height: 42px;">{{friendsArray.length}}</div>-->
+        <div class="friends-content" ng-if="openTableOnline">
+            <div class="friends-content-top">
+                <!--поиск-->
+                <!--кол во друзей-->
+                <div class="friend-table-settings">
+                    <div>
+                        <div class="friend-table-settings-caption"> <span>Друзей: {{friendsArray.length}}</span></div>
+                        <!--<div style="line-height: 42px;">{{friendsArray.length}}</div>-->
+                    </div>
+                    <div>
+                        <input class="form-control" type="text" placeholder="Поиск" ng-model="userFilter"/>
+                    </div>
                 </div>
-                <div>
-                    <input class="form-control" type="text" placeholder="Поиск" ng-model="userFilter"/>
+            </div>
+            <div class="friends-content-middle">
+                <div class="friends-item row" ng-repeat="user in friendsArray" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-click="more(user)">
+                    <div class="friends-item-photo col-md-2 col-xs-2">
+                        <img src="{{user.photo_50}}" alt="ПользовательВк"/>
+                    </div>
+                    <div class="friends-item-name col-md-5 col-xs-5">
+                        {{user.first_name + " " + user.last_name }}
+                    </div>
+                    <div class="friends-item-visit col-md-5 col-xs-5">
+                        <span ng-if="user.online == 1" class="blue">online </span>
+                        <span ng-if="!user.online" class="red">удален</span>
+                        <i class="blue" ng-class="{'ion-iphone': user.online_mobile}"></i>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+            </div>
+            <div class="friends-content-bottom">
+                <div class="col-md-4 col-xs-4 " style="padding: 0">
+                    <button class="btn-prev" ng-click="$parent.page = page - 1" ng-disabled="page == 1">&laquo; <span>Назад</span></button>
+                </div>
+                <div class="col-md-4 col-xs-4 text-center">
+                    <button class="btn-begin" ng-click="$parent.page = 1" ng-disabled="$parent.page == 1">Начало</button>
+                </div>
+                <div class="col-md-4 col-xs-4" style="padding: 0">
+                    <button class="btn-next" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= friendsArray.length"><span>Вперед</span> &raquo;</button>
                 </div>
             </div>
         </div>
-        <div class="friends-content-middle">
-            <div class="friends-item row" ng-repeat="user in friendsArray" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-click="more(user)">
-                <div class="friends-item-photo col-md-2 col-xs-2">
-                    <img src="{{user.photo_50}}" alt="ПользовательВк"/>
+
+        <!--друзья-->
+        <div class="friends-content" ng-if="openTable">
+            <div class="friends-content-top">
+                <!--поиск-->
+                <!--кол во друзей-->
+                <div class="friend-table-settings">
+                    <div>
+                        <div class="friend-table-settings-caption"> <span>Друзей: {{countFriends}}</span></div>
+                    </div>
+                    <div>
+                        <input class="form-control" type="text" placeholder="Поиск" ng-model="userFilter"/>
+                    </div>
                 </div>
-                <div class="friends-item-name col-md-5 col-xs-5">
-                    {{user.first_name + " " + user.last_name }}
+            </div>
+            <div class="friends-content-middle">
+                <div class="friends-item row" ng-repeat="user in friends | orderBy:predicate:reverse | filter:userFilter" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-click="more(user)">
+                    <div class="friends-item-photo col-md-2 col-xs-2">
+                        <img src="{{user.photo_50}}" alt="ПользовательВк"/>
+                    </div>
+                    <div class="friends-item-name col-md-5 col-xs-5">
+                        <span>{{user.first_name}}</span>
+                        <span> </span>
+                        <span> {{user.last_name }}</span>
+                    </div>
+                    <div class="friends-item-visit col-md-5 col-xs-5">
+                        <span ng-class="{'red': user.last_seen == 'удален', 'blue': user.last_seen == 'online'}">{{ user.last_seen }}<span> </span><i ng-class="{'ion-iphone': user.online_mobile}"></i></span>
+                    </div>
+                    <div style="clear: both"></div>
                 </div>
-                <div class="friends-item-visit col-md-5 col-xs-5">
-                    <span ng-if="user.online == 1" class="blue">online </span>
-                    <span ng-if="!user.online" class="red">удален</span>
-                    <i class="blue" ng-class="{'ion-iphone': user.online_mobile}"></i>
+            </div>
+            <div class="friends-content-bottom">
+                <div class="col-md-4 col-xs-4" style="padding: 0">
+                    <button class="btn-prev" ng-click="page = page - 1" ng-disabled="page == 1">&laquo; <span>Назад</span></button>
                 </div>
-                <div style="clear: both"></div>
-            </div>
-        </div>
-        <div class="friends-content-bottom">
-            <div class="col-md-4 col-xs-4 " style="padding: 0">
-                <button class="btn-prev" ng-click="$parent.page = page - 1" ng-disabled="page == 1">&laquo; <span>Назад</span></button>
-            </div>
-            <div class="col-md-4 col-xs-4 text-center">
-                <button class="btn-begin" ng-click="$parent.page = 1" ng-disabled="$parent.page == 1">Начало</button>
-            </div>
-            <div class="col-md-4 col-xs-4" style="padding: 0">
-                <button class="btn-next" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= friendsArray.length"><span>Вперед</span> &raquo;</button>
+                <div class="col-md-4 col-xs-4 text-center">
+                    <button class="btn-begin" ng-click="page = 1" ng-disabled="page == 1">Начало</button>
+                </div>
+                <div class="col-md-4 col-xs-4" style="padding: 0">
+                    <button class="btn-next" ng-if="openTableOnline" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= friendsArray.length"><span>Вперед</span> &raquo;</button>
+                    <button class="btn-next" ng-if="openTable" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= friends.length"><span>Вперед</span> &raquo;</button>
+                </div>
             </div>
         </div>
     </div>
-
-    <!--друзья-->
-    <div class="friends-content" ng-if="openTable">
-        <div class="friends-content-top">
-            <!--поиск-->
-            <!--кол во друзей-->
-            <div class="friend-table-settings">
-                <div>
-                    <div class="friend-table-settings-caption"> <span>Друзей: {{countFriends}}</span></div>
-                </div>
-                <div>
-                    <input class="form-control" type="text" placeholder="Поиск" ng-model="userFilter"/>
-                </div>
-            </div>
-        </div>
-        <div class="friends-content-middle">
-            <div class="friends-item row" ng-repeat="user in friends | orderBy:predicate:reverse | filter:userFilter" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-click="more(user)">
-                <div class="friends-item-photo col-md-2 col-xs-2">
-                    <img src="{{user.photo_50}}" alt="ПользовательВк"/>
-                </div>
-                <div class="friends-item-name col-md-5 col-xs-5">
-                    <span>{{user.first_name}}</span>
-                    <span> </span>
-                    <span> {{user.last_name }}</span>
-                </div>
-                <div class="friends-item-visit col-md-5 col-xs-5">
-                    <span ng-class="{'red': user.last_seen == 'удален', 'blue': user.last_seen == 'online'}">{{ user.last_seen }}<span> </span><i ng-class="{'ion-iphone': user.online_mobile}"></i></span>
-                </div>
-                <div style="clear: both"></div>
-            </div>
-        </div>
-        <div class="friends-content-bottom">
-            <div class="col-md-4 col-xs-4" style="padding: 0">
-                <button class="btn-prev" ng-click="page = page - 1" ng-disabled="page == 1">&laquo; <span>Назад</span></button>
-            </div>
-            <div class="col-md-4 col-xs-4 text-center">
-                <button class="btn-begin" ng-click="page = 1" ng-disabled="page == 1">Начало</button>
-            </div>
-            <div class="col-md-4 col-xs-4" style="padding: 0">
-                <button class="btn-next" ng-if="openTableOnline" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= friendsArray.length"><span>Вперед</span> &raquo;</button>
-                <button class="btn-next" ng-if="openTable" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= friends.length"><span>Вперед</span> &raquo;</button>
-            </div>
-        </div>
-    </div>
-</div>
+</section>

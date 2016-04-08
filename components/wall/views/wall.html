@@ -1,147 +1,150 @@
-<div class="loading-content" ng-if="loading">
-    <div class="process">
-        <div class="process-circle"></div>
-        <div class="process-title"><span>Загрузка...</span></div>
-    </div>
-</div>
-<div class="wall">
-    <div class="wall-top row">
-        <div class="block-navigation-button">
-            <button class="btn btn-back" ng-click="back()">К профилю</button>
-        </div>
-        <div class="block-navigation-button" ng-if="openOtherSearch && !process && !loading">
-            <button class="btn btn-back" ng-click="returnFormSearch()">К форме поиска</button>
-        </div>
-        <div class="block-navigation-button" ng-if="!process && !loading">
-            <button class="btn btn-home" ng-click="photo()">Поиск <i class="ion-heart"></i> по фото</button>
+<section class="main-content">
+    <div class="loading-content" ng-if="loading">
+        <div class="process">
+            <div class="process-circle"></div>
+            <div class="process-title"><span>Загрузка...</span></div>
         </div>
     </div>
-    <div ng-if="!likePosts && !process && !loading">
-        <div class="wall-owner row">
-            <div class="text-center"><h2>Ищем на стене пользователя</h2></div>
-            <div class="row wall-owner-content">
-                <img src="{{user.photo_100}}" alt="{{user.first_name}}"/>
-                <h3><span>{{user.first_name + ' ' + user.last_name}}</span></h3>
+    <div class="wall">
+        <div class="wall-top row">
+            <div class="block-navigation-button">
+                <button class="btn btn-back" ng-click="back()">К профилю</button>
+            </div>
+            <div class="block-navigation-button" ng-if="openOtherSearch && !process && !loading">
+                <button class="btn btn-back" ng-click="returnFormSearch()">К форме поиска</button>
+            </div>
+            <div class="block-navigation-button" ng-if="!process && !loading">
+                <button class="btn btn-home" ng-click="photo()">Поиск <i class="ion-heart"></i> по фото</button>
             </div>
         </div>
-        <div class="wall-guest row">
-            <div class="text-center"><h2><i class="ion-ios-heart"></i> его друга</h2></div>
-            <div class="row wall-owner-content">
-                <img src="{{userSearchFor.photo_100}}" alt="{{userSearchFor.first_name}}"/>
-                <h3><span>{{userSearchFor.first_name + ' ' + userSearchFor.last_name}}</span></h3>
+        <div ng-if="!likePosts && !process && !loading">
+            <div class="wall-owner row">
+                <div class="text-center"><h2>Ищем на стене пользователя</h2></div>
+                <div class="row wall-owner-content">
+                    <img src="{{user.photo_100}}" alt="{{user.first_name}}"/>
+                    <h3><span>{{user.first_name + ' ' + user.last_name}}</span></h3>
+                </div>
             </div>
-        </div>
-        <div class="wall-menu">
+            <div class="wall-guest row">
+                <div class="text-center"><h2><i class="ion-ios-heart"></i> его друга</h2></div>
+                <div class="row wall-owner-content">
+                    <img src="{{userSearchFor.photo_100}}" alt="{{userSearchFor.first_name}}"/>
+                    <h3><span>{{userSearchFor.first_name + ' ' + userSearchFor.last_name}}</span></h3>
+                </div>
+            </div>
+            <div class="wall-menu">
+                <div class="row">
+                    <select class="form-control" ng-model="countPost">
+                        <option>1</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                    </select>
+                </div>
+            </div>
             <div class="row">
-                <select class="form-control" ng-model="countPost">
-                    <option>1</option>
-                    <option>5</option>
-                    <option>10</option>
-                    <option>15</option>
-                    <option>20</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-2 col-md-2 col-sm-2" style="padding: 0">
-                <button class="btn btn-change f-left" ng-click="changeUser(user, userSearchFor)">Поменять местами</button>
-            </div>
-            <div class="col-xs-10 col-md-10 col-sm-10" style="padding: 0">
-                <button class="btn btn-search f-right" ng-click="likesWall(countPost)" ng-disabled="wallForm.$invalid || wallForm.$pristine">Поиск</button>
+                <div class="col-xs-2 col-md-2 col-sm-2" style="padding: 0">
+                    <button class="btn btn-change f-left" ng-click="changeUser(user, userSearchFor)">Поменять местами</button>
+                </div>
+                <div class="col-xs-10 col-md-10 col-sm-10" style="padding: 0">
+                    <button class="btn btn-search f-right" ng-click="likesWall(countPost)" ng-disabled="wallForm.$invalid || wallForm.$pristine">Поиск</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<div class="wall-titles" ng-if="!process && !loading && likePosts.length > 0">
-    <div class="caption-wall">Опаньки!</div>
-    <ul class="list-unstyled">
-        <li ng-repeat="post in likePosts" class="post">
+    <div class="wall-titles" ng-if="!process && !loading && likePosts.length > 0">
+        <div class="caption-wall">Опаньки!</div>
+        <ul class="list-unstyled">
+            <li ng-repeat="post in likePosts" class="post">
 
-            <!--если есть вложения-->
-            <div class="post-block" ng-if="post.attachments && post.attachments.length > 0">
-                <ul class="list-unstyled">
-                    <li ng-repeat="attachment in post.attachments">
-                        <div class="pull-left post-block-photo" ng-click="increasePhoto(attachment.photo)" ng-if="attachment.type == 'photo'">
-                            <img src="{{attachment.photo.photo_130}}" alt=""/>
-                        </div>
-                        <div class="post-block-music-container" ng-if="attachment.type == 'audio'">
-                            <span ng-if="!attachment.isOpen" ng-click="openMusic(attachment)">{{attachment.audio.artist + ' ' + attachment.audio.title}}</span>
-                            <span ng-if="attachment.isOpen" ng-click="openMusic(attachment)">Свернуть</span>
-                            <div class="pull-left post-block-music" ng-if="attachment.type == 'audio' && attachment.isOpen">
-                                <div class="post-block-music-name">{{attachment.audio.artist + ' ' + attachment.audio.title}}</div>
-                                <audio controls style="background: #6383A8;">
-                                    <source src="{{attachment.audio.url}}" type="audio/mp3">
-                                </audio>
+                <!--если есть вложения-->
+                <div class="post-block" ng-if="post.attachments && post.attachments.length > 0">
+                    <ul class="list-unstyled">
+                        <li ng-repeat="attachment in post.attachments">
+                            <div class="pull-left post-block-photo" ng-click="increasePhoto(attachment.photo)" ng-if="attachment.type == 'photo'">
+                                <img src="{{attachment.photo.photo_130}}" alt=""/>
                             </div>
-                        </div>
-                        <div class="pull-left post-block-music" ng-if="attachment.type == 'video'"> Видеозапись</div>
-                    </li>
-                </ul>
-            </div>
+                            <div class="post-block-music-container" ng-if="attachment.type == 'audio'">
+                                <span ng-if="!attachment.isOpen" ng-click="openMusic(attachment)">{{attachment.audio.artist + ' ' + attachment.audio.title}}</span>
+                                <span ng-if="attachment.isOpen" ng-click="openMusic(attachment)">Свернуть</span>
+                                <div class="pull-left post-block-music" ng-if="attachment.type == 'audio' && attachment.isOpen">
+                                    <div class="post-block-music-name">{{attachment.audio.artist + ' ' + attachment.audio.title}}</div>
+                                    <audio controls style="background: #6383A8;">
+                                        <source src="{{attachment.audio.url}}" type="audio/mp3">
+                                    </audio>
+                                </div>
+                            </div>
+                            <div class="pull-left post-block-music" ng-if="attachment.type == 'video'"> Видеозапись</div>
+                        </li>
+                    </ul>
+                </div>
 
-            <!--если запись репост-->
-            <div class="post-block" ng-if="post.copy_history && post.copy_history.length > 0">
-                <ul class="list-unstyled">
-                    <li ng-repeat="history in post.copy_history">
-                        <ul class="list-unstyled">
-                            <li ng-repeat="attachment in history.attachments">
-                                <div class="pull-left post-block-photo" ng-if="attachment.photo.photo_130 && attachment.type == 'photo'" ng-click="increasePhoto(attachment.photo)">
-                                    <img src="{{attachment.photo.photo_130}}" alt=""/>
-                                </div>
-                                <div class="post-block-music-container" ng-if="attachment.type == 'audio'">
-                                    <span ng-if="!attachment.isOpen" ng-click="openMusic(attachment)">{{attachment.audio.artist + ' ' + attachment.audio.title}}</span>
-                                    <span ng-if="attachment.isOpen" ng-click="openMusic(attachment)">Свернуть</span>
-                                    <div class="pull-left post-block-music" ng-if="attachment.type == 'audio' && attachment.isOpen">
-                                        <div class="post-block-music-name">{{attachment.audio.artist + ' ' + attachment.audio.title}}</div>
-                                        <audio controls style="background: #6383A8;">
-                                            <source src="{{attachment.audio.url}}" type="audio/mp3">
-                                        </audio>
+                <!--если запись репост-->
+                <div class="post-block" ng-if="post.copy_history && post.copy_history.length > 0">
+                    <ul class="list-unstyled">
+                        <li ng-repeat="history in post.copy_history">
+                            <ul class="list-unstyled">
+                                <li ng-repeat="attachment in history.attachments">
+                                    <div class="pull-left post-block-photo" ng-if="attachment.photo.photo_130 && attachment.type == 'photo'" ng-click="increasePhoto(attachment.photo)">
+                                        <img src="{{attachment.photo.photo_130}}" alt=""/>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="pull-left post-block-photo" ng-if="history.photo.photo_75" ng-click="increasePhoto(history.photo)">
-                            <img src="{{history.photo.photo_75}}" alt=""/>
-                        </div>
-                        <div class="post-text" ng-if="history.text != ''">{{history.text}}</div>
-                    </li>
-                </ul>
-            </div>
-            <div class="post-text" >{{post.text}}</div>
-            <div class="post-more">
-                <div class="post-more-likes">
+                                    <div class="post-block-music-container" ng-if="attachment.type == 'audio'">
+                                        <span ng-if="!attachment.isOpen" ng-click="openMusic(attachment)">{{attachment.audio.artist + ' ' + attachment.audio.title}}</span>
+                                        <span ng-if="attachment.isOpen" ng-click="openMusic(attachment)">Свернуть</span>
+                                        <div class="pull-left post-block-music" ng-if="attachment.type == 'audio' && attachment.isOpen">
+                                            <div class="post-block-music-name">{{attachment.audio.artist + ' ' + attachment.audio.title}}</div>
+                                            <audio controls style="background: #6383A8;">
+                                                <source src="{{attachment.audio.url}}" type="audio/mp3">
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="pull-left post-block-photo" ng-if="history.photo.photo_75" ng-click="increasePhoto(history.photo)">
+                                <img src="{{history.photo.photo_75}}" alt=""/>
+                            </div>
+                            <div class="post-text" ng-if="history.text != ''">{{history.text}}</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="post-text" >{{post.text}}</div>
+                <div class="post-more">
+                    <div class="post-more-likes">
                         <span>
                             <i class="ion-heart"></i>{{' ' + post.likes.count}}
                         </span>
+                    </div>
+                    <!--<div class="post-more-comment" ng-if="post.comments.count > 0">-->
+                    <!--<span ng-click="openComment(post)">Посмотреть комментарии</span>-->
+                    <!--</div>-->
                 </div>
-                <!--<div class="post-more-comment" ng-if="post.comments.count > 0">-->
-                <!--<span ng-click="openComment(post)">Посмотреть комментарии</span>-->
-                <!--</div>-->
-            </div>
-        </li>
-    </ul>
-</div>
+            </li>
+        </ul>
+    </div>
 
-<div class="caption-empty" ng-if="!posts && likePosts.length == 0 && openOtherSearch && !process && !loading">
-    <div>Пустая стена :)</div>
-</div>
+    <div class="caption-empty" ng-if="!posts && likePosts.length == 0 && openOtherSearch && !process && !loading">
+        <div>Пустая стена :)</div>
+    </div>
 
-<div class="caption-notLikes" ng-if="!loading && !process && likePosts.length == 0 && posts">
-    <div>{{userSearchFor.first_name + ' ' + userSearchFor.last_name}}</div>
-    <div style="color:red">не уважает</div>
-    <div>{{user.first_name + ' ' + user.last_name}}</div>
-    <div style="color:#6383a8"><i class="ion-ios-heart"></i> отсутствуют</div>
-</div>
+    <div class="caption-notLikes" ng-if="!loading && !process && likePosts.length == 0 && posts">
+        <div>{{userSearchFor.first_name + ' ' + userSearchFor.last_name}}</div>
+        <div style="color:red">не уважает</div>
+        <div>{{user.first_name + ' ' + user.last_name}}</div>
+        <div style="color:#6383a8"><i class="ion-ios-heart"></i> отсутствуют</div>
+    </div>
 
-<div class="processing" ng-if="process">
+    <div class="processing" ng-if="process">
 
-</div>
+    </div>
 
-<div class="blade" ng-if="openBigBlade" image>
-    <div class="blade-close" ng-click="closeBlade()">Закрыть</div>
-</div>
+    <div class="blade" ng-if="openBigBlade" image>
+        <div class="blade-close" ng-click="closeBlade()">Закрыть</div>
+    </div>
 
 
 
+
+</section>

@@ -1,194 +1,196 @@
-<div class="main-content-user">
-    <div class="user-top">
-        <!--блок с кнопками навигации-->
-        <div class="block-navigation-button" ng-if="params">
-            <button class="btn btn-back" ng-click="back()">Назад</button>
-        </div>
-        <div class="block-navigation-button" ng-if="params">
-            <button class="btn btn-home" ng-click="home()">На главную</button>
-        </div>
-        <div class="block-navigation-button" ng-if="!params">
-            <button class="btn btn-home" ng-click="login()">Пройти авторизацию</button>
-        </div>
-    </div>
-    <div class="user-middle">
-        <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12 user-photo">
-                <img src={{user.photo_200_orig}} alt=""/>
+<section class="main-content">
+    <div class="main-content-user">
+        <div class="user-top">
+            <!--блок с кнопками навигации-->
+            <div class="block-navigation-button" ng-if="params">
+                <button class="btn btn-back" ng-click="back()">Назад</button>
             </div>
-            <div class="col-md-8 col-sm-8 col-xs-12 user-name">
-                <h3 ng-if="user.online">
-                    <div>{{user.first_name + ' ' + user.last_name + ' ( id: ' + user.id + ' )'}}</div>
-                    <span class="user-status-title" ng-if="!user.online_mobile && !user.online_app">online</i></span>
-                    <span class="user-status-title" ng-if="user.online_mobile && !user.online_app">online <i class="ion-iphone"></i></span>
-                    <span class="user-status-title" ng-if="user.online && user.online_app == '3140623'">online <i class="ion-social-apple"></i></span>
-                    <span class="user-status-title" ng-if="user.online && user.online_app == '3682744'">online <i class="ion-social-apple"> (iPad)</i></span>
-                    <span class="user-status-title" ng-if="user.online && user.online_app == '3502561'">online <i class="ion-social-windows"></i></span>
-                    <span class="user-status-title" ng-if="user.online && user.online_app == '2274003'">online <i class="ion-social-android"></i></span>
-                    <span class="user-status-title" ng-if="user.online && user.online_app == '2685278'">online <i class="ion-social-android"> (kate mobile)</i></span>
-                </h3>
-                <h3 ng-if="!user.online">
-                    <div>{{user.first_name + ' ' + user.last_name + ' ( id: ' + user.id + ' )'}}</div>
-                    <div class="user-status-title" ng-if="user.last_seen.platform == '1'">
-                        <span ng-if="user.sex != 1">заходил с</span>
-                        <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
-                        неопознанного мобильного приложения либо m.vk.com
+            <div class="block-navigation-button" ng-if="params">
+                <button class="btn btn-home" ng-click="home()">На главную</button>
+            </div>
+            <div class="block-navigation-button" ng-if="!params">
+                <button class="btn btn-home" ng-click="login()"><a href="/login" target="_blank" style="color:white;">Пройти авторизацию</a></button>
+            </div>
+        </div>
+        <div class="user-middle">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12 user-photo">
+                    <img src={{user.photo_200_orig}} alt=""/>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12 user-name">
+                    <h3 ng-if="user.online">
+                        <div>{{user.first_name + ' ' + user.last_name + ' ( id: ' + user.id + ' )'}}</div>
+                        <span class="user-status-title" ng-if="!user.online_mobile && !user.online_app">online</i></span>
+                        <span class="user-status-title" ng-if="user.online_mobile && !user.online_app">online <i class="ion-iphone"></i></span>
+                        <span class="user-status-title" ng-if="user.online && user.online_app == '3140623'">online <i class="ion-social-apple"></i></span>
+                        <span class="user-status-title" ng-if="user.online && user.online_app == '3682744'">online <i class="ion-social-apple"> (iPad)</i></span>
+                        <span class="user-status-title" ng-if="user.online && user.online_app == '3502561'">online <i class="ion-social-windows"></i></span>
+                        <span class="user-status-title" ng-if="user.online && user.online_app == '2274003'">online <i class="ion-social-android"></i></span>
+                        <span class="user-status-title" ng-if="user.online && user.online_app == '2685278'">online <i class="ion-social-android"> (kate mobile)</i></span>
+                    </h3>
+                    <h3 ng-if="!user.online">
+                        <div>{{user.first_name + ' ' + user.last_name + ' ( id: ' + user.id + ' )'}}</div>
+                        <div class="user-status-title" ng-if="user.last_seen.platform == '1'">
+                            <span ng-if="user.sex != 1">заходил с</span>
+                            <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
+                            неопознанного мобильного приложения либо m.vk.com
+                        </div>
+                        <div class="user-status-title" ng-if="user.last_seen.platform == '2'">
+                            <span ng-if="user.sex != 1">заходил с</span>
+                            <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
+                            <i class="ion-social-apple"></i>
+                        </div>
+                        <div class="user-status-title" ng-if="user.last_seen.platform == '3'">
+                            <span ng-if="user.sex != 1">заходил с</span>
+                            <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
+                            <i class="ion-social-apple"></i> iPad
+                        </div>
+                        <div class="user-status-title" ng-if="user.last_seen.platform == '4'">
+                            <span ng-if="user.sex != 1">заходил с</span>
+                            <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
+                            <i class="ion-social-android"></i>
+                        </div>
+                        <div class="user-status-title" ng-if="user.last_seen.platform == '5'">
+                            <span ng-if="user.sex != 1">заходил с</span>
+                            <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
+                            <i class="ion-social-windows"></i>
+                        </div>
+                        <div class="user-status-title" ng-if="user.last_seen.platform == '6'">
+                            <span ng-if="user.sex != 1">заходил с</span>
+                            <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
+                            <i class="ion-social-windows"></i>
+                        </div>
+                        <div class="user-status-title" ng-if="user.last_seen.platform == '7'">
+                            <span ng-if="user.sex != 1">заходил с</span>
+                            <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
+                            компьютера
+                        </div>
+                    </h3>
+                    <div class="user-info">
+                        <p ng-if="user.status">{{user.status}}</p>
+                        <p ng-if="user.bdate"><span class="user-info-title">Дата рождения: </span>{{user.bdate}}</p>
+                        <p ng-if="user.city.title"><span class="user-info-title">Город: </span>{{user.city.title}}</p>
+                        <p ng-if="user.country.title"><span class="user-info-title">Страна: </span>{{user.country.title}}</p>
                     </div>
-                    <div class="user-status-title" ng-if="user.last_seen.platform == '2'">
-                        <span ng-if="user.sex != 1">заходил с</span>
-                        <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
-                        <i class="ion-social-apple"></i>
+                    <div class="user-info">
+                        <p ng-if="user.relation">
+                            <span class="user-info-title">Семейное положение: </span>
+                            <span class="user-status">{{relationStatus}}</span>
+                            <span class="user-status-partner" ng-if="user.relation_partner">{{user.relation_partner.first_name + ' ' + user.relation_partner.last_name}}</span>
+                        </p>
                     </div>
-                    <div class="user-status-title" ng-if="user.last_seen.platform == '3'">
-                        <span ng-if="user.sex != 1">заходил с</span>
-                        <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
-                        <i class="ion-social-apple"></i> iPad
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 user-title">Кого лайкает {{user.first_name}}? </div>
+            </div>
+            <div class="row user-bottom-content" ng-if="params">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <button class="btn btn-checkPhoto" ng-click="checkPhotoAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей (фото)</button>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <button class="btn btn-checkPhoto" ng-click="checkWallAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей (стена)</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 user-title">Кого комментирует {{user.first_name}}? </div>
+            </div>
+            <div class="row user-bottom-content" ng-if="params">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <button class="btn btn-checkPhoto" ng-click="getCommentsOfPhoto(user)" ng-disabled="user.deactivated">Поиск комментариев на фото (beta)</button>
+                </div>
+            </div>
+            <div class="row" ng-if="!params">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <button style="width: 100%;" class="btn btn-checkPhoto" ng-click="login()">Пройти авторизацию</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 user-title">Дополнительно:</div>
+            </div>
+            <div class="row user-more">
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!user.counters.followers}">
+                        <span class="tooltips"><i class="ion-person-add"></i><em>Подписчики<i></i></em></span>
+                        <span>Подписчики</span>
+                        <span>{{user.counters.followers}}</span>
                     </div>
-                    <div class="user-status-title" ng-if="user.last_seen.platform == '4'">
-                        <span ng-if="user.sex != 1">заходил с</span>
-                        <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
-                        <i class="ion-social-android"></i>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!user.counters.mutual_friends}">
+                        <span class="tooltips"><i class="ion-person-stalker"></i><em>Общие друзья<i></i></em></span>
+                        <span>Общие друзья</span>
+                        <span>{{user.counters.mutual_friends}}</span>
                     </div>
-                    <div class="user-status-title" ng-if="user.last_seen.platform == '5'">
-                        <span ng-if="user.sex != 1">заходил с</span>
-                        <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
-                        <i class="ion-social-windows"></i>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!user.counters.photos}">
+                        <span class="tooltips"><i class="ion-camera"></i><em>Фотографии<i></i></em></span>
+                        <span>Фотографии</span>
+                        <span>{{user.counters.photos}}</span>
                     </div>
-                    <div class="user-status-title" ng-if="user.last_seen.platform == '6'">
-                        <span ng-if="user.sex != 1">заходил с</span>
-                        <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
-                        <i class="ion-social-windows"></i>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="row user-more">
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!user.counters.albums}">
+                        <span class="tooltips"><i class="ion-images"></i><em>Альбомы<i></i></em></span>
+                        <span>Альбомы </span>
+                        <span>{{user.counters.albums}}</span>
                     </div>
-                    <div class="user-status-title" ng-if="user.last_seen.platform == '7'">
-                        <span ng-if="user.sex != 1">заходил с</span>
-                        <span ng-if="user.sex == 1 && user.sex != 2">заходила с</span>
-                        компьютера
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!user.counters.audios}">
+                        <span class="tooltips"><i class="ion-music-note"></i><em>Аудиозаписи<i></i></em></span>
+                        <span>Аудиозаписи</span>
+                        <span>{{user.counters.audios}}</span>
                     </div>
-                </h3>
-                <div class="user-info">
-                   <p ng-if="user.status">{{user.status}}</p>
-                   <p ng-if="user.bdate"><span class="user-info-title">Дата рождения: </span>{{user.bdate}}</p>
-                   <p ng-if="user.city.title"><span class="user-info-title">Город: </span>{{user.city.title}}</p>
-                   <p ng-if="user.country.title"><span class="user-info-title">Страна: </span>{{user.country.title}}</p>
                 </div>
-                <div class="user-info">
-                    <p ng-if="user.relation">
-                        <span class="user-info-title">Семейное положение: </span>
-                        <span class="user-status">{{relationStatus}}</span>
-                        <span class="user-status-partner" ng-if="user.relation_partner">{{user.relation_partner.first_name + ' ' + user.relation_partner.last_name}}</span>
-                    </p>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!user.counters.videos}">
+                        <span class="tooltips"><i class="ion-videocamera"></i><em>Видеозаписи<i></i></em></span>
+                        <span>Видеозаписи</span>
+                        <span>{{ user.counters.videos}}</span>
+                    </div>
                 </div>
+                <div style="clear: both;"></div>
             </div>
-            <div style="clear: both;"></div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 user-title">Кого лайкает {{user.first_name}}? </div>
-        </div>
-        <div class="row user-bottom-content" ng-if="params">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <button class="btn btn-checkPhoto" ng-click="checkPhotoAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей (фото)</button>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <button class="btn btn-checkPhoto" ng-click="checkWallAll(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  среди всех друзей (стена)</button>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 user-title">Кого комментирует {{user.first_name}}? </div>
-        </div>
-        <div class="row user-bottom-content" ng-if="params">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <button class="btn btn-checkPhoto" ng-click="getCommentsOfPhoto(user)" ng-disabled="user.deactivated">Поиск комментариев на фото (beta)</button>
-            </div>
-        </div>
-        <div class="row" ng-if="!params">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <button style="width: 100%;" class="btn btn-checkPhoto" ng-click="login()">Пройти авторизацию</button>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 user-title">Дополнительно:</div>
-        </div>
-        <div class="row user-more">
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="user-more-item" ng-class="{empty:!user.counters.followers}">
-                    <span class="tooltips"><i class="ion-person-add"></i><em>Подписчики<i></i></em></span>
-                    <span>Подписчики</span>
-                    <span>{{user.counters.followers}}</span>
+            <div class="row user-more user-more-last">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!user.counters.notes}">
+                        <span class="tooltips"><i class="ion-clipboard"></i><em>Заметки<i></i></em></span>
+                        <span>Заметки</span>
+                        <span>{{user.counters.notes}}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="user-more-item" ng-class="{empty:!user.counters.mutual_friends}">
-                    <span class="tooltips"><i class="ion-person-stalker"></i><em>Общие друзья<i></i></em></span>
-                    <span>Общие друзья</span>
-                    <span>{{user.counters.mutual_friends}}</span>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!user.counters.groups}">
+                        <span class="tooltips"><i class="ion-chatbubbles"></i><em>Группы<i></i></em></span>
+                        <span>Группы</span>
+                        <span>{{user.counters.groups}}</span>
+                    </div>
                 </div>
+                <div style="clear: both;"></div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="user-more-item" ng-class="{empty:!user.counters.photos}">
-                    <span class="tooltips"><i class="ion-camera"></i><em>Фотографии<i></i></em></span>
-                    <span>Фотографии</span>
-                    <span>{{user.counters.photos}}</span>
-                </div>
-            </div>
-            <div style="clear: both;"></div>
+            <hr>
         </div>
-        <div class="row user-more">
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="user-more-item" ng-class="{empty:!user.counters.albums}">
-                    <span class="tooltips"><i class="ion-images"></i><em>Альбомы<i></i></em></span>
-                    <span>Альбомы </span>
-                    <span>{{user.counters.albums}}</span>
+        <div class="user-bottom">
+            <div class="row user-bottom-content">
+                <div class="col-md-4 col-sm-4 col-xs-12" style="display: none">
+                    <button class="btn btn-checkLikes" ng-click="checkWall(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  на стене</button>
                 </div>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="user-more-item" ng-class="{empty:!user.counters.audios}">
-                    <span class="tooltips"><i class="ion-music-note"></i><em>Аудиозаписи<i></i></em></span>
-                    <span>Аудиозаписи</span>
-                    <span>{{user.counters.audios}}</span>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="user-more-item" ng-class="{empty:!user.counters.videos}">
-                    <span class="tooltips"><i class="ion-videocamera"></i><em>Видеозаписи<i></i></em></span>
-                    <span>Видеозаписи</span>
-                    <span>{{ user.counters.videos}}</span>
-                </div>
-            </div>
-            <div style="clear: both;"></div>
-        </div>
-        <div class="row user-more user-more-last">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="user-more-item" ng-class="{empty:!user.counters.notes}">
-                    <span class="tooltips"><i class="ion-clipboard"></i><em>Заметки<i></i></em></span>
-                    <span>Заметки</span>
-                    <span>{{user.counters.notes}}</span>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="user-more-item" ng-class="{empty:!user.counters.groups}">
-                    <span class="tooltips"><i class="ion-chatbubbles"></i><em>Группы<i></i></em></span>
-                    <span>Группы</span>
-                    <span>{{user.counters.groups}}</span>
-                </div>
-            </div>
-            <div style="clear: both;"></div>
-        </div>
-    <hr>
-    </div>
-    <div class="user-bottom">
-        <div class="row user-bottom-content">
-            <div class="col-md-4 col-sm-4 col-xs-12" style="display: none">
-                <button class="btn btn-checkLikes" ng-click="checkWall(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  на стене</button>
-            </div>
-            <!--<div class="col-md-4 col-sm-4 col-xs-12">-->
+                <!--<div class="col-md-4 col-sm-4 col-xs-12">-->
                 <!--<button class="btn btn-checkPhoto" ng-click="checkPhoto(user)" ng-disabled="user.deactivated">Поиск  <i class="ion-ios-heart"></i>  по фото</button>-->
-            <!--</div>-->
-            <div class="col-md-12 col-sm-12 col-xs-12" ng-if="params">
-                <button class="btn btn-userFriends" ng-click="getUserFriends(user)" ng-disabled="user.deactivated"><i class="ion-ios-people"></i> Список друзей</button>
+                <!--</div>-->
+                <div class="col-md-12 col-sm-12 col-xs-12" ng-if="params">
+                    <button class="btn btn-userFriends" ng-click="getUserFriends(user)" ng-disabled="user.deactivated"><i class="ion-ios-people"></i> Список друзей</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>

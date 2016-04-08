@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "TabsDirective.js",
+  "sourceRoot": "",
+  "sources": [
+    "TabsDirective.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,UAEU,CAAC,SAAX,CAAqB,MAArB,EAA6B,SAAC,QAAD,GAAA;SAEzB;AAAA,IAAA,IAAA,EAAM,SAAC,KAAD,EAAQ,OAAR,GAAA;aAEF,QAAA,CAAS,SAAA,GAAA;eACL,OAAO,CAAC,kBAAR,CAAA,EADK;MAAA,CAAT,EAFE;IAAA,CAAN;IAFyB;AAAA,CAA7B,CAFA,CAAA"
+}

@@ -4,15 +4,13 @@
 
 MainModule.controller 'MainController', ($scope, $location, $state, $http, $timeout, RestModel, LocalStorage, Notification) ->
 
-    $scope.openAccess = false;
     $scope.content = {};
     $scope.send = false;
 
     $scope.url = RestModel.getLinkAutorization();
+    console.log($scope.url);
 
     if window.location.href.indexOf("access_token") != -1
-        $scope.openAccess = true;
-
         $scope.params = RestModel.getParams(window.location.href);
         LocalStorage.setItem('params', $scope.params);
 
@@ -21,11 +19,8 @@ MainModule.controller 'MainController', ($scope, $location, $state, $http, $time
         $state.transitionTo('friends');
     else
         if LocalStorage.getItem('params')
-            $scope.openAccess = true;
             if window.location.pathname == '/login' || window.location.pathname == '/' then $state.transitionTo('friends');
-        else
-            if window.location.pathname == "/login" || $state.current.url == "/login" || window.location.pathname == "/" || window.location.pathname == "" then $scope.openAccess = false else $scope.openAccess = true;
-#            Notification.show("Ошибка авторизации");
+
 
 
     $scope.sendWish = () ->
@@ -45,4 +40,3 @@ MainModule.controller 'MainController', ($scope, $location, $state, $http, $time
                     $scope.statusText = 'Спасибо за отзыв';
                 )
 
-    console.log($scope.openAccess);

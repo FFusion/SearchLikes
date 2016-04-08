@@ -35,6 +35,12 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
 
         $stateProvider
 
+        .state('login',
+            url:'/login',
+            controller:'MainController',
+            templateUrl:'components/login/views/login.html'
+        )
+
         .state('friends',
             url         : '/friends',
             controller  : 'FriendsController',
@@ -43,13 +49,17 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
                 params: (LocalStorage) -> LocalStorage.getItem('params')
                 currentUser: (RestModel, params, $q) ->
                     deffered = $q.defer();
-                    RestModel.getUserById(params.user_id, params).then(
-                        (data) ->
-                            deffered.resolve(data.response[0]);
-                        (error) ->
-                            deffered.reject(error);
-                    )
-                    deffered.promise;
+                    if params
+                        RestModel.getUserById(params.user_id, params).then(
+                            (data) ->
+                                deffered.resolve(data.response[0]);
+                            (error) ->
+                                deffered.reject(error);
+                        )
+                        deffered.promise;
+                    else
+                        false
+
         )
 
         .state('user',

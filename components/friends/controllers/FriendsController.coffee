@@ -5,7 +5,10 @@
 FriendsModule.controller 'FriendsController', ($scope, $location, $window, $state, $stateParams, params, ngTableParams, LocalStorage, RestModel, currentUser) ->
 
     # авторизованный пользователь
-    $scope.currentUser = currentUser;
+    if currentUser
+        $scope.currentUser = currentUser;
+    else
+        $scope.currentUser
 
     # параметры авторизации и отображения списка пользователей
     $scope.openAccess = true;

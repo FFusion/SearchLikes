@@ -1,128 +1,130 @@
-<div class="loading-content" ng-if="loading">
-    <div class="process">
-        <div class="process-circle"></div>
-        <div class="process-title"><span>Загрузка...</span></div>
-    </div>
-</div>
-
-<div move class="main-content-friends">
-    <div class="selected-top">
-        <div class="userFriend-title">
-            {{currentUser.first_name + ' ' + currentUser.last_name}}
-        </div>
-        <div class="block-navigation-button" ng-if="!lookedItems">
-            <button class="btn btn-back" ng-click="back()">Назад</button>
-        </div>
-        <div class="block-navigation-button" ng-if="lookedItems">
-            <button class="btn btn-back" ng-click="backInResult()">Вернуться к поиску</button>
-        </div>
-    </div>
-    <div class="friends-content" ng-if="!lookedItems">
-        <hr>
-        <div class="friends-content-top">
-            <!--поиск-->
-            <!--кол во друзей-->
-            <div class="friend-table-settings">
-                <div>
-                    <div class="friend-table-settings-caption"> <span>Друзей: {{countFriends}}</span></div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="friends-content-middle">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 user-title">Выберите категорию:</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="type.typeUsers == 'male'" ng-true-value="'male'" ng-false-value="'all'" class="checkbox" ng-model="type.typeUsers" id="man" />
-                    <label for="man">Парни</label>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="type.typeUsers == 'female'" ng-true-value="'female'" ng-false-value="'all'" class="checkbox" ng-model="type.typeUsers" id="woman" />
-                    <label for="woman">Девушки</label>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
-                    <input type="checkbox" ng-checked="type.typeUsers == 'all'" ng-true-value="'all'" ng-false-value="'male'" class="checkbox" ng-model="type.typeUsers" id="all" />
-                    <label for="all">Все друзья</label>
-                </div>
-            </div>
-        </div>
-        <div class="friends-content-bottom pull-right">
-            <button class="btn btn-back" ng-click="scanedWall(userFriends)" ng-disabled="procent != 100 && procent > 0 && !stopped">Сканируем</button>
-            <button class="btn btn-back" ng-click="stopScanWall()" ng-if="procent != 0 && procent != 100 && !stopped">Стоп</button>
+<section class="main-content">
+    <div class="loading-content" ng-if="loading">
+        <div class="process">
+            <div class="process-circle"></div>
+            <div class="process-title"><span>Загрузка...</span></div>
         </div>
     </div>
 
-    <div class="result-content" ng-if="result && !lookedItems">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 result-content-procent">
-                <div ng-if="procent != 0 && procent != 100 && !stopped">Процесс небыстрый, пожалуйста подождите</div>
-                <div>{{procent}} %</div>
-                <div ng-if="procent == 100 || stopped">Сканирование завершено</div>
+    <div move class="main-content-friends">
+        <div class="selected-top">
+            <div class="userFriend-title">
+                {{currentUser.first_name + ' ' + currentUser.last_name}}
+            </div>
+            <div class="block-navigation-button" ng-if="!lookedItems">
+                <button class="btn btn-back" ng-click="back()">Назад</button>
+            </div>
+            <div class="block-navigation-button" ng-if="lookedItems">
+                <button class="btn btn-back" ng-click="backInResult()">Вернуться к поиску</button>
             </div>
         </div>
-        <div class="row result-content-item" ng-repeat="item in isLikes" ng-if="item.walls.length > 0">
-            <div class="col-md-4 col-sm-4 col-xs-4">
-                <div style="margin-bottom: 5px;">{{item.user[0].first_name + ' ' + item.user[0].last_name}}</div>
-                <img src="{{item.user[0].photo_50}}" alt=""/>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-8 result-content-item-count">
-                <span>{{item.walls.length}}</span> из <span>{{item.wallsCount}} записей</span>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12 result-content-item-button">
-                <button class="btn btn-back" style="margin-top: 10px;" ng-click="lookLikesWalls(item.walls)">Посмотреть</button>
+        <div class="friends-content" ng-if="!lookedItems">
+            <hr>
+            <div class="friends-content-top">
+                <!--поиск-->
+                <!--кол во друзей-->
+                <div class="friend-table-settings">
+                    <div>
+                        <div class="friend-table-settings-caption"> <span>Друзей: {{countFriends}}</span></div>
+                    </div>
+                </div>
             </div>
             <hr>
-        </div>
-    </div>
-    <div class="photo-content" ng-if="lookedItems">
-        <ul slide class="rslides">
-            <li ng-repeat="wall in lookWalls" ng-swipe-left="showPrev()" ng-swipe-right="showNext()">
-                <div class="wall-text-one" ng-if="wall.text && !wall.attachments && !wall.copy_history">{{wall.text}}</div>
-                <div class="wall-text" ng-if="wall.text && (wall.attachments || wall.copy_history)">{{wall.text}}</div>
-                <div class="result-photo" ng-if="wall.attachments || wall.copy_history">
-                    <div ng-if="wall.attachments">
-                        <div ng-repeat="attach in wall.attachments">
-                            <div ng-if="attach.photo">
-                                <img src="{{attach.photo.photo_604}}" alt=""/>
-                            </div>
-                            <div ng-if="attach.link">
-                                <img src="{{attach.link.image_big}}" alt=""/>
-                                <span class="wall-text">{{attach.link.url}}</span>
-                            </div>
-                            <div class="wall-text" ng-if="attach.text">
-                                <span>{{attach.text}}</span>
-                            </div>
-                        </div>
+            <div class="friends-content-middle">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 user-title">Выберите категорию:</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
+                        <input type="checkbox" ng-checked="type.typeUsers == 'male'" ng-true-value="'male'" ng-false-value="'all'" class="checkbox" ng-model="type.typeUsers" id="man" />
+                        <label for="man">Парни</label>
                     </div>
-                    <div ng-if="wall.copy_history">
-                        <div ng-repeat="history in wall.copy_history">
-                            <div ng-if="history.attachments">
-                                <div ng-repeat="attach in history.attachments">
-                                    <img ng-if="attach.video" src="{{attach.video.photo_640}}" alt=""/>
-                                    <img ng-if="attach.photo" src="{{attach.photo.photo_604}}" alt=""/>
-                                    <img ng-if="attach.doc" src="{{attach.doc.photo_130}}" alt=""/>
+                    <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
+                        <input type="checkbox" ng-checked="type.typeUsers == 'female'" ng-true-value="'female'" ng-false-value="'all'" class="checkbox" ng-model="type.typeUsers" id="woman" />
+                        <label for="woman">Девушки</label>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
+                        <input type="checkbox" ng-checked="type.typeUsers == 'all'" ng-true-value="'all'" ng-false-value="'male'" class="checkbox" ng-model="type.typeUsers" id="all" />
+                        <label for="all">Все друзья</label>
+                    </div>
+                </div>
+            </div>
+            <div class="friends-content-bottom pull-right">
+                <button class="btn btn-back" ng-click="scanedWall(userFriends)" ng-disabled="procent != 100 && procent > 0 && !stopped">Сканируем</button>
+                <button class="btn btn-back" ng-click="stopScanWall()" ng-if="procent != 0 && procent != 100 && !stopped">Стоп</button>
+            </div>
+        </div>
+
+        <div class="result-content" ng-if="result && !lookedItems">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 result-content-procent">
+                    <div ng-if="procent != 0 && procent != 100 && !stopped">Процесс небыстрый, пожалуйста подождите</div>
+                    <div>{{procent}} %</div>
+                    <div ng-if="procent == 100 || stopped">Сканирование завершено</div>
+                </div>
+            </div>
+            <div class="row result-content-item" ng-repeat="item in isLikes" ng-if="item.walls.length > 0">
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div style="margin-bottom: 5px;">{{item.user[0].first_name + ' ' + item.user[0].last_name}}</div>
+                    <img src="{{item.user[0].photo_50}}" alt=""/>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-8 result-content-item-count">
+                    <span>{{item.walls.length}}</span> из <span>{{item.wallsCount}} записей</span>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 result-content-item-button">
+                    <button class="btn btn-back" style="margin-top: 10px;" ng-click="lookLikesWalls(item.walls)">Посмотреть</button>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="photo-content" ng-if="lookedItems">
+            <ul slide class="rslides">
+                <li ng-repeat="wall in lookWalls" ng-swipe-left="showPrev()" ng-swipe-right="showNext()">
+                    <div class="wall-text-one" ng-if="wall.text && !wall.attachments && !wall.copy_history">{{wall.text}}</div>
+                    <div class="wall-text" ng-if="wall.text && (wall.attachments || wall.copy_history)">{{wall.text}}</div>
+                    <div class="result-photo" ng-if="wall.attachments || wall.copy_history">
+                        <div ng-if="wall.attachments">
+                            <div ng-repeat="attach in wall.attachments">
+                                <div ng-if="attach.photo">
+                                    <img src="{{attach.photo.photo_604}}" alt=""/>
+                                </div>
+                                <div ng-if="attach.link">
+                                    <img src="{{attach.link.image_big}}" alt=""/>
+                                    <span class="wall-text">{{attach.link.url}}</span>
                                 </div>
                                 <div class="wall-text" ng-if="attach.text">
-                                    <img src="{{attach.text}}" alt=""/>
+                                    <span>{{attach.text}}</span>
                                 </div>
                             </div>
-                            <div class="wall-text" ng-if="history.text">
-                                <span>{{history.text}}</span>
+                        </div>
+                        <div ng-if="wall.copy_history">
+                            <div ng-repeat="history in wall.copy_history">
+                                <div ng-if="history.attachments">
+                                    <div ng-repeat="attach in history.attachments">
+                                        <img ng-if="attach.video" src="{{attach.video.photo_640}}" alt=""/>
+                                        <img ng-if="attach.photo" src="{{attach.photo.photo_604}}" alt=""/>
+                                        <img ng-if="attach.doc" src="{{attach.doc.photo_130}}" alt=""/>
+                                    </div>
+                                    <div class="wall-text" ng-if="attach.text">
+                                        <img src="{{attach.text}}" alt=""/>
+                                    </div>
+                                </div>
+                                <div class="wall-text" ng-if="history.text">
+                                    <span>{{history.text}}</span>
+                                </div>
                             </div>
                         </div>
+                        <!--<pre>{{wall | json}}</pre>-->
+                        <!--<img ng-src="{{photo.photo_604}}"  alt=""  ng-swipe-left="showPrev(photo)" ng-swipe-right="showNext(photo)">-->
+                        <!--ng-click="increasePhoto(photo)"-->
                     </div>
-                    <!--<pre>{{wall | json}}</pre>-->
-                    <!--<img ng-src="{{photo.photo_604}}"  alt=""  ng-swipe-left="showPrev(photo)" ng-swipe-right="showNext(photo)">-->
-                    <!--ng-click="increasePhoto(photo)"-->
-                </div>
-                <div class="wall-date text-right">
-                    <span>{{wall.date}}</span>
-                </div>
-            </li>
-        </ul>
+                    <div class="wall-date text-right">
+                        <span>{{wall.date}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
-<div class="go-up" title="Вверх" id='ToTop'>⇧</div>
-<div class="go-down" title="Вниз" id='OnBottom'>⇩</div>
+    <div class="go-up" title="Вверх" id='ToTop'>⇧</div>
+    <div class="go-down" title="Вниз" id='OnBottom'>⇩</div>
+</section>

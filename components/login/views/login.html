@@ -1,0 +1,121 @@
+<header role="banner">
+    <div id="header-inn">
+        <span class="pseudo-menu">&#9776;</span>
+        <nav id="top-menu" role="navigation">
+            <a href="#about-us">Описание</a>
+        </nav><!-- #top-menu -->
+    </div><!-- #header-inn -->
+</header>
+<section id="services" class="section-main section">
+    <div class="section-inn">
+        <div class="half-block f-left">
+            <div class="services-provide-block">
+                <h3>SearchLikes - поиск лайков и комментариев</h3>
+                <ul>
+                    <li class="item-1">
+                        <strong>Друзья</strong>
+                        <p>Список друзей Вконтакте со временем последнего посещения. Определение платформы откуда производился вход. Фильтр по удаленным друзьям.</p>
+                    </li>
+                    <li class="item-2">
+                        <strong>Самое интересное</strong>
+                        <p>Хочешь проверить свою вторую половинку? Узнай кого "лайкает" и кому пишет твой друг: поиск лайков комментариев среди фотографий и на стенах друзей</p>
+                    </li>
+                    <li class="item-3">
+                        <strong>Это еще не все!</strong>
+                        <p>Просмотр всей информации о пользователях. Удобная навигация</p>
+                    </li>
+                </ul>
+                <!--<a href="#about-us" class="to-employee-btn">Подробнее</a>-->
+                <a href="{{url}}" class="to-employee-btn">Войти</a>
+            </div>
+        </div>
+        <div class="half-block f-right">
+            <div class="services-slider-block">
+                <div id="slider-wrap">
+                    <div id="slider1">
+                        <figure class="slide"><img src="image/main/large-slides/slide.jpg" alt="Slide 1" ng-swipe-left="showPrev(3)" ng-swipe-right="showNext(2)"></figure>
+                        <!--<figure class="slide"><img src="image/main/large-slides/slide2.png" alt="Slide 2" ng-swipe-left="showPrev(1)" ng-swipe-right="showNext(3)"></figure>-->
+                        <figure class="slide"><img src="image/main/large-slides/slide3.png" alt="Slide 3" ng-swipe-left="showPrev(2)" ng-swipe-right="showNext(1)"></figure>
+                    </div><!-- #slider -->
+                </div><!-- #slider-wrap -->
+            </div><!-- .services-slider-block -->
+        </div>
+
+    </div><!-- .section-inn -->
+
+</section><!-- #services -->
+<div id="pets-bg">
+    <section id="about-us" class="section-main section">
+        <div class="section-inn">
+            <h3 class="middle-title">Подробная <span>информация</span></h3>
+            <div class="middle-text">
+                <p>SearchLikes - веб-проект, написанный с использованием API социальной сети Вконтакте. Компактное и удобное представление списка ваших друзей, простая навигация, возможность посмотреть кто когда заходил, откуда заходил, кто кому поставил лайк и комментарий и не только.</p>
+                <p>Если вам понравился данный проект, вы можете отблагодарить автора через Webmoney R401920329933 или ЯндексДеньги 410011802661832</p>
+            </div><!-- .middle-text -->
+            <div class="our-awards-wrap">
+                <div class="our-awards-text">
+                    <div tabs id="html6-tab">
+                        <ul class="resp-tabs-list row">
+                            <li class="col-md-4 col-xs-4">Преимущества</li>
+                            <li class="col-md-4 col-xs-4">Основное</li>
+                            <li class="col-md-3 col-xs-3">В ближайшем будущем</li>
+                        </ul>
+                        <div class="resp-tabs-container">
+                            <div>
+                                <ul>
+                                    <li>Не имеет отношение ни к каким "шпионам" для социальной сети Вконтакте</li>
+                                    <li>Авторизация происходит через социальную сеть Вконтакте</li>
+                                    <li>Удобство и простота использования</li>
+                                    <li>Понятная навигация и дружелюбный адаптивный интерфейс</li>
+                                    <li>Поиск лайков работает быстрее аналогов</li>
+                                    <li>Все совершенно бесплатно</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>Список друзей со временем последнего посещения</li>
+                                    <li>Платформа, с которой заходил пользователь</li>
+                                    <li>Фильтр по удаленным друзьям</li>
+                                    <li>Информация о данных пользователя</li>
+                                    <li>Поиск "лайков"</li>
+                                    <li><b>Новинка - Поиск комментариев!</b></li>
+                                    <li>Результат поиска - фотографии или записы со стены</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>Поиск активности по группам</li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div><!-- .resp-tabs-container -->
+                    </div><!-- #html6-tab -->
+                </div><!-- .our-awards-text -->
+            </div><!-- .our-awards-wrap -->
+        </div><!-- .section-inn -->
+    </section><!-- #about-us -->
+
+</div><!-- #pets-bg -->
+<section id="contacts" class="section-main section">
+    <div class="section-inn">
+        <div class="contacts-info">
+            <strong>Форма связи</strong>
+            <p>Жду ваши вопросы, отзывы и комментарии</p>
+        </div>
+        <form class="contact-form">
+            <div class="f-right">
+                <input id="name" ng-model="content.fio" name="fio" type="text" placeholder="Имя">
+                <input id="email" ng-model="content.email" name="email" type="text" placeholder="E-mail">
+            </div><!-- .f-right -->
+            <textarea id="message" ng-model="content.wish" name="wish" rows="5" cols="20" placeholder="Сообщение"></textarea>
+            <button type="submit" ng-click="sendWish()">Отправить</button>
+            <div class="send-message" ng-if="send">{{statusText}}</div>
+        </form>
+    </div><!-- .section-inn -->
+</section><!-- #contacts -->
+<footer role="contentinfo">
+    <div class="foo-inn">
+        <p class="copyright pull-right">&copy; 2015-2016 SearchLikes</p>
+    </div><!-- .foo-inn -->
+</footer>
+
