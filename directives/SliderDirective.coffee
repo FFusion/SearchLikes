@@ -17,5 +17,13 @@ MainModule.directive 'slide', ($timeout) ->
                 before: () ->
                     scope.$parent.onlyCurrent = true;
             );
+
+            $('.next').click(()->
+                scope.$parent.onlyCurrent = true;
+            )
+
+            $('.prev').click(()->
+                scope.$parent.onlyCurrent = true;
+            )
         )
 

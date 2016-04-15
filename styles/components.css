@@ -563,3 +563,8 @@
   opacity: 1;
   box-shadow: 0 5px 0.5em -1px #6383a8;
 }
+.band {
+  height: 12px;
+  background: #6383a8;
+  border-radius: 2px;
+}

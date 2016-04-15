@@ -44,7 +44,7 @@ CommentsPhotoModule.controller('CommentsPhotoController', function($scope, param
     $scope.comments = [];
     $scope.procent = 100 - Math.floor(users.length * 100 / $scope.allCountUsers);
     Loader.process($scope.procent);
-    if (checkedUser !== void 0) {
+    if (checkedUser.length > 0) {
       return $timeout(function() {
         return RestModel.getCommentsCount(checkedUser[0].id, $scope.params).then(function(data) {
           var count;
@@ -189,7 +189,7 @@ CommentsPhotoModule.controller('CommentsPhotoController', function($scope, param
         });
       });
       $scope.loading = false;
-      return $scope.allComments = comments.response.items;
+      return $scope.all = comments.response.items;
     }, function(error) {
       return console.log(error);
     });

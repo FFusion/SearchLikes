@@ -46,6 +46,20 @@ MainModule.service('Loader', function($rootScope) {
       })(this), 350);
     };
 
+    Loader.prototype.renderBand = function(array) {
+      var maxCount, temp;
+      maxCount = array[0].counters.friends;
+      temp = [];
+      angular.forEach(array, function(user, index) {
+        if (index < 99) {
+          user.width = user.counters.friends / maxCount * 100;
+          user.width = user.width + '%';
+          return temp.push(user);
+        }
+      });
+      return temp;
+    };
+
     return Loader;
 
   })();

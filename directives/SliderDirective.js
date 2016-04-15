@@ -4,7 +4,7 @@ MainModule.directive('slide', function($timeout) {
   return {
     link: function(scope, element) {
       return $timeout(function() {
-        return $(".rslides").responsiveSlides({
+        $(".rslides").responsiveSlides({
           auto: false,
           speed: 500,
           nav: true,
@@ -14,6 +14,12 @@ MainModule.directive('slide', function($timeout) {
           before: function() {
             return scope.$parent.onlyCurrent = true;
           }
+        });
+        $('.next').click(function() {
+          return scope.$parent.onlyCurrent = true;
+        });
+        return $('.prev').click(function() {
+          return scope.$parent.onlyCurrent = true;
         });
       });
     }

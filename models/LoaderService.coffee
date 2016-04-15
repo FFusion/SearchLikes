@@ -47,5 +47,20 @@ MainModule.service 'Loader', ($rootScope) ->
                 , 350);
             , 350);
 
+        # полоса % заполнения
+        renderBand:(array) ->
+            maxCount = array[0].counters.friends;
+            temp = [];
+            angular.forEach(array, (user, index)->
+                if index < 99
+                    user.width = user.counters.friends / maxCount * 100;
+                    user.width = user.width + '%';
+                    temp.push(user);
+            );
+
+            return temp;
+
+
+
 
     new Loader();

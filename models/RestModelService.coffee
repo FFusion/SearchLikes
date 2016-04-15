@@ -262,7 +262,7 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         deffered.promise;
 
 
-    friendsOnlineOrDelete: (type, friends) ->
+    friendsOnlineOrDelete: (type = null, friends) ->
         friendsArray = [];
 
         if type == 'online'
@@ -273,6 +273,11 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
             friends.forEach((friend)->
                 if angular.isDefined(friend.deactivated) then friendsArray.push(friend);
             )
+
+        if type is null
+            friends.forEach((friend)->
+                if !angular.isDefined(friend.deactivated) then friendsArray.push(friend);
+            );
 
         friendsArray;
 
@@ -409,3 +414,28 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         );
 
         deffered.promise;
+
+
+    getAllCountFriends: (arrayFriends, params) ->
+        console.log(arrayFriends);
+        deffered = $q.defer();
+        code = 'return {'
+        for i in [0..arrayFriends.length - 1]
+            if i != arrayFriends.length - 1
+                code = code + 'CountFr' + arrayFriends[i].id + ':API.users.get({"fields":"counters,photo_50", "user_id":'+ arrayFriends[i].id + '}),';
+            else
+                code = code + 'CountFr' + arrayFriends[i].id + ':API.users.get({"fields":"counters,photo_50", "user_id":' + arrayFriends[i].id + '})';
+
+        code = code + '};';
+        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data)->
+            deffered.resolve(data);
+        )
+        .error((error)->
+            deffered.reject(error);
+        );
+
+        deffered.promise;
+

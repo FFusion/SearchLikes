@@ -61,7 +61,7 @@ CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stat
         $scope.procent = 100 - Math.floor(users.length * 100 / $scope.allCountUsers);
         Loader.process($scope.procent);
 
-        if checkedUser != undefined
+        if checkedUser.length > 0
             $timeout(()->
             # получаем число комментов на фотках
                 RestModel.getCommentsCount(checkedUser[0].id, $scope.params).then(
@@ -217,7 +217,7 @@ CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stat
                 )
                 $scope.loading = false;
 
-                $scope.allComments = comments.response.items;
+                $scope.all = comments.response.items;
 
             (error)->
                 console.log(error);

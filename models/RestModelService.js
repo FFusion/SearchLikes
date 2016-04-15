@@ -280,6 +280,9 @@ MainModule.factory('RestModel', function($q, $http, vk) {
     },
     friendsOnlineOrDelete: function(type, friends) {
       var friendsArray;
+      if (type == null) {
+        type = null;
+      }
       friendsArray = [];
       if (type === 'online') {
         friends.forEach(function(friend) {
@@ -291,6 +294,13 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       if (type === 'delete') {
         friends.forEach(function(friend) {
           if (angular.isDefined(friend.deactivated)) {
+            return friendsArray.push(friend);
+          }
+        });
+      }
+      if (type === null) {
+        friends.forEach(function(friend) {
+          if (!angular.isDefined(friend.deactivated)) {
             return friendsArray.push(friend);
           }
         });
@@ -410,6 +420,27 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       var deffered, url;
       deffered = $q.defer();
       url = vk.api + '/method/photos.getComments?owner_id=' + photo.owner_id + '&photo_id=' + photo.id + '&extended=1&v=5.5&count=100&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getAllCountFriends: function(arrayFriends, params) {
+      var code, deffered, i, url, _i, _ref;
+      console.log(arrayFriends);
+      deffered = $q.defer();
+      code = 'return {';
+      for (i = _i = 0, _ref = arrayFriends.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        if (i !== arrayFriends.length - 1) {
+          code = code + 'CountFr' + arrayFriends[i].id + ':API.users.get({"fields":"counters,photo_50", "user_id":' + arrayFriends[i].id + '}),';
+        } else {
+          code = code + 'CountFr' + arrayFriends[i].id + ':API.users.get({"fields":"counters,photo_50", "user_id":' + arrayFriends[i].id + '})';
+        }
+      }
+      code = code + '};';
+      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {
