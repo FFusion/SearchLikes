@@ -322,6 +322,29 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       });
       return deffered.promise;
     },
+    getPhotoAll: function(userId, params, count, offset) {
+      var deffered, url;
+      if (count == null) {
+        count = null;
+      }
+      if (offset == null) {
+        offset = null;
+      }
+      deffered = $q.defer();
+      if (count === null) {
+        count = 200;
+      }
+      if (offset === null) {
+        offset = 0;
+      }
+      url = vk.api + '/method/photos.getAll?' + 'owner_id=' + userId + '&count=' + count + '&offset=' + offset + '&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
     getComment: function(userId, post, params) {
       var deffered, url;
       deffered = $q.defer();
@@ -429,7 +452,6 @@ MainModule.factory('RestModel', function($q, $http, vk) {
     },
     getAllCountFriends: function(arrayFriends, params) {
       var code, deffered, i, url, _i, _ref;
-      console.log(arrayFriends);
       deffered = $q.defer();
       code = 'return {';
       for (i = _i = 0, _ref = arrayFriends.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
@@ -441,6 +463,28 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       }
       code = code + '};';
       url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getGroupName: function(name, params) {
+      var deffered, url;
+      deffered = $q.defer();
+      url = vk.api + '/method/groups.search?q=' + name + '&type=group&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getStatsGroup: function(id, params) {
+      var deffered, url;
+      deffered = $q.defer();
+      url = vk.api + '/method/stats.get?group_id=' + id + '&date_from=2013-04-23&date_to=2013-04-24&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {

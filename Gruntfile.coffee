@@ -75,9 +75,11 @@ module.exports = (grunt) ->
                             '.htaccess'
                             '*.html'
                             'components/**/*.html'
+                            'user/*.html'
                             'directives/views/**/*.html'
                             'image/**/**'
                             '*.php'
+                            '*.xml'
                         ]
                     }
 

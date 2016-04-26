@@ -171,6 +171,16 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
                 friends: (RestModel, $stateParams, params, currentUser) -> RestModel.getFriends(params, $stateParams.userId);
         )
 
+        .state('statistics',
+            url         : '/statisticsFriends/:userId',
+            controller  : 'StatisticsFriendsController',
+            templateUrl : 'components/statisticFriends/views/index.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+                currentUser: (RestModel, $stateParams,params) ->  RestModel.moreInfo($stateParams.userId,params);
+                friends: (RestModel, $stateParams, params, currentUser) -> RestModel.getFriends(params, $stateParams.userId);
+            )
+
 
         $urlRouterProvider.otherwise('/login');
     ]

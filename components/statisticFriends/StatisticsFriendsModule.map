@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "StatisticsFriendsModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "StatisticsFriendsModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,IAAA,uBAAA;;AAAA,uBAEA,GAA0B,OAAO,CAAC,MAAR,CAAe,yBAAf,EAA0C,EAA1C,CAF1B,CAAA"
+}

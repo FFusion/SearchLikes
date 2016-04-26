@@ -49,16 +49,29 @@ MainModule.service 'Loader', ($rootScope) ->
 
         # полоса % заполнения
         renderBand:(array) ->
-            maxCount = array[0].counters.friends;
-            temp = [];
-            angular.forEach(array, (user, index)->
-                if index < 99
-                    user.width = user.counters.friends / maxCount * 100;
-                    user.width = user.width + '%';
-                    temp.push(user);
-            );
+            console.log(array[0]);
+            if angular.isDefined(array[0].counters)
+                maxCount = array[0].counters.friends;
+                temp = [];
+                angular.forEach(array, (user, index)->
+                    if index < 99
+                        user.width = user.counters.friends / maxCount * 100;
+                        user.width = user.width + '%';
+                        temp.push(user);
+                );
 
-            return temp;
+                return temp;
+            else
+                maxCount = array[0].count;
+                temp = [];
+                angular.forEach(array, (user, index)->
+                    if index < 99
+                        user.width = user.count / maxCount * 100;
+                        user.width = user.width + '%';
+                        temp.push(user);
+                );
+
+                return temp;
 
 
 

@@ -299,6 +299,22 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
         deffered.promise;
 
+    getPhotoAll: (userId, params, count = null, offset = null) ->
+        deffered = $q.defer();
+        if count is null then count = 200;
+        if offset is null then offset = 0;
+        url = vk.api + '/method/photos.getAll?' + 'owner_id=' + userId + '&count=' + count + '&offset=' + offset + '&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data)->
+            deffered.resolve(data);
+        )
+        .error((error)->
+            deffered.reject(error);
+        );
+
+        deffered.promise;
+
 
     # не доступно для сайтов..
     getComment: (userId, post, params) ->
@@ -417,7 +433,6 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
 
     getAllCountFriends: (arrayFriends, params) ->
-        console.log(arrayFriends);
         deffered = $q.defer();
         code = 'return {'
         for i in [0..arrayFriends.length - 1]
@@ -438,4 +453,37 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         );
 
         deffered.promise;
+
+#    todo: не используется
+    getGroupName: (name, params) ->
+        deffered = $q.defer();
+
+        url = vk.api + '/method/groups.search?q=' + name + '&type=group&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data) ->
+            deffered.resolve(data);
+        )
+        .error((error) ->
+            deffered.reject(error);
+        );
+
+        deffered.promise;
+
+#    todo: не используется
+    getStatsGroup: (id, params) ->
+        deffered = $q.defer();
+
+        url = vk.api + '/method/stats.get?group_id=' + id + '&date_from=2013-04-23&date_to=2013-04-24&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data) ->
+            deffered.resolve(data);
+        )
+        .error((error) ->
+            deffered.reject(error);
+        );
+
+        deffered.promise;
+
 

@@ -1,0 +1,99 @@
+<section class="main-content">
+    <div class="loading-content" ng-if="loading">
+        <div class="process">
+            <div class="process-circle"></div>
+            <div class="process-title"><span>Загрузка...</span></div>
+        </div>
+    </div>
+    <div class="main-content-friends">
+        <!--Блок кнопок-->
+        <div class="friends-top">
+            <div class="block-navigation-button" ng-if="currentUser">
+                <button class="btn btn-friend" ng-click="home()">На главную</button>
+            </div>
+            <div class="block-navigation-button" ng-if="currentUser && !selectedStat">
+                <button class="btn btn-friend" ng-click="choosing()">К выбору статистики</button>
+            </div>
+            <div class="block-off" ng-if="currentUser">
+                <!--<button class="btn btn-off" ng-click="signOff()">Выход</button>-->
+                {{currentUser.first_name + ' ' + currentUser.last_name}}
+                <button class="btn btn-delete" ng-click="signOff()">Выход</button>
+            </div>
+            <div class="block-off" ng-if="!currentUser">
+                <!--<button class="btn btn-off" ng-click="signOff()">Выход</button>-->
+                <button class="btn btn-delete"><a href="/login" target="_blank" style="color:white;">Пройти авторизацию</a></button>
+            </div>
+        </div>
+        <div class="friends-content">
+            <div class="friends-content-top">
+                <!--поиск-->
+                <!--кол во друзей-->
+                <div class="friend-table-settings">
+                    <div>
+                        <div class="friend-table-settings-caption"> <span>Друзей: {{currentUser.counters.friends}}</span></div>
+                        <!--<div style="line-height: 42px;">{{friendsArray.length}}</div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="friends-content-middle" ng-if="selectedStat">
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-xs-12 block-stat" ng-click="getStatisticAboutFriends()">
+                        <h2>У кого больше всего друзей?</h2>
+                        <span>Статистика друзей выбранного пользователя по количеству друзей</span>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-xs-12 block-stat" ng-click="getStatActiveUser()">
+                        <h2>Активность друзей</h2>
+                        <span>Статистика активности друзей выбранного пользователя на его странице по лайкам на фото</span>
+                    </div>
+                </div>
+            </div>
+            <div class="friends-content-middle" ng-if="!selectedStat">
+                <div ng-if="firstStat">
+                    <h3 class="row text-center">Топ 100 друзей</h3>
+                    <div class="friends-item row" ng-repeat="user in resultFriends | filter:userFilter" ng-click="more(user)">
+                        <div class="friends-item-photo col-md-2 col-xs-2">
+                            <img src="{{user.photo_50}}" alt="ПользовательВк"/>
+                        </div>
+                        <div class="friends-item-name col-md-5 col-xs-6" ng-class="{'first-user':$index == 0}">
+                            <span>{{user.first_name}}</span>
+                            <span> </span>
+                            <span> {{user.last_name }}</span>
+                        </div>
+                        <div class="friends-item-visit blue pull-right">
+                            <span>{{user.counters.friends}}</span>
+                        </div>
+                        <div style="clear: both"></div>
+                        <div class="friends-item-band col-md-12 col-xs-12">
+                            <div ng-style="{'width':user.width}" class="band"></div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="secondStat">
+                    <div class="friend-table-settings-caption" style="margin-bottom: 10px;">
+                        <span>Всего фото:</span>
+                        <span>{{currentUser.counters.photos}}</span>
+                    </div>
+                    <h3 class="row text-center">Самые активные</h3>
+                    <div class="friends-item row" ng-repeat="item in resultStatSecond | filter:userFilter" ng-click="more(item)" ng-if="item.count > 0">
+                        <div class="friends-item-photo col-md-2 col-xs-2">
+                            <img src="{{item.photo_50}}" alt="ПользовательВк"/>
+                        </div>
+                        <div class="friends-item-name col-md-5 col-xs-6" ng-class="{'first-user':$index == 0}">
+                            <span>{{item.first_name}}</span>
+                            <span> </span>
+                            <span> {{item.last_name }}</span>
+                        </div>
+                        <div class="friends-item-visit blue pull-right">
+                            <i class="ion-ios-heart"></i>
+                            <span>{{item.count}}</span>
+                        </div>
+                        <div style="clear: both"></div>
+                        <div class="friends-item-band col-md-12 col-xs-12">
+                            <div ng-style="{'width':item.width}" class="band"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

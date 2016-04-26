@@ -179,6 +179,21 @@ MainModule.config([
           return RestModel.getFriends(params, $stateParams.userId);
         }
       }
+    }).state('statistics', {
+      url: '/statisticsFriends/:userId',
+      controller: 'StatisticsFriendsController',
+      templateUrl: 'components/statisticFriends/views/index.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        },
+        currentUser: function(RestModel, $stateParams, params) {
+          return RestModel.moreInfo($stateParams.userId, params);
+        },
+        friends: function(RestModel, $stateParams, params, currentUser) {
+          return RestModel.getFriends(params, $stateParams.userId);
+        }
+      }
     });
     return $urlRouterProvider.otherwise('/login');
   }

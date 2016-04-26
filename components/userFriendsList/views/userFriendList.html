@@ -24,7 +24,7 @@
                 <button class="btn btn-delete" ng-click="getListFriendsOnlineOrDelete('delete')">Удалены</button>
             </div>
             <div class="block-navigation-button" ng-if="userFriends">
-                <button class="btn btn-delete" ng-click="getStatisticAboutUserFriends()">Статистика Друзей</button>
+                <button class="btn btn-delete" ng-click="getStatisticPage()">Статистика Друзей</button>
             </div>
             <div class="block-navigation-button">
                 <button class="btn btn-home" ng-click="home()">На главную</button>
@@ -33,7 +33,7 @@
 
         <!--друзья онлайн-->
 
-        <div class="friends-content" ng-if="userFriendsArray && !isResultUserStatistic">
+        <div class="friends-content" ng-if="userFriendsArray">
             <div class="friends-content-top">
                 <!--поиск-->
                 <!--кол во друзей-->
@@ -77,7 +77,7 @@
         </div>
 
         <!--друзья-->
-        <div class="friends-content" ng-if="!userFriendsArray && !isResultUserStatistic">
+        <div class="friends-content" ng-if="!userFriendsArray">
             <div class="friends-content-top">
                 <!--поиск-->
                 <!--кол во друзей-->
@@ -116,25 +116,6 @@
                 <div class="col-md-4 col-xs-4" style="padding: 0">
                     <button class="btn-next" ng-if="userFriendsArray" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= userFriendsArray.length"><span>Вперед</span> &raquo;</button>
                     <button class="btn-next" ng-click="$parent.page = page + 1" ng-disabled="page * pageSize >= userFriends.length"><span>Вперед</span> &raquo;</button>
-                </div>
-            </div>
-        </div>
-        <div class="friends-content" ng-if="isResultUserStatistic && !userFriendsArray">
-            <div class="friends-item row" ng-repeat="user in resultUserFriends | filter:userFilter" ng-click="more(user)">
-                <div class="friends-item-photo col-md-2 col-xs-2">
-                    <img src="{{user.photo_50}}" alt="ПользовательВк"/>
-                </div>
-                <div class="friends-item-name col-md-5 col-xs-6">
-                    <span>{{user.first_name}}</span>
-                    <span> </span>
-                    <span> {{user.last_name }}</span>
-                </div>
-                <div class="friends-item-visit pull-right">
-                    <span>{{user.counters.friends}}</span>
-                </div>
-                <div style="clear: both"></div>
-                <div class="friends-item-band col-md-12 col-xs-12">
-                    <div ng-style="{'width':user.width}" class="band"></div>
                 </div>
             </div>
         </div>

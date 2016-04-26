@@ -388,6 +388,25 @@ h3 {
   font-style: italic;
   opacity: 0.7;
 }
+.block-stat {
+  padding: 15px;
+  background-color: #6383a8;
+  color: white;
+  margin: 10px 10px 10px 0;
+  min-height: 70px;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+.block-stat span {
+  font-size: 15px;
+  font-style: italic;
+}
+.first-user {
+  color: red;
+  font-size: 22px;
+  font-weight: bold;
+}
 @media only screen and (max-width: 1024px) {
   .main-content {
     width: 800px;

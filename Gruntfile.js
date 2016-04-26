@@ -73,7 +73,7 @@ module.exports = function(grunt) {
             dot: true,
             cwd: '',
             dest: '<%= config.dist %>',
-            src: ['.htaccess', '*.html', 'components/**/*.html', 'directives/views/**/*.html', 'image/**/**', '*.php']
+            src: ['.htaccess', '*.html', 'components/**/*.html', 'user/*.html', 'directives/views/**/*.html', 'image/**/**', '*.php', '*.xml']
           }, {
             expand: true,
             dot: true,
