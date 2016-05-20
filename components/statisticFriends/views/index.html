@@ -42,15 +42,19 @@
                         <span>Статистика друзей выбранного пользователя по количеству друзей</span>
                     </div>
                     <div class="col-md-4 col-lg-4 col-xs-12 block-stat" ng-click="getStatActiveUser()">
-                        <h2>Активность друзей</h2>
-                        <span>Статистика активности друзей выбранного пользователя на его странице по лайкам на фото</span>
+                        <h2>Активность друзей среди фотографий</h2>
+                        <span>Статистика активности друзей выбранного пользователя на его странице по лайкам на <b>фото</b></span>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-xs-12 block-stat" ng-click="getStatActiveUserWall()">
+                        <h2>Активность друзей на стене</h2>
+                        <span>Статистика активности друзей выбранного пользователя на его странице по лайкам на <b>стене</b></span>
                     </div>
                 </div>
             </div>
             <div class="friends-content-middle" ng-if="!selectedStat">
                 <div ng-if="firstStat">
                     <h3 class="row text-center">Топ 100 друзей</h3>
-                    <div class="friends-item row" ng-repeat="user in resultFriends | filter:userFilter" ng-click="more(user)">
+                    <div class="friends-item row" ng-repeat="user in resultFriends" ng-click="more(user)">
                         <div class="friends-item-photo col-md-2 col-xs-2">
                             <img src="{{user.photo_50}}" alt="ПользовательВк"/>
                         </div>
@@ -74,7 +78,7 @@
                         <span>{{currentUser.counters.photos}}</span>
                     </div>
                     <h3 class="row text-center">Самые активные</h3>
-                    <div class="friends-item row" ng-repeat="item in resultStatSecond | filter:userFilter" ng-click="more(item)" ng-if="item.count > 0">
+                    <div class="friends-item row" ng-repeat="item in resultStatSecond" ng-click="more(item)" ng-if="item.count > 0 && resultStatSecond.length > 0">
                         <div class="friends-item-photo col-md-2 col-xs-2">
                             <img src="{{item.photo_50}}" alt="ПользовательВк"/>
                         </div>
@@ -92,6 +96,33 @@
                             <div ng-style="{'width':item.width}" class="band"></div>
                         </div>
                     </div>
+                    <div ng-if="resultStatSecond.length == 0" class="text-center red">Фотографий нет либо недоступны</div>
+                </div>
+                <div ng-if="thirdStat">
+                    <div class="friend-table-settings-caption" style="margin-bottom: 10px;">
+                        <span>Всего записей:</span>
+                        <span>{{wallPosts}}</span>
+                    </div>
+                    <h3 class="row text-center">Самые активные</h3>
+                    <div class="friends-item row" ng-repeat="people in resultStatThird" ng-click="more(people)" ng-if="people.count > 0 && resultStatThird.length > 0">
+                        <div class="friends-item-photo col-md-2 col-xs-2">
+                            <img src="{{people.photo_50}}" alt="ПользовательВк"/>
+                        </div>
+                        <div class="friends-item-name col-md-5 col-xs-6" ng-class="{'first-user':$index == 0}">
+                            <span>{{people.first_name}}</span>
+                            <span> </span>
+                            <span> {{people.last_name }}</span>
+                        </div>
+                        <div class="friends-item-visit blue pull-right">
+                            <i class="ion-ios-heart"></i>
+                            <span>{{people.count}}</span>
+                        </div>
+                        <div style="clear: both"></div>
+                        <div class="friends-item-band col-md-12 col-xs-12">
+                            <div ng-style="{'width':people.width}" class="band"></div>
+                        </div>
+                    </div>
+                    <div ng-if="resultStatThird.length == 0" class="text-center red">Записей нет либо недоступны</div>
                 </div>
             </div>
         </div>

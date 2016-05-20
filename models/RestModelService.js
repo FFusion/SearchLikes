@@ -267,6 +267,29 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       });
       return deffered.promise;
     },
+    getAllWallPost: function(userId, params, count, offset) {
+      var deffered, url;
+      if (count == null) {
+        count = null;
+      }
+      if (offset == null) {
+        offset = null;
+      }
+      if (count === null) {
+        count = 100;
+      }
+      if (offset === null) {
+        offset = 0;
+      }
+      deffered = $q.defer();
+      url = vk.api + '/method/wall.get?' + 'owner_id=' + userId + '&count=' + count + '&offset=' + offset + '&filter=owner&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
     getLikes: function(userId, params, postId, type) {
       var deffered, url;
       deffered = $q.defer();
@@ -463,6 +486,65 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       }
       code = code + '};';
       url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getGroupCurentUserAdmin: function(currentId, params) {
+      var deffered, url;
+      deffered = $q.defer();
+      url = vk.api + '/method/groups.get?user_id=' + currentId + '&filter=admin&fields=members_count,city,counters&extended=1&v=5.52&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getMemeberInGroup: function(id, params, count, offset) {
+      var code, deffered, i, localOffset, url, _i, _ref;
+      if (count == null) {
+        count = null;
+      }
+      if (offset == null) {
+        offset = null;
+      }
+      deffered = $q.defer();
+      if (count === null) {
+        count = 1;
+      }
+      if (offset === null) {
+        offset = 0;
+      }
+      if (count < 25000) {
+        localOffset = Math.ceil(count / 1000);
+      } else {
+        localOffset = 25000;
+      }
+      code = 'return {';
+      for (i = _i = offset, _ref = offset + localOffset; _i < _ref; i = _i += 1000) {
+        if (i !== offset + localOffset) {
+          code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city"}),';
+        } else {
+          code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city"})';
+        }
+      }
+      code = code + '};';
+      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.5&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getGroupById: function(id, params) {
+      var deffered, url;
+      deffered = $q.defer();
+      url = vk.api + '/method/groups.getById?group_id=' + id + '&fields=members_count,city,counters,ban_info&extended=1&v=5.52&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {

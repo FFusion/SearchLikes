@@ -205,7 +205,7 @@
 
     &-main, &-empty, &-notLikes {
         position: absolute;
-        top: 50%;
+        top: 35%;
         left: 50%;
         margin: 0 0 0 -250px;
         width: 500px;
@@ -431,6 +431,57 @@
     border-right: 2px solid gray;
 }
 
+//groups
+.groups {
+
+    &-title {
+        padding: 0 0 15px 0;
+        font-size:20px;
+
+        &-small {
+            font-size: 0.9em;
+            opacity: 0.7;
+            padding: 0 0 15px 0;
+        }
+    }
+
+    &-top {
+        height: 50px;
+    }
+
+}
+
+.group {
+    &-info {
+        font-family: Marck Script, sans-serif;
+        font-size:20px;
+
+        &-name {
+            font-weight: 500;
+            color:black;
+        }
+
+        &-value {
+            font-weight: 800;
+            text-align: center;
+            color:black;
+            opacity: 0.7;
+        }
+    }
+    &-search {
+        input {
+            margin-bottom: 10px;
+        }
+
+    }
+}
+
+
+//todo: переопределяю
+.caption-main {
+    font-family: Marck Script, sans-serif;
+    font-weight: 500;
+}
 //Media styles
 
 @media only screen and (max-width: 1400px) {

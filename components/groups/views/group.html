@@ -1,0 +1,51 @@
+<section class="main-content">
+    <div class="loading-content" ng-if="loading">
+        <div class="process">
+            <div class="process-circle"></div>
+            <div class="process-title"><span>Загрузка...</span></div>
+        </div>
+    </div>
+    <div class="main-content-friends" ng-if="!groupMoreInfo">
+        <div class="groups-top">
+            <div class="block-navigation-button">
+                <button class="btn btn-friend" ng-click="returnListFriends()">Список друзей</button>
+            </div>
+        </div>
+        <div class="friends-content">
+            <div class="row text-center groups-title">
+                Нажмите на группу для получения информации или введите ID интересущей вас группы
+            </div>
+            <div class="row text-center groups-title-small">
+                Примечание: чтобы узнать ID группы, если в адресной строке не цифры, нажмите на любое фото в группе или выберите любую тему. Первые цифры до _ являются ID группы.
+            </div>
+            <div class="row group-search">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" class="form-control" ng-model="otherGroup.id"/>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+                    <button class="btn btn-friend" ng-click="searchGroup()">Найти</button>
+                </div>
+            </div>
+
+            <div class="friends-item row" ng-repeat="group in groups" ng-if="$index >= (page - 1) * pageSize && $index < page * pageSize" ng-click="getMoreinfo(group)">
+                <div class="friends-item-photo col-md-2 col-xs-2">
+                    <img src="{{group.photo_50}}" alt="аватарка группы"/>
+                </div>
+                <div class="friends-item-name col-md-10 col-xs-10">
+                    {{group.name }}
+                </div>
+            </div>
+        </div>
+        <div class="friends-content-bottom" ng-if="groups.length > 0">
+            <div class="col-md-4 col-xs-4 " style="padding: 0">
+                <button class="btn-prev" ng-click="page = page - 1" ng-disabled="page == 1">&laquo; <span>Назад</span></button>
+            </div>
+            <div class="col-md-4 col-xs-4 text-center">
+                <button class="btn-begin" ng-click="page = 1" ng-disabled="page == 1">Начало</button>
+            </div>
+            <div class="col-md-4 col-xs-4" style="padding: 0">
+                <button class="btn-next" ng-click="page = page + 1" ng-disabled="page * pageSize >= groups.length"><span>Вперед</span> &raquo;</button>
+            </div>
+        </div>
+    </div>
+</section>

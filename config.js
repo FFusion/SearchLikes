@@ -194,6 +194,30 @@ MainModule.config([
           return RestModel.getFriends(params, $stateParams.userId);
         }
       }
+    }).state('groups', {
+      url: '/groups',
+      controller: 'GroupsController',
+      templateUrl: 'components/groups/views/group.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        },
+        groups: function(RestModel, params) {
+          return RestModel.getGroupCurentUserAdmin(params.user_id, params);
+        }
+      }
+    }).state('groupContent', {
+      url: '/group/:groupId',
+      controller: 'GroupContentController',
+      templateUrl: 'components/groupContent/views/content.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        },
+        group: function($stateParams, RestModel, params) {
+          return RestModel.getGroupById($stateParams.groupId, params);
+        }
+      }
     });
     return $urlRouterProvider.otherwise('/login');
   }

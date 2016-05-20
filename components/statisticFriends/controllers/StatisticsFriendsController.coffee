@@ -2,9 +2,11 @@
 
 'use strict'
 
-StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, $stateParams, $state, $location, $timeout, RestModel, Loader, params, currentUser, friends) ->
+StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Static, $stateParams, $state, $location, $timeout, RestModel, Loader, params, currentUser, friends) ->
 
     $scope.params = params;
+    Static.params = params;
+    Static.resultFriends = [];
     $scope.currentUser = currentUser.response[0];
     $scope.friends = friends.response.items;
     $scope.offset = 0;
@@ -22,72 +24,43 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, $stat
         if !$scope.resultFriends
             $scope.resultFriends = [];
             statisticFriends = RestModel.friendsOnlineOrDelete(null, $scope.friends);
-            $scope.getListCountFriends(statisticFriends);
             $scope.loading = true;
+            Static.getListCountFriends(statisticFriends).then((data)->
+                $scope.resultFriends = data;
+                $scope.loading = false;
+                $scope.selectedStat = false;
+                $scope.firstStat = true;
+                $scope.secondStat = false;
+                $scope.thirdStat = false;
+            );
+
         else
             $scope.selectedStat = false;
             $scope.firstStat = true;
             $scope.secondStat = false;
-
-    $scope.getListCountFriends = (friends) ->
-        if friends.length > 25
-            tempFriendsArray = friends.splice(0,25);
-            $timeout(()->
-                RestModel.getAllCountFriends(tempFriendsArray, $scope.params).then(
-                    (data)->
-                        angular.forEach(data.response, (user)->
-                            $scope.resultFriends.push(user[0]);
-                        )
-                        $scope.getListCountFriends(friends);
-                    (error)->
-                        console.log(error);
-                )
-            ,330)
-        else
-            if friends.length != 0
-                $timeout(()->
-                    RestModel.getAllCountFriends(friends, $scope.params).then(
-                        (data)->
-                            angular.forEach(data.response, (user)->
-                                $scope.resultFriends.push(user[0]);
-                            )
-
-                            $scope.loading = false;
-                            $scope.selectedStat = false;
-                            $scope.firstStat = true;
-
-                            $scope.resultFriends = $scope.resultFriends.sort($scope.sortable);
-                            $scope.resultFriends = Loader.renderBand($scope.resultFriends);
-                    )
-                ,330)
-            else
-                console.log('dct');
+            $scope.thirdStat = false;
 
 
-
-    $scope.sortable = (a,b) ->
-        return b.counters.friends - a.counters.friends;
-
-
-    # статистика по активности
+    # статистика по активности на фото
     $scope.getStatActiveUser = () ->
         $scope.userPhotos = [];
         $scope.userLikes = [];
-
-        if !$scope.resultStatSecond
-            $scope.resultStatSecond = [];
-            $scope.arrayIdFriends = {};
-            statisticFriends = RestModel.friendsOnlineOrDelete(null, $scope.friends);
-            angular.forEach(statisticFriends, (user)->
-                $scope.arrayIdFriends[user.id] = user;
-                $scope.arrayIdFriends[user.id].count = 0;
-            )
-            $scope.getActiveScan($scope.currentUser.counters.photos);
-            $scope.loading = true;
-        else
-            $scope.selectedStat = false;
-            $scope.firstStat = false;
-            $scope.secondStat = true;
+        console.log($scope.resultStatSecond);
+#        if !$scope.resultStatSecond
+        $scope.resultStatSecond = [];
+        $scope.arrayIdFriendsPhoto = {};
+        statisticFriends = RestModel.friendsOnlineOrDelete(null, $scope.friends);
+        angular.forEach(statisticFriends, (user)->
+            $scope.arrayIdFriendsPhoto[user.id] = user;
+            $scope.arrayIdFriendsPhoto[user.id].count = 0;
+        )
+        $scope.getActiveScan($scope.currentUser.counters.photos);
+        $scope.loading = true;
+#        else
+#            $scope.selectedStat = false;
+#            $scope.firstStat = false;
+#            $scope.secondStat = true;
+#            $scope.thirdStat = false;
 
     $scope.getActiveScan = (count) ->
         if count < 200
@@ -99,7 +72,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, $stat
                             # список фоток
                             $scope.userPhotos.push(data.response.items);
                             $scope.userPhotos = $scope.getArrayPhoto($scope.userPhotos);
-                            $scope.getLikes($scope.userPhotos);
+                            $scope.getLikes($scope.userPhotos, "photo");
                     (error)->
                         console.log(error);
                 )
@@ -130,7 +103,8 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, $stat
         return temp;
 
 
-    $scope.getLikes = (photos) ->
+    $scope.getLikes = (photos, type = null) ->
+        if type isnt null then $scope.type = type;
         # временное хранилище с которым работаем если фоток больше 25
         tempPhotos = '';
 
@@ -139,20 +113,27 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, $stat
         # больше 25 - вырезаем 25 фоток и отправляем запрос, затем работаем работаем с остатком - рекурсия
 
         if photos.length < 25
-            $timeout(()->
-                RestModel.getLikesExecute($scope.currentUser.id, photos, $scope.params, "photo").then(
-                    (likes)->
-                        $scope.userLikes.push(likes.response);
-                        $scope.isActiveFriends($scope.userLikes);
-                    (error)->
-                        console.log(error);
-                )
-            ,300)
+            if photos.length != 0
+                $timeout(()->
+                    RestModel.getLikesExecute($scope.currentUser.id, photos, $scope.params, $scope.type).then(
+                        (likes)->
+                            $scope.userLikes.push(likes.response);
+                            $scope.isActiveFriends($scope.userLikes, $scope.type);
+                        (error)->
+                            console.log(error);
+                    )
+                ,300)
+            else
+                $scope.selectedStat = false;
+                $scope.loading = false;
+                $scope.firstStat = false;
+                $scope.secondStat = true;
+                $scope.thirdStat = false;
 
         else
             tempPhotos = photos.splice(0, 24);
             $timeout(()->
-                RestModel.getLikesExecute($scope.currentUser.id, tempPhotos, $scope.params, "photo").then(
+                RestModel.getLikesExecute($scope.currentUser.id, tempPhotos, $scope.params, $scope.type).then(
                     (likes)->
                         $scope.userLikes.push(likes.response);
                         $scope.getLikes(photos);
@@ -162,7 +143,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, $stat
             ,300)
 
 
-    $scope.isActiveFriends = (likesArray) ->
+    $scope.isActiveFriends = (likesArray, type) ->
         tempLikesArray = [];
         angular.forEach(likesArray, (likes)->
             angular.forEach(likes, (like, key)->
@@ -173,23 +154,42 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, $stat
         )
 
 
-        angular.forEach(tempLikesArray, (item)->
-            if $scope.arrayIdFriends[item] then $scope.arrayIdFriends[item].count = $scope.arrayIdFriends[item].count + 1;
-        )
+        if type == 'post'
+            angular.forEach(tempLikesArray, (item)->
+                if $scope.arrayIdFriendsWall[item] then $scope.arrayIdFriendsWall[item].count = $scope.arrayIdFriendsWall[item].count + 1;
+            )
 
-        $scope.arrayIdFriends;
+            angular.forEach($scope.arrayIdFriendsWall, (user)->
+                $scope.resultStatThird.push(user);
+            );
+            $scope.resultStatThird = $scope.resultStatThird.sort($scope.sortableLikes);
+            $scope.resultStatThird = Loader.renderBand($scope.resultStatThird);
 
-        angular.forEach($scope.arrayIdFriends, (user)->
-            $scope.resultStatSecond.push(user);
-        );
+            $scope.selectedStat = false;
+            $scope.loading = false;
+            $scope.firstStat = false;
+            $scope.secondStat = false;
+            $scope.thirdStat = true;
+        else
+            angular.forEach(tempLikesArray, (item)->
+                if $scope.arrayIdFriendsPhoto[item] then $scope.arrayIdFriendsPhoto[item].count = $scope.arrayIdFriendsPhoto[item].count + 1;
+            )
 
-        $scope.resultStatSecond = $scope.resultStatSecond.sort($scope.sortableLikes);
-        $scope.resultStatSecond = Loader.renderBand($scope.resultStatSecond);
+            angular.forEach($scope.arrayIdFriendsPhoto, (user)->
+                $scope.resultStatSecond.push(user);
+            );
+            $scope.resultStatSecond = $scope.resultStatSecond.sort($scope.sortableLikes);
+            $scope.resultStatSecond = Loader.renderBand($scope.resultStatSecond);
 
-        $scope.selectedStat = false;
-        $scope.loading = false;
-        $scope.firstStat = false;
-        $scope.secondStat = true;
+            $scope.selectedStat = false;
+            $scope.loading = false;
+            $scope.firstStat = false;
+            $scope.secondStat = true;
+            $scope.thirdStat = false;
+
+
+
+
 
 
     $scope.sortableLikes = (a,b) ->
@@ -198,6 +198,76 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, $stat
 
     $scope.more = (user) ->
         $state.transitionTo('user', {userId: user.id || user.uid});
+
+
+    # статистика по активности на стене
+    $scope.getStatActiveUserWall = () ->
+        $scope.userWall = [];
+        $scope.userLikes = [];
+#        if !$scope.resultStatThird
+        $scope.resultStatThird = [];
+        $scope.arrayIdFriendsWall = {};
+        statisticFriends = RestModel.friendsOnlineOrDelete(null, $scope.friends);
+        angular.forEach(statisticFriends, (user)->
+            $scope.arrayIdFriendsWall[user.id] = user;
+            $scope.arrayIdFriendsWall[user.id].count = 0;
+        )
+        $scope.getScanUserWall();
+
+#            $scope.getActiveScan($scope.currentUser);
+        $scope.loading = true;
+#        else
+#            $scope.selectedStat = false;
+#            $scope.firstStat = false;
+#            $scope.secondStat = false;
+#            $scope.thirdStat = true;
+
+
+
+    $scope.getScanUserWall = (count = null) ->
+        if count is null then $scope.offset = 0;
+
+        if count < 100 || count is null
+            $timeout(()->
+                RestModel.getAllWallPost($scope.currentUser.id,$scope.params, count || 100,$scope.offset).then(
+                    (data)->
+                        if count is null then count = data.response.count; $scope.wallPosts = data.response.count;
+                        $scope.userWall.push(data.response.items);
+
+                        if count < 100
+                            $scope.isLikesFromWall($scope.userWall);
+                        else
+                            count = count - 100;
+                            $scope.offset = $scope.offset + 100;
+                            $scope.getScanUserWall(count);
+                    (error)-> console.log(error);
+                );
+            ,335)
+
+        else
+            $timeout(()->
+                RestModel.getAllWallPost($scope.currentUser.id,$scope.params, 100,$scope.offset).then(
+                    (data)->
+                        $scope.userWall.push(data.response.items);
+                        count = count - 100;
+                        $scope.offset = $scope.offset + 100;
+                        $scope.getScanUserWall(count);
+                    (error)->
+                        console.log(error);
+                )
+            ,335)
+
+    $scope.isLikesFromWall = (walls) ->
+        arrayPost = [];
+        angular.forEach(walls, (items)->
+            angular.forEach(items,(item)->
+                if item.likes.count != 0 then arrayPost.push(item);
+            )
+        )
+
+        $scope.getLikes(arrayPost, 'post');
+
+# todo: переписать через сервис
 
 
 

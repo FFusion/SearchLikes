@@ -184,7 +184,7 @@
 .caption-empty,
 .caption-notLikes {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   margin: 0 0 0 -250px;
   width: 500px;
@@ -351,6 +351,39 @@
 }
 .line-top {
   border-right: 2px solid gray;
+}
+.groups-title {
+  padding: 0 0 15px 0;
+  font-size: 20px;
+}
+.groups-title-small {
+  font-size: 0.9em;
+  opacity: 0.7;
+  padding: 0 0 15px 0;
+}
+.groups-top {
+  height: 50px;
+}
+.group-info {
+  font-family: Marck Script, sans-serif;
+  font-size: 20px;
+}
+.group-info-name {
+  font-weight: 500;
+  color: black;
+}
+.group-info-value {
+  font-weight: 800;
+  text-align: center;
+  color: black;
+  opacity: 0.7;
+}
+.group-search input {
+  margin-bottom: 10px;
+}
+.caption-main {
+  font-family: Marck Script, sans-serif;
+  font-weight: 500;
 }
 @media only screen and (max-width: 768px) {
   .caption-main,

@@ -11,6 +11,9 @@
             <div class="block-navigation-button" ng-if="currentUser">
                 <button class="btn btn-friend" ng-click="getListFriends()">Список друзей</button>
             </div>
+            <div class="block-navigation-button" ng-if="currentUser && !friends">
+                <button class="btn btn-friend" ng-click="openListGroup()">Группы</button>
+            </div>
             <div class="block-navigation-button" ng-if="friends">
                 <button class="btn btn-online" ng-click="getListFriendsOnlineOrDelete('online')">Друзья онлайн</button>
             </div>
@@ -35,7 +38,8 @@
 
         <div ng-if="!openTableOnline && !openTable">
         <span class="caption-main">
-            Нажми на кнопку "Список друзей" :)
+            Для поиска лайков и комментариев выберите <b>"Список друзей"</b><br><br><br>
+            Для работы с группами выберите <b>"Группы"</b>
         </span>
         </div>
 

@@ -14,6 +14,9 @@ FriendsModule.controller('FriendsController', function($scope, $location, $windo
       userId: $scope.currentUser.id
     });
   };
+  $scope.openListGroup = function() {
+    return $state.transitionTo('groups');
+  };
   $scope.getListFriends = function() {
     $scope.page = 1;
     $scope.friendsOnline = [];
@@ -42,7 +45,7 @@ FriendsModule.controller('FriendsController', function($scope, $location, $windo
     LocalStorage.removeAllItem();
     $scope.openAccess = false;
     $scope.openTable = false;
-    return $window.location = '/login';
+    return $state.transitionTo('login');
   };
   $scope.more = function(user) {
     $state.transitionTo('user', {

@@ -24,6 +24,9 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $time
     $scope.getStat = () ->
         $state.transitionTo('statistics', {userId:$scope.currentUser.id});
 
+    $scope.openListGroup = () ->
+        $state.transitionTo('groups');
+
 #    # статистика группы
 #    $scope.getStatisticAboutGroups = () ->
 #        $scope.isStatsForGroup = true;
@@ -87,7 +90,7 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $time
         $scope.openAccess = false;
         $scope.openTable = false;
 
-        $window.location = '/login'
+        $state.transitionTo('login');
 
     #получение подробной информации о пользователе
     $scope.more = (user) ->

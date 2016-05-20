@@ -149,7 +149,7 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
                 params: (LocalStorage) -> LocalStorage.getItem('params');
                 currentUser: (RestModel, $stateParams,params) ->  RestModel.getUserById($stateParams.userId,params);
                 friends: (RestModel, $stateParams, params, currentUser) -> RestModel.getFriends(params, $stateParams.userId);
-            )
+        )
 
         .state('processingWall',
             url         : '/user/:userId/processingWall',
@@ -159,7 +159,7 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
                 params: (LocalStorage) -> LocalStorage.getItem('params');
                 currentUser: (RestModel, $stateParams,params) ->  RestModel.getUserById($stateParams.userId,params);
                 friends: (RestModel, $stateParams, params, currentUser) -> RestModel.getFriends(params, $stateParams.userId);
-            )
+        )
 
         .state('commentsPhoto',
             url         : '/user/:userId/commentsPhoto',
@@ -179,7 +179,28 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
                 params: (LocalStorage) -> LocalStorage.getItem('params');
                 currentUser: (RestModel, $stateParams,params) ->  RestModel.moreInfo($stateParams.userId,params);
                 friends: (RestModel, $stateParams, params, currentUser) -> RestModel.getFriends(params, $stateParams.userId);
-            )
+        )
+
+        .state('groups',
+            url         : '/groups',
+            controller  : 'GroupsController',
+            templateUrl : 'components/groups/views/group.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+                groups: (RestModel, params) -> RestModel.getGroupCurentUserAdmin(params.user_id, params);
+
+        )
+        .state('groupContent',
+            url         : '/group/:groupId',
+            controller  : 'GroupContentController',
+            templateUrl : 'components/groupContent/views/content.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+                group: ($stateParams, RestModel, params) -> RestModel.getGroupById($stateParams.groupId, params);
+#                usersGroups: (RestModel, params, group) -> RestModel.getMemeberInGroup(group.response[0].id, params);
+
+        )
+
 
 
         $urlRouterProvider.otherwise('/login');

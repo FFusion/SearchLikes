@@ -1,0 +1,118 @@
+<section class="main-content">
+    <div class="loading-content" ng-if="loading">
+        <div class="process">
+            <div class="process-circle"></div>
+            <div class="process-title"><span>Загрузка...</span></div>
+        </div>
+    </div>
+    <div class="main-content-friends">
+        <div class="groups-top">
+            <div class="block-navigation-button">
+                <button class="btn btn-friend" ng-click="returnListFriends()">Список друзей</button>
+            </div>
+            <div class="block-navigation-button">
+                <button class="btn btn-friend" ng-click="listGroups()">К списку групп</button>
+            </div>
+        </div>
+        <div class="friends-content">
+            <div class="row group-info user-more-item">
+                <div class="group-info-name col-md-4 col-xs-4">Название: </div>
+                <div class="group-info-value col-md-8 col-xs-8">{{group.name}}</div>
+            </div>
+            <br>
+            <div class="row group-info user-more-item">
+                <div class="group-info-name col-md-4 col-xs-4">Тип: </div>
+                <div class="group-info-value col-md-8 col-xs-8">
+                    <span ng-if="group.type == 'group'">группа</span>
+                    <span style="color:red;" ng-if="group.type == 'page'">страница</span>
+                    <span style="color:orange;" ng-if="group.type == 'event'">мероприятие</span>
+                </div>
+            </div>
+            <br>
+            <div class="row group-info user-more-item">
+                <div class="group-info-name col-md-4 col-xs-4">Статус: </div>
+                <div class="group-info-value col-md-8 col-xs-8">
+                    <span ng-if="group.is_closed == 0">открытая</span>
+                    <span style="color:red;" ng-if="group.is_closed == 1">закрытая</span>
+                    <span style="color:orange;" ng-if="group.is_closed == 2">частная</span>
+                </div>
+            </div>
+            <br>
+            <div class="row group-info user-more-item">
+                <div class="group-info-name col-md-4 col-xs-4">Количество участников: </div>
+                <div class="group-info-value col-md-8 col-xs-8">{{group.members_count}}</div>
+            </div>
+            <br>
+            <div class="row group-info user-more-item">
+                <div class="group-info-name col-md-4 col-xs-4">Количество "собачек": </div>
+                <div class="group-info-value col-md-8 col-xs-8" style="color:red;">{{deactivated.length + ' / ' + procentDogs + '%'}}</div>
+            </div>
+            <br>
+            <div class="row group-info user-more-item">
+                <div class="group-info-name col-md-4 col-xs-4">Количество "местных": </div>
+                <div class="group-info-value col-md-8 col-xs-8" style="color:red;">{{localed.length + ' / ' + procentLocal + '%'}}</div>
+            </div>
+            <br>
+            <div class="row group-info user-more-item">
+                <div class="group-info-name col-md-4 col-xs-4">Город: </div>
+                <div class="group-info-value col-md-8 col-xs-8">{{group.city.title}}</div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 user-title">Дополнительно:</div>
+            </div>
+            <div class="row user-more">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!group.counters.photos}">
+                        <span class="tooltips"><i class="ion-camera"></i><em>Фотографии<i></i></em></span>
+                        <span>Фотографии</span>
+                        <span>{{group.counters.photos}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!group.counters.albums}">
+                        <span class="tooltips"><i class="ion-images"></i><em>Альбомы<i></i></em></span>
+                        <span>Альбомы </span>
+                        <span>{{group.counters.albums}}</span>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="row user-more">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!group.counters.audios}">
+                        <span class="tooltips"><i class="ion-music-note"></i><em>Аудиозаписи<i></i></em></span>
+                        <span>Аудиозаписи</span>
+                        <span>{{group.counters.audios}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!group.counters.videos}">
+                        <span class="tooltips"><i class="ion-videocamera"></i><em>Видеозаписи<i></i></em></span>
+                        <span>Видеозаписи</span>
+                        <span>{{ group.counters.videos}}</span>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="row user-more user-more-last">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!group.counters.topics}">
+                        <span class="tooltips"><i class="ion-chatbubbles"></i><em>Темы<i></i></em></span>
+                        <span>Темы</span>
+                        <span>{{group.counters.topics}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="user-more-item" ng-class="{empty:!group.counters.docs}">
+                        <span class="tooltips"><i class="ion-clipboard"></i><em>Документы<i></i></em></span>
+                        <span>Документы</span>
+                        <span>{{group.counters.docs}}</span>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+        </div>
+    </div>
+</section>

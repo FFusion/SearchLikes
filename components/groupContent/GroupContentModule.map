@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "GroupContentModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "GroupContentModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,IAAA,kBAAA;;AAAA,kBAEA,GAAqB,OAAO,CAAC,MAAR,CAAe,oBAAf,EAAqC,EAArC,CAFrB,CAAA"
+}

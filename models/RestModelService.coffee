@@ -248,6 +248,22 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         deffered.promise;
 
 
+    getAllWallPost: (userId, params, count = null, offset = null) ->
+        if count is null then count = 100;
+        if offset is null then offset = 0;
+        deffered = $q.defer();
+        url = vk.api + '/method/wall.get?' + 'owner_id=' + userId + '&count=' + count + '&offset=' + offset + '&filter=owner&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+        $http.jsonp(url)
+            .success((data)->
+                deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            );
+
+        deffered.promise;
+
+
     getLikes: (userId, params, postId, type) ->
         deffered = $q.defer();
         url = vk.api + '/method/likes.getList?' + 'owner_id=' + userId + '&item_id=' + postId + '&type=' + type + '&filter=likes&friend_only=0&count=1000&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
@@ -453,6 +469,67 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         );
 
         deffered.promise;
+
+
+    getGroupCurentUserAdmin: (currentId, params) ->
+        deffered = $q.defer();
+
+        url = vk.api + '/method/groups.get?user_id=' + currentId + '&filter=admin&fields=members_count,city,counters&extended=1&v=5.52&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data) ->
+            deffered.resolve(data);
+        )
+        .error((error) ->
+            deffered.reject(error);
+        );
+
+        deffered.promise;
+
+    getMemeberInGroup:(id, params, count = null, offset = null) ->
+        deffered = $q.defer();
+
+        if count is null then count = 1;
+        if offset is null then offset = 0;
+        # если участников меньше 25000 то делаем offset равным числу участников
+        if count < 25000 then localOffset = Math.ceil(count / 1000) else localOffset = 25000;
+        code = 'return {';
+        for i in [offset...offset + localOffset] by 1000
+            if i != offset + localOffset
+                code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city"}),';
+            else
+                code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city"})';
+        code = code + '};';
+
+
+        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.5&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data)->
+            deffered.resolve(data);
+        )
+        .error((error)->
+            deffered.reject(error);
+        );
+
+        deffered.promise;
+
+
+    getGroupById: (id, params) ->
+        deffered = $q.defer();
+
+        url = vk.api + '/method/groups.getById?group_id=' + id + '&fields=members_count,city,counters,ban_info&extended=1&v=5.52&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data) ->
+            deffered.resolve(data);
+        )
+        .error((error) ->
+            deffered.reject(error);
+        );
+
+        deffered.promise;
+
 
 #    todo: не используется
     getGroupName: (name, params) ->
