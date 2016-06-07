@@ -10,8 +10,8 @@ GroupContentModule.controller('GroupContentController', function($scope, $stateP
   $scope.deactivated = [];
   $scope.localed = [];
   Loader.startLoad();
+  $scope.userGroup = {};
   $scope.group = group.response[0];
-  console.log($scope.group);
   $scope.getAllUsersInGroup = function(countUser) {
     if (countUser == null) {
       countUser = null;
@@ -22,7 +22,6 @@ GroupContentModule.controller('GroupContentController', function($scope, $stateP
       }
       if (countUser < 25000) {
         return $timeout(function() {
-          console.log($scope.offset);
           return RestModel.getMemeberInGroup($scope.group.id, $scope.params, countUser, $scope.offset).then(function(data) {
             angular.forEach(data.response, function(item) {
               return $scope.usersGroups.push(item.users);
@@ -69,6 +68,12 @@ GroupContentModule.controller('GroupContentController', function($scope, $stateP
     }
   };
   $scope.getAllUsersInGroup($scope.group.members_count);
+  $scope.searchUsersLike = function() {
+    return $state.transitionTo('groupPostsLikes', {
+      groupId: $scope.group.id,
+      userId: $scope.userGroup.id
+    });
+  };
   $scope.listGroups = function() {
     return $state.transitionTo('groups');
   };

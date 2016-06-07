@@ -218,6 +218,15 @@ MainModule.config([
           return RestModel.getGroupById($stateParams.groupId, params);
         }
       }
+    }).state('groupPostsLikes', {
+      url: '/group/:groupId/posts/:userId',
+      controller: 'PostWithLikesController',
+      templateUrl: 'components/groupContent/views/posts.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        }
+      }
     });
     return $urlRouterProvider.otherwise('/login');
   }

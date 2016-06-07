@@ -15,6 +15,21 @@
             </div>
         </div>
         <div class="friends-content">
+            <div class="row text-center groups-title">
+                Введите ID любого пользователя, чтобы узнать оставлял он лайки в выбранной группе или нет
+            </div>
+            <div class="row text-center groups-title-small">
+                Примечание: ID в цифровом формате. <span class="red">Тестовое внедрение</span>, сканируются только последние <span class="red">100</span> записей. Если вам понравился данный функционал и хочется его развития, пожалуйста напишите Вконтакте (<a
+                    href="https://vk.com/id19541624" class="red">Александр</a>).
+            </div>
+            <div class="row group-search" style="margin-bottom: 10px;">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" class="form-control" ng-model="userGroup.id"/>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+                    <button class="btn btn-friend" ng-click="searchUsersLike()">Найти</button>
+                </div>
+            </div>
             <div class="row group-info user-more-item">
                 <div class="group-info-name col-md-4 col-xs-4">Название: </div>
                 <div class="group-info-value col-md-8 col-xs-8">{{group.name}}</div>

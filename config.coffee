@@ -200,6 +200,13 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
 #                usersGroups: (RestModel, params, group) -> RestModel.getMemeberInGroup(group.response[0].id, params);
 
         )
+        .state('groupPostsLikes',
+            url         : '/group/:groupId/posts/:userId',
+            controller  : 'PostWithLikesController',
+            templateUrl : 'components/groupContent/views/posts.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+        )
 
 
 

@@ -256,10 +256,18 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       });
       return deffered.promise;
     },
-    getWallPost: function(userId, params, count) {
+    getWallPost: function(userId, params, count, filter) {
       var deffered, url;
+      if (filter == null) {
+        filter = null;
+      }
+      if (filter === null) {
+        filter = 'owner';
+      } else {
+        userId = '-' + userId;
+      }
       deffered = $q.defer();
-      url = vk.api + '/method/wall.get?' + 'owner_id=' + userId + '&count=' + count + '&filter=owner&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      url = vk.api + '/method/wall.get?' + 'owner_id=' + userId + '&count=' + count + '&filter=' + filter + '&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {
@@ -294,6 +302,29 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       var deffered, url;
       deffered = $q.defer();
       url = vk.api + '/method/likes.getList?' + 'owner_id=' + userId + '&item_id=' + postId + '&type=' + type + '&filter=likes&friend_only=0&count=1000&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getAllLikes: function(id, params, postId, type, count, offset) {
+      var deffered, url;
+      if (count == null) {
+        count = null;
+      }
+      if (offset == null) {
+        offset = null;
+      }
+      deffered = $q.defer();
+      if (count === null) {
+        count = 1000;
+      }
+      if (offset === null) {
+        offset = 0;
+      }
+      url = vk.api + '/method/likes.getList?' + 'owner_id=' + id + '&item_id=' + postId + '&type=' + type + '&filter=likes&friend_only=0&count=' + count + '&offset=' + offset + '&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {

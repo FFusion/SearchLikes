@@ -234,9 +234,13 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         deffered.promise;
 
     #работа со стеной
-    getWallPost: (userId, params, count) ->
+    getWallPost: (userId, params, count, filter = null) ->
+        if filter is null
+            filter = 'owner'
+        else
+            userId = '-' + userId;
         deffered = $q.defer();
-        url = vk.api + '/method/wall.get?' + 'owner_id=' + userId + '&count=' + count + '&filter=owner&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+        url = vk.api + '/method/wall.get?' + 'owner_id=' + userId + '&count=' + count + '&filter=' + filter + '&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
         $http.jsonp(url)
             .success((data)->
                 deffered.resolve(data);
@@ -267,6 +271,22 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
     getLikes: (userId, params, postId, type) ->
         deffered = $q.defer();
         url = vk.api + '/method/likes.getList?' + 'owner_id=' + userId + '&item_id=' + postId + '&type=' + type + '&filter=likes&friend_only=0&count=1000&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+        $http.jsonp(url)
+            .success((data)->
+                deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            );
+
+        deffered.promise;
+
+
+    getAllLikes: (id, params, postId, type,  count = null, offset = null) ->
+        deffered = $q.defer();
+        if count is null then count = 1000;
+        if offset is null then offset = 0;
+        url = vk.api + '/method/likes.getList?' + 'owner_id=' + id + '&item_id=' + postId + '&type=' + type + '&filter=likes&friend_only=0&count=' + count + '&offset=' + offset + '&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
         $http.jsonp(url)
             .success((data)->
                 deffered.resolve(data);

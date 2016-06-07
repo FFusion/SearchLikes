@@ -14,9 +14,9 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
     $scope.localed = [];
     Loader.startLoad();
 
+    $scope.userGroup = {};
 
     $scope.group = group.response[0];
-    console.log($scope.group);
 
     $scope.getAllUsersInGroup = (countUser = null) ->
 
@@ -27,7 +27,6 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
 
             if countUser < 25000
                 $timeout(()->
-                    console.log($scope.offset);
                     RestModel.getMemeberInGroup($scope.group.id, $scope.params, countUser, $scope.offset).then(
                         (data)->
                             angular.forEach(data.response, (item) ->
@@ -79,7 +78,8 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
     $scope.getAllUsersInGroup($scope.group.members_count);
 
 
-
+    $scope.searchUsersLike = () ->
+        $state.transitionTo('groupPostsLikes', {groupId:$scope.group.id, userId:$scope.userGroup.id});
 
 
     $scope.listGroups = () ->
