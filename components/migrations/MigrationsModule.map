@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "MigrationsModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "MigrationsModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA,YAAA,CAAA;AAAA,IAAA,gBAAA;;AAAA,gBAEA,GAAmB,OAAO,CAAC,MAAR,CAAe,kBAAf,EAAmC,EAAnC,CAFnB,CAAA"
+}

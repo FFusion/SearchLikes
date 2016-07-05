@@ -10,6 +10,8 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
     $scope.currentUser = currentUser.response[0];
     $scope.friends = friends.response.items;
     $scope.offset = 0;
+    $scope.objectDate = {};
+    $scope.objectDate.date = "first";
 
     $scope.selectedStat = true;
 
@@ -32,6 +34,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
                 $scope.firstStat = true;
                 $scope.secondStat = false;
                 $scope.thirdStat = false;
+                $scope.fourStat = false;
             );
 
         else
@@ -39,6 +42,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
             $scope.firstStat = true;
             $scope.secondStat = false;
             $scope.thirdStat = false;
+            $scope.fourStat = false;
 
 
     # статистика по активности на фото
@@ -170,6 +174,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
             $scope.firstStat = false;
             $scope.secondStat = false;
             $scope.thirdStat = true;
+            $scope.fourStat = false;
         else
             angular.forEach(tempLikesArray, (item)->
                 if $scope.arrayIdFriendsPhoto[item] then $scope.arrayIdFriendsPhoto[item].count = $scope.arrayIdFriendsPhoto[item].count + 1;
@@ -186,6 +191,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
             $scope.firstStat = false;
             $scope.secondStat = true;
             $scope.thirdStat = false;
+            $scope.fourStat = false;
 
 
 
@@ -266,6 +272,50 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
         )
 
         $scope.getLikes(arrayPost, 'post');
+
+
+
+
+    $scope.showAvaType = () ->
+
+        $scope.selectedStat = false;
+        $scope.firstStat = false;
+        $scope.secondStat = false;
+        $scope.thirdStat = false;
+        $scope.fourStat = true;
+        $scope.resultStatFour = [];
+
+
+    $scope.getUpdatePhoto = () ->
+        currentDate = new Date();
+        if $scope.objectDate.date == 'first'
+            currentDate.setDate(currentDate.getDate() - 1);
+            times = Math.round(currentDate.getTime()/1000.0);
+            console.log(times);
+        else
+            currentDate.setDate(currentDate.getDate() - 7);
+            times = Math.round(currentDate.getTime()/1000.0);
+
+            
+        $scope.resultStatFour = [];
+        statisticFriends = RestModel.friendsOnlineOrDelete(null, $scope.friends);
+
+
+
+        Static.getPhotoProfileFriends(statisticFriends, times).then((data)->
+            $scope.resultStatFour = data;
+            $scope.loading = false;
+            $scope.selectedStat = false;
+            $scope.firstStat = false;
+            $scope.secondStat = false;
+            $scope.thirdStat = false;
+            $scope.fourStat = true;
+
+            (error)-> console.log(error);
+        )
+
+        $scope.loading = true;
+
 
 # todo: переписать через сервис
 

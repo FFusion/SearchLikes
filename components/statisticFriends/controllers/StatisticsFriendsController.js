@@ -7,6 +7,8 @@ StatisticsFriendsModule.controller('StatisticsFriendsController', function($scop
   $scope.currentUser = currentUser.response[0];
   $scope.friends = friends.response.items;
   $scope.offset = 0;
+  $scope.objectDate = {};
+  $scope.objectDate.date = "first";
   $scope.selectedStat = true;
   $scope.home = function() {
     return $state.transitionTo('friends');
@@ -26,13 +28,15 @@ StatisticsFriendsModule.controller('StatisticsFriendsController', function($scop
         $scope.selectedStat = false;
         $scope.firstStat = true;
         $scope.secondStat = false;
-        return $scope.thirdStat = false;
+        $scope.thirdStat = false;
+        return $scope.fourStat = false;
       });
     } else {
       $scope.selectedStat = false;
       $scope.firstStat = true;
       $scope.secondStat = false;
-      return $scope.thirdStat = false;
+      $scope.thirdStat = false;
+      return $scope.fourStat = false;
     }
   };
   $scope.getStatActiveUser = function() {
@@ -152,7 +156,8 @@ StatisticsFriendsModule.controller('StatisticsFriendsController', function($scop
       $scope.loading = false;
       $scope.firstStat = false;
       $scope.secondStat = false;
-      return $scope.thirdStat = true;
+      $scope.thirdStat = true;
+      return $scope.fourStat = false;
     } else {
       angular.forEach(tempLikesArray, function(item) {
         if ($scope.arrayIdFriendsPhoto[item]) {
@@ -168,7 +173,8 @@ StatisticsFriendsModule.controller('StatisticsFriendsController', function($scop
       $scope.loading = false;
       $scope.firstStat = false;
       $scope.secondStat = true;
-      return $scope.thirdStat = false;
+      $scope.thirdStat = false;
+      return $scope.fourStat = false;
     }
   };
   $scope.sortableLikes = function(a, b) {
@@ -232,7 +238,7 @@ StatisticsFriendsModule.controller('StatisticsFriendsController', function($scop
       }, 335);
     }
   };
-  return $scope.isLikesFromWall = function(walls) {
+  $scope.isLikesFromWall = function(walls) {
     var arrayPost;
     arrayPost = [];
     angular.forEach(walls, function(items) {
@@ -243,6 +249,41 @@ StatisticsFriendsModule.controller('StatisticsFriendsController', function($scop
       });
     });
     return $scope.getLikes(arrayPost, 'post');
+  };
+  $scope.showAvaType = function() {
+    $scope.selectedStat = false;
+    $scope.firstStat = false;
+    $scope.secondStat = false;
+    $scope.thirdStat = false;
+    $scope.fourStat = true;
+    return $scope.resultStatFour = [];
+  };
+  return $scope.getUpdatePhoto = function() {
+    var currentDate, statisticFriends, times;
+    currentDate = new Date();
+    if ($scope.objectDate.date === 'first') {
+      currentDate.setDate(currentDate.getDate() - 1);
+      times = Math.round(currentDate.getTime() / 1000.0);
+      console.log(times);
+    } else {
+      currentDate.setDate(currentDate.getDate() - 7);
+      times = Math.round(currentDate.getTime() / 1000.0);
+    }
+    $scope.resultStatFour = [];
+    statisticFriends = RestModel.friendsOnlineOrDelete(null, $scope.friends);
+    Static.getPhotoProfileFriends(statisticFriends, times).then(function(data) {
+      $scope.resultStatFour = data;
+      $scope.loading = false;
+      $scope.selectedStat = false;
+      $scope.firstStat = false;
+      $scope.secondStat = false;
+      $scope.thirdStat = false;
+      $scope.fourStat = true;
+      return function(error) {
+        return console.log(error);
+      };
+    });
+    return $scope.loading = true;
   };
 });
 

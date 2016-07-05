@@ -23,6 +23,9 @@
             <div class="block-navigation-button" ng-if="friends">
                 <button class="btn btn-delete" ng-click="getStat()">Статистика Друзей</button>
             </div>
+            <div class="block-navigation-button" ng-if="!friends">
+                <button class="btn btn-delete" ng-click="getGlobalStat()">Глобальная статистика</button>
+            </div>
             <div class="block-off" ng-if="currentUser">
                 <!--<button class="btn btn-off" ng-click="signOff()">Выход</button>-->
                 {{currentUser.first_name + ' ' + currentUser.last_name}}
@@ -40,6 +43,7 @@
         <span class="caption-main">
             Для поиска лайков и комментариев выберите <b>"Список друзей"</b><br><br>
             Для работы с группами выберите <b>"Группы"</b><br><br>
+            Немного статистики по пользователям Вконтакте ждет вас в разделе <b>"Глобальная статистика"</b><br><br>
             Есть идея? Поделись! <a href="https://vk.com/id19541624" target="_blank">Александр</a>
             
         </span>

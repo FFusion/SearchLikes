@@ -1,0 +1,54 @@
+<section class="main-content">
+    <div class="loading-content" ng-if="loading">
+        <div class="process">
+            <div class="process-circle"></div>
+            <div class="process-title"><span>Загрузка...</span></div>
+        </div>
+    </div>
+    <div class="main-content-friends">
+        <!--Блок кнопок-->
+        <div class="friends-top">
+            <div class="block-navigation-button">
+                <button class="btn btn-friend" ng-click="home()">На главную</button>
+            </div>
+        </div>
+        <div class="friends-content">
+            <div class="rodnoi-gorod" style="font-weight: bold">1. Родной город</div>
+            <hr>
+            <div class="pad rodnoi-gorod-title">Количество пользователей Вконтакте, у которых родной город <span style="font-weight: 700;color:red;">{{hometown}}</span></div>
+            <input class="form-control" type="text" ng-model="hometown" placeholder="Введите название города"/>
+            <br>
+            <button class="btn btn-delete" ng-if="!searching" ng-click="searchCountUsers()">Найти</button>
+            <button class="btn btn-delete" ng-if="searching" ng-click="refresh()">Сбросить</button>
+
+            <div class="result-migration" ng-if="searching">
+                <table class="table table-content town">
+                    <tr ng-repeat="item in resUsers">
+                        <td animate count="item.count"></td>
+                    </tr>
+                </table>
+                <div class="pad rodnoi-gorod-title" ng-if="popularUsers.length > 0">Самые популярные страницы с родным городом <span style="font-weight: 700;color:red;">{{hometown}}</span> (топ - 5):</div>
+                <table class="table table-content top">
+                    <tr ng-repeat="it in popularUsers">
+                        <td><img src="{{it.photo_50}}" alt="топ"/></td>
+                        <td><a href="https://vk.com/id{{it.id}}" target="_blank">{{it.first_name + ' ' + it.last_name}}</a></td>
+                    </tr>
+                </table>
+                <table class="table table-content town">
+                    <tr ng-repeat="l in resUserInMoskow">
+                        <td class="town-title">{{l.text}}</td>
+                        <td animate count="l.count" style="text-align: right"></td>
+                    </tr>
+                </table>
+                <table class="table table-content town">
+                    <tr ng-repeat="k in resUserInPiter">
+                        <td class="town-title">{{k.text}}</td>
+                        <td animate count="k.count" style="text-align: right"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+

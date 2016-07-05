@@ -5,12 +5,14 @@ GroupContentModule.controller('GroupContentController', function($scope, $stateP
   $scope.params = params;
   $scope.stateParams = $stateParams;
   $scope.loading = true;
+  $scope.showAllUser = false;
   $scope.usersGroups = [];
   $scope.offset = 0;
   $scope.deactivated = [];
   $scope.localed = [];
   Loader.startLoad();
   $scope.userGroup = {};
+  $scope.arrayAllUsers = [];
   $scope.group = group.response[0];
   $scope.getAllUsersInGroup = function(countUser) {
     if (countUser == null) {
@@ -32,6 +34,8 @@ GroupContentModule.controller('GroupContentController', function($scope, $stateP
               return angular.forEach(arrayUsers, function(user) {
                 if (user.deactivated) {
                   $scope.deactivated.push(user);
+                } else {
+                  $scope.arrayAllUsers.push(user);
                 }
                 if ((user.city && $scope.group.city) && (user.city === $scope.group.city.id)) {
                   return $scope.localed.push(user);
@@ -77,8 +81,25 @@ GroupContentModule.controller('GroupContentController', function($scope, $stateP
   $scope.listGroups = function() {
     return $state.transitionTo('groups');
   };
-  return $scope.returnListFriends = function() {
+  $scope.returnListFriends = function() {
     return $state.transitionTo('friends');
+  };
+  return $scope.getUsers = function() {
+    var itemHtml, loading;
+    loading = true;
+    itemHtml = "";
+    $scope.arrayAllUsers.forEach(function(user) {
+      if (user.online) {
+        return itemHtml = itemHtml + '<tr><td class="blue text-center">' + user.id + '</td><td class="blue text-center">' + user.first_name + ' ' + user.last_name + '</td></tr>';
+      } else {
+        return itemHtml = itemHtml + '<tr><td class="text-center">' + user.id + '</td><td class="text-center">' + user.first_name + ' ' + user.last_name + '</td></tr>';
+      }
+    });
+    $timeout(function() {
+      return $('#body-table')[0].innerHTML = itemHtml;
+    });
+    loading = false;
+    return $scope.showAllUser = true;
   };
 });
 

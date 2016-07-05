@@ -45,9 +45,15 @@
                         <h2>Активность друзей среди фотографий</h2>
                         <span>Статистика активности друзей выбранного пользователя на его странице по лайкам на <b>фото</b></span>
                     </div>
-                    <div class="col-md-4 col-lg-4 col-xs-12 block-stat" ng-click="getStatActiveUserWall()">
+                    <div class="col-md-3 col-lg-3 col-xs-12 block-stat" ng-click="getStatActiveUserWall()">
                         <h2>Активность друзей на стене</h2>
                         <span>Статистика активности друзей выбранного пользователя на его странице по лайкам на <b>стене</b></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-xs-12 block-stat" ng-click="showAvaType()">
+                        <h2>Кто сменил аву?</h2>
+                        <span>Отслеживаем обновления автароки друзей за определенное время</span>
                     </div>
                 </div>
             </div>
@@ -123,6 +129,44 @@
                         </div>
                     </div>
                     <div ng-if="resultStatThird.length == 0" class="text-center red">Записей нет либо недоступны</div>
+                </div>
+                <div ng-if="fourStat">
+                    <div class="time">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12 user-title">Выберите временной диапозон:</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
+                                <input type="checkbox" ng-checked="objectDate.date == 'first'" ng-true-value="'first'" ng-false-value="'two'" class="checkbox" ng-model="objectDate.date" id="first"/>
+                                <label for="first">1 день</label>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12 block-checkbox">
+                                <input type="checkbox" ng-checked="objectDate.date == 'two'" ng-true-value="'two'" ng-false-value="'first'" class="checkbox" ng-model="objectDate.date" id="two"/>
+                                <label for="two">Неделя</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-friend pull-right" style="margin-top:10px;" ng-click="getUpdatePhoto()">Найти</button>
+                    <div class="result-update" ng-if="resultStatFour.length > 0">
+                        <div ng-repeat="data in resultStatFour">
+                            <div class="row profile">
+                                <div class="profile-user-name">{{data[0].first_name + ' ' + data[0].last_name}}</div>
+                                <div class="col-md-6 col-xs-12 col-sm-6">
+                                    <figure  class="profile-new-photo">
+                                        <img src="{{data[0].src}}" alt=""/>
+                                        <figcaption>Новое фото</figcaption>
+                                    </figure >
+                                </div>
+                                <div class="col-md-6 col-xs-12 col-sm-6" ng-if="data[1]">
+                                    <figure  class="profile-old-photo">
+                                        <img src="{{data[1].src}}" alt=""/>
+                                        <figcaption>Старое фото</figcaption>
+                                    </figure >
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

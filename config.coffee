@@ -208,6 +208,14 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
                 params: (LocalStorage) -> LocalStorage.getItem('params');
         )
 
+        .state('migrations',
+            url         : '/migrations',
+            controller  : 'MigrationsController',
+            templateUrl : 'components/migrations/views/index.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+        )
+
 
 
         $urlRouterProvider.otherwise('/login');

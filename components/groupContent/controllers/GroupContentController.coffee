@@ -8,6 +8,7 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
     $scope.params = params;
     $scope.stateParams = $stateParams;
     $scope.loading = true;
+    $scope.showAllUser = false;
     $scope.usersGroups = [];
     $scope.offset = 0;
     $scope.deactivated = [];
@@ -15,6 +16,8 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
     Loader.startLoad();
 
     $scope.userGroup = {};
+
+    $scope.arrayAllUsers = [];
 
     $scope.group = group.response[0];
 
@@ -38,11 +41,12 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
 
                             angular.forEach($scope.usersGroups, (arrayUsers)->
                                 angular.forEach(arrayUsers, (user)->
-                                    if user.deactivated then $scope.deactivated.push(user);
+                                    if user.deactivated then $scope.deactivated.push(user) else $scope.arrayAllUsers.push(user);
                                     if (user.city && $scope.group.city) && (user.city == $scope.group.city.id) then $scope.localed.push(user);
                                 )
 
                             );
+
                             Loader.stopLoad();
                             $scope.procentDogs = Math.floor($scope.deactivated.length / $scope.group.members_count * 100);
                             $scope.procentLocal= Math.floor($scope.localed.length / $scope.group.members_count * 100);
@@ -88,3 +92,23 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
 
     $scope.returnListFriends = () ->
         $state.transitionTo('friends');
+
+
+
+    $scope.getUsers = () ->
+        loading = true;
+        itemHtml = "";
+        $scope.arrayAllUsers.forEach((user)->
+            if user.online
+                itemHtml = itemHtml + '<tr><td class="blue text-center">' + user.id + '</td><td class="blue text-center">' + user.first_name + ' ' + user.last_name + '</td></tr>'
+            else
+                itemHtml = itemHtml + '<tr><td class="text-center">' + user.id + '</td><td class="text-center">' + user.first_name + ' ' + user.last_name + '</td></tr>'
+        )
+
+        $timeout(()->
+            $('#body-table')[0].innerHTML = itemHtml;
+        )
+
+        loading = false;
+        $scope.showAllUser = true;
+

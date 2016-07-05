@@ -227,6 +227,15 @@ MainModule.config([
           return LocalStorage.getItem('params');
         }
       }
+    }).state('migrations', {
+      url: '/migrations',
+      controller: 'MigrationsController',
+      templateUrl: 'components/migrations/views/index.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        }
+      }
     });
     return $urlRouterProvider.otherwise('/login');
   }

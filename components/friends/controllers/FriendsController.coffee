@@ -27,31 +27,9 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $time
     $scope.openListGroup = () ->
         $state.transitionTo('groups');
 
-#    # статистика группы
-#    $scope.getStatisticAboutGroups = () ->
-#        $scope.isStatsForGroup = true;
-#
-#
-#    $scope.searchGroup = (group) ->
-#        if group.name != ''
-#            RestModel.getGroupName(group.name, $scope.params).then(
-#                (data)->
-#                    $scope.listGroups = data.response.items;
-#
-#
-#                (error)-> $scope.errorMessage = "Сообщество не найдено";
-#            );
-#
-#    $scope.selectedGroup = (group) ->
-#        angular.forEach($scope.listGroups, (item)->
-#            if group.id == item.id then item.selected = true else item.selected = false;
-#        )
-#
-#    $scope.getCommonStats = (group) ->
-#        RestModel.getStatsGroup(group.id, $scope.params).then(
-#            (response)->console.log(response);
-#            (error)->console.log(error);
-#        )
+    $scope.getGlobalStat = () ->
+        $state.transitionTo('migrations');
+
 
     # список друзей
     $scope.getListFriends = () ->

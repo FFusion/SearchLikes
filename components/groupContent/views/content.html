@@ -14,7 +14,7 @@
                 <button class="btn btn-friend" ng-click="listGroups()">К списку групп</button>
             </div>
         </div>
-        <div class="friends-content">
+        <div class="friends-content" ng-if="!showAllUser">
             <div class="row text-center groups-title">
                 Введите ID любого пользователя, чтобы узнать оставлял он лайки в выбранной группе или нет
             </div>
@@ -127,7 +127,29 @@
                 </div>
                 <div style="clear: both;"></div>
             </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="block-navigation-button text-center" style="width: 100%"><button class="btn btn-friend" ng-disabled="group.members_count > 100000" ng-click="getUsers()">Список участников(незаблокированных)</button></div>
+                </div>
+                <div class="groups-title-small col-md-12 col-sm-12 col-xs-12 text-center pad">Для групп с небольшим количеством участников.<br>P.S. Тестировалось до 100 тысяч. Возможны тормоза, особенно на телефоне.</div>
+                <div style="clear: both;"></div>
+            </div>
 
+        </div>
+        <div class="friends-content" ng-if="showAllUser">
+            <div class="row">
+                <div class="red text-center groups-title">Не обновляйте страницу! Иначе снова начнется поиск данных!</div>
+                <div class="groups-title-small text-center">
+                    <div class="pad"><span class="blue">Синим</span> выделены те, кто в данный момент в сети</div>
+                    <div class="pad">Для копирования на компьютере в <span class="green">excel</span> нажимаем <b>Ctrl + A</b>, затем <b>Ctrl + C</b> и вставляем в <span class="green">excel</span> (<b>Ctrl + V</b>)<br>Не исключено зависание браузера.</div>
+                </div>
+            </div>
+            <table class="table">
+                <th class="text-center">ID</th>
+                <th class="text-center">Имя Фамилия</th>
+                <tbody id="body-table">
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

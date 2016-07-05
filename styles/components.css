@@ -433,6 +433,9 @@
   border-color: #6383a8;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #6383a8;
 }
+.pad {
+  padding: 15px;
+}
 @keyframes spin {
   100% {
     transform: rotate(360deg);
@@ -602,5 +605,83 @@
   border-radius: 2px;
 }
 .blue {
+  font-weight: 600;
   color: #6383a8;
+}
+.green {
+  color: green;
+}
+.profile {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  background-color: #6383a8;
+  color: white;
+}
+.profile-user-name {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 5px;
+}
+.profile-new-photo,
+.profile-old-photo {
+  padding: 7px;
+  border: 1px solid lightgray;
+  background-color: white;
+  text-align: center;
+}
+.profile-new-photo figcaption,
+.profile-old-photo figcaption {
+  color: black;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 10px 0 0 0;
+}
+.profile-new-photo img,
+.profile-old-photo img {
+  border: 1px solid lightblue;
+  border-radius: 4px;
+}
+.result-update {
+  margin-top: 50px;
+}
+.rodnoi-gorod {
+  font-size: 28px;
+}
+.rodnoi-gorod-title {
+  text-align: center;
+  font-size: 21px;
+}
+.result-migration {
+  border: 1px dashed #cdcfd1;
+  padding: 20px;
+  margin-top: 20px;
+}
+.top td {
+  vertical-align: middle !important;
+  font-size: 16px;
+  font-weight: 500;
+}
+.top td img {
+  border-radius: 4px;
+}
+.top td a {
+  color: #6383a8;
+  text-decoration: none;
+}
+.town td[animate]:first-child {
+  border: 0;
+}
+.town td[animate] {
+  vertical-align: middle !important;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+}
+.town-title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 56px;
 }

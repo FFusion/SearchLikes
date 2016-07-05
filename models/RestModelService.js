@@ -553,14 +553,14 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       if (count < 25000) {
         localOffset = Math.ceil(count / 1000);
       } else {
-        localOffset = 25000;
+        localOffset = 25;
       }
       code = 'return {';
-      for (i = _i = offset, _ref = offset + localOffset; _i < _ref; i = _i += 1000) {
+      for (i = _i = offset, _ref = offset + localOffset; offset <= _ref ? _i < _ref : _i > _ref; i = offset <= _ref ? ++_i : --_i) {
         if (i !== offset + localOffset) {
-          code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city"}),';
+          code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city,online"}),';
         } else {
-          code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city"})';
+          code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city,online"})';
         }
       }
       code = code + '};';
@@ -598,6 +598,67 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       var deffered, url;
       deffered = $q.defer();
       url = vk.api + '/method/stats.get?group_id=' + id + '&date_from=2013-04-23&date_to=2013-04-24&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getListUserInExcel: function(users) {
+      var data, deffered;
+      deffered = $q.defer();
+      data = JSON.stringify(users);
+      $http.post('excel.php', {
+        data: data
+      }).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getUsersHomeTown: function(town, city, params) {
+      var deffered, url;
+      if (town == null) {
+        town = '';
+      }
+      if (city == null) {
+        city = '';
+      }
+      deffered = $q.defer();
+      url = vk.api + '/method/users.search?city=' + city + '&hometown=' + town + '&fields=city,photo_50&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getTown: function(city) {
+      var deffered, url;
+      deffered = $q.defer();
+      url = vk.api + '/method/database.getCities?country_id=1&region_id=' + city + '&hometown=' + town + '&fields=city,photo_50&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getProfilePhoto: function(arrayFriends, params) {
+      var code, deffered, i, url, _i, _ref;
+      deffered = $q.defer();
+      code = 'return {';
+      for (i = _i = 0, _ref = arrayFriends.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        if (i !== arrayFriends.length - 1) {
+          code = code + 'CountFr' + arrayFriends[i].id + ':API.photos.get({"owner_id":' + arrayFriends[i].id + ',"album_id":"profile", "rev": 1, "count":2}),';
+        } else {
+          code = code + 'CountFr' + arrayFriends[i].id + ':API.photos.get({"owner_id":' + arrayFriends[i].id + ',"album_id":"profile", "rev": 1, "count":2})';
+        }
+      }
+      code = code + '};';
+      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {

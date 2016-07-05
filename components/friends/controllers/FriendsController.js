@@ -17,6 +17,9 @@ FriendsModule.controller('FriendsController', function($scope, $location, $windo
   $scope.openListGroup = function() {
     return $state.transitionTo('groups');
   };
+  $scope.getGlobalStat = function() {
+    return $state.transitionTo('migrations');
+  };
   $scope.getListFriends = function() {
     $scope.page = 1;
     $scope.friendsOnline = [];

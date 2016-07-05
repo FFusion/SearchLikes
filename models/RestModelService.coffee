@@ -512,13 +512,13 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         if count is null then count = 1;
         if offset is null then offset = 0;
         # если участников меньше 25000 то делаем offset равным числу участников
-        if count < 25000 then localOffset = Math.ceil(count / 1000) else localOffset = 25000;
+        if count < 25000 then localOffset = Math.ceil(count / 1000) else localOffset = 25;
         code = 'return {';
-        for i in [offset...offset + localOffset] by 1000
+        for i in [offset...offset + localOffset]
             if i != offset + localOffset
-                code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city"}),';
+                code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city,online"}),';
             else
-                code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city"})';
+                code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city,online"})';
         code = code + '};';
 
 
@@ -583,4 +583,76 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
         deffered.promise;
 
+
+
+    getListUserInExcel: (users) ->
+
+        deffered = $q.defer();
+
+        data = JSON.stringify(users);
+
+        $http.post('excel.php', data:data)
+        .success((data)->
+            deffered.resolve(data);
+        )
+        .error((error)->
+            deffered.reject(error);
+        )
+
+        deffered.promise;
+
+
+    getUsersHomeTown: (town = '', city = '', params) ->
+        deffered = $q.defer();
+
+        url = vk.api + '/method/users.search?city=' + city + '&hometown=' + town + '&fields=city,photo_50&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data) ->
+                deffered.resolve(data);
+            )
+        .error((error) ->
+                deffered.reject(error);
+            );
+
+        deffered.promise;
+
+    getTown: (city) ->
+        deffered = $q.defer();
+
+        url = vk.api + '/method/database.getCities?country_id=1&region_id=' + city + '&hometown=' + town + '&fields=city,photo_50&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data) ->
+                deffered.resolve(data);
+            )
+        .error((error) ->
+                deffered.reject(error);
+            );
+
+        deffered.promise;
+
+
+
+    getProfilePhoto: (arrayFriends, params) ->
+        deffered = $q.defer();
+        code = 'return {'
+        for i in [0..arrayFriends.length - 1]
+            if i != arrayFriends.length - 1
+                code = code + 'CountFr' + arrayFriends[i].id + ':API.photos.get({"owner_id":' + arrayFriends[i].id + ',"album_id":"profile", "rev": 1, "count":2}),';
+            else
+                code = code + 'CountFr' + arrayFriends[i].id + ':API.photos.get({"owner_id":' + arrayFriends[i].id + ',"album_id":"profile", "rev": 1, "count":2})';
+
+        code = code + '};';
+        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data)->
+            deffered.resolve(data);
+        )
+        .error((error)->
+            deffered.reject(error);
+        );
+
+        deffered.promise;
 

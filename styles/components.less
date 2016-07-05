@@ -560,6 +560,10 @@
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @color-button;
 }
 
+.pad {
+    padding: 15px;
+}
+
 //загрузка
 @keyframes spin {
     100% {
@@ -738,5 +742,108 @@
 }
 
 .blue {
+    font-weight: 600;
     color: @color-button;
+}
+
+.green{
+    color:green;
+}
+
+
+.profile {
+    padding: 10px;
+    margin:10px;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    background-color:@color-button;
+    color:white;
+
+    &-user-name {
+        font-size: 20px;
+        font-weight: 600;
+        padding: 5px;
+    }
+
+    &-new-photo, &-old-photo {
+        padding: 7px;
+        border: 1px solid lightgray;
+        background-color: white;
+        text-align: center;
+
+        figcaption {
+            color: black;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 10px 0 0 0;
+        }
+
+        img {
+            border: 1px solid lightblue;
+            border-radius: 4px;
+        }
+
+    }
+}
+
+.result-update {
+    margin-top: 50px;
+}
+
+
+//родной город
+
+.rodnoi-gorod {
+    font-size: 28px;
+
+    &-title {
+        text-align: center;
+        font-size: 21px;
+    }
+}
+.result-migration {
+    border: 1px dashed #cdcfd1;
+    padding: 20px;
+    margin-top:20px;
+}
+
+//таблицы
+.top {
+    td {
+        vertical-align: middle !important;
+        font-size: 16px;
+        font-weight: 500;
+
+        img {
+            border-radius: 4px;
+        }
+
+        a {
+            color:@color-button;
+            text-decoration: none;
+        }
+
+    }
+
+}
+
+.town {
+
+    td[animate]:first-child {
+        border: 0;
+    }
+
+    td[animate] {
+        vertical-align: middle !important;
+        text-align: center;
+        font-size: 28px;
+        font-weight: 800;
+    }
+
+    &-title {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 56px;
+    }
 }

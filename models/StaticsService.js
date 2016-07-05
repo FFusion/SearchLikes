@@ -12,6 +12,8 @@ MainModule.service('Static', function($timeout, $q, RestModel, Loader) {
 
     Static.prototype.resultFriends = [];
 
+    Static.prototype.resultUserProfilePhoto = [];
+
     Static.prototype.params = null;
 
     Static.prototype.getListCountFriends = function(friends) {
@@ -52,6 +54,64 @@ MainModule.service('Static', function($timeout, $q, RestModel, Loader) {
 
     Static.prototype.sortableFriends = function(a, b) {
       return b.counters.friends - a.counters.friends;
+    };
+
+    Static.prototype.getPhotoProfileFriends = function(friends, date) {
+      var tempFriends;
+      if (friends.length > 25) {
+        tempFriends = friends.splice(0, 25);
+        return $timeout((function(_this) {
+          return function() {
+            return RestModel.getProfilePhoto(tempFriends, _this.params).then(function(data) {
+              angular.forEach(data.response, function(item, index) {
+                if (item[0] && item[0].created) {
+                  if (item[0].created > date) {
+                    angular.forEach(tempFriends, function(friend) {
+                      if (item[0].owner_id === friend.id) {
+                        item[0].first_name = friend.first_name;
+                        return item[0].last_name = friend.last_name;
+                      }
+                    });
+                    return _this.resultUserProfilePhoto.push(data.response[index]);
+                  }
+                }
+              });
+              return _this.getPhotoProfileFriends(friends, date);
+            }, function(error) {
+              return console.log(error);
+            });
+          };
+        })(this), 330);
+      } else {
+        if (friends.length !== 0) {
+          return $timeout((function(_this) {
+            return function() {
+              return RestModel.getProfilePhoto(friends, _this.params).then(function(data) {
+                var test;
+                angular.forEach(data.response, function(item, index) {
+                  if (item[0] && item[0].created) {
+                    if (item[0].created > date) {
+                      angular.forEach(friends, function(friend) {
+                        console.log(friend);
+                        if (item[0].owner_id === friend.id) {
+                          item[0].first_name = friend.first_name;
+                          return item[0].last_name = friend.last_name;
+                        }
+                      });
+                      return _this.resultUserProfilePhoto.push(data.response[index]);
+                    }
+                  }
+                });
+                test = angular.copy(_this.resultUserProfilePhoto);
+                _this.resultUserProfilePhoto = [];
+                return test;
+              });
+            };
+          })(this), 330);
+        } else {
+          return console.log('dct');
+        }
+      }
     };
 
     return Static;
