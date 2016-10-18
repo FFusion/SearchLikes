@@ -152,12 +152,42 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
             count = count + walls.length;
             angular.forEach(walls, (wall)->
                 if wall.id == wallId
-                    wall.date = moment.unix(wall.date).format('DD.MM.YYYY HH:mm');
+                    wall.dateText = moment.unix(wall.date).format('DD.MM.YYYY HH:mm');
                     $scope.isLikes[$scope.count].walls.push(wall);
             )
         )
 
         $scope.isLikes[$scope.count].wallsCount = count;
+
+
+    # сортировки по дате
+    $scope.sortableDateWall = (a,b) ->
+        oneTime = new Date(a.date).getTime();
+        twoTime = new Date(b.date).getTime();
+        return twoTime - oneTime;
+
+
+    $scope.sortableLastWall = (a,b) ->
+        oneTime = new Date(a.lastWall.date).getTime();
+        twoTime = new Date(b.lastWall.date).getTime();
+        return twoTime - oneTime;
+
+
+    $scope.sortingWall = () ->
+        if $scope.isLikes.length > 0
+            tempArray = [];
+            angular.forEach($scope.isLikes, (item)->
+                if item.walls.length > 0
+                    item.walls.sort($scope.sortableDateWall);
+                    item.lastWall = {};
+                    item.lastWall = item.walls[0];
+                    tempArray.push(item);
+            )
+
+            if tempArray.length > 0 then tempArray.sort($scope.sortableLastWall);
+            $scope.isLikes = null;
+            $scope.isLikes = tempArray;
+
 
     # остановить сканирование
     $scope.stopScanWall = () ->

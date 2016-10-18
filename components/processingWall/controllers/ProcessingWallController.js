@@ -129,12 +129,43 @@ ProcessingWallModule.controller('ProcessingWallController', function($scope, $st
       count = count + walls.length;
       return angular.forEach(walls, function(wall) {
         if (wall.id === wallId) {
-          wall.date = moment.unix(wall.date).format('DD.MM.YYYY HH:mm');
+          wall.dateText = moment.unix(wall.date).format('DD.MM.YYYY HH:mm');
           return $scope.isLikes[$scope.count].walls.push(wall);
         }
       });
     });
     return $scope.isLikes[$scope.count].wallsCount = count;
+  };
+  $scope.sortableDateWall = function(a, b) {
+    var oneTime, twoTime;
+    oneTime = new Date(a.date).getTime();
+    twoTime = new Date(b.date).getTime();
+    return twoTime - oneTime;
+  };
+  $scope.sortableLastWall = function(a, b) {
+    var oneTime, twoTime;
+    oneTime = new Date(a.lastWall.date).getTime();
+    twoTime = new Date(b.lastWall.date).getTime();
+    return twoTime - oneTime;
+  };
+  $scope.sortingWall = function() {
+    var tempArray;
+    if ($scope.isLikes.length > 0) {
+      tempArray = [];
+      angular.forEach($scope.isLikes, function(item) {
+        if (item.walls.length > 0) {
+          item.walls.sort($scope.sortableDateWall);
+          item.lastWall = {};
+          item.lastWall = item.walls[0];
+          return tempArray.push(item);
+        }
+      });
+      if (tempArray.length > 0) {
+        tempArray.sort($scope.sortableLastWall);
+      }
+      $scope.isLikes = null;
+      return $scope.isLikes = tempArray;
+    }
   };
   $scope.stopScanWall = function() {
     return $scope.stopped = true;

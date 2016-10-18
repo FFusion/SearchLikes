@@ -1,15 +1,61 @@
-<IfModule mod_expires.c>
-  ExpiresActive on
-  ExpiresByType image/jpeg "access plus 180 seconds"
-  ExpiresByType image/gif "access plus 180 seconds"
-  ExpiresByType image/png "access plus 180 seconds"
-  ExpiresByType text/css "access plus 180 seconds"
-  ExpiresByType application/javascript "access plus 180 seconds"
+<ifModule mod_expires.c>
+    ExpiresActive On
+    #по умолчанию кеш в 5 секунд
+    ExpiresDefault "access plus 5 seconds"
+    # Включаем кэширование изображений и флэш на месяц
+    ExpiresByType image/x-icon "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 4 weeks"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/gif "access plus 43829 minutes"
+    ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
+    # Включаем кэширование css, javascript и текстовых файлоф на одну неделю
+    ExpiresByType text/css "access plus 604800 seconds"
+    ExpiresByType text/javascript "access plus 604800 seconds"
+    ExpiresByType application/javascript "access plus 604800 seconds"
+    ExpiresByType application/x-javascript "access plus 604800 seconds"
+    # Включаем кэширование html и htm файлов на один день
+    ExpiresByType text/html "access plus 43200 seconds"
+    # Включаем кэширование xml файлов на десять минут
+    ExpiresByType application/xhtml+xml "access plus 600 seconds"
+</ifModule>
+
+
+
+<IfModule mod_headers.c>
+    RequestHeader set X-Prerender-Token "ULZwEHHbTZLiSqjXmnwy"
 </IfModule>
 
-
-
 RewriteEngine On
+
+#RewriteCond %{HTTP_HOST} ^www.searchlikes.ru$ [NC]
+#RewriteRule ^(.*)$ http://searchlikes.ru$1 [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^replytocom= [NC]
+RewriteRule (.*) $1? [R=301,L]
+RewriteRule (.+)/blog/feed /$1 [R=301,L]
+RewriteRule (.+)/blog/attachment /$1 [R=301,L]
+RewriteRule (.+)/blog/comment-page /$1 [R=301,L]
+RewriteRule (.+)/blog/comments /$1 [R=301,L]
+RewriteRule (.+)/blog/trackback /$1 [R=301,L]
+RewriteCond %{QUERY_STRING} ^attachment_id= [NC]
+RewriteRule (.*) $1? [R=301,L]
+
+<IfModule mod_proxy_http.c>
+    RewriteCond %{HTTP_USER_AGENT} baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest|slackbot|vkShare|W3C_Validator [NC,OR]
+    RewriteCond %{QUERY_STRING} _escaped_fragment_
+
+    # Only proxy the request to Prerender if it's a request for HTML
+    RewriteRule ^(?!.*?(\.js|\.css|\.xml|\.less|\.png|\.jpg|\.jpeg|\.gif|\.pdf|\.doc|\.txt|\.ico|\.rss|\.zip|\.mp3|\.rar|\.exe|\.wmv|\.doc|\.avi|\.ppt|\.mpg|\.mpeg|\.tif|\.wav|\.mov|\.psd|\.ai|\.xls|\.mp4|\.m4a|\.swf|\.dat|\.dmg|\.iso|\.flv|\.m4v|\.torrent|\.ttf|\.woff))(.*) http://service.prerender.io/http://searchlikes.ru/$2 [P,L]
+</IfModule>
+
+# сжатие text, html, javascript, css, xml:
+<ifModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/css text/javascript application/javascript application/x-javascript
+</ifModule>
+
+#ErrorDocument 404 http://www.searchlikes.ru/404.html
+
+
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

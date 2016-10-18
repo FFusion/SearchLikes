@@ -52,6 +52,7 @@
             <div class="friends-content-bottom pull-right">
                 <button class="btn btn-back" ng-click="scanedWall(userFriends)" ng-disabled="procent != 100 && procent > 0 && !stopped">Сканируем</button>
                 <button class="btn btn-back" ng-click="stopScanWall()" ng-if="procent != 0 && procent != 100 && !stopped">Стоп</button>
+                <button class="btn btn-back" ng-click="sortingWall()" ng-if="procent == 100 || stopped">Сортировать по времени</button>
             </div>
         </div>
 
@@ -119,7 +120,7 @@
                         <!--ng-click="increasePhoto(photo)"-->
                     </div>
                     <div class="wall-date text-right">
-                        <span>{{wall.date}}</span>
+                        <span>{{wall.dateText}}</span>
                     </div>
                 </li>
             </ul>

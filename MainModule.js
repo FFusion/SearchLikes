@@ -6,8 +6,8 @@ MainModule = angular.module('MainModule', ['ngRoute', 'ui.router', 'datatables',
 
 MainModule.constant('vk', {
   auth: "https://oauth.vk.com/authorize",
-  clientId: 3741849,
-  redirectUri: "http://eq.loc",
+  redirectUri: "http://searchlikes.ru",
+  clientId: 4699380,
   api: "https://api.vk.com"
 });
 
