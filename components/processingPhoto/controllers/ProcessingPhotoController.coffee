@@ -155,11 +155,43 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
             count = count + photos.length;
             angular.forEach(photos, (photo)->
                 if photo.id == photoId
+                    photo.dateText = moment.unix(photo.date).format('DD.MM.YYYY HH:mm');
                     $scope.isLikes[$scope.count].photos.push(photo);
             )
         )
 
         $scope.isLikes[$scope.count].photosCount = count;
+
+
+    # сортировки по дате
+    $scope.sortableDate = (a,b) ->
+        oneTime = new Date(a.date).getTime();
+        twoTime = new Date(b.date).getTime();
+        return twoTime - oneTime;
+
+
+    $scope.sortableLastPhoto = (a,b) ->
+        oneTime = new Date(a.lastPhoto.date).getTime();
+        twoTime = new Date(b.lastPhoto.date).getTime();
+        return twoTime - oneTime;
+
+
+    $scope.sortingPhoto = () ->
+        if $scope.isLikes.length > 0
+            tempArray = [];
+            angular.forEach($scope.isLikes, (item)->
+                if item.photos.length > 0
+                    item.photos.sort($scope.sortableDate);
+                    item.lastPhoto = {};
+                    item.lastPhoto = item.photos[0];
+                    tempArray.push(item);
+            )
+
+            if tempArray.length > 0 then tempArray.sort($scope.sortableLastPhoto);
+            $scope.isLikes = null;
+            $scope.isLikes = tempArray;
+
+
 
     # остановить сканирование
     $scope.stopScan = () ->

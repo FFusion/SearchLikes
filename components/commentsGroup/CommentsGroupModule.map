@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "CommentsGroupModule.js",
+  "sourceRoot": "",
+  "sources": [
+    "CommentsGroupModule.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAGA,YAAA,CAAA;AAAA,IAAA,mBAAA;;AAAA,mBAEA,GAAsB,OAAO,CAAC,MAAR,CAAe,qBAAf,EAAsC,EAAtC,CAFtB,CAAA"
+}

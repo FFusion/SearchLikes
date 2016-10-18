@@ -128,11 +128,43 @@ ProcessingPhotoModule.controller('ProcessingPhotoController', function($scope, $
       count = count + photos.length;
       return angular.forEach(photos, function(photo) {
         if (photo.id === photoId) {
+          photo.dateText = moment.unix(photo.date).format('DD.MM.YYYY HH:mm');
           return $scope.isLikes[$scope.count].photos.push(photo);
         }
       });
     });
     return $scope.isLikes[$scope.count].photosCount = count;
+  };
+  $scope.sortableDate = function(a, b) {
+    var oneTime, twoTime;
+    oneTime = new Date(a.date).getTime();
+    twoTime = new Date(b.date).getTime();
+    return twoTime - oneTime;
+  };
+  $scope.sortableLastPhoto = function(a, b) {
+    var oneTime, twoTime;
+    oneTime = new Date(a.lastPhoto.date).getTime();
+    twoTime = new Date(b.lastPhoto.date).getTime();
+    return twoTime - oneTime;
+  };
+  $scope.sortingPhoto = function() {
+    var tempArray;
+    if ($scope.isLikes.length > 0) {
+      tempArray = [];
+      angular.forEach($scope.isLikes, function(item) {
+        if (item.photos.length > 0) {
+          item.photos.sort($scope.sortableDate);
+          item.lastPhoto = {};
+          item.lastPhoto = item.photos[0];
+          return tempArray.push(item);
+        }
+      });
+      if (tempArray.length > 0) {
+        tempArray.sort($scope.sortableLastPhoto);
+      }
+      $scope.isLikes = null;
+      return $scope.isLikes = tempArray;
+    }
   };
   $scope.stopScan = function() {
     return $scope.stopped = true;

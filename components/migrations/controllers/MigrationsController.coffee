@@ -4,11 +4,15 @@
 
 MigrationsModule.controller 'MigrationsController', ($scope, $stateParams, $state, RestModel, params, $timeout) ->
 
+    #todo: константы
     $scope.params = params;
     $scope.searching = false;
 
     $scope.home = () ->
         $state.transitionTo('friends');
+
+    $scope.global = () ->
+        $state.transitionTo('global');
 
     $scope.hometown = '';
     $scope.resUsers = [];

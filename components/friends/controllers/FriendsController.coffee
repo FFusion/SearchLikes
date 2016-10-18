@@ -28,7 +28,7 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $time
         $state.transitionTo('groups');
 
     $scope.getGlobalStat = () ->
-        $state.transitionTo('migrations');
+        $state.transitionTo('global');
 
 
     # список друзей

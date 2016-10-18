@@ -3,6 +3,7 @@
 MainModule.controller('MainController', function($scope, $location, $state, $http, $timeout, RestModel, LocalStorage, Notification) {
   $scope.content = {};
   $scope.send = false;
+  $scope.hide = false;
   $scope.url = RestModel.getLinkAutorization();
   console.log($scope.url);
   if (window.location.href.indexOf("access_token") !== -1) {

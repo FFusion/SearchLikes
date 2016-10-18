@@ -18,6 +18,7 @@
     "angular-ui-router": "~0.2.18",
     "audiojs": "*",
     "responsiveSlides.js": "*",
-    "ngtoast":"2.0.0"
+    "ngtoast": "2.0.0",
+    "angular-google-chart": "~0.1.0"
   }
 }

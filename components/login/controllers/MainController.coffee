@@ -6,6 +6,7 @@ MainModule.controller 'MainController', ($scope, $location, $state, $http, $time
 
     $scope.content = {};
     $scope.send = false;
+    $scope.hide = false;
 
     $scope.url = RestModel.getLinkAutorization();
     console.log($scope.url);

@@ -179,6 +179,18 @@ MainModule.config([
           return RestModel.getFriends(params, $stateParams.userId);
         }
       }
+    }).state('commentsGroup', {
+      url: '/user/:userId/commentsGroup',
+      controller: 'CommentsGroupController',
+      templateUrl: 'components/commentsGroup/views/commentsGroup.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        },
+        currentUser: function(RestModel, $stateParams, params) {
+          return RestModel.getUserById($stateParams.userId, params);
+        }
+      }
     }).state('statistics', {
       url: '/statisticsFriends/:userId',
       controller: 'StatisticsFriendsController',
@@ -227,13 +239,72 @@ MainModule.config([
           return LocalStorage.getItem('params');
         }
       }
-    }).state('migrations', {
-      url: '/migrations',
-      controller: 'MigrationsController',
-      templateUrl: 'components/migrations/views/index.html',
+    }).state('global', {
+      url: '/global',
+      controller: 'GlobalStatController',
+      templateUrl: 'components/migrations/views/global.html',
       resolve: {
         params: function(LocalStorage) {
           return LocalStorage.getItem('params');
+        }
+      }
+    }).state('migrations', {
+      url: '/global/migrations',
+      controller: 'MigrationsController',
+      templateUrl: 'components/migrations/views/migrations.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        }
+      }
+    }).state('relations', {
+      url: '/global/relations',
+      controller: 'RelationsController',
+      templateUrl: 'components/migrations/views/relations.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        },
+        man: function(RestModel, params) {
+          return RestModel.getRelationsForUser(params, 1);
+        },
+        woman: function(RestModel, params, man) {
+          return RestModel.getRelationsForUser(params, 2);
+        },
+        notMarried: function(RestModel, params, woman, $timeout) {
+          return $timeout(function() {
+            return RestModel.getRelationsForUser(params, null, 1);
+          }, 333);
+        },
+        meeting: function(RestModel, params, notMarried, $timeout) {
+          return $timeout(function() {
+            return RestModel.getRelationsForUser(params, null, 2);
+          }, 333);
+        },
+        engaged: function(RestModel, params, meeting, $timeout) {
+          return $timeout(function() {
+            return RestModel.getRelationsForUser(params, null, 3);
+          }, 333);
+        },
+        married: function(RestModel, params, engaged, $timeout) {
+          return $timeout(function() {
+            return RestModel.getRelationsForUser(params, null, 4);
+          }, 333);
+        },
+        complicated: function(RestModel, params, married, $timeout) {
+          return $timeout(function() {
+            return RestModel.getRelationsForUser(params, null, 5);
+          }, 333);
+        },
+        active: function(RestModel, params, complicated, $timeout) {
+          return $timeout(function() {
+            return RestModel.getRelationsForUser(params, null, 6);
+          }, 333);
+        },
+        loved: function(RestModel, params, active, $timeout) {
+          return $timeout(function() {
+            return RestModel.getRelationsForUser(params, null, 7);
+          }, 333);
         }
       }
     });

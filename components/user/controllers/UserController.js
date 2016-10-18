@@ -45,8 +45,13 @@ UserModule.controller('UserController', function($scope, $stateParams, $window, 
       userId: user.id
     });
   };
-  return $scope.getCommentsOfPhoto = function(user) {
+  $scope.getCommentsOfPhoto = function(user) {
     return $state.transitionTo('commentsPhoto', {
+      userId: user.id
+    });
+  };
+  return $scope.getCommentsOfGroup = function(user) {
+    return $state.transitionTo('commentsGroup', {
       userId: user.id
     });
   };

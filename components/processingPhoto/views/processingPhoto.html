@@ -52,6 +52,7 @@
             <div class="friends-content-bottom pull-right">
                 <button class="btn btn-back" ng-click="scaned(userFriends)" ng-disabled="procent != 100 && procent > 0 && !stopped">Сканируем</button>
                 <button class="btn btn-back" ng-click="stopScan()" ng-if="procent != 0 && procent != 100 && !stopped">Стоп</button>
+                <button class="btn btn-back" ng-click="sortingPhoto()" ng-if="procent == 100 || stopped">Сортировать по времени</button>
             </div>
         </div>
 
@@ -88,6 +89,7 @@
                         <img ng-src="{{photo.photo_604}}"  alt=""  ng-swipe-left="showPrev()" ng-swipe-right="showNext()">
                         <!--ng-click="increasePhoto(photo)"-->
                     </div>
+                    <div class="text-center comment-date">{{photo.dateText}}</div>
                 </li>
             </ul>
         </div>

@@ -171,6 +171,15 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
                 friends: (RestModel, $stateParams, params, currentUser) -> RestModel.getFriends(params, $stateParams.userId);
         )
 
+        .state('commentsGroup',
+            url         : '/user/:userId/commentsGroup',
+            controller  : 'CommentsGroupController',
+            templateUrl : 'components/commentsGroup/views/commentsGroup.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+                currentUser: (RestModel, $stateParams,params) ->  RestModel.getUserById($stateParams.userId,params);
+        )
+
         .state('statistics',
             url         : '/statisticsFriends/:userId',
             controller  : 'StatisticsFriendsController',
@@ -208,12 +217,66 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
                 params: (LocalStorage) -> LocalStorage.getItem('params');
         )
 
-        .state('migrations',
-            url         : '/migrations',
-            controller  : 'MigrationsController',
-            templateUrl : 'components/migrations/views/index.html',
+        .state('global',
+            url         : '/global',
+            controller  : 'GlobalStatController',
+            templateUrl : 'components/migrations/views/global.html',
             resolve     :
                 params: (LocalStorage) -> LocalStorage.getItem('params');
+        )
+
+        .state('migrations',
+            url         : '/global/migrations',
+            controller  : 'MigrationsController',
+            templateUrl : 'components/migrations/views/migrations.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+        )
+
+        .state('relations',
+            url         : '/global/relations',
+            controller  : 'RelationsController',
+            templateUrl : 'components/migrations/views/relations.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+                man: (RestModel, params) -> RestModel.getRelationsForUser(params, 1);
+                woman: (RestModel, params, man) -> RestModel.getRelationsForUser(params, 2);
+                notMarried: (RestModel, params, woman, $timeout) ->
+                    $timeout(
+                        ()->
+                            RestModel.getRelationsForUser(params, null, 1)
+                        ,333);
+                meeting: (RestModel, params, notMarried,$timeout) ->
+                    $timeout(
+                        ()->
+                            RestModel.getRelationsForUser(params, null, 2);
+                    ,333);
+                engaged: (RestModel, params, meeting,$timeout) ->
+                    $timeout(
+                        ()->
+                            RestModel.getRelationsForUser(params, null, 3);
+                        ,333);
+                married: (RestModel, params, engaged,$timeout) ->
+                    $timeout(
+                        ()->
+                            RestModel.getRelationsForUser(params, null, 4);
+                        ,333);
+                complicated: (RestModel, params, married, $timeout) ->
+                    $timeout(
+                        ()->
+                            RestModel.getRelationsForUser(params, null, 5);
+                        ,333);
+                active: (RestModel, params, complicated, $timeout) ->
+                    $timeout(
+                        ()->
+                            RestModel.getRelationsForUser(params, null, 6);
+                        ,333);
+                loved: (RestModel, params, active, $timeout) ->
+                    $timeout(
+                        ()->
+                            RestModel.getRelationsForUser(params, null, 7);
+                        ,333);
+
         )
 
 

@@ -1,4 +1,5 @@
 'use strict'
+#todo: разнести по отдельным файлам и написать единую логику обработки данных !!!
 
 MainModule.factory 'RestModel', ($q, $http, vk) ->
     class RestModel
@@ -252,8 +253,9 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         deffered.promise;
 
 
-    getAllWallPost: (userId, params, count = null, offset = null) ->
+    getAllWallPost: (userId, params, count = null, offset = null, group = null) ->
         if count is null then count = 100;
+        if group then userId = '-' + userId;
         if offset is null then offset = 0;
         deffered = $q.defer();
         url = vk.api + '/method/wall.get?' + 'owner_id=' + userId + '&count=' + count + '&offset=' + offset + '&filter=owner&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
@@ -352,21 +354,21 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         deffered.promise;
 
 
-    # не доступно для сайтов..
-    getComment: (userId, post, params) ->
-        deffered = $q.defer();
 
-        url = vk.api + '/method/wall.getComments?' + 'owner_id=' + userId + '&post_id=' + post.id + '&extended=1&count=100&need_likes=1&v=5.28&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
-
-        $http.jsonp(url)
-            .success((data)->
-                deffered.resolve(data);
-            )
-            .error((error)->
-                deffered.reject(error);
-            );
-
-        deffered.promise;
+#    getCommentsWall: (groupId, postId, post, params) ->
+#        deffered = $q.defer();
+#
+#        url = vk.api + '/method/wall.getComments?' + 'owner_id=' + '-' + groupId + '&post_id=' + postId + '&count=&need_likes=1&v=5.28&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+#
+#        $http.jsonp(url)
+#            .success((data)->
+#                deffered.resolve(data);
+#            )
+#            .error((error)->
+#                deffered.reject(error);
+#            );
+#
+#        deffered.promise;
 
     getWish: (content) ->
         deffered = $q.defer();
@@ -406,6 +408,24 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
         code = code + '};';
         url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+            .success((data)->
+                deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            );
+
+        deffered.promise;
+
+
+
+    getCommentsWall: (userId, postId, params, count = null, offset = null) ->
+        deffered = $q.defer();
+        if count is null then count = 1;
+        if offset is null then offset = 0;
+        url = vk.api + '/method/wall.getComments?' + 'owner_id=' + userId + '&post_id=' + postId +  '&count=' + count + '&offset=' + offset + '&v=5.28&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
             .success((data)->
@@ -627,6 +647,26 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
                 deffered.resolve(data);
             )
         .error((error) ->
+                deffered.reject(error);
+            );
+
+        deffered.promise;
+
+
+    getRelationsForUser: (params, sex = null, status = null) ->
+        deffered = $q.defer();
+# 1 женщина, 2 мужчина
+
+        if sex is null
+            url = vk.api + '/method/users.search?&status=' + status + '&fields=city,photo_50,sex&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+        if status is null
+            url = vk.api + '/method/users.search?&sex=' + sex + '&fields=city,photo_50,sex&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+            .success((data) ->
+                deffered.resolve(data);
+            )
+            .error((error) ->
                 deffered.reject(error);
             );
 

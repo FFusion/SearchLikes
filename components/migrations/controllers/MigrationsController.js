@@ -6,6 +6,9 @@ MigrationsModule.controller('MigrationsController', function($scope, $stateParam
   $scope.home = function() {
     return $state.transitionTo('friends');
   };
+  $scope.global = function() {
+    return $state.transitionTo('global');
+  };
   $scope.hometown = '';
   $scope.resUsers = [];
   $scope.resUserInMoskow = [];

@@ -1,0 +1,204 @@
+<section class="main-content">
+    <div class="loading-content" ng-if="loading">
+        <div class="process">
+            <div class="process-circle"></div>
+            <div class="process-title"><span>Загрузка...</span></div>
+        </div>
+    </div>
+
+    <div move class="main-content-friends">
+        <div class="selected-top">
+            <div class="userFriend-title">
+                {{currentUser.first_name + ' ' + currentUser.last_name}}
+            </div>
+            <div class="block-navigation-button" ng-if="!lookedItems">
+                <button class="btn btn-back" ng-click="back()">Назад</button>
+            </div>
+            <div class="block-navigation-button" ng-if="lookedItems">
+                <button class="btn btn-back" ng-click="backInResult()">Вернуться к поиску</button>
+            </div>
+        </div>
+        <div class="friends-content" ng-if="!lookedItems">
+            <hr>
+
+            <div class="row text-center groups-title">
+                Введите ID интересующей группы
+            </div>
+            <div class="row text-center groups-title-small">
+                Примечание: чтобы узнать ID группы, если в адресной строке не цифры, нажмите на любое фото в группе или выберите любую тему. Первые цифры до _ являются ID группы.
+            </div>
+            <div class="row group-search">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" class="form-control" ng-model="group.id"/>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+                    <button class="btn btn-friend" ng-click="analysisGroup()">Анализ группы</button>
+                </div>
+            </div>
+
+
+            <div class="info-group" style="margin-top:25px;">
+                <div class="row">
+                    <div class="col-md-6 col-xs-6 form-group user-more-item">
+                        <span class="user-title">Название группы:</span>
+                        <span class="user-status">{{group.name}}</span>
+                    </div>
+                    <div ng-if="group.closed" class="text-center red">Закрытая группа</div>
+                    <div ng-if="!group.closed">
+                        <div class="col-md-6 col-xs-6 form-group user-more-item">
+                            <span class="user-title">Кол-во записей:</span>
+                            <span class="user-status">{{group.countItems}}</span>
+                        </div>
+                        <div class="col-md-6 col-xs-6 form-group user-more-item">
+                            <span class="user-title">Количество тем:</span>
+                            <span class="user-status">{{group.topicsCount }}</span>
+                        </div>
+                        <div class="col-md-6 col-xs-6 form-group user-more-item">
+                            <span class="user-title">Кол-во комментарий первых 5 записей:</span>
+                            <span class="user-status">{{group.countComments}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="friends-content-middle" ng-if="isAnalisys">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 groups-title text-center">Выберите где ищем комментарии</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12 block-checkbox">
+                        <input type="checkbox" ng-disabled="true" ng-checked="type.searchType == 'theme'" ng-true-value="'theme'" ng-false-value="'post'" class="checkbox" ng-model="type.searchType" id="man" />
+                        <label for="man">В темах (в разработке)</label>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 block-checkbox">
+                        <input type="checkbox" ng-disabled="group.closed" ng-checked="type.searchType == 'post'" ng-true-value="'post'" class="checkbox" ng-model="type.searchType" id="woman" />
+                        <!--ng-false-value="'theme'"-->
+                        <label for="woman">В записях на стене</label>
+                    </div>
+                </div>
+                <div style="margin-top:15px;" ng-if="type.searchType == 'theme'">
+                    <div class="row text-center groups-title"  >
+                        Глубина поиска (кол-во топиков)
+                    </div>
+                    <div class="row group-search">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" class="form-control" ng-model="group.id"/>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:15px;" ng-if="type.searchType == 'post'">
+                    <div class="row text-center groups-title"  >
+                        Глубина поиска (кол-во записей)
+                    </div>
+                    <div class="row text-center groups-title-small">
+                        Примечание: чем больше число - тем медленнее поиск.
+                    </div>
+                    <div class="row group-search">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" class="form-control" ng-model="group.searchItems"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="friends-content-bottom pull-right">
+                <button class="btn btn-back" ng-click="getComments()" ng-disabled="group.closed || !group.name || type.searchType != 'post' || (procent != 100 && procent > 0 && !stopped)">Сканируем</button>
+                <button class="btn btn-back" ng-click="stopScan()" ng-if="procent != 0 && procent != 100 && !stopped">Стоп</button>
+            </div>
+        </div>
+        <div class="result-content" ng-if="result">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 result-content-procent">
+                    <div ng-if="procent != 0 && procent != 100 && !stopped">Процесс небыстрый, пожалуйста подождите</div>
+                    <div>{{procent}} %</div>
+                    <div ng-if="procent == 100 || stopped">Сканирование завершено</div>
+                </div>
+            </div>
+            <!--todo: на подумать как оформить-->
+            <div ng-if="commentsOfUser.length > 0">
+                <div class="caption-wall">Опаньки!</div>
+                <ul class="list-unstyled">
+                    <li class="row result-content-item post" ng-repeat="item in commentsOfUser">
+
+                        <!--<li ng-repeat="item in commentsOfUser" class="post">-->
+
+                        <!--если есть вложения-->
+                        <div class="post-block" ng-if="item.post.attachments && item.post.attachments.length > 0">
+                            <ul class="list-unstyled">
+                                <li ng-repeat="attachment in item.post.attachments">
+                                    <div class="pull-left post-block-photo" ng-click="increasePhoto(attachment.photo)" ng-if="attachment.type == 'photo'">
+                                        <img src="{{attachment.photo.photo_130}}" alt=""/>
+                                    </div>
+                                    <div class="post-block-music-container" ng-if="attachment.type == 'audio'">
+                                        <span ng-if="!attachment.isOpen" ng-click="openMusic(attachment)">{{attachment.audio.artist + ' ' + attachment.audio.title}}</span>
+                                        <span ng-if="attachment.isOpen" ng-click="openMusic(attachment)">Свернуть</span>
+                                        <div class="pull-left post-block-music" ng-if="attachment.type == 'audio' && attachment.isOpen">
+                                            <div class="post-block-music-name">{{attachment.audio.artist + ' ' + attachment.audio.title}}</div>
+                                            <audio controls style="background: #6383A8;">
+                                                <source src="{{attachment.audio.url}}" type="audio/mp3">
+                                            </audio>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left post-block-music" ng-if="attachment.type == 'video'"> Видеозапись</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!--если запись репост-->
+                        <div class="post-block" ng-if="item.post.copy_history && item.post.copy_history.length > 0">
+                            <ul class="list-unstyled">
+                                <li ng-repeat="history in item.post.copy_history">
+                                    <ul class="list-unstyled">
+                                        <li ng-repeat="attachment in history.attachments">
+                                            <div class="pull-left post-block-photo" ng-if="attachment.photo.photo_130 && attachment.type == 'photo'" ng-click="increasePhoto(attachment.photo)">
+                                                <img src="{{attachment.photo.photo_130}}" alt=""/>
+                                            </div>
+                                            <div class="post-block-music-container" ng-if="attachment.type == 'audio'">
+                                                <span ng-if="!attachment.isOpen" ng-click="openMusic(attachment)">{{attachment.audio.artist + ' ' + attachment.audio.title}}</span>
+                                                <span ng-if="attachment.isOpen" ng-click="openMusic(attachment)">Свернуть</span>
+                                                <div class="pull-left post-block-music" ng-if="attachment.type == 'audio' && attachment.isOpen">
+                                                    <div class="post-block-music-name">{{attachment.audio.artist + ' ' + attachment.audio.title}}</div>
+                                                    <audio controls style="background: #6383A8;">
+                                                        <source src="{{attachment.audio.url}}" type="audio/mp3">
+                                                    </audio>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="pull-left post-block-photo" ng-if="history.photo.photo_75" ng-click="increasePhoto(history.photo)">
+                                        <img src="{{history.photo.photo_75}}" alt=""/>
+                                    </div>
+                                    <div class="post-text" ng-if="history.text != ''">{{history.text}}</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="post-text" >{{item.post.text}}</div>
+                        <div class="post-more">
+                            <div class="post-more-likes">
+                                <span>
+                                    <i class="ion-heart"></i>{{' ' + item.post.likes.count}}
+                                </span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="post-comments">
+                            <div class="user-title">
+                                Список комментариев:
+                            </div>
+                            <div class="row" ng-repeat="comment in item.comments" style="margin-bottom: 10px; padding:15px;">
+                                <div style="text-align: left;margin-left:20px;">{{comment.text}}</div>
+                                <div class="row pull-right comment-date" style="margin-right: 25px;">{{comment.date}}</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <hr>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <div class="go-up" title="Вверх" id='ToTop'>⇧</div>
+    <div class="go-down" title="Вниз" id='OnBottom'>⇩</div>
+</section>

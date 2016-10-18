@@ -275,7 +275,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       });
       return deffered.promise;
     },
-    getAllWallPost: function(userId, params, count, offset) {
+    getAllWallPost: function(userId, params, count, offset, group) {
       var deffered, url;
       if (count == null) {
         count = null;
@@ -283,8 +283,14 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       if (offset == null) {
         offset = null;
       }
+      if (group == null) {
+        group = null;
+      }
       if (count === null) {
         count = 100;
+      }
+      if (group) {
+        userId = '-' + userId;
       }
       if (offset === null) {
         offset = 0;
@@ -399,17 +405,6 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       });
       return deffered.promise;
     },
-    getComment: function(userId, post, params) {
-      var deffered, url;
-      deffered = $q.defer();
-      url = vk.api + '/method/wall.getComments?' + 'owner_id=' + userId + '&post_id=' + post.id + '&extended=1&count=100&need_likes=1&v=5.28&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
-      $http.jsonp(url).success(function(data) {
-        return deffered.resolve(data);
-      }).error(function(error) {
-        return deffered.reject(error);
-      });
-      return deffered.promise;
-    },
     getWish: function(content) {
       var deffered;
       deffered = $q.defer();
@@ -452,6 +447,29 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       }
       code = code + '};';
       url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getCommentsWall: function(userId, postId, params, count, offset) {
+      var deffered, url;
+      if (count == null) {
+        count = null;
+      }
+      if (offset == null) {
+        offset = null;
+      }
+      deffered = $q.defer();
+      if (count === null) {
+        count = 1;
+      }
+      if (offset === null) {
+        offset = 0;
+      }
+      url = vk.api + '/method/wall.getComments?' + 'owner_id=' + userId + '&post_id=' + postId + '&count=' + count + '&offset=' + offset + '&v=5.28&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {
@@ -639,6 +657,28 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       var deffered, url;
       deffered = $q.defer();
       url = vk.api + '/method/database.getCities?country_id=1&region_id=' + city + '&hometown=' + town + '&fields=city,photo_50&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getRelationsForUser: function(params, sex, status) {
+      var deffered, url;
+      if (sex == null) {
+        sex = null;
+      }
+      if (status == null) {
+        status = null;
+      }
+      deffered = $q.defer();
+      if (sex === null) {
+        url = vk.api + '/method/users.search?&status=' + status + '&fields=city,photo_50,sex&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      }
+      if (status === null) {
+        url = vk.api + '/method/users.search?&sex=' + sex + '&fields=city,photo_50,sex&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      }
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {

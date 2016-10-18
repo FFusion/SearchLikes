@@ -44,3 +44,6 @@ UserModule.controller 'UserController', ($scope, $stateParams, $window, $locatio
 
     $scope.getCommentsOfPhoto = (user) ->
         $state.transitionTo('commentsPhoto', {userId: user.id});
+
+    $scope.getCommentsOfGroup = (user) ->
+        $state.transitionTo('commentsGroup', {userId: user.id});
