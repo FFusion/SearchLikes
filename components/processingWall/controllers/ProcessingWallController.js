@@ -24,8 +24,9 @@ ProcessingWallModule.controller('ProcessingWallController', function($scope, $st
     return $scope.window.history.back();
   };
   $scope.allFriends = angular.copy($scope.userFriends);
-  $scope.scanedWall = function(userFriends) {
-    var scaningUsers;
+  $scope.scanedWall = function() {
+    var scaningUsers, userFriends;
+    userFriends = angular.copy($scope.userFriends);
     Loader.startLoad();
     scaningUsers = [];
     $scope.isLikes = [];

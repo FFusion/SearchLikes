@@ -34,7 +34,8 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
 
     $scope.allFriends = angular.copy($scope.userFriends);
 
-    $scope.scaned = (userFriends) ->
+    $scope.scaned = () ->
+        userFriends = angular.copy($scope.userFriends);
         Loader.startLoad();
 #        scaningUsers = [];
         $scope.isLikes = [];

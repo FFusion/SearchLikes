@@ -24,8 +24,9 @@ ProcessingPhotoModule.controller('ProcessingPhotoController', function($scope, $
     return $scope.window.history.back();
   };
   $scope.allFriends = angular.copy($scope.userFriends);
-  $scope.scaned = function(userFriends) {
-    var scaningUsers;
+  $scope.scaned = function() {
+    var scaningUsers, userFriends;
+    userFriends = angular.copy($scope.userFriends);
     Loader.startLoad();
     $scope.isLikes = [];
     $scope.result = false;

@@ -34,7 +34,8 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
 
     $scope.allFriends = angular.copy($scope.userFriends);
 
-    $scope.scanedWall = (userFriends) ->
+    $scope.scanedWall = () ->
+        userFriends = angular.copy($scope.userFriends);
         Loader.startLoad();
         scaningUsers = [];
         $scope.isLikes = [];
