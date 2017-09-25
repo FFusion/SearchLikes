@@ -19,7 +19,6 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
   $scope.increasePhoto = function(photo) {
     $scope.process = true;
     $scope.openBigBlade = true;
-    console.log(photo);
     return $scope.image = photo.instance.photo_604;
   };
   $scope.closeBlade = function() {
@@ -54,7 +53,6 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
     $scope.countPhoto = countPhoto;
     $scope.typePhoto = typePhoto;
     return RestModel.getPhoto($scope.userId, $scope.params, $scope.countPhoto, $scope.typePhoto).then(function(data) {
-      console.log(data);
       $scope.photos = data.response.items.length !== 0 ? data.response.items : null;
       if ($scope.photos !== null) {
         return $scope.getLikesFromPhotos();
@@ -63,7 +61,7 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
         return $scope.likePhotos = [];
       }
     }, function(error) {
-      return console.log(error);
+      return Notification.error(error);
     });
   };
   $scope.getLikesFromPhotos = function() {
@@ -91,7 +89,7 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
             }
           }
         }, function(error) {
-          return console.log(error);
+          return Notification.error(error);
         });
       });
     }
@@ -103,7 +101,6 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
   $scope.getLikesRecursion = function(photo, index) {
     $scope.index = index;
     if ($scope.index % 4 === 0 && $scope.index !== $scope.photosLength && $scope.index !== 0) {
-      console.log($scope.index);
       $timeout(function() {
         return $scope.getLikes(photo);
       }, 2000);
@@ -112,14 +109,12 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
       $scope.getLikes(photo);
     }
     if (index === $scope.photosLength) {
-      console.log($scope.likePhotos);
       $scope.loading = false;
       return true;
     }
   };
   $scope.getLikes = function(photo) {
     var type;
-    console.log(photo);
     type = "photo";
     return RestModel.getLikes($scope.userId, $scope.params, photo.id, type).then(function(data) {
       var listId;
@@ -137,7 +132,6 @@ PhotoModule.controller('PhotoController', function($scope, $stateParams, $timeou
       }
       return $scope.getLikesRecursion($scope.photos[$scope.index], $scope.index);
     }, function(error) {
-      console.log(error);
       if (error.code === 6) {
         return $timeout(function() {
           return $scope.getLikeRecursion(photo, $scope.index);

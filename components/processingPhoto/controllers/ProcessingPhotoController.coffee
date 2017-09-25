@@ -2,7 +2,7 @@
 
 'use strict'
 
-ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $location, $timeout, RestModel, Loader, params, currentUser, friends) ->
+ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $stateParams, $location, $timeout, Notification, RestModel, LikesNetwork, Loader, params, currentUser, friends, Static) ->
 
     $scope.params = params;
     $scope.window = window;
@@ -14,6 +14,7 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
     $scope.stopped = false;
     $scope.lookedItems = false;
     $scope.procent = 0;
+    $scope.deep = false;
 
     $scope.type = {};
     $scope.type.typeUsers = "all"
@@ -34,7 +35,10 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
 
     $scope.allFriends = angular.copy($scope.userFriends);
 
+    $scope.allFriendsNet = angular.copy($scope.userFriends);
+
     $scope.scaned = () ->
+        $scope.deep = false;
         userFriends = angular.copy($scope.userFriends);
         Loader.startLoad();
 #        scaningUsers = [];
@@ -52,6 +56,50 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
         $scope.allCountUsers = scaningUsers.length;
         $scope.searchPhotoAmongUsers(scaningUsers);
 
+    $scope.scanedBig = () ->
+        Static.params = params;
+        # смотрим на выбранную категорию и фильтруем пользователей
+        if $scope.type.typeUsers == "all"
+            scaningUsers = RestModel.noDeletedFriends($scope.gridUsers);
+        else
+            scaningUsers = RestModel.filteredUsers($scope.gridUsers, $scope.type.typeUsers);
+
+        userFriends = angular.copy(scaningUsers);
+        Loader.startLoad();
+        $scope.isLikes = [];
+
+        $scope.result = false;
+        $scope.stopped = false;
+
+        $scope.procent = 0;
+        $scope.count = 0;
+
+
+        $scope.allCountUsers = userFriends.length;
+
+        $scope.searchPhotoAmongUsers(userFriends);
+
+
+    $scope.getNetworkFriends = () ->
+        Notification.show("Собираем сетку друзей, пожалуйста подождите");
+        $scope.loading = true;
+        friends = RestModel.noDeletedFriends($scope.allFriendsNet);
+        LikesNetwork.params = params;
+        count = friends.length;
+        LikesNetwork.getFriendsNetworkList(count, friends, null).then(
+            (users) ->
+                $scope.allCountUsers = users.length;
+                $scope.loading = false;
+                $scope.deep = true;
+                $scope.gridUsers = users;
+            (error) ->
+                Notification.error("Произошла ошибка! " + error);
+        );
+#        # берем одного чувака
+#        checkedUser = userFriends.splice(0,1);
+#        $timeout(()->
+#            RestModel.getNetworkFriends()
+
     # функция сканирования
     $scope.searchPhotoAmongUsers = (userFriends) ->
 
@@ -65,12 +113,15 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
 
 
         $scope.procent = 100 - Math.floor(userFriends.length * 100 / $scope.allCountUsers);
+        $scope.leftCount = userFriends.length;
         Loader.process($scope.procent);
 
         if checkedUser != undefined
+            current = checkedUser;
+
             # получаем фотки профиля этого чувака
             $timeout(()->
-                RestModel.getPhoto(checkedUser[0].id, $scope.params, 1000, "profile").then(
+                RestModel.getPhoto(checkedUser[0].id || current, $scope.params, 1000, "profile").then(
                     (data)->
                         if angular.isDefined(data.response && data.response.items)
                             # список фоток
@@ -83,13 +134,13 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
                         else
                             $scope.searchPhotoAmongUsers(userFriends);
                     (error)->
-                        console.log(error);
+                        Notification.error("Произошла ошибка! " + error);
                         $scope.searchPhotoAmongUsers(userFriends);
                 )
             ,300)
 
         else
-            console.log('no');
+            Notification.error('Ошибка');
 
 
     $scope.getLikesFromsPhotos = (checkedUser,userFriends,photos) ->
@@ -108,7 +159,7 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
                         $scope.userLikes.push(likes.response);
                         $scope.isSearchLikes(checkedUser,userFriends, $scope.userPhotos, $scope.userLikes);
                     (error)->
-                        console.log(error);
+                        Notification.error("Произошла ошибка! " + error);
                 )
             ,300)
 
@@ -121,7 +172,7 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
                         $scope.userLikes.push(likes.response);
                         $scope.getLikesFromsPhotos(checkedUser, userFriends, photos);
                     (error)->
-                        console.log(error);
+                        Notification.error("Произошла ошибка! " + error);
                 )
             ,300)
 
@@ -135,10 +186,20 @@ ProcessingPhotoModule.controller 'ProcessingPhotoController', ($scope, $statePar
         angular.forEach(userLikes, (likes)->
             angular.forEach(likes, (like, key)->
                 photoId = parseInt(key.replace(/\D+/g,""));
-                angular.forEach(like.users, (user)->
+                angular.forEach(like.items, (user)->
                     if user == parseInt($scope.userId)
                         if userPhotos
-                            $scope.addPhotoWithLike(checkedUser, photoId, userPhotos);
+                            if checkedUser[0].id != undefined
+                                $scope.addPhotoWithLike(checkedUser, photoId, userPhotos);
+                            else
+                                RestModel.getUserById(checkedUser, $scope.params).then(
+                                    (data) ->
+                                        $scope.isLikes.push({user:data, photos:[], photosCount:''});
+                                        $scope.addPhotoWithLike(data, photoId, userPhotos);
+                                    (error) ->
+                                        Notification.error("Произошла ошибка! " + error);
+
+                                )
                 )
             )
         )

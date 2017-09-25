@@ -2,12 +2,8 @@
 
 'use strict'
 
-FriendsModule.controller 'FriendsController', ($scope, $location, $window, $timeout, $state, $stateParams, params, ngTableParams, LocalStorage, Loader, RestModel, currentUser) ->
+FriendsModule.controller 'FriendsController', ($scope, $location, $window, $timeout, $state, $stateParams, params, Static, Notification, ngTableParams, LocalStorage, Loader, RestModel, currentUser) ->
 
-#    $scope.group = {
-#        name:'',
-#        id:''
-#    };
     # авторизованный пользователь
     if currentUser
         $scope.currentUser = currentUser;
@@ -18,6 +14,9 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $time
 
     $scope.openTable = false;
     $scope.loading = false;
+    $scope.hideUsers = [];
+    $scope.resultHide = [];
+    Static.params = params;
 
     $scope.params = $scope.params || LocalStorage.getItem('params');
 
@@ -31,8 +30,35 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $time
         $state.transitionTo('global');
 
 
+    $scope.getFriendsWhoHideYour = () ->
+        count = $scope.friends.length;
+        listFriends = angular.copy($scope.friends);
+
+        listFriends = RestModel.friendsOnlineOrDelete(null,listFriends);
+        $scope.loading = true;
+
+        Static.getHideFriendsList(count, listFriends, $scope.currentUser.id, []).then(
+            (result) ->
+                $scope.resultHide = result;
+                if $scope.resultHide.length == 0
+                    Notification.show('Скорее всего вас никто не скрывает.');
+                    $scope.loading = false;
+                else
+                    Static.getFriends($scope.resultHide, []).then(
+                        (users) ->
+                            $scope.loading = false;
+                            $scope.hideUsers = users;
+                        (error)->
+                            Notification.error(error);
+                    );
+            (error) ->
+                Notification.error(error);
+        );
+
+
     # список друзей
     $scope.getListFriends = () ->
+        $scope.hideUsers = [];
         $scope.page = 1;
         $scope.friendsOnline = [];
         $scope.openTableOnline = false;
@@ -47,7 +73,7 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $time
 
                     $scope.openTable = if $scope.friends then true else false;
                 (error) ->
-                    console.log(error);
+                    Notification.error(error);
             );
         else
             $scope.openTable = true;
@@ -55,6 +81,7 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $time
 
     # список друзей - онлайн
     $scope.getListFriendsOnlineOrDelete = (type) ->
+        $scope.hideUsers = [];
         $scope.page = 1;
         $scope.friendsArray = RestModel.friendsOnlineOrDelete(type, $scope.friends);
 
@@ -75,7 +102,10 @@ FriendsModule.controller 'FriendsController', ($scope, $location, $window, $time
         $state.transitionTo('user', {userId: user.id || user.uid});
         LocalStorage.setItem('page',$scope.page);
 
+#    $scope.showHelpView = () ->
+#        $state.transitionTo('help',{reload:true});
+
 
     if LocalStorage.getItem('page') then $scope.getListFriends();
     $scope.page = if LocalStorage.getItem('page') then LocalStorage.getItem('page') else 1;
-    $scope.pageSize = 6;
+    $scope.pageSize = 50;

@@ -2,14 +2,16 @@
 
 'use strict';
 
-UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state, $timeout, $stateParams, RestModel, Loader, LocalStorage, params,currentUser) ->
+UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state, $timeout, $stateParams, Notification, Static, RestModel, Loader, LocalStorage, params,currentUser) ->
 
     $scope.stateParams = $stateParams;
     $scope.window = window;
     $scope.params = params;
+    Static.params = params;
+    $scope.hideUsers = [];
 
     $scope.page = 1;
-    $scope.pageSize = 6;
+    $scope.pageSize = 50;
 
     $scope.userId = $scope.stateParams.userId;
     $scope.currentUser = currentUser;
@@ -34,15 +36,46 @@ UserFriendsModule.controller 'UserFriendsController', ($scope, $location, $state
             $scope.userFriends = RestModel.isWorkingFriendsObject(data);
             $scope.userFriendsArray = null;
         (error) ->
-            console.log(error);
+            Notification.error(error);
 
     )
 
+
+    $scope.getFriendsWhoHideYour = () ->
+        $scope.loading = true;
+        count = $scope.userFriends.length;
+        listFriends = angular.copy($scope.userFriends);
+
+        listFriends = RestModel.friendsOnlineOrDelete(null,listFriends);
+
+        Static.getHideFriendsList(count, listFriends, $scope.userId, []).then(
+            (result) ->
+                $scope.resultHide = result;
+                if $scope.resultHide.length == 0
+                    Notification.show('Скорее всего пользователя никто не скрывает');
+                    $scope.loading = false;
+                else
+                    Static.getFriends($scope.resultHide, []).then(
+                        (users) ->
+                            $scope.loading = false;
+                            $scope.hideUsers = users;
+                            $scope.openTableOnline = false;
+                            $scope.openTable = false;
+                        (error)->
+                            Notification.error(error);
+                    )
+            (error) ->
+                Notification.error(error);
+        );
+
+
     $scope.getListFriendsOnlineOrDelete = (type) ->
+        $scope.hideUsers = [];
         $scope.userFriendsArray = RestModel.friendsOnlineOrDelete(type, $scope.userFriends);
 
 
     $scope.getListFriends = () ->
+        $scope.hideUsers = [];
         $scope.userFriendsArray = null;
 
     $scope.more = (user) ->

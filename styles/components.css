@@ -180,7 +180,6 @@
   font: 400 16px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
   display: inline-block;
 }
-.caption-main,
 .caption-empty,
 .caption-notLikes {
   position: absolute;
@@ -190,10 +189,17 @@
   width: 500px;
   font: 800 24px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
 }
-.caption-main div,
 .caption-empty div,
 .caption-notLikes div {
   text-align: center;
+}
+.caption-main {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  margin: 0 0 0 -250px;
+  width: 500px;
+  font: 800 24px/1.42 'Roboto', 'Helvetica Neue', Helvetica, Arial;
 }
 .caption-notLikes {
   top: 40%;

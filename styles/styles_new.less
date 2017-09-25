@@ -1,0 +1,339 @@
+//additional
+.m-10 {
+    margin:10px;
+}
+
+.ml-10 {
+    margin-left:10px;
+}
+
+.mr-10 {
+    margin-right:10px;
+}
+
+.mb-10 {
+    margin-bottom:10px;
+}
+
+.mt-10 {
+    margin-top:10px;
+}
+
+
+body {
+    background:linear-gradient(90deg,#6fa8ef,#5a65db);
+}
+
+@media only screen and (max-width: 480px) {
+    header, #services, #contacts {
+        background:linear-gradient(90deg,#6fa8ef,#5a65db);
+    }
+}
+
+
+#contacts {
+    background: #32325d;
+}
+
+#about-us {
+    background: #f6f9fc;
+}
+
+#name, #email, #message {
+    background: #fff;
+    color:black;
+
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: black;
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+        color: black;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+        color: black;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+        color: black;
+    }
+}
+
+// кнопка Войти на главной
+a.to-employee-btn {
+    display: inline-block;
+    width: 19em;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.1;
+    white-space: pre-line;
+    padding: .9em 0;
+    border-radius: 6px;
+    outline: none;
+    box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+    color: #fff;
+    background: #32325d;
+    border: none;
+
+    &:hover, &:focus {
+        color: rgb(255,255,255);
+        background-color: #43458b;
+        text-decoration: none;
+        transform: translateY(-1px);
+        box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+        background-image: none;
+    }
+}
+
+// перейти на блог button
+.state-blog, .btn-prev, .btn-next, .btn-begin, .prev, .next {
+    white-space: nowrap;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 14px;
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+    background: #fff;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .025em;
+    color: #6772e5;
+    text-decoration: none !important;
+    transition: all .15s ease;
+    cursor:pointer;
+    margin-top: 5px;
+
+    &:hover,  {
+        color: #7795f8;
+        transform: translateY(-1px);
+        box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+        text-decoration:none;
+    }
+}
+
+//Навигация на главной
+.resp-tabs-list li, h2.resp-accordion, h2.resp-accordion.resp-tab-active {
+    border: 0;
+    box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+    color: #fff;
+    background: #32325d;
+
+    &:hover, {
+        color: rgb(255,255,255);
+        background-color: #43458b;
+        border: 0;
+        box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+    }
+}
+.resp-tabs-list {
+    li.resp-tab-active, h2.resp-accordion .resp-tab-active {
+        color: rgb(255,255,255);
+        background-color: #43458b;
+        border: 0;
+        box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+    }
+}
+
+
+.services-provide-block ul li.item-1 {
+    background: transparent url('../../image/item153.png') no-repeat 0;
+    padding: 25px 0 20px 120px;
+}
+
+.services-provide-block ul li.item-2 {
+    background: transparent url('../../image/item135.png') no-repeat 0 0;
+    padding: 5px 0 20px 120px;
+}
+.services-provide-block ul li.item-3 {
+    background: transparent url('../../image/item143.png') no-repeat 0 0;
+    padding: 5px 0 35px 120px;
+}
+
+#slider1 {
+    width: 700px;
+}
+
+.our-awards-wrap {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);
+}
+
+.middle-title {
+    color:#6772e5;
+}
+
+.money {
+    color:#6772e5;
+}
+
+.btn-friend, .btn-off, .btn-online, .btn-back,
+.btn-checkLikes, .btn-checkPhoto, .btn-delete,
+.btn-search, .btn-userFriends, .btn-home, .btn-select,
+.btn-change, .btn-wish {
+    border-radius: 6px;
+    outline: none;
+    box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+    color: #fff;
+    background: #32325d;
+
+    &:hover, &:focus {
+        color: rgb(255,255,255);
+        background-color: #43458b;
+        text-decoration: none;
+        transform: translateY(-1px);
+        box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+        background-image: none;
+    }
+}
+
+.caption-main {
+    color: #6f7c82;
+    font-family: Whitney SSm A,Whitney SSm B,Helvetica,Arial;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+//friends
+.friends-item {
+    padding: 0;
+
+    img {
+        float:left;
+    }
+
+    &-time {
+        color:#6b7c93;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    &-user {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 48px;
+        float:left;
+    }
+}
+
+@media(max-width: 500px) {
+    //friends
+    .friends-item {
+
+        &-time {
+            font-size: 10px;
+        }
+
+        &-user {
+            font-size: 13px;
+        }
+    }
+}
+
+.user-more-item span:first-child {
+    color:#43458b
+}
+
+.user-more-item {
+    margin: 0 0 8px 0;
+}
+
+.process {
+    top:10%;
+}
+
+.profile {
+    margin:10px 0 10px 0;
+
+    &-old, &-new {
+        min-height: 200px;
+    }
+}
+
+.profile-user-name {
+    padding: 15px;
+}
+
+//статистика
+.card {
+    list-style: none;
+    margin: 0 -10px 0 0;
+    padding: 0;
+}
+
+.card-block {
+    display: block;
+    width: 100%;
+    float: left;
+    cursor: pointer;
+    transition: width .2s;
+
+    &-button {
+        position: absolute;
+        bottom: 0;
+        left: 25%;
+        right: 0;
+        margin: auto;
+        display: inline-block;
+        transition: opacity, transform .2s ease-out;
+        transform: translateY(2em);
+        opacity: 0;
+    }
+
+
+    &-item {
+        display: block;
+        border-radius: 3px;
+        background-color: #6383A8;
+        color:white;
+        position: relative;
+        margin: 0 10px 10px 0;
+        text-decoration: none;
+        z-index: 0;
+        height: 200px;
+
+        &:hover {
+            .card-block-button {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        &-title {
+            font-size: 24px;
+            font-weight: 600;
+            padding: 20px 15px 15px 15px;
+
+        }
+
+        div:nth-child(2) {
+            padding: 15px 15px 15px 15px;
+            font-size: 15px;
+        }
+    }
+}
+
+@media only screen and (min-width: 450px) {
+    .card-block {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .card-block {
+        width: 33.333%;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .card-block {
+        width: 25%;
+    }
+}
+
+//группы
+.friends-item-photo {
+    padding: 0;
+}

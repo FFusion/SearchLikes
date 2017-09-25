@@ -73,7 +73,7 @@ CommentsGroupModule.controller('CommentsGroupController', function($scope, param
       $scope.offset = 0;
     }
     if (count === null) {
-      count = $scope.group.searchItems;
+      count = parseInt($scope.group.searchItems);
     }
     if (count < 100 || count === null) {
       return $timeout(function() {
@@ -92,7 +92,7 @@ CommentsGroupModule.controller('CommentsGroupController', function($scope, param
       }, 345);
     } else {
       return $timeout(function() {
-        return RestModel.getAllWallPost($scope.group.id, $scope.params, 100, $scope.offset).then(function(data) {
+        return RestModel.getAllWallPost($scope.group.id, $scope.params, 100, $scope.offset, true).then(function(data) {
           $scope.groupWall.push(data.response.items);
           count = count - 100;
           $scope.offset = $scope.offset + 100;
@@ -114,7 +114,6 @@ CommentsGroupModule.controller('CommentsGroupController', function($scope, param
       });
     });
     $scope.allPosts = postsWithComment.length;
-    console.log('posts', postsWithComment);
     return $scope.getCommentsForPost(postsWithComment[0], postsWithComment);
   };
   $scope.getCommentsForPost = function(post, posts, count) {

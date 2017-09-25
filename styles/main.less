@@ -126,18 +126,21 @@ h3 {
         img {
             width: 50px;
             height: 50px;
+            border-radius: 5px;
         }
     }
 
     &-name {
-        font-family: Marck Script, sans-serif;
-        font-size:18px;
+        font-family: Times New Roman, sans-serif;
+//        font-family: Marck Script, sans-serif;
+        font-size:17px;
         line-height: 50px;
     }
 
     &-visit {
-        font-family: Marck Script, sans-serif;
-        font-size: 20px;
+        font-family: Times New Roman, sans-serif;
+//        font-family: Marck Script, sans-serif;
+        font-size: 16px;
         font-weight: 800;
         line-height: 50px;
         text-align: right;
@@ -392,7 +395,9 @@ h3 {
 
     &-text {
         display: inline-block;
-        font: @font-body-bold;
+//        font: @font-body-bold;
+        font:@font-body;
+        font-style:italic;
         margin: 10px;
         width: 97%;
     }
@@ -735,3 +740,25 @@ h3 {
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
+
+
+//help style
+.block-help {
+    background: white;
+
+    &-container {
+        width: 97%;
+        height: 100%;
+        min-height: 840px;
+
+        &-btn {
+            width: 100%;
+            margin: 20px 0 20px 15px;
+        }
+
+        &-yandex {
+            margin:0 0 0 15px;
+        }
+    }
+}
+

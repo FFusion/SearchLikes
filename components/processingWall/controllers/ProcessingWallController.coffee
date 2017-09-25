@@ -2,7 +2,7 @@
 
 'use strict'
 
-ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParams, $location, $timeout, RestModel, Loader, params, currentUser, friends) ->
+ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParams, $location, $timeout, RestModel, Notification, Loader, params, currentUser, friends) ->
 
     $scope.params = params;
     $scope.window = window;
@@ -84,13 +84,12 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
                         else
                             $scope.searchWallAmongUsers(userFriends);
                     (error)->
-                        console.log(error);
                         $scope.searchWallAmongUsers(userFriends);
                 )
             ,300)
 
         else
-            console.log('no');
+            Notification.error('Ошибка');
 
     $scope.getLikesFromsWalls = (checkedUser, userFriends, walls) ->
         # временное хранилище с которым работаем если записей больше 25
@@ -108,7 +107,7 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
                         $scope.userLikes.push(likes.response);
                         $scope.isSearchLikes(checkedUser, userFriends, $scope.userWalls, $scope.userLikes);
                     (error)->
-                        console.log(error);
+                        Notification.error(error);
                 )
             ,300)
 
@@ -121,7 +120,7 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
                         $scope.userLikes.push(likes.response);
                         $scope.getLikesFromsWalls(checkedUser, userFriends, walls);
                     (error)->
-                        console.log(error);
+                        Notification.error(error);
                 )
             ,300)
 
@@ -132,7 +131,7 @@ ProcessingWallModule.controller 'ProcessingWallController', ($scope, $stateParam
         angular.forEach(userLikes, (likes)->
             angular.forEach(likes, (like, key)->
                 wallId = parseInt(key.replace(/\D+/g,""));
-                angular.forEach(like.users, (user)->
+                angular.forEach(like.items, (user)->
                     if user == parseInt($scope.userId)
                         if userWalls
                             $scope.addWallWithLike(checkedUser, wallId, userWalls);

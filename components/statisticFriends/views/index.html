@@ -36,26 +36,53 @@
                 </div>
             </div>
             <div class="friends-content-middle" ng-if="selectedStat">
-                <div class="row">
-                    <div class="col-md-4 col-lg-4 col-xs-12 block-stat" ng-click="getStatisticAboutFriends()">
-                        <h2>У кого больше всего друзей?</h2>
-                        <span>Статистика друзей выбранного пользователя по количеству друзей</span>
-                    </div>
-                    <div class="col-md-4 col-lg-4 col-xs-12 block-stat" ng-click="getStatActiveUser()">
-                        <h2>Активность друзей среди фотографий</h2>
-                        <span>Статистика активности друзей выбранного пользователя на его странице по лайкам на <b>фото</b></span>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xs-12 block-stat" ng-click="getStatActiveUserWall()">
-                        <h2>Активность друзей на стене</h2>
-                        <span>Статистика активности друзей выбранного пользователя на его странице по лайкам на <b>стене</b></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 col-lg-4 col-xs-12 block-stat" ng-click="showAvaType()">
-                        <h2>Кто сменил аву?</h2>
-                        <span>Отслеживаем обновления автароки друзей за определенное время</span>
-                    </div>
-                </div>
+                <ul class="card clearfix">
+                    <li class="card-block">
+                        <div class="card-block-item" ng-click="getStatisticAboutFriends()">
+                            <div class="card-block-item-title">У кого больше всего друзей?</div>
+                            <div>Статистика друзей выбранного пользователя по количеству друзей</div>
+                            <span class="card-block-button">
+                                <span class="state-blog">Вперед</span>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="card-block">
+                        <div class="card-block-item" ng-click="getStatActiveUser()">
+                            <div class="card-block-item-title">Кто лайкает ваши фото?</div>
+                            <div>Статистика активности друзей выбранного пользователя на его странице по лайкам на <b>фото</b></div>
+                            <span class="card-block-button">
+                                <span class="state-blog">Вперед</span>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="card-block">
+                        <div class="card-block-item" ng-click="getStatActiveUserWall()">
+                            <div class="card-block-item-title">Кто лайкает вашу стену?</div>
+                            <div>Статистика активности друзей выбранного пользователя на его странице по лайкам на <b>стене</b></div>
+                            <span class="card-block-button">
+                                <span class="state-blog">Вперед</span>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="card-block">
+                        <div class="card-block-item" ng-click="showAvaType()">
+                            <div class="card-block-item-title">Кто из друзей сменил аву?</div>
+                            <div>Отслеживаем обновления аватарок друзей за определенное время</div>
+                            <span class="card-block-button">
+                                <span class="state-blog">Вперед</span>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="card-block">
+                        <div class="card-block-item" ng-click="analisysFriends()">
+                            <div class="card-block-item-title">Анализ списка друзей</div>
+                            <div>Занимательная статистика по полу, семейному положению и другим параметрам</div>
+                            <span class="card-block-button">
+                                <span class="state-blog">Вперед</span>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
             </div>
             <div class="friends-content-middle" ng-if="!selectedStat">
                 <div ng-if="firstStat">
@@ -151,16 +178,16 @@
                         <div ng-repeat="data in resultStatFour">
                             <div class="row profile">
                                 <div class="profile-user-name">{{data[0].first_name + ' ' + data[0].last_name}}</div>
-                                <div class="col-md-6 col-xs-12 col-sm-6">
-                                    <figure  class="profile-new-photo">
-                                        <img src="{{data[0].src}}" alt=""/>
-                                        <figcaption>Новое фото</figcaption>
+                                <div class="col-md-6 col-xs-12 col-sm-6 profile-old" ng-if="data[1]">
+                                    <figure  class="profile-old-photo">
+                                        <img src="{{data[1].photo_130}}" alt=""/>
+                                        <figcaption>Старое фото</figcaption>
                                     </figure >
                                 </div>
-                                <div class="col-md-6 col-xs-12 col-sm-6" ng-if="data[1]">
-                                    <figure  class="profile-old-photo">
-                                        <img src="{{data[1].src}}" alt=""/>
-                                        <figcaption>Старое фото</figcaption>
+                                <div class="col-md-6 col-xs-12 col-sm-6 profile-new">
+                                    <figure  class="profile-new-photo">
+                                        <img src="{{data[0].photo_130}}" alt=""/>
+                                        <figcaption>Новое фото</figcaption>
                                     </figure >
                                 </div>
                             </div>

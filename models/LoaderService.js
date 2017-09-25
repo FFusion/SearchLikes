@@ -48,7 +48,6 @@ MainModule.service('Loader', function($rootScope) {
 
     Loader.prototype.renderBand = function(array) {
       var maxCount, temp;
-      console.log(array[0]);
       if (angular.isDefined(array[0].counters)) {
         maxCount = array[0].counters.friends;
         temp = [];

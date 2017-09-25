@@ -1,7 +1,7 @@
 #CommentsPhotoController#
 
 'use strict';
-CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stateParams, $timeout, RestModel, Loader, currentUser, friends) ->
+CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stateParams, $timeout, RestModel, Notification, Loader, currentUser, friends) ->
     $scope.params = params;
     $scope.window = window;
     $scope.loading = false;
@@ -77,13 +77,9 @@ CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stat
                         else
                             $scope.searchCommentAmongUsers(users);
                     (error)->
-                        console.log(error);
                         $scope.searchCommentAmongUsers(users);
                     )
             ,335)
-
-        else
-            console.log('no');
 
     $scope.getCommentsOfCheckedUser = (checkedUser, count, users) ->
         # комментов меньше 100 - получаем запросом
@@ -96,7 +92,6 @@ CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stat
                         $scope.offset = 0;
                         $scope.workingWithComment(checkedUser, $scope.comments, users);
                     (error)->
-                        console.log(error);
                         $scope.searchCommentAmongUsers(users);
                 )
             ,335)
@@ -111,7 +106,6 @@ CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stat
                         count = count - 100;
                         $scope.getCommentsOfCheckedUser(checkedUser, count, users);
                     (error)->
-                        console.log(error);
                         $scope.searchCommentAmongUsers(users);
                 )
             ,335);
@@ -120,7 +114,6 @@ CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stat
 
     $scope.workingWithComment = (checkedUser, comments, users) ->
         $scope.isResultComments.push({user:checkedUser, photosId:[], allComments:[], photos:{}});
-#        if checkedUser.last_name == "Батин" then console.log(comments);
 
         angular.forEach(comments, (list)->
             angular.forEach(list, (comment) ->
@@ -178,10 +171,9 @@ CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stat
                             if photo.id == parseInt(comment.pid) then photo.comments.push(comment);
                         )
                     )
-                    console.log(object);
                     return object;
                 (error)->
-                    console.log(error);
+                    Notification.error(error);
             )
         ,335);
     # остановить сканирование
@@ -220,6 +212,6 @@ CommentsPhotoModule.controller 'CommentsPhotoController', ($scope, params, $stat
                 $scope.all = comments.response.items;
 
             (error)->
-                console.log(error);
+                Notification.error(error);
 
         )

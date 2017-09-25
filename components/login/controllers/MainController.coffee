@@ -9,7 +9,6 @@ MainModule.controller 'MainController', ($scope, $location, $state, $http, $time
     $scope.hide = false;
 
     $scope.url = RestModel.getLinkAutorization();
-    console.log($scope.url);
 
     if window.location.href.indexOf("access_token") != -1
         $scope.params = RestModel.getParams(window.location.href);
@@ -29,15 +28,15 @@ MainModule.controller 'MainController', ($scope, $location, $state, $http, $time
         reg = /^[\w\.\d-_]+@[\w\.\d-_]+\.\w{2,4}$/i;
 
         if !angular.isDefined($scope.content.email) || !angular.isDefined($scope.content.wish) || $scope.content.wish == '' || $scope.content.email == ''
-            $scope.statusText = 'Не заполенено обязательное поле!';
+            Notification.error('Не заполенено обязательное поле!');
             return true;
 
         else if !reg.test($scope.content.email)
-            $scope.statusText = 'Неккоректный email';
+            Notification.error('Неккоректный email');
             return true;
 
         else RestModel.getWish($scope.content).then(
                 (data)->
-                    $scope.statusText = 'Спасибо за отзыв';
+                    Notification.success('Спасибо за отзыв');
                 )
 

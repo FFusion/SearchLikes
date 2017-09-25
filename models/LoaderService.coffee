@@ -49,7 +49,6 @@ MainModule.service 'Loader', ($rootScope) ->
 
         # полоса % заполнения
         renderBand:(array) ->
-            console.log(array[0]);
             if angular.isDefined(array[0].counters)
                 maxCount = array[0].counters.friends;
                 temp = [];

@@ -5,7 +5,6 @@ MainModule.controller('MainController', function($scope, $location, $state, $htt
   $scope.send = false;
   $scope.hide = false;
   $scope.url = RestModel.getLinkAutorization();
-  console.log($scope.url);
   if (window.location.href.indexOf("access_token") !== -1) {
     $scope.params = RestModel.getParams(window.location.href);
     LocalStorage.setItem('params', $scope.params);
@@ -23,14 +22,14 @@ MainModule.controller('MainController', function($scope, $location, $state, $htt
     $scope.send = true;
     reg = /^[\w\.\d-_]+@[\w\.\d-_]+\.\w{2,4}$/i;
     if (!angular.isDefined($scope.content.email) || !angular.isDefined($scope.content.wish) || $scope.content.wish === '' || $scope.content.email === '') {
-      $scope.statusText = 'Не заполенено обязательное поле!';
+      Notification.error('Не заполенено обязательное поле!');
       return true;
     } else if (!reg.test($scope.content.email)) {
-      $scope.statusText = 'Неккоректный email';
+      Notification.error('Неккоректный email');
       return true;
     } else {
       return RestModel.getWish($scope.content).then(function(data) {
-        return $scope.statusText = 'Спасибо за отзыв';
+        return Notification.success('Спасибо за отзыв');
       });
     }
   };

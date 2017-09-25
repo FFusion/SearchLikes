@@ -279,6 +279,17 @@ MainModule.config ['$httpProvider', '$locationProvider', '$stateProvider', '$url
 
         )
 
+        .state('analysisFriends',
+            url         : '/analysis/friends/:userId',
+            controller  : 'AnalysisFriendsController',
+            templateUrl : 'components/statisticFriends/views/analysis.html',
+            resolve     :
+                params: (LocalStorage) -> LocalStorage.getItem('params');
+                friends: (RestModel, params, $stateParams) ->
+                    RestModel.getListFriendsForAnalisys($stateParams.userId, params);
+                currentUser: (RestModel, $stateParams,params) ->  RestModel.moreInfo($stateParams.userId, params);
+        )
+
 
 
         $urlRouterProvider.otherwise('/login');

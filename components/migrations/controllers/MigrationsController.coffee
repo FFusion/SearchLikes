@@ -2,7 +2,7 @@
 
 'use strict';
 
-MigrationsModule.controller 'MigrationsController', ($scope, $stateParams, $state, RestModel, params, $timeout) ->
+MigrationsModule.controller 'MigrationsController', ($scope, $stateParams, $state, RestModel, params, Notification) ->
 
     #todo: константы
     $scope.params = params;
@@ -47,11 +47,11 @@ MigrationsModule.controller 'MigrationsController', ($scope, $stateParams, $stat
                         )
 
                     (error)->
-                        console.log(error);
+                        Notification.error(error);
 
                 )
             (error) ->
-                console.log(error);
+                Notification.error(error);
         )
 
     $scope.refresh = () ->

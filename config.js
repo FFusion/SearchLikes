@@ -307,6 +307,21 @@ MainModule.config([
           }, 333);
         }
       }
+    }).state('analysisFriends', {
+      url: '/analysis/friends/:userId',
+      controller: 'AnalysisFriendsController',
+      templateUrl: 'components/statisticFriends/views/analysis.html',
+      resolve: {
+        params: function(LocalStorage) {
+          return LocalStorage.getItem('params');
+        },
+        friends: function(RestModel, params, $stateParams) {
+          return RestModel.getListFriendsForAnalisys($stateParams.userId, params);
+        },
+        currentUser: function(RestModel, $stateParams, params) {
+          return RestModel.moreInfo($stateParams.userId, params);
+        }
+      }
     });
     return $urlRouterProvider.otherwise('/login');
   }

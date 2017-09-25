@@ -2,7 +2,7 @@
 
 'use strict'
 
-SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location, $timeout, RestModel, params, currentUser) ->
+SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location, $timeout, Notification, RestModel, params, currentUser) ->
 
     $scope.params = params;
     $scope.window = window;
@@ -28,7 +28,7 @@ SelectedModule.controller 'SelectedController', ($scope, $stateParams, $location
             $scope.countFriends = data.response.count;
             $scope.userFriends = RestModel.isWorkingFriendsObject(data);
         (error) ->
-            console.log(error);
+            Notification.error(error);
 
     )
 

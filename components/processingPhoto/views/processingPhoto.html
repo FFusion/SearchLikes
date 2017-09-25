@@ -48,11 +48,22 @@
                         <label for="all">Все друзья</label>
                     </div>
                 </div>
+                <hr>
+                <div class="userFriend-title text-center" ng-if="deep">
+                    <span>Сетка друзей друзей данного пользователя: </span>
+                    <span style="color:red">{{allCountUsers}}</span>
+                    <div class="text-center" style="margin-top: 20px;">Выберите категорию сверху и нажмите <b style="color:red">Вперед</b></div>
+                    <div class="text-center" style="margin-top: 20px;">Процесс поиска лайков будет очень долгий, его можно в любой момент остановить, нажав <b style="color:red">Стоп</b></div>
+                </div>
+
             </div>
+            <!--<button class="btn btn-back" ng-click="getNetworkFriends()" ng-if="!deep">Глубокий поиск лайков</button>-->
+            <button class="btn btn-back" ng-click="scanedBig()" ng-if="deep">Вперед</button>
+
             <div class="friends-content-bottom pull-right">
                 <button class="btn btn-back" ng-click="scaned()" ng-disabled="procent != 100 && procent > 0 && !stopped">Сканируем</button>
                 <button class="btn btn-back" ng-click="stopScan()" ng-if="procent != 0 && procent != 100 && !stopped">Стоп</button>
-                <button class="btn btn-back" ng-click="sortingPhoto()" ng-if="procent == 100 || stopped">Сортировать по времени</button>
+                <button class="btn btn-back" ng-click="sortingPhoto()" ng-if="procent == 100 || stopped">Сортировать</button>
             </div>
         </div>
 
@@ -61,6 +72,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 result-content-procent">
                     <div ng-if="procent != 0 && procent != 100 && !stopped">Процесс небыстрый, пожалуйста подождите</div>
                     <div>{{procent}} %</div>
+                    <div>Осталось проверить - {{leftCount}} </div>
                     <div ng-if="procent == 100 || stopped">Сканирование завершено</div>
                 </div>
             </div>

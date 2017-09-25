@@ -21,9 +21,8 @@ GroupContentModule.controller 'PostWithLikesController', ($scope, $stateParams, 
                 $scope.workingWithPost($scope.postsWithLikes);
             else
                 $scope.empty = true;
-                console.log('нет постов');
         (error)->
-            console.log(error);
+            Notification.error(error);
     )
 
 
@@ -65,7 +64,6 @@ GroupContentModule.controller 'PostWithLikesController', ($scope, $stateParams, 
                                 $scope.getScanUserWall(post, posts, count);
                         (error)->
                             $scope.getScanUserWall(post, posts, count);
-                            console.log(error);
                     );
                 ,335)
 
@@ -82,7 +80,6 @@ GroupContentModule.controller 'PostWithLikesController', ($scope, $stateParams, 
                             $scope.getScanUserWall(post, posts, count);
                         (error)->
                             $scope.getScanUserWall(post, posts, count);
-                            console.log(error);
                     )
                 ,335)
 

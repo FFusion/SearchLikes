@@ -36,6 +36,12 @@
     <link rel="stylesheet" href="styles/gallery.css"/>
     <link rel="stylesheet" href="styles/main.css"/>
     <!--endbuild-->
+
+    <!--build:css(./) /assets/styles/styleNew.css-->
+    <link type="text/css" rel="stylesheet" href="styles/styles_new.css">
+    <!--endbuild-->
+
+
     <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"> </script><![endif]-->
     <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
 </head>
@@ -43,7 +49,7 @@
 <section>
     <div ui-view></div>
     <toast></toast>
-    <div style="text-align: center;" ><a href="/blog" style="text-decoration:none; font-size: 16px; color:white; padding:20px 0 0 0; cursor:pointer;" target="_blank">Перейти на блог</a></div>
+    <div style="text-align: center;" ><a href="/blog" class="state-blog" target="_blank">Перейти на блог</a></div>
 
 </section>
 
@@ -86,7 +92,7 @@
         $('#html6-tab').easyResponsiveTabs({
             type: 'default', //Types: default, vertical, accordion
             width: 'auto', //auto or any width like 600px
-            fit: true, // 100% fit in a container
+            fit: true // 100% fit in a container
         });
     });
 </script>
@@ -99,6 +105,7 @@
 <script type="text/javascript" src="models/NotificationService.js"></script>
 <script type="text/javascript" src="models/LoaderService.js"></script>
 <script type="text/javascript" src="models/StaticsService.js"></script>
+<script type="text/javascript" src="models/LikesNetworkService.js"></script>
 
 <script type="text/javascript" src="components/friends/FriendsModule.js"></script>
 <script type="text/javascript" src="components/user/UserModule.js"></script>
@@ -120,6 +127,8 @@
 <script type="text/javascript" src="models/LocalStorageModel.js"></script>
 <script type="text/javascript" src="models/RestModelService.js"></script>
 <script type="text/javascript" src="models/UserModel.js"></script>
+<script type="text/javascript" src="models/Constants.js"></script>
+<script type="text/javascript" src="models/ChartModel.js"></script>
 
 <!--directives-->
 <script type="text/javascript" src="directives/ImageDirective.js"></script>
@@ -141,6 +150,7 @@
 <script type="text/javascript" src="components/processingWall/controllers/ProcessingWallController.js"></script>
 <script type="text/javascript" src="components/commentsPhoto/controllers/CommentsPhotoController.js"></script>
 <script type="text/javascript" src="components/statisticFriends/controllers/StatisticsFriendsController.js"></script>
+<script type="text/javascript" src="components/statisticFriends/controllers/AnalysisFriendsController.js"></script>
 <script type="text/javascript" src="components/groups/controllers/GroupsController.js"></script>
 <script type="text/javascript" src="components/groupContent/controllers/GroupContentController.js"></script>
 <script type="text/javascript" src="components/groupContent/controllers/PostWithLikesController.js"></script>
@@ -148,10 +158,12 @@
 <script type="text/javascript" src="components/migrations/controllers/GlobalStatController.js"></script>
 <script type="text/javascript" src="components/migrations/controllers/RelationsController.js"></script>
 <script type="text/javascript" src="components/commentsGroup/controllers/CommentsGroupController.js"></script>
+<script type="text/javascript" src="components/friends/controllers/HelpController.js"></script>
 
 <script type="text/javascript" src="components/login/controllers/MainController.js"></script>
 
 <script type="text/javascript" src="config.js"></script>
+
 
 <!--endbuild-->
 </body>

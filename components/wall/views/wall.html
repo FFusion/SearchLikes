@@ -77,7 +77,14 @@
                                     </audio>
                                 </div>
                             </div>
-                            <div class="pull-left post-block-music" ng-if="attachment.type == 'video'"> Видеозапись</div>
+                            <div class="pull-left post-block-music" ng-if="attachment.type == 'link'">
+                                <div class="groups-title-small">{{attachment.link.description}}</div>
+                                <a href="{{attachment.url}}"><span>{{attachment.link.title}}</span></a>
+                            </div>
+                            <div class="pull-left post-block-music" ng-if="attachment.type == 'video'">
+                                <img src="{{attachment.video.photo_130}}" alt=""/>
+                                <div class="groups-title-small" style="margin:10px;">{{attachment.video.description}}</div>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -100,6 +107,14 @@
                                                 <source src="{{attachment.audio.url}}" type="audio/mp3">
                                             </audio>
                                         </div>
+                                    </div>
+                                    <div class="pull-left post-block-music" ng-if="attachment.type == 'link'">
+                                        <div class="groups-title-small">{{attachment.link.description}}</div>
+                                        <a href="{{attachment.url}}"><span>{{attachment.link.title}}</span></a>
+                                    </div>
+                                    <div class="pull-left post-block-music" ng-if="attachment.type == 'video'">
+                                        <img src="{{attachment.video.photo_130}}" alt=""/>
+                                        <div class="groups-title-small" style="margin:10px;">{{attachment.video.description}}</div>
                                     </div>
                                 </li>
                             </ul>

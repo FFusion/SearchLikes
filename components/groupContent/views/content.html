@@ -2,7 +2,7 @@
     <div class="loading-content" ng-if="loading">
         <div class="process">
             <div class="process-circle"></div>
-            <div class="process-title"><span>Загрузка...</span></div>
+            <button class="btn btn-friend" ng-if="isGetUsers" style="margin-top:10px; opacity: 1" ng-click="cancelGetUsers()">Отменить процесс</button>
         </div>
     </div>
     <div class="main-content-friends">
@@ -19,8 +19,7 @@
                 Введите ID любого пользователя, чтобы узнать оставлял он лайки в выбранной группе или нет
             </div>
             <div class="row text-center groups-title-small">
-                Примечание: ID в цифровом формате. <span class="red">Тестовое внедрение</span>, сканируются только последние <span class="red">100</span> записей. Если вам понравился данный функционал и хочется его развития, пожалуйста напишите Вконтакте (<a
-                    href="https://vk.com/id19541624" class="red">Александр</a>).
+                Примечание: ID в цифровом формате. <span class="red">Тестовое внедрение</span>, сканируются только последние <span class="red">100</span> записей.
             </div>
             <div class="row group-search" style="margin-bottom: 10px;">
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -127,13 +126,13 @@
                 </div>
                 <div style="clear: both;"></div>
             </div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="block-navigation-button text-center" style="width: 100%"><button class="btn btn-friend" ng-disabled="group.members_count > 100000" ng-click="getUsers()">Список участников(незаблокированных)</button></div>
-                </div>
-                <div class="groups-title-small col-md-12 col-sm-12 col-xs-12 text-center pad">Для групп с небольшим количеством участников.<br>P.S. Тестировалось до 100 тысяч. Возможны тормоза, особенно на телефоне.</div>
-                <div style="clear: both;"></div>
-            </div>
+            <!--<div class="row">-->
+                <!--<div class="col-md-12 col-sm-12 col-xs-12">-->
+                    <!--<div class="block-navigation-button text-center" style="width: 100%"><button class="btn btn-friend" ng-disabled="group.members_count > 100000" ng-click="getUsers()">Список участников(незаблокированных)</button></div>-->
+                <!--</div>-->
+                <!--<div class="groups-title-small col-md-12 col-sm-12 col-xs-12 text-center pad">Для групп с небольшим количеством участников.<br>P.S. Тестировалось до 100 тысяч. Возможны тормоза, особенно на телефоне.</div>-->
+                <!--<div style="clear: both;"></div>-->
+            <!--</div>-->
 
         </div>
         <div class="friends-content" ng-if="showAllUser">

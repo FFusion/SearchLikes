@@ -2,7 +2,7 @@
 
 'use strict'
 
-WallModule.controller 'WallController', ($scope, $stateParams, $location, RestModel, params, $timeout, $window, user, userSearchFor) ->
+WallModule.controller 'WallController', ($scope, $stateParams, $location, RestModel, Notification, params, $timeout, $window, user, userSearchFor) ->
 
     $scope.stateParams = $stateParams;
     $scope.window = window;
@@ -74,7 +74,7 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
                     $scope.likePosts = [];
                     $scope.loading = false;
             (error) ->
-                console.log(error);
+                Notification.error(error);
         )
 
     # получаем лайки
@@ -97,7 +97,7 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
                                 )
                             if $scope.posts[$scope.postsLength - 1] == post then $scope.loading = false;
                     (error) ->
-                        console.log(error);
+                        Notification.error(error);
                 )
             )                        
 
@@ -122,13 +122,11 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
 
         # выходим из рекурсии
         if index == $scope.postsLength
-            console.log($scope.likePosts);
             $scope.loading = false;
             return true
 
 
     $scope.getLikes = (post) ->
-        console.log(post);
         type = "post";
         RestModel.getLikes($scope.userId, $scope.params, post.id, type).then(
             (data) ->
@@ -141,7 +139,7 @@ WallModule.controller 'WallController', ($scope, $stateParams, $location, RestMo
                     )
                 $scope.getLikesRecursion($scope.posts[$scope.index], $scope.index);
             (error) ->
-                console.log(error);
+                Notification.error(error);
                 if error.code == 6
                     $timeout(()->
                         $scope.getLikeRecursion(post, $scope.index);

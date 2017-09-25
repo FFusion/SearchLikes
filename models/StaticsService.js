@@ -5,7 +5,7 @@
 Сервис статистики
  */
 'use strict';
-MainModule.service('Static', function($timeout, $q, RestModel, Loader) {
+MainModule.service('Static', function($timeout, $q, RestModel, Loader, Notification) {
   var Static;
   Static = (function() {
     function Static() {}
@@ -28,7 +28,7 @@ MainModule.service('Static', function($timeout, $q, RestModel, Loader) {
               });
               return _this.getListCountFriends(friends);
             }, function(error) {
-              return console.log(error);
+              return Notification.error(error);
             });
           };
         })(this), 330);
@@ -46,8 +46,6 @@ MainModule.service('Static', function($timeout, $q, RestModel, Loader) {
               });
             };
           })(this), 330);
-        } else {
-          return console.log('dct');
         }
       }
     };
@@ -64,21 +62,21 @@ MainModule.service('Static', function($timeout, $q, RestModel, Loader) {
           return function() {
             return RestModel.getProfilePhoto(tempFriends, _this.params).then(function(data) {
               angular.forEach(data.response, function(item, index) {
-                if (item[0] && item[0].created) {
-                  if (item[0].created > date) {
+                if (item.items[0] && item.items[0].date) {
+                  if (item.items[0].date > date) {
                     angular.forEach(tempFriends, function(friend) {
-                      if (item[0].owner_id === friend.id) {
-                        item[0].first_name = friend.first_name;
-                        return item[0].last_name = friend.last_name;
+                      if (item.items[0].owner_id === friend.id) {
+                        item.items[0].first_name = friend.first_name;
+                        return item.items[0].last_name = friend.last_name;
                       }
                     });
-                    return _this.resultUserProfilePhoto.push(data.response[index]);
+                    return _this.resultUserProfilePhoto.push(data.response[index].items);
                   }
                 }
               });
               return _this.getPhotoProfileFriends(friends, date);
             }, function(error) {
-              return console.log(error);
+              return Notification.error(error);
             });
           };
         })(this), 330);
@@ -89,16 +87,15 @@ MainModule.service('Static', function($timeout, $q, RestModel, Loader) {
               return RestModel.getProfilePhoto(friends, _this.params).then(function(data) {
                 var test;
                 angular.forEach(data.response, function(item, index) {
-                  if (item[0] && item[0].created) {
-                    if (item[0].created > date) {
+                  if (item.items[0] && item.items[0].created) {
+                    if (item.items[0].created > date) {
                       angular.forEach(friends, function(friend) {
-                        console.log(friend);
-                        if (item[0].owner_id === friend.id) {
-                          item[0].first_name = friend.first_name;
-                          return item[0].last_name = friend.last_name;
+                        if (item.items[0].owner_id === friend.id) {
+                          item.items[0].first_name = friend.first_name;
+                          return item.items[0].last_name = friend.last_name;
                         }
                       });
-                      return _this.resultUserProfilePhoto.push(data.response[index]);
+                      return _this.resultUserProfilePhoto.push(data.response[index].items);
                     }
                   }
                 });
@@ -108,10 +105,127 @@ MainModule.service('Static', function($timeout, $q, RestModel, Loader) {
               });
             };
           })(this), 330);
-        } else {
-          return console.log('dct');
         }
       }
+    };
+
+    Static.prototype.getHideFriendsList = function(count, array, userId, result) {
+      var localUsers;
+      localUsers = [];
+      if (count < 25) {
+        return $timeout((function(_this) {
+          return function() {
+            return RestModel.getFriendsExecute(array, _this.params, userId).then(function(response) {
+              angular.forEach(response, function(user) {
+                if (user.hide) {
+                  return result.push(user);
+                }
+              });
+              return result;
+            }, function(error) {
+              return Notification.error('Произошла ошибка, обновите страницу ' + error.error_msg);
+            });
+          };
+        })(this), 350);
+      } else {
+        localUsers = array.splice(0, 25);
+        return $timeout((function(_this) {
+          return function() {
+            return RestModel.getFriendsExecute(localUsers, _this.params, userId).then(function(response) {
+              angular.forEach(response, function(user) {
+                if (user.hide) {
+                  return result.push(user);
+                }
+              });
+              count = count - 25;
+              return _this.getHideFriendsList(count, array, userId, result);
+            }, function(error) {
+              return Notification.error('Произошла ошибка, обновите страницу ' + error.error_msg);
+            });
+          };
+        })(this), 350);
+      }
+    };
+
+    Static.prototype.getFriends = function(array, result) {
+      var user;
+      user = array.splice(0, 1);
+      return $timeout((function(_this) {
+        return function() {
+          return RestModel.moreInfo(parseInt(user[0].id), _this.params).then(function(data) {
+            result.push(data.response[0]);
+            if (array.length !== 0) {
+              return _this.getFriends(array, result);
+            } else {
+              return result;
+            }
+          }, function(error) {
+            Notification.error('Произошла ошибка ' + error.error_msg);
+            return error;
+          });
+        };
+      })(this), 330);
+    };
+
+    Static.prototype.filterFriendsListForFamilyStatus = function(friends) {
+      var activeArray, complicatedArray, engagedArray, hideStatusArray, listFriends, lovedArray, marriedArray, meetingArray, notMarriedArray, notStatusArray;
+      listFriends = angular.copy(friends);
+      notStatusArray = [];
+      notMarriedArray = [];
+      meetingArray = [];
+      engagedArray = [];
+      marriedArray = [];
+      complicatedArray = [];
+      activeArray = [];
+      lovedArray = [];
+      hideStatusArray = [];
+      angular.forEach(listFriends, function(friend) {
+        if (friend.relation === 1) {
+          return notMarriedArray.push(friend);
+        } else if (friend.relation === 2) {
+          return meetingArray.push(friend);
+        } else if (friend.relation === 3) {
+          return engagedArray.push(friend);
+        } else if (friend.relation === 4) {
+          return marriedArray.push(friend);
+        } else if (friend.relation === 5) {
+          return complicatedArray.push(friend);
+        } else if (friend.relation === 6) {
+          return activeArray.push(friend);
+        } else if (friend.relation === 7) {
+          return lovedArray.push(friend);
+        } else {
+          if (friend.relation === 0) {
+            return notStatusArray.push(friend);
+          } else {
+            return hideStatusArray.push(friend);
+          }
+        }
+      });
+      return [notStatusArray, notMarriedArray, meetingArray, engagedArray, marriedArray, complicatedArray, activeArray, lovedArray, hideStatusArray];
+    };
+
+    Static.prototype.filterFriendsListForParams = function(friends, params) {
+      var listFriends, notParamsArray, yesParamsArray;
+      listFriends = angular.copy(friends);
+      yesParamsArray = [];
+      notParamsArray = [];
+      angular.forEach(listFriends, function(friend) {
+        if (Array.isArray(friend[params])) {
+          if (friend[params].length > 0) {
+            return yesParamsArray.push(friend);
+          } else {
+            return notParamsArray.push(friend);
+          }
+        } else {
+          if (friend[params] === 1) {
+            return yesParamsArray.push(friend);
+          } else {
+            return notParamsArray.push(friend);
+          }
+        }
+      });
+      return [yesParamsArray, notParamsArray];
     };
 
     return Static;

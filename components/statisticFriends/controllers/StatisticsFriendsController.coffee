@@ -2,7 +2,7 @@
 
 'use strict'
 
-StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Static, $stateParams, $state, $location, $timeout, RestModel, Loader, params, currentUser, friends) ->
+StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Static, $stateParams, $state, $location, $timeout, RestModel, Loader, Notification, params, currentUser, friends) ->
 
     $scope.params = params;
     Static.params = params;
@@ -49,7 +49,6 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
     $scope.getStatActiveUser = () ->
         $scope.userPhotos = [];
         $scope.userLikes = [];
-        console.log($scope.resultStatSecond);
 #        if !$scope.resultStatSecond
         $scope.resultStatSecond = [];
         $scope.arrayIdFriendsPhoto = {};
@@ -78,7 +77,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
                             $scope.userPhotos = $scope.getArrayPhoto($scope.userPhotos);
                             $scope.getLikes($scope.userPhotos, "photo");
                     (error)->
-                        console.log(error);
+                        Notification.error(error);
                 )
             ,300)
         else
@@ -92,7 +91,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
                             $scope.userPhotos.push(data.response.items);
                             $scope.getActiveScan(count);
                     (error)->
-                        console.log(error);
+                        Notification.error(error);
                 )
             ,335)
 
@@ -124,7 +123,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
                             $scope.userLikes.push(likes.response);
                             $scope.isActiveFriends($scope.userLikes, $scope.type);
                         (error)->
-                            console.log(error);
+                            Notification.error(error);
                     )
                 ,300)
             else
@@ -142,7 +141,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
                         $scope.userLikes.push(likes.response);
                         $scope.getLikes(photos);
                     (error)->
-                        console.log(error);
+                        Notification.error(error);
                 )
             ,300)
 
@@ -151,7 +150,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
         tempLikesArray = [];
         angular.forEach(likesArray, (likes)->
             angular.forEach(likes, (like, key)->
-                angular.forEach(like.users, (user)->
+                angular.forEach(like.items, (user)->
                     tempLikesArray.push(user)
                 )
             )
@@ -246,7 +245,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
                             count = count - 100;
                             $scope.offset = $scope.offset + 100;
                             $scope.getScanUserWall(count);
-                    (error)-> console.log(error);
+                    (error)-> Notification.error(error);
                 );
             ,335)
 
@@ -259,7 +258,7 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
                         $scope.offset = $scope.offset + 100;
                         $scope.getScanUserWall(count);
                     (error)->
-                        console.log(error);
+                        Notification.error(error);
                 )
             ,335)
 
@@ -291,7 +290,6 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
         if $scope.objectDate.date == 'first'
             currentDate.setDate(currentDate.getDate() - 1);
             times = Math.round(currentDate.getTime()/1000.0);
-            console.log(times);
         else
             currentDate.setDate(currentDate.getDate() - 7);
             times = Math.round(currentDate.getTime()/1000.0);
@@ -311,13 +309,16 @@ StatisticsFriendsModule.controller 'StatisticsFriendsController', ($scope, Stati
             $scope.thirdStat = false;
             $scope.fourStat = true;
 
-            (error)-> console.log(error);
+            (error)-> Notification.error(error);
         )
 
         $scope.loading = true;
 
 
-# todo: переписать через сервис
+    $scope.analisysFriends = () ->
+        console.log(8);
+        $state.transitionTo('analysisFriends', {userId:$scope.currentUser.id});
+
 
 
 

@@ -13,11 +13,18 @@ GroupContentModule.controller('GroupContentController', function($scope, $stateP
   Loader.startLoad();
   $scope.userGroup = {};
   $scope.arrayAllUsers = [];
+  $scope.isGetUsers = false;
+  $scope.isCancel = false;
   $scope.group = group.response[0];
+  $scope.cancelGetUsers = function() {
+    $scope.isCancel = true;
+    return $scope.loading = false;
+  };
   $scope.getAllUsersInGroup = function(countUser) {
     if (countUser == null) {
       countUser = null;
     }
+    $scope.isGetUsers = true;
     if (($scope.group.is_closed !== 2) && !$scope.group.deactivated) {
       if (countUser === null) {
         countUser = $scope.group.members_count;
@@ -25,8 +32,8 @@ GroupContentModule.controller('GroupContentController', function($scope, $stateP
       if (countUser < 25000) {
         return $timeout(function() {
           return RestModel.getMemeberInGroup($scope.group.id, $scope.params, countUser, $scope.offset).then(function(data) {
-            angular.forEach(data.response, function(item) {
-              return $scope.usersGroups.push(item.users);
+            angular.forEach(data.response, function(obj) {
+              return $scope.usersGroups.push(obj.items);
             });
             $scope.offset = 0;
             $scope.loading = false;
@@ -46,7 +53,6 @@ GroupContentModule.controller('GroupContentController', function($scope, $stateP
             $scope.procentDogs = Math.floor($scope.deactivated.length / $scope.group.members_count * 100);
             return $scope.procentLocal = Math.floor($scope.localed.length / $scope.group.members_count * 100);
           }, function(error) {
-            console.log(error);
             return $scope.getAllUsersInGroup(countUser);
           });
         }, 350);
@@ -60,10 +66,15 @@ GroupContentModule.controller('GroupContentController', function($scope, $stateP
             });
             $scope.offset = $scope.offset + 25000;
             countUser = countUser - 25000;
-            return $scope.getAllUsersInGroup(countUser);
+            if (!$scope.isCancel) {
+              return $scope.getAllUsersInGroup(countUser);
+            }
           }, function(error) {
-            console.log(error);
-            return $scope.getAllUsersInGroup(countUser);
+            if (!$scope.isCancel) {
+              return $scope.getAllUsersInGroup(countUser);
+            } else {
+              return Notification.error(error);
+            }
           });
         }, 350);
       }

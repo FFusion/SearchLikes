@@ -31,7 +31,7 @@ CommentsGroupModule.controller 'CommentsGroupController', ($scope, params, $stat
     $scope.isAnalisys = false;
 
 
-    # todo:пока не использую, дальше видно будет
+    # пока не использую
     $scope.loading = false;
     $scope.result = false;
     $scope.stopped = false;
@@ -117,13 +117,12 @@ CommentsGroupModule.controller 'CommentsGroupController', ($scope, params, $stat
     $scope.scanGroupComments = (count = null) ->
         if count is null then $scope.offset = 0;
 
-        if count is null then count = $scope.group.searchItems;
+        if count is null then count = parseInt($scope.group.searchItems);
         # получаем записи со стены (максимум 100)
         if count < 100 || count is null
             $timeout(()->
                 RestModel.getAllWallPost($scope.group.id, $scope.params, count || 100, $scope.offset, true).then(
                     (data)->
-
                         # собираем все записи в groupWall
                         $scope.groupWall.push(data.response.items);
 
@@ -139,7 +138,7 @@ CommentsGroupModule.controller 'CommentsGroupController', ($scope, params, $stat
 
         else
             $timeout(()->
-                RestModel.getAllWallPost($scope.group.id,$scope.params, 100,$scope.offset).then(
+                RestModel.getAllWallPost($scope.group.id,$scope.params, 100,$scope.offset,true).then(
                     (data)->
                         $scope.groupWall.push(data.response.items);
                         count = count - 100;
@@ -164,7 +163,6 @@ CommentsGroupModule.controller 'CommentsGroupController', ($scope, params, $stat
         $scope.allPosts = postsWithComment.length;
 
 
-        console.log('posts',postsWithComment);
         $scope.getCommentsForPost(postsWithComment[0], postsWithComment);
 
     # получаем комменты у каждой записи (макс 100)

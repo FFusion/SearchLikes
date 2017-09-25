@@ -19,11 +19,10 @@ GroupContentModule.controller('PostWithLikesController', function($scope, $state
       });
       return $scope.workingWithPost($scope.postsWithLikes);
     } else {
-      $scope.empty = true;
-      return console.log('нет постов');
+      return $scope.empty = true;
     }
   }, function(error) {
-    return console.log(error);
+    return Notification.error(error);
   });
   $scope.workingWithPost = function(posts) {
     var post;
@@ -68,8 +67,7 @@ GroupContentModule.controller('PostWithLikesController', function($scope, $state
               return $scope.getScanUserWall(post, posts, count);
             }
           }, function(error) {
-            $scope.getScanUserWall(post, posts, count);
-            return console.log(error);
+            return $scope.getScanUserWall(post, posts, count);
           });
         }, 335);
       } else {
@@ -87,8 +85,7 @@ GroupContentModule.controller('PostWithLikesController', function($scope, $state
             $scope.offset = $scope.offset + 1000;
             return $scope.getScanUserWall(post, posts, count);
           }, function(error) {
-            $scope.getScanUserWall(post, posts, count);
-            return console.log(error);
+            return $scope.getScanUserWall(post, posts, count);
           });
         }, 335);
       }

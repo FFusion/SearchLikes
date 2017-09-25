@@ -1,0 +1,33 @@
+<section class="main-content">
+    <div class="loading-content" ng-if="loading">
+        <div class="process">
+            <div class="process-circle"></div>
+            <div class="process-title"><span>Загрузка...</span></div>
+        </div>
+    </div>
+    <div class="main-content-friends">
+        <!--Блок кнопок-->
+        <div class="friends-top">
+            <div class="block-navigation-button">
+                <button class="btn btn-friend" ng-click="home()">На главную</button>
+            </div>
+            <div class="block-navigation-button">
+                <button class="btn btn-friend" ng-click="global()">К меню выбора</button>
+            </div>
+        </div>
+        <div class="friends-content-middle" style="border:1px dashed lightgray; padding:15px;">
+            <h2>Распределение статусов семейного положения среди друзей</h2>
+            <div google-chart chart="chart1"  style="margin: 20px;"></div>
+            <hr>
+            <h2>Кому можно написать на стене</h2>
+            <div google-chart chart="chart2"  style="margin: 20px;"></div>
+            <hr>
+            <h2>Кому можно написать в личные сообщения</h2>
+            <div google-chart chart="chart3"  style="margin: 20px;"></div>
+            <hr>
+            <h2>У кого указан университет</h2>
+            <div google-chart chart="chart4"  style="margin: 20px;"></div>
+            <hr>
+        </div>
+    </div>
+</section>

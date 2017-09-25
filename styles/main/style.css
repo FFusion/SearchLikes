@@ -491,27 +491,27 @@ a:hover {
     background: transparent url('../../image/main/html6_sprite02.png') no-repeat 0 -1185px;
 }
 a.to-employee-btn {
-    float: left;
+    display: inline-block;
+    width: 19em;
+    font-size: 16px;
+    color: rgba(255,255,255,.9);
+    text-shadow: #2e7ebd 0 1px 2px;
     text-decoration: none;
-    color: #fff;
-    margin-left: 80px;
-    font-size: 19px;
-    font-weight: 300;
-    padding: 13px 16px;
-    border: 2px solid #bac5ca;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
+    text-align: center;
+    line-height: 1.1;
+    white-space: pre-line;
+    padding: .9em 0;
+    border: 1px solid;
+    border-color: #60a3d8 #2970a9 #2970a9 #60a3d8;
     border-radius: 6px;
-    /*opacity: 0;*/
-    -webkit-transition: .4s ease;
-    -moz-transition: .4s ease;
-    -o-transition: .4s ease;
-    transition: .4s ease;
+    outline: none;
+    background: #60a3d8 linear-gradient(#89bbe2, #60a3d8 50%, #378bce);
+    box-shadow: inset rgba(255,255,255,.5) 1px 1px;
 }
 a.to-employee-btn:hover {
-    background-color: #fff;
-    color: #062e48;
-    border-color: #fff;
+    color: rgb(255,255,255);
+    background-image: linear-gradient(#9dc7e7, #74afdd 50%, #378bce);
+    /*border-color: #fff;*/
     text-decoration: none;
 }
 #slider-wrap {
@@ -1239,8 +1239,9 @@ footer[role="contentinfo"] {
     font-size: 14px;
     color: #d3d6d8;
     padding-top: 1px;
-    margin: 0 0 0 67px;
-    float: left;
+    /*margin: 0 0 0 67px;*/
+    /*float: left;*/
+    text-align: center;
 }
 #bottom-menu {
     overflow: hidden;

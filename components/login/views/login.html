@@ -11,19 +11,23 @@
     <div class="section-inn">
         <div class="half-block f-left">
             <div class="services-provide-block">
-                <h3>SearchLikes - приложение для работы с данными Вконтакте</h3>
+                <h3 class="">
+                    <span>SEARCHLIKES</span>
+                    <!--<br>-->
+                    <!--<div>приложение для работы с данными Вконтакте</div>-->
+                </h3>
                 <ul>
                     <li class="item-1">
                         <strong>Друзья</strong>
-                        <p>Список друзей Вконтакте со временем последнего посещения. Определение платформы откуда производился вход. Фильтр по удаленным друзьям.</p>
+                        <p>Список друзей Вконтакте со временем последнего посещения</p>
                     </li>
                     <li class="item-2">
                         <strong>Самое интересное</strong>
-                        <p>Хочешь проверить свою вторую половинку? Узнай кого "лайкает" и кому пишет твой друг: поиск лайков комментариев среди фотографий и на стенах друзей</p>
+                        <p>Узнай кого "лайкает" и кому пишет твой друг: поиск лайков комментариев среди фотографий и на стенах друзей</p>
                     </li>
                     <li class="item-3">
                         <strong>Это еще не все!</strong>
-                        <p>Статистика активности и друзей. Просмотр всей информации о пользователях. Удобная навигация</p>
+                        <p>Статистика активности и друзей, просмотр всей информации о пользователях, определение платформы откуда производился вход</p>
                     </li>
                 </ul>
                 <!--<a href="#about-us" class="to-employee-btn">Подробнее</a>-->
@@ -34,9 +38,11 @@
             <div class="services-slider-block">
                 <div id="slider-wrap">
                     <div id="slider1">
-                        <figure class="slide"><img src="image/main/large-slides/slide.jpg" alt="Slide 1" ng-swipe-left="showPrev(3)" ng-swipe-right="showNext(2)"></figure>
-                        <!--<figure class="slide"><img src="image/main/large-slides/slide2.png" alt="Slide 2" ng-swipe-left="showPrev(1)" ng-swipe-right="showNext(3)"></figure>-->
-                        <figure class="slide"><img src="image/main/large-slides/slide3.png" alt="Slide 3" ng-swipe-left="showPrev(2)" ng-swipe-right="showNext(1)"></figure>
+                        <!--<figure class="slide"><img src="image/main/large-slides/slide.jpg" alt="Slide 1" ng-swipe-left="showPrev(3)" ng-swipe-right="showNext(2)"></figure>                        -->
+                        <!--<figure class="slide"><img src="image/main/large-slides/slide3.png" alt="Slide 3" ng-swipe-left="showPrev(2)" ng-swipe-right="showNext(1)"></figure>-->
+                        <!--<img src="image/big_slide1.png" width="598px" height="568px">-->
+                        <img src="image/big_slide7.png" width="700px" height="568px">
+
                     </div><!-- #slider -->
                 </div><!-- #slider-wrap -->
             </div><!-- .services-slider-block -->
@@ -48,10 +54,10 @@
 <div id="pets-bg">
     <section id="about-us" class="section-main section">
         <div class="section-inn">
-            <h3 class="middle-title">Подробная <span>информация</span></h3>
+            <h3 class="middle-title">Подробная информация</h3>
             <div class="middle-text">
                 <p>SearchLikes - веб-проект, написанный с использованием API социальной сети Вконтакте. Компактное и удобное представление списка ваших друзей, простая навигация, возможность посмотреть кто когда заходил, откуда заходил, кто кому поставил лайк и комментарий и не только.</p>
-                <p>Если вам понравился данный проект, вы можете отблагодарить автора через Webmoney R401920329933 или ЯндексДеньги 410011802661832</p>
+                <p>Если вам понравился данный проект, вы можете отблагодарить автора через <span class="money">Webmoney R401920329933</span> или <span class="money">ЯндексДеньги 410011802661832</span></p>
             </div><!-- .middle-text -->
             <div class="our-awards-wrap">
                 <div class="our-awards-text">
@@ -79,14 +85,17 @@
                                     <li>Фильтр по удаленным друзьям</li>
                                     <li>Информация о данных пользователя</li>
                                     <li>Поиск "лайков"</li>
-                                    <li><b>Новинка - Поиск комментариев!</b></li>
+                                    <li><b>Новинка - Поиск комментариев среди фотографий!</b></li>
                                     <li><b>Новинка - Статистика страницы пользователя и друзей!</b></li>
+                                    <li><b>Новинка - Поиск лайков пользователей в группах!</b></li>
+                                    <li><b>Новинка - Расширенный поиск лайков в сетке друзей!</b></li>
+                                    <li><b>Новинка - Поиск комментариев в группах!</b></li>
                                     <li>Результат поиска - фотографии или записы со стены</li>
                                 </ul>
                             </div>
                             <div>
                                 <ul>
-                                    <li>Поиск активности по группам</li>
+                                    <li>Будет что-нибудь новенькое</li>
                                     <li></li>
                                 </ul>
                             </div>
@@ -111,13 +120,13 @@
             </div><!-- .f-right -->
             <textarea id="message" ng-model="content.wish" name="wish" rows="5" cols="20" placeholder="Сообщение"></textarea>
             <button type="submit" ng-click="sendWish()">Отправить</button>
-            <div class="send-message" ng-if="send">{{statusText}}</div>
+            <!--<div class="send-message" ng-if="send">{{statusText}}</div>-->
         </form>
     </div><!-- .section-inn -->
 </section><!-- #contacts -->
 <footer role="contentinfo">
     <div class="foo-inn">
-        <p class="copyright pull-right">&copy; 2015-2016 SearchLikes</p>
+        <p class="copyright">&copy; 2015-2017 SearchLikes</p>
     </div><!-- .foo-inn -->
 </footer>
 

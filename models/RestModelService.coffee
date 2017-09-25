@@ -22,7 +22,7 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         if params is null
             url = vk.api + '/method/users.get?user_id=' + id + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,counters,relation&callback=JSON_CALLBACK'
         else
-            url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,common_count,counters,timezone&callback=JSON_CALLBACK'
+            url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,photo_50,online,contacts,status,followers_count,relation,common_count,counters,timezone&callback=JSON_CALLBACK'
         url;
 
     _getLinkUserSimply: (id, params = null) ->
@@ -61,18 +61,16 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
             )
             .error((error) ->
                 deferred.reject(error);
-                console.log(error);
             );
 
         deferred.promise;
 
 
     _parseTime: (time) ->
-#        console.log(time)
         currentTime = {};
         userTime = {};
         finishTime = {};
-        monthArray = ['января', 'февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+        monthArray = ['янв', 'фев','мрт','апр','мая','июн','июл','авг','сен','окт','нбр','дек'];
 
         currentTime.day = parseFloat(moment().format('Do'));
         currentTime.month = parseFloat(moment().format('MM'));
@@ -84,7 +82,6 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         userTime.month = parseFloat(moment.unix(time).format('MM'));
         userTime.year = moment.unix(time).format('YYYY');
         userTime.hours = moment.unix(time).format('HH');
-#        console.log(userTime.hours);
         userTime.minute = moment.unix(time).format('mm');
 
         if currentTime.year != userTime.year then finishTime.year = userTime.year;
@@ -96,13 +93,11 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
                 finishTime.day = userTime.day;
         if parseFloat(currentTime.hours) != parseFloat(userTime.hours)
             if (parseFloat(currentTime.hours) - parseFloat(userTime.hours) == 1) && !finishTime.day && !finishTime.month && !finishTime.year
-#                console.log(currentTime.hours);
                 finishTime.hours = 'час назад'
             else
                 finishTime.hours = userTime.hours;
         if parseFloat(currentTime.minute) != parseFloat(userTime.minute)
             finishTime.minute = userTime.minute;
-#            console.log(finishTime.minute);
 
         finishTime;
 
@@ -112,12 +107,12 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         if object.day == 'вчера' then time = 'вчера в ' + object.hours + '.' + object.minute;
         if object.hours == 'час назад' && !angular.isDefined(object.day) && !angular.isDefined(object.month) then time = 'час назад';
         if object.minute && !angular.isDefined(object.hours) && !angular.isDefined(object.day) then time = object.minute + ' минут назад'
-        if object.minute && object.hours && object.hours != 'час назад' && !angular.isDefined(object.day) && !angular.isDefined(object.month) && !angular.isDefined(object.year) then time = 'сегодня в ' + object.hours + '.' + object.minute;
+        if object.minute && object.hours && object.hours != 'час назад' && !angular.isDefined(object.day) && !angular.isDefined(object.month) && !angular.isDefined(object.year) then time = 'в ' + object.hours + '.' + object.minute;
         if object.minute && object.hours && object.day && object.day != 'вчера' && !angular.isDefined(object.year) && !angular.isDefined(object.month) then time = object.day + ' ' + object.currentMonth + ' в ' + object.hours + '.' + object.minute;
         if object.minute && object.hours && object.day && object.day != 'вчера' && object.month && !angular.isDefined(object.year) then time = object.day + ' ' + object.month + ' в ' + object.hours + '.' + object.minute;
-        if object.minute && object.hours && object.day && object.day != 'вчера' && object.month && object.year then time = object.day + ' ' + object.month + ' ' + object.year + ' года в ' + object.hours + '.' + object.minute;
+        if object.minute && object.hours && object.day && object.day != 'вчера' && object.month && object.year then time = object.day + ' ' + object.month + ' ' + object.year + ' в ' + object.hours + '.' + object.minute;
 
-        if time == '' then console.log(object);
+#        if time == '' then console.log(object);
         return time
 
 
@@ -140,7 +135,6 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
 
     isWorkingFriendsObject: (object) ->
-        console.log(object);
         params = {};
         temp = {};
 
@@ -168,6 +162,16 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         else
             return scaningUsers
 
+    noDeletedFriends: (users) ->
+        scaningUsers = [];
+        angular.forEach(users, (user)->
+            if !angular.isDefined(user.deactivated)
+                scaningUsers.push(user);
+        );
+
+        return scaningUsers;
+
+
 
 
     moreInfo: (id, params = null) ->
@@ -181,7 +185,6 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
             )
             .error((error) ->
                 deffered.reject(error);
-                console.log(error);
             );
 
         deffered.promise;
@@ -193,12 +196,11 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = @_getLinkUserSimply(userId, params);
 
         $http.jsonp(url)
-        .success((user)->
+            .success((user)->
                 deffered.resolve(user);
             )
-        .error((error) ->
+            .error((error) ->
                 deffered.reject(error);
-                console.log(error);
             );
 
         deffered.promise;
@@ -269,6 +271,131 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
         deffered.promise;
 
+    # получаем сетку друзей
+    getNetworkFriendsExecute: (arrayFriends, params) ->
+        deffered = $q.defer();
+
+        result = [];
+
+        if count is null then count = 25;
+        # если записей меньше 2500 то делаем offset равным числу участников
+        code = 'return {';
+        for i in [0...arrayFriends.length]
+            if i != arrayFriends.length
+                code = code + 'listFriends' + arrayFriends[i].id + ':API.friends.get({"fields":"sex,photo_50", "user_id":'  +  arrayFriends[i].id + '}),';
+            else
+                code = code + 'listFriends' + arrayFriends[i].id + ':API.friends.get({"fields":"sex,photo_50", "user_id":' + arrayFriends[i].id + '})';
+
+        code = code + '};';
+        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.27&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+            .success(
+                (data)->
+                    deffered.resolve(data);
+            )
+            .error(
+                (error)->
+                    deffered.reject(error);
+            )
+
+
+
+    # получаем друзей каждого пользователя из списка друзей выбранного пользователя
+    getFriendsExecute: (arrayFriends, params, searchId) ->
+        deffered = $q.defer();
+
+        result = [];
+
+        if count is null then count = 25;
+        # если записей меньше 2500 то делаем offset равным числу участников
+        code = 'return {';
+        for i in [0...arrayFriends.length]
+            if i != arrayFriends.length
+                code = code + 'listFriends' + arrayFriends[i].id + ':API.friends.get({"user_id":'  +  arrayFriends[i].id +  '}),';
+            else
+                code = code + 'listFriends' + arrayFriends[i].id + ':API.friends.get({"user_id":' + arrayFriends[i].id + '})';
+
+        code = code + '};';
+        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.27&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success(
+            (data)->
+                angular.forEach(data.response, (object, key, index)->
+                    idUser = parseInt(key.replace(/\D+/g,""));
+                    if object.items
+                        hide = true;
+                        if object.items.length > 0
+                            # пробегаемся по списку друзей и ищем есть ли там выбранный пользователь
+                            # нету - значит скрыт
+                            angular.forEach(object.items, (id) ->
+                                if parseInt(id) == parseInt(searchId)
+                                    hide = false;
+                            )
+                    # тут те, кто скрыл выбранного пользователя
+                    result.push({id:idUser, hide:hide});
+                );
+
+                deffered.resolve(result);
+            )
+        .error(
+            (error)->
+                deffered.reject(error);
+        );
+
+        deffered.promise;
+
+
+    getAllWallPostExecute: (groupId, params, count = null, offset = null) ->
+        deffered = $q.defer();
+
+        arrayPosts = [];
+
+        if count is null then count = 1;
+        if offset is null then offset = 0;
+        # если записей меньше 2500 то делаем offset равным числу участников
+        if count < 2500 then localOffset = Math.ceil(count / 100) else localOffset = 25;
+        code = 'return {';
+        for i in [offset...offset + localOffset]
+            if i != offset + localOffset
+                code = code + 'listPost_' + i + ':API.wall.get({"owner_id":' + '-' +  groupId +  ',"count":"100","offset":' + i * 100 + '}),';
+            else
+                code = code + 'listPost_' + i + ':API.wall.get({"owner_id":' + '-' + groupId + ',"count":"100","offset":' + i * 100 + '})';
+
+        code = code + '};';
+        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.63&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+            .success(
+                (data)=>
+                    angular.forEach(data.response, (object)->
+                        angular.forEach(object.items, (item)->
+                            if angular.isObject(item)
+                                arrayPosts.push(item);
+                        )
+                    );
+
+                    arrayPosts.sort(@sortByLikes);
+                    deffered.resolve(arrayPosts.splice(0, 10));
+            )
+            .error(
+                (error)->
+                    deffered.reject(error);
+            );
+
+        deffered.promise;
+
+
+    sortByLikes: (a, b) ->
+        return parseFloat(b.likes.count) - parseFloat(a.likes.count);
+
+    sortByReposts: (a,b) ->
+        return parseFloat(b.reposts.count) - parseFloat(a.reposts.count);
+
+    sortByViews: (a,b) ->
+        return parseFloat(b.views.count) - parseFloat(a.views.count);
+
 
     getLikes: (userId, params, postId, type) ->
         deffered = $q.defer();
@@ -329,11 +456,11 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
         $http.jsonp(url)
             .success((data)->
-                    deffered.resolve(data);
-                )
+                deffered.resolve(data);
+            )
             .error((error)->
-                    deffered.reject(error);
-                );
+                deffered.reject(error);
+            );
 
         deffered.promise;
 
@@ -344,31 +471,16 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = vk.api + '/method/photos.getAll?' + 'owner_id=' + userId + '&count=' + count + '&offset=' + offset + '&v=5.27&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data)->
-            deffered.resolve(data);
-        )
-        .error((error)->
-            deffered.reject(error);
-        );
+            .success((data)->
+                deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            );
 
         deffered.promise;
 
 
-
-#    getCommentsWall: (groupId, postId, post, params) ->
-#        deffered = $q.defer();
-#
-#        url = vk.api + '/method/wall.getComments?' + 'owner_id=' + '-' + groupId + '&post_id=' + postId + '&count=&need_likes=1&v=5.28&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
-#
-#        $http.jsonp(url)
-#            .success((data)->
-#                deffered.resolve(data);
-#            )
-#            .error((error)->
-#                deffered.reject(error);
-#            );
-#
-#        deffered.promise;
 
     getWish: (content) ->
         deffered = $q.defer();
@@ -407,7 +519,7 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
                 code = code + 'listLikes_' + object[i].id + ':API.likes.getList({"type":"' + type + '", "owner_id":' + object[i].owner_id + ',"item_id":' + object[i].id + ',"friends_only":0, "count":1000})';
 
         code = code + '};';
-        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.62&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
             .success((data)->
@@ -445,12 +557,12 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = vk.api + '/method/photos.getAllComments?owner_id=' + userId + '&count=' + count + '&offset=' + offset + '&access_token=' + params.access_token + '&v=5.5&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data)->
-            deffered.resolve(data);
-        )
-        .error((error)->
-            deffered.reject(error);
-        );
+            .success((data)->
+                deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            );
 
         deffered.promise;
 
@@ -461,12 +573,12 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = vk.api + '/method/photos.getById?photos=' + photos + '&v=5.5&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data)->
-           deffered.resolve(data);
-        )
-        .error((error)->
-            deffered.reject(error);
-        );
+            .success((data)->
+               deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            );
 
         deffered.promise;
 
@@ -478,12 +590,12 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = vk.api + '/method/photos.getComments?owner_id=' + photo.owner_id + '&photo_id=' + photo.id + '&extended=1&v=5.5&count=100&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data) ->
-            deffered.resolve(data);
-        )
-        .error((error) ->
-            deffered.reject(error);
-        );
+            .success((data) ->
+                deffered.resolve(data);
+            )
+            .error((error) ->
+                deffered.reject(error);
+            );
 
         deffered.promise;
 
@@ -517,12 +629,12 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = vk.api + '/method/groups.get?user_id=' + currentId + '&filter=admin&fields=members_count,city,counters&extended=1&v=5.52&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data) ->
-            deffered.resolve(data);
-        )
-        .error((error) ->
-            deffered.reject(error);
-        );
+            .success((data) ->
+                deffered.resolve(data);
+            )
+            .error((error) ->
+                deffered.reject(error);
+            );
 
         deffered.promise;
 
@@ -536,21 +648,21 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         code = 'return {';
         for i in [offset...offset + localOffset]
             if i != offset + localOffset
-                code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city,online"}),';
+                code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i * 1000 + ',"fields":"city,online"}),';
             else
-                code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city,online"})';
+                code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i * 1000 + ',"fields":"city,online"})';
         code = code + '};';
 
 
-        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.5&callback=JSON_CALLBACK';
+        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.62&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data)->
-            deffered.resolve(data);
-        )
-        .error((error)->
-            deffered.reject(error);
-        );
+            .success((data)->
+                deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            );
 
         deffered.promise;
 
@@ -561,12 +673,12 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = vk.api + '/method/groups.getById?group_id=' + id + '&fields=members_count,city,counters,ban_info&extended=1&v=5.52&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data) ->
-            deffered.resolve(data);
-        )
-        .error((error) ->
-            deffered.reject(error);
-        );
+            .success((data) ->
+                deffered.resolve(data);
+            )
+            .error((error) ->
+                deffered.reject(error);
+            );
 
         deffered.promise;
 
@@ -578,12 +690,12 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = vk.api + '/method/groups.search?q=' + name + '&type=group&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data) ->
-            deffered.resolve(data);
-        )
-        .error((error) ->
-            deffered.reject(error);
-        );
+            .success((data) ->
+                deffered.resolve(data);
+            )
+            .error((error) ->
+                deffered.reject(error);
+            );
 
         deffered.promise;
 
@@ -594,12 +706,12 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = vk.api + '/method/stats.get?group_id=' + id + '&date_from=2013-04-23&date_to=2013-04-24&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data) ->
-            deffered.resolve(data);
-        )
-        .error((error) ->
-            deffered.reject(error);
-        );
+            .success((data) ->
+                deffered.resolve(data);
+            )
+            .error((error) ->
+                deffered.reject(error);
+            );
 
         deffered.promise;
 
@@ -612,12 +724,12 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         data = JSON.stringify(users);
 
         $http.post('excel.php', data:data)
-        .success((data)->
-            deffered.resolve(data);
-        )
-        .error((error)->
-            deffered.reject(error);
-        )
+            .success((data)->
+                deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            )
 
         deffered.promise;
 
@@ -628,10 +740,10 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = vk.api + '/method/users.search?city=' + city + '&hometown=' + town + '&fields=city,photo_50&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data) ->
+            .success((data) ->
                 deffered.resolve(data);
             )
-        .error((error) ->
+            .error((error) ->
                 deffered.reject(error);
             );
 
@@ -643,10 +755,10 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
         url = vk.api + '/method/database.getCities?country_id=1&region_id=' + city + '&hometown=' + town + '&fields=city,photo_50&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data) ->
+            .success((data) ->
                 deffered.resolve(data);
             )
-        .error((error) ->
+            .error((error) ->
                 deffered.reject(error);
             );
 
@@ -655,8 +767,7 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
 
     getRelationsForUser: (params, sex = null, status = null) ->
         deffered = $q.defer();
-# 1 женщина, 2 мужчина
-
+        # 1 женщина, 2 мужчина
         if sex is null
             url = vk.api + '/method/users.search?&status=' + status + '&fields=city,photo_50,sex&sort=0&count=5&v=5.5&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
         if status is null
@@ -684,15 +795,45 @@ MainModule.factory 'RestModel', ($q, $http, vk) ->
                 code = code + 'CountFr' + arrayFriends[i].id + ':API.photos.get({"owner_id":' + arrayFriends[i].id + ',"album_id":"profile", "rev": 1, "count":2})';
 
         code = code + '};';
-        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+        url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.62&callback=JSON_CALLBACK';
 
         $http.jsonp(url)
-        .success((data)->
-            deffered.resolve(data);
+            .success((data)->
+                deffered.resolve(data);
+            )
+            .error((error)->
+                deffered.reject(error);
+            );
+
+        deffered.promise;
+
+
+    getUserSetApp: (friends, params) ->
+        deffered = $q.defer();
+
+        url = vk.api + '/method/friends.getAppUsers?access_token=' + params.access_token + '&v=5.62&callback=JSON_CALLBACK';
+
+        $http.jsonp(url)
+        .success((data) ->
+                deffered.resolve(data);
+            )
+        .error((error) ->
+                deffered.reject(error);
+            );
+
+        deffered.promise;
+
+
+    getListFriendsForAnalisys: (userId, params) ->
+        deffered = $q.defer();
+
+        url = vk.api + '/method/friends.get?user_id=' + userId + '&v=5.8&access_token=' + params.access_token + '&order=name&fields=city,relation,sex,last_seen,contacts,can_write_private_message,can_see_all_posts,can_post,universities,photo_50&callback=JSON_CALLBACK';
+
+        $http.jsonp(url).success((data) ->
+            deffered.resolve(data.response);
         )
-        .error((error)->
+        .error((error) ->
             deffered.reject(error);
         );
 
         deffered.promise;
-

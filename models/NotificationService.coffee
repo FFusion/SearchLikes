@@ -8,17 +8,18 @@ MainModule.service 'Notification', ($rootScope, $q, ngToast) ->
         success: (message) ->
             ngToast.success({
                 content: message
-                timeout:	3000
+                timeout:	5000
             });
 
         error: (message) ->
             ngToast.danger({
                 content: message
-                timeout:	3000
+                timeout:	5000
             });
 
         show: (message) ->
             ngToast.info({
                 content: message
-                timeout:	3000
+                timeout:	5000
             });
+

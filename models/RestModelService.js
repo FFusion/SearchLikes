@@ -35,7 +35,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       if (params === null) {
         url = vk.api + '/method/users.get?user_id=' + id + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,counters,relation&callback=JSON_CALLBACK';
       } else {
-        url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,online,contacts,status,followers_count,relation,common_count,counters,timezone&callback=JSON_CALLBACK';
+        url = vk.api + '/method/users.get?user_id=' + id + '&access_token=' + params.access_token + '&v=5.8&fields=sex,bdate,city,last_seen,country,photo_200_orig,photo_100,photo_50,online,contacts,status,followers_count,relation,common_count,counters,timezone&callback=JSON_CALLBACK';
       }
       return url;
     },
@@ -75,8 +75,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       $http.jsonp(url).success(function(friends) {
         return deferred.resolve(friends);
       }).error(function(error) {
-        deferred.reject(error);
-        return console.log(error);
+        return deferred.reject(error);
       });
       return deferred.promise;
     },
@@ -85,7 +84,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       currentTime = {};
       userTime = {};
       finishTime = {};
-      monthArray = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+      monthArray = ['янв', 'фев', 'мрт', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'нбр', 'дек'];
       currentTime.day = parseFloat(moment().format('Do'));
       currentTime.month = parseFloat(moment().format('MM'));
       currentTime.year = moment().format('YYYY');
@@ -136,7 +135,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
         time = object.minute + ' минут назад';
       }
       if (object.minute && object.hours && object.hours !== 'час назад' && !angular.isDefined(object.day) && !angular.isDefined(object.month) && !angular.isDefined(object.year)) {
-        time = 'сегодня в ' + object.hours + '.' + object.minute;
+        time = 'в ' + object.hours + '.' + object.minute;
       }
       if (object.minute && object.hours && object.day && object.day !== 'вчера' && !angular.isDefined(object.year) && !angular.isDefined(object.month)) {
         time = object.day + ' ' + object.currentMonth + ' в ' + object.hours + '.' + object.minute;
@@ -145,10 +144,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
         time = object.day + ' ' + object.month + ' в ' + object.hours + '.' + object.minute;
       }
       if (object.minute && object.hours && object.day && object.day !== 'вчера' && object.month && object.year) {
-        time = object.day + ' ' + object.month + ' ' + object.year + ' года в ' + object.hours + '.' + object.minute;
-      }
-      if (time === '') {
-        console.log(object);
+        time = object.day + ' ' + object.month + ' ' + object.year + ' в ' + object.hours + '.' + object.minute;
       }
       return time;
     },
@@ -171,7 +167,6 @@ MainModule.factory('RestModel', function($q, $http, vk) {
     },
     isWorkingFriendsObject: function(object) {
       var params, temp;
-      console.log(object);
       params = {};
       temp = {};
       if (object.response.items) {
@@ -199,6 +194,16 @@ MainModule.factory('RestModel', function($q, $http, vk) {
         return scaningUsers;
       }
     },
+    noDeletedFriends: function(users) {
+      var scaningUsers;
+      scaningUsers = [];
+      angular.forEach(users, function(user) {
+        if (!angular.isDefined(user.deactivated)) {
+          return scaningUsers.push(user);
+        }
+      });
+      return scaningUsers;
+    },
     moreInfo: function(id, params) {
       var deffered, url, userId;
       if (params == null) {
@@ -210,8 +215,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       $http.jsonp(url).success(function(user) {
         return deffered.resolve(user);
       }).error(function(error) {
-        deffered.reject(error);
-        return console.log(error);
+        return deffered.reject(error);
       });
       return deffered.promise;
     },
@@ -229,8 +233,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       $http.jsonp(url).success(function(user) {
         return deffered.resolve(user);
       }).error(function(error) {
-        deffered.reject(error);
-        return console.log(error);
+        return deffered.reject(error);
       });
       return deffered.promise;
     },
@@ -303,6 +306,128 @@ MainModule.factory('RestModel', function($q, $http, vk) {
         return deffered.reject(error);
       });
       return deffered.promise;
+    },
+    getNetworkFriendsExecute: function(arrayFriends, params) {
+      var code, count, deffered, i, result, url, _i, _ref;
+      deffered = $q.defer();
+      result = [];
+      if (count === null) {
+        count = 25;
+      }
+      code = 'return {';
+      for (i = _i = 0, _ref = arrayFriends.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+        if (i !== arrayFriends.length) {
+          code = code + 'listFriends' + arrayFriends[i].id + ':API.friends.get({"fields":"sex,photo_50", "user_id":' + arrayFriends[i].id + '}),';
+        } else {
+          code = code + 'listFriends' + arrayFriends[i].id + ':API.friends.get({"fields":"sex,photo_50", "user_id":' + arrayFriends[i].id + '})';
+        }
+      }
+      code = code + '};';
+      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.27&callback=JSON_CALLBACK';
+      return $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+    },
+    getFriendsExecute: function(arrayFriends, params, searchId) {
+      var code, count, deffered, i, result, url, _i, _ref;
+      deffered = $q.defer();
+      result = [];
+      if (count === null) {
+        count = 25;
+      }
+      code = 'return {';
+      for (i = _i = 0, _ref = arrayFriends.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+        if (i !== arrayFriends.length) {
+          code = code + 'listFriends' + arrayFriends[i].id + ':API.friends.get({"user_id":' + arrayFriends[i].id + '}),';
+        } else {
+          code = code + 'listFriends' + arrayFriends[i].id + ':API.friends.get({"user_id":' + arrayFriends[i].id + '})';
+        }
+      }
+      code = code + '};';
+      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.27&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        angular.forEach(data.response, function(object, key, index) {
+          var hide, idUser;
+          idUser = parseInt(key.replace(/\D+/g, ""));
+          if (object.items) {
+            hide = true;
+            if (object.items.length > 0) {
+              angular.forEach(object.items, function(id) {
+                if (parseInt(id) === parseInt(searchId)) {
+                  return hide = false;
+                }
+              });
+            }
+          }
+          return result.push({
+            id: idUser,
+            hide: hide
+          });
+        });
+        return deffered.resolve(result);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getAllWallPostExecute: function(groupId, params, count, offset) {
+      var arrayPosts, code, deffered, i, localOffset, url, _i, _ref;
+      if (count == null) {
+        count = null;
+      }
+      if (offset == null) {
+        offset = null;
+      }
+      deffered = $q.defer();
+      arrayPosts = [];
+      if (count === null) {
+        count = 1;
+      }
+      if (offset === null) {
+        offset = 0;
+      }
+      if (count < 2500) {
+        localOffset = Math.ceil(count / 100);
+      } else {
+        localOffset = 25;
+      }
+      code = 'return {';
+      for (i = _i = offset, _ref = offset + localOffset; offset <= _ref ? _i < _ref : _i > _ref; i = offset <= _ref ? ++_i : --_i) {
+        if (i !== offset + localOffset) {
+          code = code + 'listPost_' + i + ':API.wall.get({"owner_id":' + '-' + groupId + ',"count":"100","offset":' + i * 100 + '}),';
+        } else {
+          code = code + 'listPost_' + i + ':API.wall.get({"owner_id":' + '-' + groupId + ',"count":"100","offset":' + i * 100 + '})';
+        }
+      }
+      code = code + '};';
+      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.63&callback=JSON_CALLBACK';
+      $http.jsonp(url).success((function(_this) {
+        return function(data) {
+          angular.forEach(data.response, function(object) {
+            return angular.forEach(object.items, function(item) {
+              if (angular.isObject(item)) {
+                return arrayPosts.push(item);
+              }
+            });
+          });
+          arrayPosts.sort(_this.sortByLikes);
+          return deffered.resolve(arrayPosts.splice(0, 10));
+        };
+      })(this)).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    sortByLikes: function(a, b) {
+      return parseFloat(b.likes.count) - parseFloat(a.likes.count);
+    },
+    sortByReposts: function(a, b) {
+      return parseFloat(b.reposts.count) - parseFloat(a.reposts.count);
+    },
+    sortByViews: function(a, b) {
+      return parseFloat(b.views.count) - parseFloat(a.views.count);
     },
     getLikes: function(userId, params, postId, type) {
       var deffered, url;
@@ -446,7 +571,7 @@ MainModule.factory('RestModel', function($q, $http, vk) {
         }
       }
       code = code + '};';
-      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.62&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {
@@ -576,13 +701,13 @@ MainModule.factory('RestModel', function($q, $http, vk) {
       code = 'return {';
       for (i = _i = offset, _ref = offset + localOffset; offset <= _ref ? _i < _ref : _i > _ref; i = offset <= _ref ? ++_i : --_i) {
         if (i !== offset + localOffset) {
-          code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city,online"}),';
+          code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i * 1000 + ',"fields":"city,online"}),';
         } else {
-          code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i + ',"fields":"city,online"})';
+          code = code + 'us' + i + ':API.groups.getMembers({"group_id":' + id + ',"count":"1000","offset":' + i * 1000 + ',"fields":"city,online"})';
         }
       }
       code = code + '};';
-      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.5&callback=JSON_CALLBACK';
+      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.62&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
       }).error(function(error) {
@@ -698,9 +823,31 @@ MainModule.factory('RestModel', function($q, $http, vk) {
         }
       }
       code = code + '};';
-      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&callback=JSON_CALLBACK';
+      url = vk.api + '/method/execute?code=' + code + '&access_token=' + params.access_token + '&v=5.62&callback=JSON_CALLBACK';
       $http.jsonp(url).success(function(data) {
         return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getUserSetApp: function(friends, params) {
+      var deffered, url;
+      deffered = $q.defer();
+      url = vk.api + '/method/friends.getAppUsers?access_token=' + params.access_token + '&v=5.62&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data);
+      }).error(function(error) {
+        return deffered.reject(error);
+      });
+      return deffered.promise;
+    },
+    getListFriendsForAnalisys: function(userId, params) {
+      var deffered, url;
+      deffered = $q.defer();
+      url = vk.api + '/method/friends.get?user_id=' + userId + '&v=5.8&access_token=' + params.access_token + '&order=name&fields=city,relation,sex,last_seen,contacts,can_write_private_message,can_see_all_posts,can_post,universities,photo_50&callback=JSON_CALLBACK';
+      $http.jsonp(url).success(function(data) {
+        return deffered.resolve(data.response);
       }).error(function(error) {
         return deffered.reject(error);
       });

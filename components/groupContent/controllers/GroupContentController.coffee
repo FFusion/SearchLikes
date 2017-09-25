@@ -6,6 +6,7 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
 
     $scope.window = window;
     $scope.params = params;
+
     $scope.stateParams = $stateParams;
     $scope.loading = true;
     $scope.showAllUser = false;
@@ -18,11 +19,18 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
     $scope.userGroup = {};
 
     $scope.arrayAllUsers = [];
+    $scope.isGetUsers = false;
+    $scope.isCancel = false;
 
     $scope.group = group.response[0];
 
-    $scope.getAllUsersInGroup = (countUser = null) ->
+    $scope.cancelGetUsers = () ->
+        $scope.isCancel = true;
+        $scope.loading = false;
 
+
+    $scope.getAllUsersInGroup = (countUser = null) ->
+        $scope.isGetUsers = true;
 
         if ($scope.group.is_closed != 2) && !$scope.group.deactivated
 
@@ -32,8 +40,9 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
                 $timeout(()->
                     RestModel.getMemeberInGroup($scope.group.id, $scope.params, countUser, $scope.offset).then(
                         (data)->
-                            angular.forEach(data.response, (item) ->
-                                $scope.usersGroups.push(item.users);
+
+                            angular.forEach(data.response, (obj) ->
+                                $scope.usersGroups.push(obj.items);
                             )
 
                             $scope.offset = 0;
@@ -51,7 +60,6 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
                             $scope.procentDogs = Math.floor($scope.deactivated.length / $scope.group.members_count * 100);
                             $scope.procentLocal= Math.floor($scope.localed.length / $scope.group.members_count * 100);
                         (error)->
-                            console.log(error);
                             $scope.getAllUsersInGroup(countUser);
                     )
                 ,350)
@@ -68,10 +76,13 @@ GroupContentModule.controller 'GroupContentController', ($scope, $stateParams, $
                             )
                             $scope.offset = $scope.offset + 25000;
                             countUser = countUser - 25000;
-                            $scope.getAllUsersInGroup(countUser);
+                            if !$scope.isCancel
+                                $scope.getAllUsersInGroup(countUser);
                         (error)->
-                            console.log(error);
-                            $scope.getAllUsersInGroup(countUser);
+                            if !$scope.isCancel
+                                $scope.getAllUsersInGroup(countUser);
+                            else
+                                Notification.error(error);
                     )
                 ,350);
 

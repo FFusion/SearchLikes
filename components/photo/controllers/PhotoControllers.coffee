@@ -28,7 +28,6 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
     $scope.increasePhoto = (photo) ->
         $scope.process = true;
         $scope.openBigBlade = true;
-        console.log(photo);
         $scope.image = photo.instance.photo_604;
 
     # закрыть шаблон с увеличенной фотографией
@@ -79,7 +78,6 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
 
         RestModel.getPhoto( $scope.userId, $scope.params, $scope.countPhoto, $scope.typePhoto).then(
             (data)->
-                console.log(data);
                 $scope.photos = if data.response.items.length != 0 then data.response.items else null;
 
                 if $scope.photos isnt null
@@ -88,7 +86,7 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
                     $scope.loading = false;
                     $scope.likePhotos = [];
             (error) ->
-                console.log(error);
+                Notification.error(error);
         )
 
     $scope.getLikesFromPhotos = () ->
@@ -111,7 +109,7 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
                             )
                             if $scope.photos[$scope.photosLength - 1] == photo then $scope.loading = false;
                     (error) ->
-                        console.log(error);
+                        Notification.error(error);
                 )
             )
 
@@ -126,7 +124,6 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
         $scope.index = index;
         # каждый 4 запрос - это в этой ветке
         if $scope.index % 4 == 0 && $scope.index != $scope.photosLength && $scope.index != 0
-            console.log($scope.index);
             $timeout(()->
                 $scope.getLikes(photo);
             ,2000)
@@ -137,13 +134,11 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
 
         # выходим из рекурсии
         if index == $scope.photosLength
-            console.log($scope.likePhotos);
             $scope.loading = false;
             return true
 
 
     $scope.getLikes = (photo) ->
-        console.log(photo);
         type = "photo";
         RestModel.getLikes($scope.userId, $scope.params, photo.id, type).then(
             (data) ->
@@ -156,7 +151,6 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
                     )
                 $scope.getLikesRecursion($scope.photos[$scope.index], $scope.index);
             (error) ->
-                console.log(error);
                 if error.code == 6
                     $timeout(()->
                         $scope.getLikeRecursion(photo, $scope.index);
@@ -179,10 +173,4 @@ PhotoModule.controller 'PhotoController', ($scope, $stateParams, $timeout, $loca
         $('.next').click();
         true;
 
-#    $scope.showPhoto = (index) ->
-#        $scope.i = index;
-#        $scope.page = index + 1;
-
-
-# http://vk.com/dev/photos.getComments - подумать с комментариями
 

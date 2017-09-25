@@ -8,21 +8,21 @@ MainModule.service('Notification', function($rootScope, $q, ngToast) {
     Notification.prototype.success = function(message) {
       return ngToast.success({
         content: message,
-        timeout: 3000
+        timeout: 5000
       });
     };
 
     Notification.prototype.error = function(message) {
       return ngToast.danger({
         content: message,
-        timeout: 3000
+        timeout: 5000
       });
     };
 
     Notification.prototype.show = function(message) {
       return ngToast.info({
         content: message,
-        timeout: 3000
+        timeout: 5000
       });
     };
 
